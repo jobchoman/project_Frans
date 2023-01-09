@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC	"-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd"
+>
+<!-- 이 XML 을 어떤 interface 하고 연결 할 것인가 -->
+<mapper namespace="com.frans.stock.dao.StockDAO">
+	<select id="comList" resultType="StockDTO">
+		SELECT * from com_stock cs, stock s where cs.stock_idx = s.stock_idx; 
+	</select>
+	
+	<insert id="StockAdd" parameterType="StockDTO"
+	useGeneratedKeys="true"
+		keyColumn="stock_idx"
+		keyProperty="stock_idx">
+		INSERT INTO stock(stock_name, stock_price,stock_sort_idx) 
+			VALUES(#{stock_name},#{stock_price},#{stock_sort_idx})
+	</insert>
+	
+	<insert id="comStockAdd">
+	INSERT INTO com_stock(stock_idx, com_stock_amount) 
+		VALUES(#{param1}, #{param2})
+	</insert>
+	
+	<select id="foodList" resultType="StockDTO">
+		SELECT * from com_stock cs, stock s where cs.stock_idx = s.stock_idx and stock_sort_idx= #{param1}; 
+	</select>
+	
+	<select id="subList" resultType="StockDTO">
+		SELECT * from com_stock cs, stock s where cs.stock_idx = s.stock_idx and stock_sort_idx= #{param1}; 
+	</select>
+	
+	<select id="shopSubList" resultType="StockDTO">				
+		SELECT * FROM stock s left  JOIN shop_stock ss ON s.stock_idx = ss.stock_idx left  join shop s2 ON ss.shop_idx = s2.shop_idx
+where s.stock_sort_idx = #{param1} and (ss.shop_idx is null or ss.shop_idx = (SELECT s.shop_idx from shop s
+where s.emp_id = (SELECT emp_id from employee e where emp_id = 20140006))) 
+	</select>
+	
+	<!-- SELECT * from shop_stock ss, stock s 
+		where ss.stock_idx = s.stock_idx and stock_sort_idx= #{param1} and ss.shop_idx = 'SH005' -->
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
