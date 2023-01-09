@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC   "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd"
+>
+<mapper namespace="com.frans.sign.dao.SignDAO">
+
+	<select id="signList" resultType="signDTO">
+		SELECT s.sign_idx , s.sign_title, e.emp_name, s.sign_date, ss.sign_state_type
+			FROM sign s, sign_state ss, employee e
+			WHERE s.emp_id = e.emp_id AND s.sign_state_idx = ss.sign_state_idx AND s.sign_date BETWEEN DATE_ADD(NOW(), INTERVAL -2 WEEK ) AND NOW()
+			ORDER BY sign_idx
+	</select>
+	
+	<select id="dateSearch" resultType="signDTO">
+		SELECT s.sign_idx , s.sign_title, e.emp_name, s.sign_date, ss.sign_state_type
+			FROM sign s, sign_state ss, employee e
+			WHERE s.emp_id = e.emp_id AND s.sign_state_idx = ss.sign_state_idx AND s.sign_date BETWEEN #{param1} AND #{param2} ORDER BY sign_idx
+	</select>
+	
+	<select id="signWriteGo" resultType="DocFormDTO">
+		SELECT df.doc_form_content, dt.doc_type_name FROM doc_form df, document_type dt
+	WHERE df.doc_type_idx = dt.doc_type_idx AND doc_form_idx = #{param1};
+	</select>
+
+</mapper>
