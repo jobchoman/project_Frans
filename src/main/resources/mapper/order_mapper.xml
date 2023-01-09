@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC	"-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd"
+>
+<!-- 이 XML 을 어떤 interface 하고 연결 할 것인가 -->
+<mapper namespace="com.frans.stock.dao.OrderDAO">
+
+	
+	<select id="foodList" resultType="StockDTO">
+		SELECT * FROM stock s left  JOIN shop_stock ss ON s.stock_idx = ss.stock_idx left  join shop s2 ON ss.shop_idx = s2.shop_idx
+where s.stock_sort_idx = #{param1} and (ss.shop_idx is null or ss.shop_idx = (SELECT s.shop_idx from shop s
+where s.emp_id = (SELECT emp_id from employee e where emp_id = 20140006)))
+	</select>
+	
+<!-- 	<select id="subList" resultType="StockDTO">
+		SELECT * from com_stock cs, stock s where cs.stock_idx = s.stock_idx and stock_sort_idx= #{param1}; 
+	</select> -->
+	
+	<insert id="shopOrder">
+		INSERT into `order` (shop_idx,stock_idx, order_amount) 
+			values (#{param3},#{param1},#{param2})
+	</insert>
+	
+	<select id="FoodOrderList" resultType="StockDTO">			
+		SELECT *,(SELECT count(o2.stock_idx) from `order` o2 ,stock s3
+where o2.order_send ='처리전' and s3.stock_sort_idx = 0 and s3.stock_idx= o2.stock_idx 
+and o2.shop_idx = o.shop_idx and o2.order_date = o.order_date) as order_state from `order` o,stock s,shop s2 
+			where o.stock_idx = s.stock_idx and o.shop_idx = s2.shop_idx and s.stock_sort_idx = 0 
+			group by o.shop_idx, o.order_date,s.stock_sort_idx HAVING order_state > 0 order by o.order_date;
+	</select>
+	
+	<select id="FoodOrderListOk" resultType="StockDTO">			
+		SELECT o.shop_idx,o.order_date ,s2.shop_name,(SELECT count(o2.stock_idx) from `order` o2 ,stock s3
+		where o2.order_send ='처리전' and s3.stock_sort_idx = 0 and s3.stock_idx= o2.stock_idx 
+		and o2.shop_idx = o.shop_idx and o2.order_date = o.order_date) as order_state 
+	from `order` o,stock s,shop s2 
+	where o.stock_idx = s.stock_idx and o.shop_idx = s2.shop_idx and s.stock_sort_idx = 0 
+	group by o.shop_idx, o.order_date,s.stock_sort_idx HAVING order_state <![CDATA[ < ]]> 1 order by o.order_date
+	</select>
+	
+	<select id="SubOrderList" resultType="StockDTO">
+		SELECT *,(SELECT count(o2.stock_idx) from `order` o2 ,stock s3
+where o2.order_send ='처리전' and s3.stock_sort_idx = 1 and s3.stock_idx= o2.stock_idx 
+and o2.shop_idx = o.shop_idx and o2.order_date = o.order_date) as order_state from `order` o,stock s,shop s2 
+			where o.stock_idx = s.stock_idx and o.shop_idx = s2.shop_idx and s.stock_sort_idx = 1 
+			group by o.shop_idx, o.order_date,s.stock_sort_idx HAVING order_state > 0 order by o.order_date;
+	</select>
+	
+ 	<select id="SubOrderListOk" resultType="StockDTO">
+		SELECT o.shop_idx,o.shop_idx,s2.shop_name,o.order_date,(SELECT count(o2.stock_idx) from `order` o2 ,stock s3
+		where o2.order_send ='처리전' and s3.stock_sort_idx = 1 and s3.stock_idx= o2.stock_idx 
+		and o2.shop_idx = o.shop_idx and o2.order_date = o.order_date) as order_state 
+	from `order` o,stock s,shop s2 
+	where o.stock_idx = s.stock_idx and o.shop_idx = s2.shop_idx and s.stock_sort_idx = 1 
+	group by o.shop_idx, o.order_date,s.stock_sort_idx HAVING order_state <![CDATA[ < ]]> 1 order by o.order_date;
+	</select> 
+	
+ 	<select id="FoodOrderDetail" resultType="StockDTO">
+		SELECT o.shop_idx, o.stock_idx , o.order_date , sum(o.order_amount) as order_amount ,o.order_send,s.stock_name ,cs.com_stock_amount,s2.shop_name  
+		from `order` o,stock s,com_stock cs,shop s2 
+		where s2.shop_idx = o.shop_idx and s.stock_sort_idx = 0 and o.stock_idx = s.stock_idx and o.shop_idx = #{shop_idx} 
+		and o.order_date = #{order_date} and cs.stock_idx = s.stock_idx GROUP by o.stock_idx order by order_send desc; 
+	</select> 
+	
+	<select id="subOrderDetail" resultType="StockDTO">
+		SELECT o.shop_idx, o.stock_idx , o.order_date , sum(o.order_amount) as order_amount ,o.order_send,s.stock_name ,cs.com_stock_amount,s2.shop_name  
+		from `order` o,stock s,com_stock cs,shop s2 
+		where s2.shop_idx = o.shop_idx and s.stock_sort_idx = 1 and o.stock_idx = s.stock_idx and o.shop_idx = #{shop_idx} 
+		and o.order_date = #{order_date} and cs.stock_idx = s.stock_idx GROUP by o.stock_idx order by order_send desc; 
+	</select>
+	
+	<update id="orderChk">
+		UPDATE shop_stock set shop_stock_amount =  shop_stock_amount + #{order_amount} 
+		where stock_idx = #{stock_idx} and shop_idx = #{shop_idx}
+	</update>
+	
+	<update id="orderStateChange">
+		UPDATE `order` set order_send = '처리완료' 
+		where shop_idx = #{shop_idx} and order_date = #{order_date} and stock_idx = #{stock_idx}
+	</update>
+	
+	<update id="orderComChk">
+		UPDATE com_stock set com_stock_amount =  com_stock_amount - #{order_amount} 
+		where stock_idx = #{stock_idx}
+	</update>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
