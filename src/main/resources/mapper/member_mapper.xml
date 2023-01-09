@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC   "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd"
+>
+<!-- 이 XML 을 어떤 interface 를 통해서 연결 할 건가? -->
+<mapper namespace="com.frans.member.dao.MemberDAO">
+	<insert id="join" parameterType="hashmap" useGeneratedKeys="true" keyColumn="emp_id" keyProperty="emp_id" >
+		INSERT INTO employee(emp_id,emp_pw,emp_name,emp_gender,emp_birth,emp_address,emp_phone,
+			emp_email,emp_hire_date,emp_admin_auth,pos_idx,duty_idx,team_idx) 
+			VALUES(#{emp_id},#{emp_pw},#{emp_name},#{emp_gender},#{emp_birth},#{emp_address}#{address_detail},#{emp_phone},
+			#{emp_email},#{emp_hire_date},#{emp_admin_auth},#{pos_idx},#{duty_idx},#{team_idx})
+	</insert>
+	<insert id="join2" parameterType="hashmap">
+		insert into career (emp_id,emp_career_idx,emp_school_name,emp_career_start,emp_career_end,emp_department,emp_degree,emp_career_etc) 
+			values (#{emp_id},#{emp_career_idx},#{emp_school_name},#{emp_career_start},#{emp_career_end},#{emp_department},#{emp_degree},#{emp_career_etc})
+	</insert>
+	
+	<insert id="join3" parameterType="hashmap">
+		insert into career (emp_id,emp_career_idx,emp_school_name,emp_career_start,emp_career_end,emp_department,emp_degree,emp_career_etc) 
+			values (#{emp_id},#{emp_career_idx1},#{emp_school_name},#{emp_career_start},#{emp_career_end},#{emp_department},#{emp_degree},#{emp_career_etc})
+	</insert>
+	
+	<insert id="join4" parameterType="hashmap">
+		insert into license (emp_id,license_name,license_date,license_place,license_result) 
+			values (#{emp_id},#{license_name},#{license_date},#{license_place},#{license_result})
+	</insert>
+	
+	<insert id="join5" parameterType="hashmap">
+		insert into `right` (team_idx,emp_id,auth_type) 
+			values (#{team_idx},#{emp_id},#{auth_type})
+	</insert>
+	
+	<insert id="fileUpload1" parameterType="String">
+		insert into file (file_ori, file_new,file_from, file_sort_idx) values (#{file_ori},#{file_new},#{param3},1)
+	</insert>
+
+	<insert id="fileUpload2" parameterType="String">
+		insert into file (file_ori, file_new,file_from, file_sort_idx) values (#{file_ori},#{file_new},#{param3},0)
+	</insert>
+	
+	<select id="teamList" resultType="com.frans.member.dto.MemberDTO">
+		select team_idx, team_name from team
+	</select>
+	<select id="posList" resultType="com.frans.member.dto.MemberDTO">
+		select pos_idx, pos_name from position
+	</select>
+	<select id="dutyList" resultType="com.frans.member.dto.MemberDTO">
+		select duty_idx, duty_name from duty 
+	</select>
+	<select id="stateList" resultType="com.frans.member.dto.MemberDTO">
+		select emp_state_idx, emp_state_name from emp_state
+	</select>
+	
+	<select id="memberList" resultType="com.frans.member.dto.MemberDTO">
+		SELECT e.emp_name, e.emp_id, t.team_name, d.duty_name, p.pos_name, es.emp_state_name 
+        FROM employee e, emp_state es, team t, `position` p, duty d
+        WHERE e.team_idx = t.team_idx AND e.duty_idx = d.duty_idx AND e.pos_idx = p.pos_idx AND e.emp_state_idx = es.emp_state_idx;
+	</select>
+	
+	<select id="memberDetail" resultType="com.frans.member.dto.MemberDTO" parameterType="String">
+		SELECT e.emp_id, e.emp_name, e.emp_gender, e.emp_birth, e.emp_address, e.emp_email,e.emp_phone, e.emp_hire_date, t.team_name, d.duty_name, p.pos_name, es.emp_state_name
+        FROM employee e, emp_state es, team t, `position` p, duty d
+        WHERE e.team_idx = t.team_idx AND e.duty_idx = d.duty_idx AND e.pos_idx = p.pos_idx AND e.emp_state_idx = es.emp_state_idx AND emp_id = #{emp_id};
+	</select>
+	
+	<select id="fileList" parameterType="String" resultType="com.frans.member.dto.MemberDTO">
+		select *from file where file_from = #{emp_id} and file_sort_idx = 1
+	</select>
+	<select id="fileList1" parameterType="String" resultType="com.frans.member.dto.MemberDTO">
+		select *from file where file_from = #{emp_id} and file_sort_idx = 0
+	</select>
+	
+
+	
+	
+</mapper>
+
+
+
