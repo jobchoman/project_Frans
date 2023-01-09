@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC   "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd"
+>
+
+<!-- 이 XML을 어떤 interface 를 통해서 연결 할 것인가? -->
+<mapper namespace="com.frans.member.dao.OrgChartDAO">
+	<select id="searchEmp" resultType="hashmap">
+		SELECT e.emp_id, e.emp_name, t.team_idx, t.team_name, p.pos_idx, p.pos_name 
+		FROM employee e 
+		JOIN team t ON e.team_idx = t.team_idx 
+		JOIN position p ON e.pos_idx = p.pos_idx 
+		WHERE e.emp_name LIKE CONCAT('%',#{param1},'%')
+		ORDER BY e.emp_id
+	</select>
+</mapper>
