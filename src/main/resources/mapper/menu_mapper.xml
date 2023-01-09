@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC   "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd"
+>
+
+<!-- 이 XML을 어떤 interface 를 통해서 연결 할 것인가? -->
+<mapper namespace="com.frans.stock.dao.MenuDAO">
+
+	<select id="menuCount" resultType="int">
+		SELECT COUNT(menu_idx) FROM menu;
+	</select>
+
+	<insert id="menuRegister" parameterType="com.frans.stockdto.MenuDTO">
+		INSERT INTO menu(menu_idx, menu_name, menu_price, menu_recipe, menu_start)
+			VALUES(#{menu_idx}, #{menu_name},#{menu_price},#{menu_recipe},#{menu_start})
+	</insert>
+
+	<insert id="menuPhotoUpload">
+		INSERT INTO file(file_sort_idx, file_from, file_ori, file_new)
+			VALUES(4, #{param3}, #{param1}, #{param2})
+	</insert>
+</mapper>

@@ -1,4 +1,4 @@
-package kr.co.gudi.controller;
+package com.frans.main.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
