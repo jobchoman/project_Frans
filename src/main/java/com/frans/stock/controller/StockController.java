@@ -87,4 +87,34 @@ public class StockController {
 		
 		
 	}
+	
+	@ResponseBody
+	@GetMapping(value="/stock/updateView.do")
+	public HashMap<String, Object> updateView(@RequestParam HashMap<String, String> params){
+//		HashMap<String, Object> map = new HashMap<String, Object>();
+//		ArrayList<StockDTO> comStockList = stockservice.comList();
+//		map.put("comStockList", comStockList);
+		logger.info("params : {}",params);
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		ArrayList<StockDTO> updateView = stockservice.updateView(params);
+		map.put("data", updateView);
+		return map;
+		
+	}
+	
+	@ResponseBody
+	@GetMapping(value="/stock/updateStock.do")
+	public String updateStock(@RequestParam HashMap<String, String> params){
+		String data = "실패";
+		logger.info("params : {}",params);
+		HashMap<String, Object> map = stockservice.updateStock(params);
+		if(map != null) {
+			data = "성공";
+		}
+		
+		return data;
+
+		
+		
+	}
 }

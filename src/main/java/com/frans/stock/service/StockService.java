@@ -52,6 +52,22 @@ public class StockService {
 		
 		return stockdao.shopSubList(stock_sort_idx);
 	}
+	public ArrayList<StockDTO> updateView(HashMap<String, String> params) {
+		//stockdao.updateStock(params);	// stock 수정
+		return stockdao.updateView(params); // 재고 수정 모달 띄우기
+	}
+	public HashMap<String, Object> updateStock(HashMap<String, String> params) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		if(params.get("stock_name") != "" && params.get("stock_price") != "") {
+			if(params.get("com_stock_amount") != null && params.get("com_stock_amount") != "") {
+				int comStock = stockdao.updateComStock(params);		
+				map.put("comStock", comStock);
+			}
+			int stock = stockdao.updateStock(params);	// stock 수정
+			map.put("stock", stock);
+		}
+		return map;	// 본사 재고 수정
+	}
 
 	
 
