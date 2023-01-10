@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC	"-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd"
+>
+<!-- 이 XML 을 어떤 interface 하고 연결 할 것인가 -->
+<mapper namespace="com.frans.schedule.dao.FacilitiesDAO">
+	
+	<select id="facilitiesList" resultType="FacilitiesDTO">
+		select * from facilities ORDER BY fac_idx asc;
+	</select>
+
+	<delete id="facilitiesDelete" parameterType="String">
+		DELETE FROM facilities WHERE fac_idx = #{fac_idx}
+	</delete>
+
+	<insert id="facilitiesWrite"  parameterType="FacilitiesDTO">
+		INSERT INTO facilities (fac_idx,fac_name,fac_map,fac_status,fac_type) 
+			VALUES(concat('FC',nextval(fac_seq)),#{fac_name},#{fac_map},'사용가능',#{fac_type})
+	</insert>
+	
+	<select id="facilitiesDetail" resultType="FacilitiesDTO">
+		select * from facilities WHERE fac_idx = #{fac_idx};
+	</select>
+
+	<update id="facilitiesUdapte" parameterType="FacilitiesDTO">
+		UPDATE facilities SET
+			fac_name = #{fac_name},
+			fac_map = #{fac_map},
+			fac_status = #{fac_status},
+			fac_type = #{fac_type}
+		WHERE fac_idx = #{fac_idx}
+	</update>
+	
+	<insert id="rentWrite" parameterType="FacilitiesDTO">
+		INSERT INTO rent (fac_idx,emp_id,rent_pur,rent_date_start,rent_date_end) 
+			VALUES('FC001',20220001,#{rent_pur},#{rent_date_start},#{rent_date_end})
+	</insert>
+	
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
