@@ -54,7 +54,7 @@ public class StockService {
 	}
 	public ArrayList<StockDTO> updateView(HashMap<String, String> params) {
 		//stockdao.updateStock(params);	// stock 수정
-		return stockdao.updateView(params); // 재고 수정 모달 띄우기
+		return stockdao.updateView(params); // 재고 수정 모달
 	}
 	public HashMap<String, Object> updateStock(HashMap<String, String> params) {
 		HashMap<String, Object> map = new HashMap<String, Object>();

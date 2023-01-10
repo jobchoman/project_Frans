@@ -11,7 +11,7 @@ import com.frans.stock.dto.StockDTO;
 @Mapper
 public interface OrderDAO {
 
-	ArrayList<StockDTO> foodList(String stock_sort_idx);
+	ArrayList<StockDTO> foodList(String stock_sort_idx, String emp_id);
 
 	void shopOrder(String stock_idx, String order_amount, String shop_idx);
 

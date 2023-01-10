@@ -35,6 +35,24 @@ where s.stock_sort_idx = #{param1} and (ss.shop_idx is null or ss.shop_idx = (SE
 where s.emp_id = (SELECT emp_id from employee e where emp_id = 20140006))) 
 	</select>
 	
+	<!-- 재고 수정 모달 -->
+	<select id="updateView" resultType="StockDTO">
+		SELECT * from stock s, com_stock cs where s.stock_idx= cs.stock_idx and s.stock_idx = #{stock_idx}
+	</select>
+	
+	<!-- 자재 수정 -->
+ 	<update id="updateStock">
+		UPDATE stock set stock_name = #{stock_name},
+				 stock_price = #{stock_price}
+				 where stock_idx = #{stock_idx}
+	</update> 
+	
+	<!-- 본사 재고 수정 -->
+ 	<update id="updateComStock">
+		UPDATE com_stock set com_stock_amount = com_stock_amount + #{com_stock_amount} 
+		where stock_idx = #{stock_idx}
+	</update> 
+	
 	<!-- SELECT * from shop_stock ss, stock s 
 		where ss.stock_idx = s.stock_idx and stock_sort_idx= #{param1} and ss.shop_idx = 'SH005' -->
 </mapper>

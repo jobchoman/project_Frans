@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,14 +30,16 @@ public class OrderController {
 
 	@ResponseBody
 	@GetMapping(value="/stock/foodOrderList.do")
-	public HashMap<String, Object> foodList(@RequestParam HashMap<String, String> params){
+	public HashMap<String, Object> foodList(@RequestParam HashMap<String, String> params, HttpServletRequest req){
 		//		HashMap<String, Object> map = new HashMap<String, Object>();
 		//		ArrayList<StockDTO> comStockList = stockservice.comList();
 		//		map.put("comStockList", comStockList);
+		HttpSession session = req.getSession();
+		String emp_id = (String) session.getAttribute("loginId");
 		logger.info("params : {}",params);
 		String stock_sort_idx = params.get("stock_sort_idx");
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		ArrayList<StockDTO> foodList = orderservice.foodList(stock_sort_idx);
+		ArrayList<StockDTO> foodList = orderservice.foodList(stock_sort_idx,emp_id);
 		map.put("data", foodList);
 		return map;
 

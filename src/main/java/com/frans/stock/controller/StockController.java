@@ -94,6 +94,7 @@ public class StockController {
 //		HashMap<String, Object> map = new HashMap<String, Object>();
 //		ArrayList<StockDTO> comStockList = stockservice.comList();
 //		map.put("comStockList", comStockList);
+		// 모달
 		logger.info("params : {}",params);
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		ArrayList<StockDTO> updateView = stockservice.updateView(params);

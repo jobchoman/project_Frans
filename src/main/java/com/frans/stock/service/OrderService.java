@@ -23,9 +23,9 @@ public class OrderService {
 	Logger logger = LoggerFactory.getLogger(getClass());
 	@Autowired OrderDAO orderdao;
 
-	public ArrayList<StockDTO> foodList(String stock_sort_idx) {
+	public ArrayList<StockDTO> foodList(String stock_sort_idx, String emp_id) {
 		
-		return orderdao.foodList(stock_sort_idx);
+		return orderdao.foodList(stock_sort_idx,emp_id);
 	}
 //	public ArrayList<StockDTO> subList(String stock_sort_idx) {
 //		

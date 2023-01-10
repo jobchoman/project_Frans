@@ -9,7 +9,7 @@
 	<select id="foodList" resultType="StockDTO">
 		SELECT * FROM stock s left  JOIN shop_stock ss ON s.stock_idx = ss.stock_idx left  join shop s2 ON ss.shop_idx = s2.shop_idx
 where s.stock_sort_idx = #{param1} and (ss.shop_idx is null or ss.shop_idx = (SELECT s.shop_idx from shop s
-where s.emp_id = (SELECT emp_id from employee e where emp_id = 20140006)))
+where s.emp_id = (SELECT emp_id from employee e where emp_id = #{param2})))
 	</select>
 	
 <!-- 	<select id="subList" resultType="StockDTO">

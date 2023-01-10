@@ -23,7 +23,7 @@ public interface StockDAO {
 
 	ArrayList<StockDTO> shopSubList(String stock_sort_idx);
 
-	ArrayList<StockDTO> updateView(HashMap<String, String> params);
+	ArrayList<StockDTO> updateView(HashMap<String, String> params); // 모달
 
 	int updateStock(HashMap<String, String> params);
 
