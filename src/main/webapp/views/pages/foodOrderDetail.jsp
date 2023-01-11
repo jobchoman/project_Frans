@@ -13,6 +13,26 @@
 .orderData{
 	display: none;
 }
+
+#orderButton{
+	background-color:#2A3F54;
+   border-color:#2A3F54;
+   font-size: 8pt;
+}
+
+#listBtn{
+	float: right;
+}
+
+#listBtn{
+	font-size: 8pt;
+}
+.addWrap{
+	overflow:hidden;
+}
+#cardBox{
+	overflow:hidden;
+}
 </style>
 </head>
 <body class="nav-md">
@@ -34,13 +54,13 @@
 							<div class="x_content">
 								<div class="row">
 									<div class="col-sm-12">
-										<div class="card-box table-responsive">
+										<div id="cardBox" class="card-box table-responsive">
 											<form action="/order/orderChk.do" method="post">
 												<table id="datatable-checkbox"
 													class="table table-striped table-bordered bulk_action"
 													style="width: 100%">
 													<h3>발주내역</h3>
-													<h4>${list[0].shop_name}</h4>
+													<h4>${data[0].shop_name}</h4>
 													<thead>
 														<tr>
 
@@ -81,7 +101,10 @@
 												<div id="orderBtn">
 												<button type="button" class="btn btn-round btn-info"
 										id="orderButton" value="">발주확인</button></div>
+											<button onclick="location.href='/orderList.go'" type="button" class="btn btn-round btn-secondary"
+										id="listBtn" value="">목록</button>
 											</form>
+											
 										</div>			
 									</div>
 								</div>
@@ -96,6 +119,17 @@
 	<jsp:include page="script.jsp" />
 </body>
 <script>
+
+let orderStateArray = document.querySelectorAll("#orderList>tr");
+
+for(let i = 0; i<orderStateArray.length; i++){
+	let orderState = orderStateArray[i].children[4].innerHTML;
+	console.log(orderState);
+	if(orderState == "처리완료"){
+		orderStateArray[i].children[0].innerHTML = "";
+		console.log()
+	}
+}
 
 $(document).ready(function() {
 	$("#check-all").click(function() {

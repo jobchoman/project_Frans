@@ -33,6 +33,18 @@ public interface OrderDAO {
 
 	void orderComChk(HashMap<String, String> params);
 
+	ArrayList<StockDTO> shopFoodOrderList();
+
+	ArrayList<StockDTO> shopFoodOrderDetail(HashMap<String, String> params);
+
+	ArrayList<StockDTO> shopFoodOrderListOk();
+
+	ArrayList<StockDTO> shopSubOrderListCall();
+
+	ArrayList<StockDTO> shopSubOrderListOkCall();
+
+	ArrayList<StockDTO> shopSubOrderDetail(HashMap<String, String> params);
+
 //	ArrayList<StockDTO> subList(String stock_sort_idx);
 
 

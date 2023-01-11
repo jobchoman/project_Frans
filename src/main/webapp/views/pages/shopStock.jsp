@@ -60,7 +60,7 @@
 							<div class="x_title">
 								<h2>매장 자재</h2>
 								<div class="clearfix"></div>
-								<h3>${list[0].shop_name}</h3>
+								<h3>${data[0].shop_name}</h3>
 							</div>
 							<div class="x_content">
 								<ul class="nav nav-tabs bar_tabs" id="myTab" role="tablist">
@@ -107,10 +107,7 @@
 </body>
 <script>
 foodStockListCall();
-function foodStockListCall(){
-	if(document.getElementsByTagName('td') == ''){
-		document.getElementsByTagName('td').innerText('0');
-		}
+function foodStockListCall(){		
 var table = $('#datatable').DataTable({
 	destroy : true,
 	serverSide: false,

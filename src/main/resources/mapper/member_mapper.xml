@@ -25,7 +25,7 @@
 			
 	</insert>
 	
-	<insert id="join3" parameterType="hashmap">
+<!-- 	<insert id="join3" parameterType="hashmap">
 		insert into career (emp_id,emp_career_idx,emp_school_name,emp_career_start,emp_career_end,emp_department,emp_degree,emp_career_etc) 
 			values
 			<foreach collection="list" item="item" separator=" , ">
@@ -33,7 +33,7 @@
 			<if test="emp_career_idx1.equals('없음')">'이력없음',null,null,null,null,null,null)</if>
 			<if test="emp_career_idx1.equals('경력')">#{item.emp_career_idx1},#{item.emp_school_name1},#{item.emp_career_start1},#{item.emp_career_end1},#{item.emp_department1},#{item.emp_degree1},#{item.emp_career_etc1})</if>
         	</foreach>
-	</insert>
+	</insert> -->
 	
 <!-- 	<insert id="join3" parameterType="hashmap"> -->
 <!-- 		insert into career (emp_id,emp_career_idx,emp_school_name,emp_career_start,emp_career_end,emp_department,emp_degree,emp_career_etc)  -->
@@ -42,16 +42,41 @@
 <!-- 			<if test="emp_career_idx1.equals('경력')">#{emp_career_idx1},#{emp_school_name1},#{emp_career_start1},#{emp_career_end1},#{emp_department1},#{emp_degree1},#{emp_career_etc1})</if> -->
 <!-- 	</insert> -->
 	
-	<insert id="join4" parameterType="hashmap">
+<!-- 	<insert id="join4" parameterType="hashmap">
 		insert into license (emp_id,license_name,license_date,license_place,license_result) 
 			values (#{emp_id},
 			<if test="license_result.equals('')">null,null,null,'없음')</if>
 			<if test="!license_result.equals('')">#{license_name},#{license_date},#{license_place},#{license_result})</if>
-	</insert>
+	</insert> -->
 	
 	<insert id="join5" parameterType="hashmap">
 		insert into `right` (team_idx,emp_id,auth_type) 
 			values (#{team_idx},#{emp_id},#{auth_type})
+	</insert>
+	
+	<insert id="joinHigh" parameterType="String">
+		INSERT into career(emp_id,emp_career_idx,emp_school_name,emp_career_start,emp_career_end,emp_department) 
+		values(#{emp_id},#{emp_career_idx},#{emp_school_name},#{emp_career_start},#{emp_career_end},#{emp_department})
+	</insert>
+	
+<!-- 	<insert id="joinUniv" parameterType="hashmap">
+		INSERT into career(emp_id,emp_career_idx,emp_school_name,emp_career_start,emp_career_end,emp_department,emp_degree) 
+		values(#{emp_id},#{emp_career_idx},#{emp_school_name},#{emp_career_start},#{emp_career_end},#{emp_department},#{emp_degree})
+	</insert>
+	
+	<insert id="joinGrad" parameterType="hashmap">
+		insert into `right` (team_idx,emp_id,auth_type) 
+			values (#{team_idx},#{emp_id},#{auth_type})
+	</insert> -->
+	
+	<insert id="joinCareer" parameterType="hashmap">
+		INSERT into career(emp_id,emp_career_idx,emp_school_name,emp_career_start,emp_career_end,emp_department,emp_degree) 
+		values(#{emp_id},#{emp_career_idx},#{emp_school_name},#{emp_career_start},#{emp_career_end},#{emp_department},#{emp_degree})
+	</insert>
+	
+	<insert id="join4" parameterType="String">
+		INSERT into license(emp_id,license_name,license_date,license_place,license_result) 
+		values(#{emp_id},#{license_name},#{license_date},#{license_place},#{license_result})
 	</insert>
 	
 	<insert id="fileUpload1" parameterType="String">
@@ -62,7 +87,7 @@
 		insert into file (file_ori, file_new,file_from, file_sort_idx) values (#{file_ori},#{file_new},#{param3},0)
 	</insert>
 	
-	<select id="teamList" resultType="com.frans.member.dto.MemberDTO">
+ 	<select id="teamList" resultType="com.frans.member.dto.MemberDTO">
 		select team_idx, team_name from team
 	</select>
 	<select id="posList" resultType="com.frans.member.dto.MemberDTO">
@@ -73,7 +98,7 @@
 	</select>
 	<select id="stateList" resultType="com.frans.member.dto.MemberDTO">
 		select emp_state_idx, emp_state_name from emp_state
-	</select>
+	</select> 
 	
 	<select id="memberList" resultType="com.frans.member.dto.MemberDTO">
 		SELECT e.emp_name, e.emp_id, t.team_name, d.duty_name, p.pos_name, es.emp_state_name 
@@ -92,6 +117,7 @@
         FROM career c, employee e
         WHERE c.emp_id = e.emp_id AND e.emp_id = #{emp_id}
 	</select>
+	
 <!-- 	<select id="memberDetail1" resultType="com.frans.member.dto.MemberDTO" parameterType="String"> -->
 <!-- 		SELECT e.emp_id,c.emp_career_idx, c.emp_school_name,c.emp_career_start,c.emp_career_end, c.emp_department,c.emp_degree,c.emp_career_etc,l.license_name,l.license_date,l.license_place,l.license_result -->
 <!--         FROM career c, license l, employee e -->
@@ -101,11 +127,12 @@
 	<select id="fileList" parameterType="String" resultType="com.frans.member.dto.MemberDTO">
 		select *from file where file_from = #{emp_id} and file_sort_idx = 1
 	</select>
+	
 	<select id="fileList1" parameterType="String" resultType="com.frans.member.dto.MemberDTO">
 		select *from file where file_from = #{emp_id} and file_sort_idx = 0
 	</select>
 	
-	<select id="selList" resultType="com.frans.member.dto.MemberDTO" parameterType="String">
+<!-- 	<select id="selList" resultType="com.frans.member.dto.MemberDTO" parameterType="String">
 		SELECT e.emp_name, e.emp_id, t.team_name, d.duty_name, p.pos_name, es.emp_state_name 
 			FROM employee e, emp_state es, team t, `position` p, duty d
 			<where>
@@ -117,7 +144,7 @@
 				
 			</where>
 		
-	</select>
+	</select> -->
 
 </mapper>
 

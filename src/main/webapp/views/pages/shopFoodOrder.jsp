@@ -57,7 +57,7 @@
 							<div class="x_title">
 								<h2>발주신청</h2>
 								<div class="clearfix"></div>
-								<h3>${list[0].shop_name}</h3>
+								<h3>${data[0].shop_name}</h3>
 							</div>
 							<div class="x_content">
 								<form action="/stock/shopOrder.do" method="post">

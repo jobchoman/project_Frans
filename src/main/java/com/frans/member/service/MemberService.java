@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,12 +46,23 @@ public class MemberService {
 	}
 	
 	
-	public void join(HashMap<String, String> params, MultipartFile file, MultipartFile file2) {
+	public void join(HashMap<String, String> params, MultipartFile file, MultipartFile file2, HttpServletRequest req) {
 		MemberDTO dto = new MemberDTO();
 //		ArrayList<MemberDTO> list = new ArrayList<MemberDTO>();
 		dto.setEmp_id(params.get("emp_id"));
 		String emp_id = params.get("emp_id");
 		String plain_pw = params.get("emp_pw");
+		String emp_career_idx[] = req.getParameterValues("emp_career_idx");
+		String emp_school_name[] = req.getParameterValues("emp_school_name");
+		String emp_department[] = req.getParameterValues("emp_department");
+		String emp_degree[] = req.getParameterValues("emp_degree");
+		String emp_career_start[] = req.getParameterValues("emp_career_start");
+		String emp_career_end[] = req.getParameterValues("emp_career_end");
+		String emp_career_etc[] = req.getParameterValues("emp_career_etc");
+		String license_name[] = req.getParameterValues("license_name");
+		String license_date[] = req.getParameterValues("license_date");
+		String license_place[] = req.getParameterValues("license_place");
+		String license_result[] = req.getParameterValues("license_result");
 		String enc_pw = encoder.encode(plain_pw);
 		logger.info("plain pw : "+plain_pw);
 		logger.info("emp_id : "+emp_id);
@@ -57,10 +70,33 @@ public class MemberService {
 		params.put("emp_pw", enc_pw);
 		logger.info("params : {}",params);
 		int success = memberDao.join(params);
-//		memberDao.join2(params);
-//		memberDao.join3(params);
-		memberDao.join4(params);
-		memberDao.join5(params);
+		// 직원 넣기 성공시 실행
+		if(success > 0) {
+			for(int i=0; i<emp_career_idx.length; i++) {
+//				if(emp_career_etc[i].equals("") || emp_career_etc[i] == null) {
+//					emp_career_etc[i] = "없음";
+//				}
+				if(!emp_career_idx[i].equals("") || emp_career_idx[i] != null) {
+					if(emp_career_idx[i].equals("고등학교")) {
+						memberDao.joinHigh(emp_career_idx[i],emp_school_name[i],emp_department[i],emp_career_start[i],emp_career_end[i],emp_id,emp_career_etc[i]);
+					}else {
+						memberDao.joinCareer(emp_career_idx[i],emp_school_name[i],emp_department[i],emp_career_start[i],emp_career_end[i],emp_id,emp_career_etc[i],emp_degree[i]);
+					}
+				}
+				logger.info("career idx : {},{},{}",emp_school_name[i],emp_career_idx[i],emp_career_etc[i]);
+			}
+			for(int j=0; j<license_name.length; j++) {
+				
+				if(!license_name[j].equals("")) {
+					logger.info("자격증 넣기");
+					memberDao.join4(emp_id,license_name[j],license_date[j],license_place[j],license_result[j]);	// 자격증
+					
+				}
+			}
+			memberDao.join5(params);	// 팀권한
+			
+			
+		}
 		logger.info("join success : "+success);
 		if(success>0) {
 			Upload(file,emp_id);

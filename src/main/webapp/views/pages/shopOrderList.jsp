@@ -18,15 +18,14 @@
 	width: 98.9%;
 }
 
-#orderListSelect > select {
+#orderListSelect>select {
 	float: right;
 	height: 30px;
 }
 
 th {
-	pointer-events:none;
+	pointer-events: none;
 }
-
 </style>
 </head>
 <body class="nav-md">
@@ -46,36 +45,37 @@ th {
 					<ul class="nav nav-tabs bar_tabs" id="myTab" role="tablist">
 						<li class="nav-item"><a class="nav-link active" id="home-tab"
 							data-toggle="tab" role="tab" aria-selected="true"
-							onclick="FoodOrderListCall()" value = "식자재">식자재</a></li>
+							onclick="shopFoodOrderListCall()" value="식자재">식자재</a></li>
 						<li class="nav-item"><a class="nav-link" id="profile-tab"
 							data-toggle="tab" role="tab" aria-selected="false"
-							onclick="SubOrderListCall()" value = "부자재">부자재</a></li>
+							onclick="shopSubOrderListCall()" value="부자재">부자재</a></li>
 					</ul>
 
 
 					<div class="row">
 						<div class="col-sm-12">
 							<div class="card-box table-responsive">
-									<table id="datatable"
+								<table id="datatable"
 									class="table table-striped table-bordered dataTable no-footer"
 									style="width: 100%" aria-describedby="datatable_info">
-										<h3>발주리스트</h3>
-									
+									<h3>발주리스트</h3>
+
 									<div id="orderListSelect">
-										<select id="order_state" name="order_state" onchange="orderState(this.value)">
-											<option value="처리전" selected="selected"
-												>처리전</option>
+										<select id="order_state" name="order_state"
+											onchange="orderState(this.value)">
+											<option value="처리전" selected="selected">처리전</option>
 											<option value="처리완료">처리완료</option>
 										</select>
 									</div>
 									<thead>
 										<tr>
-											<th>발주일자</th>
-											<th>매장번호</th>
+											<th>매장명</th>
 											<th>발주일자</th>
 											<th>매장명</th>
+											<th>발주일자</th>
 										</tr>
 									</thead>
+
 								</table>
 							</div>
 						</div>
@@ -89,14 +89,14 @@ th {
 	<jsp:include page="script.jsp" />
 </body>
 <script>
-	FoodOrderListCall();
-	function FoodOrderListCall() {
+	shopFoodOrderListCall();
+	function shopFoodOrderListCall() {
 		var table = $('#datatable').DataTable(
 				{
 					destroy : true,
 					serverSide : false,
 					ajax : {
-						"url" : "/order/FoodOrderList.do",
+						"url" : "/order/shopFoodOrderList.do",
 						"type" : "get",
 						"data" : {}
 					},
@@ -108,20 +108,20 @@ th {
 								data : "shop_idx"
 							},
 							{
+								data : "shop_name"
+							},
+							{
 								data : "order_date",
 								"render" : function(data, type, row) {
 									if (type == 'display') {
 										
-											data = '<a href="/foodOrderDetail.go?order_date='+row.order_date+'&shop_idx='+row.shop_idx+'">'
+											data = '<a href="/shopFoodOrderDetail.go?order_date='+row.order_date+'&shop_idx='+row.shop_idx+'">'
 												+ row.order_date +'</a>';
 											
 										
 									}
 									return data;
 								}
-							},
-							{
-								data : "shop_name"
 							}
 							
 						],
@@ -133,21 +133,31 @@ th {
 
 						visible : false
 
+					},
+					{
+
+						targets : [ 1 ],
+
+						searchable : false,
+
+						visible : false
+
 					}
-						
+					
+					
 					]
 
 				});
 
 	}
 	
-	function FoodOrderListOkCall() {
+	function shopFoodOrderListOkCall() {
 		var table = $('#datatable').DataTable(
 				{
 					destroy : true,
 					serverSide : false,
 					ajax : {
-						"url" : "/order/FoodOrderListOk.do",
+						"url" : "/order/shopFoodOrderListOk.do",
 						"type" : "get",
 						"data" : {}
 					},
@@ -159,20 +169,20 @@ th {
 								data : "shop_idx"
 							},
 							{
+								data : "shop_name"
+							},
+							{
 								data : "order_date",
 								"render" : function(data, type, row) {
 									if (type == 'display') {
 										
-											data = '<a href="/foodOrderDetail.go?order_date='+row.order_date+'&shop_idx='+row.shop_idx+'">'
+											data = '<a href="/shopFoodOrderDetail.go?order_date='+row.order_date+'&shop_idx='+row.shop_idx+'">'
 												+ row.order_date +'</a>';
 											
 										
 									}
 									return data;
 								}
-							},
-							{
-								data : "shop_name"
 							}
 							
 						],
@@ -184,21 +194,32 @@ th {
 
 						visible : false
 
+					},
+					{
+
+						targets : [ 1 ],
+
+						searchable : false,
+
+						visible : false
+
 					}
-						
+					
+					
 					]
 
 				});
 
 	}
 	
-	function SubOrderListCall() {
+	function shopSubOrderListCall() {
+		$("#order_state").prop('selectedIndex', 0);
 		var table = $('#datatable').DataTable(
 				{
 					destroy : true,
 					serverSide : false,
 					ajax : {
-						"url" : "/order/SubOrderList.do",
+						"url" : "/order/shopSubOrderListCall.do",
 						"type" : "get",
 						"data" : {}
 					},
@@ -210,20 +231,20 @@ th {
 								data : "shop_idx"
 							},
 							{
+								data : "shop_name"
+							},
+							{
 								data : "order_date",
 								"render" : function(data, type, row) {
 									if (type == 'display') {
 										
-											data = '<a href="/subOrderDetail.go?order_date='+row.order_date+'&shop_idx='+row.shop_idx+'">'
+											data = '<a href="/shopSubOrderDetail.go?order_date='+row.order_date+'&shop_idx='+row.shop_idx+'">'
 												+ row.order_date +'</a>';
 											
 										
 									}
 									return data;
 								}
-							},
-							{
-								data : "shop_name"
 							}
 							
 						],
@@ -235,21 +256,31 @@ th {
 
 						visible : false
 
+					},
+					{
+
+						targets : [ 1 ],
+
+						searchable : false,
+
+						visible : false
+
 					}
-						
+					
+					
 					]
 
 				});
 
 	}
 	
-	function SubOrderListOkCall() {
+	function shopSubOrderListOkCall() {
 		var table = $('#datatable').DataTable(
 				{
 					destroy : true,
 					serverSide : false,
 					ajax : {
-						"url" : "/order/SubOrderListOk.do",
+						"url" : "/order/shopSubOrderListOkCall.do",
 						"type" : "get",
 						"data" : {}
 					},
@@ -261,20 +292,20 @@ th {
 								data : "shop_idx"
 							},
 							{
+								data : "shop_name"
+							},
+							{
 								data : "order_date",
 								"render" : function(data, type, row) {
 									if (type == 'display') {
 										
-											data = '<a href="/subOrderDetail.go?order_date='+row.order_date+'&shop_idx='+row.shop_idx+'">'
+											data = '<a href="/shopSubOrderDetail.go?order_date='+row.order_date+'&shop_idx='+row.shop_idx+'">'
 												+ row.order_date +'</a>';
 											
 										
 									}
 									return data;
 								}
-							},
-							{
-								data : "shop_name"
 							}
 							
 						],
@@ -286,8 +317,18 @@ th {
 
 						visible : false
 
+					},
+					{
+
+						targets : [ 1 ],
+
+						searchable : false,
+
+						visible : false
+
 					}
-						
+					
+					
 					]
 
 				});
@@ -295,27 +336,31 @@ th {
 	}
 	
 	function orderState(value) {
-	console.log(value);
-	console.log($('#home-tab').attr('aria-selected'));
-		if($('#home-tab').attr('aria-selected') == 'true' && value == '처리완료' ){
-			FoodOrderListOkCall();
-		}else if($('#home-tab').attr('aria-selected') == 'true' && value == '처리전' ){
-			FoodOrderListCall();
-			
-		}else if($('#profile-tab').attr('aria-selected') == 'true' && value == '처리완료' ){
-			SubOrderListOkCall(); 					
-		}else{
-			SubOrderListCall();  
+		console.log(value);
+		console.log($('#home-tab').attr('aria-selected'));
+		if ($('#home-tab').attr('aria-selected') == 'true' && value == '처리완료') {
+			shopFoodOrderListOkCall();
+		} else if ($('#home-tab').attr('aria-selected') == 'true'
+				&& value == '처리전') {
+			shopFoodOrderListCall();
+
+		} else if ($('#profile-tab').attr('aria-selected') == 'true'
+				&& value == '처리완료') {
+			shopSubOrderListOkCall();
+		} else {
+			shopSubOrderListCall();
 		}
-		
+
 	}
-	
-	
-	
+
 	console.log($('#home-tab').attr('aria-selected'));
 
-
-	
-	 
+	function orderPage() {
+		if ($('#home-tab').attr('aria-selected') == 'true') {
+			window.location.href = "shopFoodOrder.go";
+		} else {
+			window.location.href = "shopSubOrder.go";
+		}
+	}
 </script>
 </html>

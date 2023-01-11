@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -41,10 +42,10 @@ public class MemberController {
 	
 	String hash = "";
 	
-	@GetMapping(value = "/login.go")
-	public String index() {
-	   return "memberLogin";
-	}
+//	@GetMapping(value = "/login.go")
+//	public String index() {
+//	   return "memberLogin";
+//	}
 	
 	@GetMapping(value="/memberLogout.do")
 	public String logout(HttpSession session) {
@@ -87,30 +88,20 @@ public class MemberController {
 		return "memberJoinForm";
 	}
 	
-	@PostMapping(value="/memberJoin.do")
-	public String join(@RequestParam HashMap<String, String> params, MultipartFile file, MultipartFile file2) {
-		logger.info("params : {}",params);
-		memberService.join(params,file,file2);
-		return "index";
-	}
-	
 //	@PostMapping(value="/memberJoin.do")
 //	public String join(@RequestParam HashMap<String, String> params, MultipartFile file, MultipartFile file2) {
 //		logger.info("params : {}",params);
-//		String emp_carrer_idx = params.get("emp_career_idx");
-//		String emp_school_name = params.get("emp_school_name");
-//		String emp_department = params.get("emp_department");
-//		String emp_degree = params.get("emp_degree");
-//		String emp_career_start = params.get("emp_career_start");
-//		String emp_career_end = params.get("emp_career_end");
-//		String emp_career_etc = params.get("emp_career_etc");
-//		String license_name = params.get("license_name");
-//		String license_date = params.get("license_date");
-//		String license_place = params.get("license_place");
-//		String license_result = params.get("license_result");
 //		memberService.join(params,file,file2);
-//		return null;
+//		return "index";
 //	}
+	
+	@PostMapping(value="/memberJoin.do")
+	public String join(@RequestParam HashMap<String, String> params, MultipartFile file, MultipartFile file2, HttpServletRequest req) {
+		logger.info("params : {}",params);
+		// 이력번호, 라이센스 이름이 없으면 안넘어가도록
+		memberService.join(params,file,file2,req);
+		return "index";
+	}
 	
 //	@ResponseBody
 //	@PostMapping(value="/memberJoin1.ajax")
@@ -158,17 +149,6 @@ public class MemberController {
 //		return map;
 //	}
 	
-	@SuppressWarnings("unchecked")
-	@ResponseBody
-	@PostMapping(value="/memberJoin1.ajax")
-	public void memberJoin1 (Map<String, Object> map){
-		List<MemberDTO> list = (List<MemberDTO>) map.get("list");
-		for (MemberDTO memberDTO : list) {
-			memberService.memberJoin1(memberDTO);
-		}
-	}
-	
-	
 	
 	
 	@GetMapping(value="/memberList.go")
@@ -211,25 +191,6 @@ public class MemberController {
 		return new ResponseEntity<Resource>(resource,header,HttpStatus.OK);
 	}
 	
-	@ResponseBody
-	@GetMapping(value="/selList.ajax")
-	public HashMap<String, Object> selList(@RequestParam String sel, @RequestParam String con,Model model){
-		ArrayList<MemberDTO> teamDto = memberService.teamList();
-		ArrayList<MemberDTO> posDto = memberService.posList();
-		ArrayList<MemberDTO> dutyDto = memberService.dutyList();
-		ArrayList<MemberDTO> stateDto = memberService.stateList();
-		model.addAttribute("teamMem",teamDto);
-		model.addAttribute("posMem",posDto);
-		model.addAttribute("dutyMem",dutyDto);
-		model.addAttribute("stateMem",stateDto);
-		logger.info("dto :{}",teamDto);
-		logger.info("dto :{}",posDto);
-		logger.info("dto :{}",dutyDto);
-		logger.info("dto :{}",stateDto);
-		logger.info("sel:{}",sel);
-		logger.info("con:{}",con);
-		return memberService.selList(sel,con);
-	}
 	
 
 	

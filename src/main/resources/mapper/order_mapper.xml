@@ -9,7 +9,7 @@
 	<select id="foodList" resultType="StockDTO">
 		SELECT * FROM stock s left  JOIN shop_stock ss ON s.stock_idx = ss.stock_idx left  join shop s2 ON ss.shop_idx = s2.shop_idx
 where s.stock_sort_idx = #{param1} and (ss.shop_idx is null or ss.shop_idx = (SELECT s.shop_idx from shop s
-where s.emp_id = (SELECT emp_id from employee e where emp_id = #{param2})))
+where s.emp_id = (SELECT emp_id from employee e where emp_id = '20210022')))
 	</select>
 	
 <!-- 	<select id="subList" resultType="StockDTO">
@@ -83,6 +83,54 @@ and o2.shop_idx = o.shop_idx and o2.order_date = o.order_date) as order_state fr
 		UPDATE com_stock set com_stock_amount =  com_stock_amount - #{order_amount} 
 		where stock_idx = #{stock_idx}
 	</update>
+	
+	<select id="shopFoodOrderList" resultType="StockDTO">			
+		SELECT *,(SELECT count(o2.stock_idx) from `order` o2 ,stock s3
+			where o2.order_send ='처리전' and s3.stock_sort_idx = 0 and s3.stock_idx= o2.stock_idx and o2.shop_idx = o.shop_idx and o2.order_date = o.order_date) as order_state 
+			from `order` o,stock s,shop s2 
+			where o.stock_idx = s.stock_idx and o.shop_idx = s2.shop_idx and s.stock_sort_idx = 0 and o.shop_idx = 'SH005'
+			group by o.shop_idx, o.order_date,s.stock_sort_idx HAVING order_state > 0 order by o.order_date
+	</select>
+	
+	<select id="shopFoodOrderListOk" resultType="StockDTO">			
+		SELECT o.shop_idx,o.order_date ,s2.shop_name,(SELECT count(o2.stock_idx) from `order` o2 ,stock s3
+		where o2.order_send ='처리전' and s3.stock_sort_idx = 0 and s3.stock_idx= o2.stock_idx 
+		and o2.shop_idx = o.shop_idx and o2.order_date = o.order_date) as order_state 
+	from `order` o,stock s,shop s2 
+	where o.stock_idx = s.stock_idx and o.shop_idx = s2.shop_idx and s.stock_sort_idx = 0 and o.shop_idx ='SH005'
+	group by o.shop_idx, o.order_date,s.stock_sort_idx HAVING order_state <![CDATA[ < ]]> 1 order by o.order_date
+	</select>
+	
+	<select id="shopFoodOrderDetail" resultType="StockDTO">
+
+SELECT s.stock_name,(SELECT ss2.shop_stock_amount from shop_stock ss2 ,stock s3  WHERE s3.stock_sort_idx = 0 and ss2.shop_idx = #{shop_idx} and s3.stock_idx = ss2.stock_idx and ss2.shop_idx = o.shop_idx and s3.stock_idx= s.stock_idx) as shop_stock_amount,(SELECT sum(order_amount) from `order`  where shop_idx = #{shop_idx} and order_date = #{order_date} and stock_idx = s.stock_idx and  shop_idx = s2.shop_idx group by o.stock_idx ORDER by s.stock_name) as order_amount,o.order_send 
+FROM `order` o left JOIN shop_stock ss ON o.stock_idx = ss.stock_idx LEFT join stock s on s.stock_idx = o.stock_idx left join shop s2 ON o.shop_idx = s2.shop_idx  
+where s.stock_sort_idx = 0 and o.shop_idx = #{shop_idx} and o.order_date = #{order_date} GROUP by o.stock_idx;
+	</select> 
+	
+	<select id="shopSubOrderDetail" resultType="StockDTO">
+
+SELECT s.stock_name,(SELECT ss2.shop_stock_amount from shop_stock ss2 ,stock s3  WHERE s3.stock_sort_idx = 1 and ss2.shop_idx = #{shop_idx} and s3.stock_idx = ss2.stock_idx and ss2.shop_idx = o.shop_idx and s3.stock_idx= s.stock_idx) as shop_stock_amount,(SELECT sum(order_amount) from `order`  where shop_idx = #{shop_idx} and order_date = #{order_date} and stock_idx = s.stock_idx and  shop_idx = s2.shop_idx group by o.stock_idx ORDER by s.stock_name) as order_amount,o.order_send 
+FROM `order` o left JOIN shop_stock ss ON o.stock_idx = ss.stock_idx LEFT join stock s on s.stock_idx = o.stock_idx left join shop s2 ON o.shop_idx = s2.shop_idx  
+where s.stock_sort_idx = 1 and o.shop_idx = #{shop_idx} and o.order_date = #{order_date} GROUP by o.stock_idx;
+	</select> 
+	
+	<select id="shopSubOrderListCall" resultType="StockDTO">
+		SELECT *,(SELECT count(o2.stock_idx) from `order` o2 ,stock s3
+where o2.order_send ='처리전' and s3.stock_sort_idx = 1 and s3.stock_idx= o2.stock_idx 
+and o2.shop_idx = o.shop_idx and o2.order_date = o.order_date) as order_state from `order` o,stock s,shop s2 
+			where o.stock_idx = s.stock_idx and o.shop_idx = s2.shop_idx and s.stock_sort_idx = 1 and o.shop_idx ='SH005'
+			group by o.shop_idx, o.order_date,s.stock_sort_idx HAVING order_state > 0 order by o.order_date;
+	</select>
+	
+	<select id="shopSubOrderListOkCall" resultType="StockDTO">
+		SELECT o.shop_idx,o.shop_idx,s2.shop_name,o.order_date,(SELECT count(o2.stock_idx) from `order` o2 ,stock s3
+		where o2.order_send ='처리전' and s3.stock_sort_idx = 1 and s3.stock_idx= o2.stock_idx 
+		and o2.shop_idx = o.shop_idx and o2.order_date = o.order_date) as order_state 
+	from `order` o,stock s,shop s2 
+	where o.stock_idx = s.stock_idx and o.shop_idx = s2.shop_idx and s.stock_sort_idx = 1 and o.shop_idx ='SH005'
+	group by o.shop_idx, o.order_date,s.stock_sort_idx HAVING order_state <![CDATA[ < ]]> 1 order by o.order_date;
+	</select>
 </mapper>
 
 

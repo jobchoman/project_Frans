@@ -64,9 +64,10 @@ public class OrderController {
 		return "redirect:/shopStock.go";
 
 	}
-
+	
+	// 식자재 발주
 	@ResponseBody
-	@GetMapping(value="/stock/FoodOrderList.do")
+	@GetMapping(value="/order/FoodOrderList.do")
 	public HashMap<String, Object> OrderList(@RequestParam HashMap<String, String> params){
 		//		HashMap<String, Object> map = new HashMap<String, Object>();
 		//		ArrayList<StockDTO> comStockList = stockservice.comList();
@@ -80,7 +81,7 @@ public class OrderController {
 	}
 
 	@ResponseBody
-	@GetMapping(value="/stock/FoodOrderListOk.do")
+	@GetMapping(value="/order/FoodOrderListOk.do")
 	public HashMap<String, Object> FoodOrderListOk(@RequestParam HashMap<String, String> params){
 		//		HashMap<String, Object> map = new HashMap<String, Object>();
 		//		ArrayList<StockDTO> comStockList = stockservice.comList();
@@ -94,7 +95,7 @@ public class OrderController {
 	}
 
 	@ResponseBody
-	@GetMapping(value="/stock/SubOrderList.do")
+	@GetMapping(value="/order/SubOrderList.do")
 	public HashMap<String, Object> SubOrderList(@RequestParam HashMap<String, String> params){
 		//		HashMap<String, Object> map = new HashMap<String, Object>();
 		//		ArrayList<StockDTO> comStockList = stockservice.comList();
@@ -108,7 +109,7 @@ public class OrderController {
 	}
 
 	@ResponseBody
-	@GetMapping(value="/stock/SubOrderListOk.do")
+	@GetMapping(value="/order/SubOrderListOk.do")
 	public HashMap<String, Object> SubOrderListOk(@RequestParam HashMap<String, String> params){
 		//		HashMap<String, Object> map = new HashMap<String, Object>();
 		//		ArrayList<StockDTO> comStockList = stockservice.comList();
@@ -175,5 +176,83 @@ public class OrderController {
 //		return "redirect:/revDetail.go?eat_idx="+eat_idx;
 		return msg;
 
+	}
+	
+	@ResponseBody
+	@GetMapping(value="/order/shopFoodOrderList.do")
+	public HashMap<String, Object> shopFoodOrderList(@RequestParam HashMap<String, String> params){
+		//		HashMap<String, Object> map = new HashMap<String, Object>();
+		//		ArrayList<StockDTO> comStockList = stockservice.comList();
+		//		map.put("comStockList", comStockList);
+		logger.info("매장 식자재 발주 params : {}",params);
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		ArrayList<StockDTO> FoodOrderList = orderservice.shopFoodOrderList();
+		map.put("data", FoodOrderList);
+		return map;
+
+	}
+	
+	@ResponseBody
+	@GetMapping(value="/order/shopFoodOrderListOk.do")
+	public HashMap<String, Object> shopFoodOrderListOk(@RequestParam HashMap<String, String> params){
+		//		HashMap<String, Object> map = new HashMap<String, Object>();
+		//		ArrayList<StockDTO> comStockList = stockservice.comList();
+		//		map.put("comStockList", comStockList);
+		logger.info("매장 식자재 발주 처리완료 params : {}",params);
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		ArrayList<StockDTO> FoodOrderListOk = orderservice.shopFoodOrderListOk();
+		map.put("data", FoodOrderListOk);
+		return map;
+
+	}
+	
+	@ResponseBody
+	@GetMapping(value="/order/shopSubOrderListCall.do")
+	public HashMap<String, Object> shopSubOrderListCall(@RequestParam HashMap<String, String> params){
+		//		HashMap<String, Object> map = new HashMap<String, Object>();
+		//		ArrayList<StockDTO> comStockList = stockservice.comList();
+		//		map.put("comStockList", comStockList);
+		logger.info("매장 부자재 발주 params : {}",params);
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		ArrayList<StockDTO> SubOrderList = orderservice.shopSubOrderListCall();
+		map.put("data", SubOrderList);
+		return map;
+
+	}
+	
+	@ResponseBody
+	@GetMapping(value="/order/shopSubOrderListOkCall.do")
+	public HashMap<String, Object> shopSubOrderListOkCall(@RequestParam HashMap<String, String> params){
+		//		HashMap<String, Object> map = new HashMap<String, Object>();
+		//		ArrayList<StockDTO> comStockList = stockservice.comList();
+		//		map.put("comStockList", comStockList);
+		logger.info("매장 부자재 발주 처리완료 params : {}",params);
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		ArrayList<StockDTO> SubOrderListOk = orderservice.shopSubOrderListOkCall();
+		map.put("data", SubOrderListOk);
+		return map;
+
+	}
+	
+	@RequestMapping(value="/shopFoodOrderDetail.go")
+	public HashMap<String, Object> shopFoodOrderDetail(@RequestParam HashMap<String, String> params, HttpServletRequest req){
+		logger.info("매장 발주 상세보기 params : {}",params);
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		ArrayList<StockDTO> OrderDetail = orderservice.shopFoodOrderDetail(params);
+		map.put("data", OrderDetail);
+
+		return map;
+
+	}
+	
+	@RequestMapping(value="/shopSubOrderDetail.go")
+	public HashMap<String, Object> shopSubOrderDetail(@RequestParam HashMap<String, String> params, HttpServletRequest req){
+		logger.info("매장 발주 상세보기 params : {}",params);
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		ArrayList<StockDTO> OrderDetail = orderservice.shopSubOrderDetail(params);
+		map.put("data", OrderDetail);
+		
+		return map;
+		
 	}
 }

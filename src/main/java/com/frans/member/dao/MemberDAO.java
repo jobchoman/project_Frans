@@ -38,7 +38,7 @@ public interface MemberDAO {
 	ArrayList<MemberDTO> fileList1(String emp_id);
 
 	void join2(MemberDTO memberDTO);
-
+//
 	void join3(MemberDTO memberDTO);
 
 	void hash(String hash);
@@ -46,6 +46,20 @@ public interface MemberDAO {
 	String login(String emp_id);
 
 	ArrayList<MemberDTO> selList(String sel, String con);
+
+	void joinHigh(String emp_career_idx, String emp_school_name, String emp_department, String emp_career_start,
+			String emp_career_end, String emp_id, String emp_career_etc);
+
+	void joinUniv(String emp_career_idx, String emp_school_name, String emp_department, String emp_career_start,
+			String emp_career_end, String emp_id, String emp_career_etc, String emp_degree);
+
+	void joinGrad(String emp_career_idx, String emp_school_name, String emp_department, String emp_career_start,
+			String emp_career_end, String emp_id, String emp_career_etc, String emp_degree);
+
+	void joinCareer(String emp_career_idx, String emp_school_name, String emp_department, String emp_career_start,
+			String emp_career_end, String emp_id, String emp_career_etc, String emp_degree);
+
+	void join4(String emp_id, String license_name, String license_date, String license_place, String license_result);
 
 
 

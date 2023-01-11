@@ -272,7 +272,7 @@ function foodListCall() {
 	        	{data : "stock_name"},
 	            {data: "stock_price"},
 	            {data: "com_stock_amount"},
-	            {data: null, defaultContent: "<button id='updateBtn' type='button' class='btn btn-round btn-secondary'>수정</button>"}
+	            {data: null, defaultContent: "<button id='updateBtn' onclick = 'updateView(event)' type='button' class='btn btn-round btn-secondary'>수정</button>"}
 	        ],
 	        columnDefs: [{
 

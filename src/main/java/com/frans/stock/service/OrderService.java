@@ -74,6 +74,36 @@ public class OrderService {
 		 orderdao.orderComChk(params);	// 본사 재고 업데이트
 	}
 
+	public ArrayList<StockDTO> shopFoodOrderList() {
+		
+		return orderdao.shopFoodOrderList();
+	}
+
+	public ArrayList<StockDTO> shopFoodOrderDetail(HashMap<String, String> params) {
+		
+		return orderdao.shopFoodOrderDetail(params);
+	}
+
+	public ArrayList<StockDTO> shopFoodOrderListOk() {
+		
+		return orderdao.shopFoodOrderListOk();
+	}
+
+	public ArrayList<StockDTO> shopSubOrderListCall() {
+
+		return orderdao.shopSubOrderListCall();
+	}
+
+	public ArrayList<StockDTO> shopSubOrderListOkCall() {
+		
+		return orderdao.shopSubOrderListOkCall();
+	}
+
+	public ArrayList<StockDTO> shopSubOrderDetail(HashMap<String, String> params) {
+		// TODO Auto-generated method stub
+		return orderdao.shopSubOrderDetail(params);
+	}
+
 	
 
 }
