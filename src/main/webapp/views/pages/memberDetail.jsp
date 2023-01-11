@@ -62,7 +62,7 @@
 								</div>
 								<div class="x_content">
 									<br />
-									<form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" method="POST" enctype="multipart/form-data">
+										
 
 										<div class="item form-group">
 											<label class="col-form-label col-md-3 col-sm-3 label-align">사진
@@ -145,28 +145,31 @@
 												</label>
 												<div id="career" class="col-md-6 col-sm-6 " >
 													<div class="del">
-														${mem.emp_career_idx}<br/>
-														${mem.emp_school_name}<br/>
-														${mem.emp_department}<br/>
-														${mem.emp_degree}<br/>
-														${mem.emp_career_start}<br/>
-														${mem.emp_career_end}<br/>
-														${mem.emp_career_etc}<br/>
+													<c:forEach items="${mem1}" var="mem1">
+														${mem1.emp_career_idx}<br/>
+														${mem1.emp_school_name}<br/>
+														${mem1.emp_department}<br/>
+														${mem1.emp_degree}<br/>
+														${mem1.emp_career_start}<br/>
+														${mem1.emp_career_end}<br/>
+														${mem1.emp_career_etc}<br/>
+													</c:forEach>
+																								
 														
-														<select name="emp_career_idx" class="form-control ">
-															<option value="없음" selected="selected">없음</option>
-															<option value="고등학교">고등학교</option>
-															<option value="대학교">대학교</option>
-															<option value="대학원">대학원</option>
-														</select>
-														<input type="text" name="emp_school_name" placeholder="학교명" required="required" class="form-control ">
-														<input type="text" name="emp_department" placeholder="학과" required="required" class="form-control ">
-														<input type="text" name="emp_degree" placeholder="학위" required="required" class="form-control ">
-														입학일<input type="date" name="emp_career_start" placeholder="yyyy-mm-dd" required="required" class="form-control ">
-														졸업일<input type="date" name="emp_career_end" placeholder="yyyy-mm-dd" required="required" class="form-control ">
-														<input type="text" name="emp_career_etc" placeholder="비고" required="required" class="form-control ">
-														<input type="button" name="delete" value="삭제" onclick="delete1()">
-														<input type="button" value="추가" onclick="add_textbox()"/>
+<!-- 														<select name="emp_career_idx" class="form-control "> -->
+<!-- 															<option value="없음" selected="selected">없음</option> -->
+<!-- 															<option value="고등학교">고등학교</option> -->
+<!-- 															<option value="대학교">대학교</option> -->
+<!-- 															<option value="대학원">대학원</option> -->
+<!-- 														</select> -->
+<!-- 														<input type="text" name="emp_school_name" placeholder="학교명" required="required" class="form-control "> -->
+<!-- 														<input type="text" name="emp_department" placeholder="학과" required="required" class="form-control "> -->
+<!-- 														<input type="text" name="emp_degree" placeholder="학위" required="required" class="form-control "> -->
+<!-- 														입학일<input type="date" name="emp_career_start" placeholder="yyyy-mm-dd" required="required" class="form-control "> -->
+<!-- 														졸업일<input type="date" name="emp_career_end" placeholder="yyyy-mm-dd" required="required" class="form-control "> -->
+<!-- 														<input type="text" name="emp_career_etc" placeholder="비고" required="required" class="form-control "> -->
+<!-- 														<input type="button" name="delete" value="삭제" onclick="delete1()"> -->
+<!-- 														<input type="button" value="추가" onclick="add_textbox()"/> -->
 													</div>
 												</div>
 											</div>
@@ -259,7 +262,7 @@
 										<label class="col-form-label col-md-3 col-sm-3 label-align">서명 이미지
 											</label>
 											<div class="col-md-6 col-sm-6 ">
-														<c:if test="${fileList1.size()>0}">
+												<c:if test="${fileList1.size()>0}">
 													<c:forEach items="${fileList1}" var="path">
 													<img width="100" src="memberPhoto.do?path=${path.file_new}"/>
 													</c:forEach>
@@ -276,7 +279,6 @@
 											</div>
 										</div>
 
-									</form>
 								</div>
 							</div>
 						</div>
@@ -294,70 +296,18 @@
 </body>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
+listCall();
+
 var msg = "${msg}";
 
 if(msg != ""){
 	alert(msg);
 }
 
-window.onload = function(){
-    document.getElementById("address_kakao").addEventListener("click", function(){ //주소입력칸을 클릭하면
-        //카카오 지도 발생
-        new daum.Postcode({
-            oncomplete: function(data) { //선택시 입력값 세팅
-                document.getElementById("address_kakao").value = data.address; // 주소 넣기
-                document.querySelector("input[name=address_detail]").focus(); //상세입력 포커싱
-            }
-        }).open();
-    });
-}
 
-function add_textbox() {
-	for(var i=1;, i<6;, i++;)
-	var sel = '<div class="del">'
-		sel += '<select name="emp_career_idx" class="form-control ">'
-		sel += '<option value="없음" selected="selected">없음</option>'
-		sel += '<option value="고등학교">고등학교</option>'	  
-		sel += '<option value="대학교">대학교</option>'  
-		sel += '<option value="대학원">대학원</option></select>'	
-		sel += '<input type="text" name="emp_school_name" placeholder="학교명" required="required" class="form-control "/>'	  
-		sel += '<input type="text" name="emp_department" placeholder="학과" required="required" class="form-control "/>'	  
-		sel += '<input type="text" name="emp_degree" placeholder="학위" required="required" class="form-control "/>'	  
-		sel += '입학일<input type="date" name="emp_career_start" value="yyyy-mm-dd" required="required" class="form-control "/>'	  
-		sel += '졸업일<input type="date" name="emp_career_end" value="yyyy-mm-dd" required="required" class="form-control "/>'	  
-		sel += '<input type="text" name="emp_career_etc" placeholder="비고" required="required" class="form-control "/>'	  
-		sel += '<input type="button" name="delete" value="삭제" onclick="delete1()"/>'	  
-		sel += '</div>'
-		$('#career').append(sel);
-};
-function add_textbox1() {
-	var sel1 = '<div>'
-		sel1 += '<select name="emp_career_idx" class="form-control ">'
-		sel1 += '<option value="없음" selected="selected">없음</option>'
-		sel1 += '<option value="경력">경력</option></select>'	  
-		sel1 += '<input type="text" name="emp_school_name" placeholder="회사명" required="required" class="form-control "/>'	  
-		sel1 += '<input type="text" name="emp_department" placeholder="부서" required="required" class="form-control "/>'	  
-		sel1 += '<input type="text" name="emp_degree" placeholder="직급" required="required" class="form-control "/>'	  
-		sel1 += '입사일<input type="date" name="emp_career_start" value="yyyy-mm-dd" required="required" class="form-control "/>'	  
-		sel1 += '퇴사일<input type="date" name="emp_career_end" value="yyyy-mm-dd" required="required" class="form-control "/>'	  
-		sel1 += '<input type="text" name="emp_career_etc" placeholder="맡은업무" required="required" class="form-control "/>'	  
-		sel1 += '<input type="button" name="delete" value="삭제" onclick="delete2()"/>'	  
-		sel1 += '</div>'
-		$('#career1').append(sel1);
-};
-function add_textbox2() {
-	var sel2 = '<div>'
-		sel2 += '<input type="text" name="license_name" placeholder="자격증명" required="required"/ class="form-control ">'	  
-		sel2 += '취득일<input type="date" name="license_date" value="yyyy-mm-dd" required="required" class="form-control "/>'	  
-		sel2 += '<input type="text" name="license_place" placeholder="발급처" required="required"/ class="form-control ">'	  
-		sel2 += '<input type="text" name="license_result" placeholder="결과" required="required"/ class="form-control ">'	  
-		sel2 += '<input type="button" name="delete" value="삭제" onclick="delete3()"/>'	  
-		sel2 += '</div>'
-		$('#license').append(sel2);
-};
- function delete1(){
-	 $(".del").remove();
- }
+
+
+ 
 
 
 </script>

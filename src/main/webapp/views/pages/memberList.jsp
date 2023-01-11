@@ -60,10 +60,35 @@
                     </ul>
                     <div class="clearfix"></div>
                   </div>
+                  
                   <div class="x_content">
                       <div class="row">
                           <div class="col-sm-12">
                             <div class="card-box table-responsive">
+                            
+                            <select id="con" onchange="listCall()">
+								<option value="all" selected="selected">전체</option>
+								<option value="팀">팀</option>
+								<option value="직급">직급</option>
+								<option value="직책">직책</option>
+								<option value="상태">상태</option>
+							</select>
+										
+							<select name="sel" id="sel" onchange="listCall()">
+								<c:forEach items="${stateMem}" var="stateMem">
+								<option value="상태">${stateMem.emp_state_name}</option>
+								</c:forEach>
+								<c:forEach items="${dutyMem}" var="dutyMem">
+								<option value="직책">${dutyMem.duty_name}</option>
+								</c:forEach>
+								<c:forEach items="${posMem}" var="posMem">
+								<option value="직급">${posMem.pos_name}</option>
+								</c:forEach>
+								<c:forEach items="${teamMem}" var="teamMem">
+								<option value="팀">${teamMem.team_name}</option>
+								</c:forEach>
+							</select>
+                            
                     <table id="datatable" class="table table-striped table-bordered" style="width:100%">
                       <thead>
 						<tr>
@@ -75,20 +100,20 @@
 							<th>상태</th>
 						</tr>
 					  </thead>
-					  <tbody>
-						<c:if test="${list eq null || list eq ''}">
-						<tr><td colspan="6">해당 데이터가 존재하지 않습니다.</td></tr>
-						</c:if>
-						<c:forEach items="${list}" var="member">
-							<tr>
-								<td>${member.emp_name}</td>
-								<td><a href="memberDetail.do?emp_id=${member.emp_id}">${member.emp_id}</a></td>
-								<td>${member.team_name}</td>
-								<td>${member.pos_name}</td>
-								<td>${member.duty_name}</td>
-								<td>${member.emp_state_name}</td>
-							</tr>
-						</c:forEach>
+					  <tbody id="list">
+<%-- 						<c:if test="${list eq null || list eq ''}"> --%>
+<!-- 						<tr><td colspan="6">해당 데이터가 존재하지 않습니다.</td></tr> -->
+<%-- 						</c:if> --%>
+<%-- 						<c:forEach items="${list}" var="member"> --%>
+<!-- 							<tr> -->
+<%-- 								<td>${member.emp_name}</td> --%>
+<%-- 								<td><a href="memberDetail.do?emp_id=${member.emp_id}">${member.emp_id}</a></td> --%>
+<%-- 								<td>${member.team_name}</td> --%>
+<%-- 								<td>${member.pos_name}</td> --%>
+<%-- 								<td>${member.duty_name}</td> --%>
+<%-- 								<td>${member.emp_state_name}</td> --%>
+<!-- 							</tr> -->
+<%-- 						</c:forEach> --%>
                       </tbody>
                     </table>
                   </div>
@@ -111,5 +136,56 @@
 	<jsp:include page="script.jsp" />
 </body>
 <script>
+listCall();
+
+var sel = $("#sel option:selected").val();
+console.log(sel);
+var con = $("#con option:selected").val();
+console.log(con);
+
+function listCall(){
+	$.ajax({
+		type:'get',
+		url:'/selList.ajax',
+		data:{
+			'sel': sel.options[sel.selectedIndex].value,
+			'con' : con.options[con.selectedIndex].value
+			},
+		dataType:'JSON',
+		success:function(data){
+			drawList(data.sel);
+		},
+		error:function(e){
+			console.log(e);
+		}
+	});
+}
+
+function drawList(list){
+	var content = '';
+	if(list.length>0){
+		for(var i=0; i<list.length; i++){
+			content += '<tr>';
+			content += '<td>'+list[i].emp_name+'</td>';
+			content += '<td><a href="memberDetail.do?emp_id='+list[i].emp_id+'">'+list[i].emp_id+'</a></td>';
+			content += '<td>'+list[i].team_name+'</a></td>';
+			content += '<td>'+list[i].pos_name+'</td>';
+			content += '<td>'+list[i].duty_name+'</td>';
+			content += '<td>'+list[i].emp_state_name+'</td>';
+			content += '</tr>';
+		}
+	}
+	$('#list').empty();
+	$('#list').append(content);
+}
+// <tr>
+// <td>${member.emp_name}</td>
+// <td><a href="memberDetail.do?emp_id=${member.emp_id}">${member.emp_id}</a></td>
+// <td>${member.team_name}</td>
+// <td>${member.pos_name}</td>
+// <td>${member.duty_name}</td>
+// <td>${member.emp_state_name}</td>
+// </tr>
+
 </script>
 </html>

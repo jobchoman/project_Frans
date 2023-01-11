@@ -33,14 +33,56 @@ public class MemberDTO {
 	private String team_name;
 	private int team_state;
 	private String emp_school_name;
+	private String emp_school_name1;
 	private String emp_state_name;
 	private String emp_career_idx;
 	private String emp_career_idx1;
 	private Date emp_career_start;
+	private Date emp_career_start1;
 	private Date emp_career_end;
+	private Date emp_career_end1;
+	public String getEmp_school_name1() {
+		return emp_school_name1;
+	}
+	public void setEmp_school_name1(String emp_school_name1) {
+		this.emp_school_name1 = emp_school_name1;
+	}
+	public Date getEmp_career_start1() {
+		return emp_career_start1;
+	}
+	public void setEmp_career_start1(Date emp_career_start1) {
+		this.emp_career_start1 = emp_career_start1;
+	}
+	public Date getEmp_career_end1() {
+		return emp_career_end1;
+	}
+	public void setEmp_career_end1(Date emp_career_end1) {
+		this.emp_career_end1 = emp_career_end1;
+	}
+	public String getEmp_department1() {
+		return emp_department1;
+	}
+	public void setEmp_department1(String emp_department1) {
+		this.emp_department1 = emp_department1;
+	}
+	public String getEmp_degree1() {
+		return emp_degree1;
+	}
+	public void setEmp_degree1(String emp_degree1) {
+		this.emp_degree1 = emp_degree1;
+	}
+	public String getEmp_career_etc1() {
+		return emp_career_etc1;
+	}
+	public void setEmp_career_etc1(String emp_career_etc1) {
+		this.emp_career_etc1 = emp_career_etc1;
+	}
 	private String emp_department;
+	private String emp_department1;
 	private String emp_degree;
+	private String emp_degree1;
 	private String emp_career_etc;
+	private String emp_career_etc1;
 	private String license_name;
 	private Date license_date;
 	private int auth_type;

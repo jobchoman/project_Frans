@@ -16,9 +16,9 @@ public interface MemberDAO {
 
 	void fileUpload2(String file_ori, String file_new, String emp_id);
 
-	void join2(HashMap<String, String> params);
-
-	void join3(HashMap<String, String> params);
+//	void join2(HashMap<String, String> params);
+//
+//	void join3(HashMap<String, String> params);
 
 	void join4(HashMap<String, String> params);
 
@@ -36,6 +36,16 @@ public interface MemberDAO {
 	ArrayList<MemberDTO> fileList(String emp_id);
 
 	ArrayList<MemberDTO> fileList1(String emp_id);
+
+	void join2(MemberDTO memberDTO);
+
+	void join3(MemberDTO memberDTO);
+
+	void hash(String hash);
+
+	String login(String emp_id);
+
+	ArrayList<MemberDTO> selList(String sel, String con);
 
 
 
