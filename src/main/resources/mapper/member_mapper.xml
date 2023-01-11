@@ -132,19 +132,18 @@
 		select *from file where file_from = #{emp_id} and file_sort_idx = 0
 	</select>
 	
-<!-- 	<select id="selList" resultType="com.frans.member.dto.MemberDTO" parameterType="String">
+	<select id="selList" resultType="com.frans.member.dto.MemberDTO" parameterType="String">
 		SELECT e.emp_name, e.emp_id, t.team_name, d.duty_name, p.pos_name, es.emp_state_name 
 			FROM employee e, emp_state es, team t, `position` p, duty d
 			<where>
-				<if test="con.equals('all')">e.team_idx = t.team_idx AND e.duty_idx = d.duty_idx AND e.pos_idx = p.pos_idx AND e.emp_state_idx = es.emp_state_idx</if>
-				<if test="con.equals('팀')">e.team_idx = t.team_idx AND e.duty_idx = d.duty_idx AND e.pos_idx = p.pos_idx AND e.emp_state_idx = es.emp_state_idx</if>
-				<if test="con.equals('직급')">e.team_idx = t.team_idx AND e.duty_idx = d.duty_idx AND e.pos_idx = p.pos_idx AND e.emp_state_idx = es.emp_state_idx</if>
-				<if test="con.equals('직책')">e.team_idx = t.team_idx AND e.duty_idx = d.duty_idx AND e.pos_idx = p.pos_idx AND e.emp_state_idx = es.emp_state_idx</if>
-				<if test="con.equals('상태')">e.team_idx = t.team_idx AND e.duty_idx = d.duty_idx AND e.pos_idx = p.pos_idx AND e.emp_state_idx = es.emp_state_idx</if>
-				
+				<if test="con.equals('all')">e.pos_idx = p.pos_idx and e.emp_state_idx = es.emp_state_idx and e.team_idx = t.team_idx and e.duty_idx = d.duty_idx</if>
+				<if test="con.equals('team')">e.pos_idx = p.pos_idx and e.emp_state_idx = es.emp_state_idx and e.team_idx = t.team_idx and e.duty_idx = d.duty_idx</if>
+				<if test="con.equals('duty')">e.pos_idx = p.pos_idx and e.emp_state_idx = es.emp_state_idx and e.team_idx = t.team_idx and e.duty_idx = d.duty_idx</if>
+				<if test="con.equals('pos')">e.pos_idx = p.pos_idx and e.emp_state_idx = es.emp_state_idx and e.team_idx = t.team_idx and e.duty_idx = d.duty_idx</if>
+				<if test="con.equals('state')">e.pos_idx = p.pos_idx and e.emp_state_idx = es.emp_state_idx and e.team_idx = t.team_idx and e.duty_idx = d.duty_idx</if>
 			</where>
-		
-	</select> -->
+			
+	</select>
 
 </mapper>
 

@@ -20,23 +20,6 @@
 
 			<!-- page content -->
 		<div class="right_col" role="main">
-          <div class="">
-            <div class="page-title">
-              <div class="title_left">
-                <h3>Users <small>Some examples to get you started</small></h3>
-              </div>
-
-              <div class="title_right">
-                <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
-                  <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search for...">
-                    <span class="input-group-btn">
-                      <button class="btn btn-secondary" type="button">Go!</button>
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
 
             <div class="clearfix"></div>
 
@@ -45,62 +28,52 @@
                 <div class="x_panel">
                   <div class="x_title">
                     <h2>직원 리스트 <small>Users</small></h2>
-                    <ul class="nav navbar-right panel_toolbox">
-                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                      </li>
-                      <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item" href="#">Settings 1</a>
-                            <a class="dropdown-item" href="#">Settings 2</a>
-                          </div>
-                      </li>
-                      <li><a class="close-link"><i class="fa fa-close"></i></a>
-                      </li>
-                    </ul>
                     <div class="clearfix"></div>
                   </div>
                   
                   <div class="x_content">
                       <div class="row">
                           <div class="col-sm-12">
-                            <div class="card-box table-responsive">
+                            <div id="subSel" class="card-box table-responsive">
                             
-                            <select id="con" onchange="listCall()">
-								<option value="all" selected="selected">전체</option>
-								<option value="팀">팀</option>
-								<option value="직급">직급</option>
-								<option value="직책">직책</option>
-								<option value="상태">상태</option>
+                            <select id="con" onchange="maListCall()">
+								<option class="all" value="all" selected="selected">전체</option>
+								<option class="team" value="team" onclick="team()">팀</option>
+								<option class="pos" value="pos">직급</option>
+								<option class="duty" value="duty">직책</option>
+								<option class="state" value="state">상태</option>
 							</select>
-										
-							<select name="sel" id="sel" onchange="listCall()">
-								<c:forEach items="${stateMem}" var="stateMem">
-								<option value="상태">${stateMem.emp_state_name}</option>
-								</c:forEach>
-								<c:forEach items="${dutyMem}" var="dutyMem">
-								<option value="직책">${dutyMem.duty_name}</option>
-								</c:forEach>
-								<c:forEach items="${posMem}" var="posMem">
-								<option value="직급">${posMem.pos_name}</option>
-								</c:forEach>
-								<c:forEach items="${teamMem}" var="teamMem">
-								<option value="팀">${teamMem.team_name}</option>
-								</c:forEach>
-							</select>
+		
+<!-- 							<select name="sel" id="sel" onchange="suListCall()"> -->
+<%-- 								<c:forEach items="${stateMem}" var="stateMem"> --%>
+<%-- 								<option value="상태">${stateMem.emp_state_name}</option> --%>
+<%-- 								</c:forEach> --%>
+<%-- 								<c:forEach items="${dutyMem}" var="dutyMem"> --%>
+<%-- 								<option value="직책">${dutyMem.duty_name}</option> --%>
+<%-- 								</c:forEach> --%>
+<%-- 								<c:forEach items="${posMem}" var="posMem"> --%>
+<%-- 								<option value="직급">${posMem.pos_name}</option> --%>
+<%-- 								</c:forEach> --%>
+<%-- 								<c:forEach items="${teamMem}" var="teamMem"> --%>
+<%-- 								<option value="팀" class="team">${teamMem.team_name}</option> --%>
+<%-- 								</c:forEach> --%>
+<!-- 							</select> -->
                             
-                    <table id="datatable" class="table table-striped table-bordered" style="width:100%">
+                    <table id="datatable" class="table table-striped table-bordered dataTable no-footer"
+													style="width: 100%" aria-describedby="datatable_info">
                       <thead>
 						<tr>
 							<th>이름</th>
+							<th>이름</th>
 							<th>아이디</th>
 							<th>팀</th>
-							<th>직책</th>
 							<th>직급</th>
+							<th>직책</th>
 							<th>상태</th>
 						</tr>
 					  </thead>
-					  <tbody id="list">
+<!-- 					  <tbody id="list"> -->
+					   
 <%-- 						<c:if test="${list eq null || list eq ''}"> --%>
 <!-- 						<tr><td colspan="6">해당 데이터가 존재하지 않습니다.</td></tr> -->
 <%-- 						</c:if> --%>
@@ -114,14 +87,14 @@
 <%-- 								<td>${member.emp_state_name}</td> --%>
 <!-- 							</tr> -->
 <%-- 						</c:forEach> --%>
-                      </tbody>
+						
+<!--                       </tbody> -->
                     </table>
                   </div>
                   </div>
               </div>
             </div>
                 </div>
-              </div>
               </div>
               </div>
               </div>
@@ -136,56 +109,187 @@
 	<jsp:include page="script.jsp" />
 </body>
 <script>
-listCall();
+maListCall();
 
 var sel = $("#sel option:selected").val();
 console.log(sel);
 var con = $("#con option:selected").val();
 console.log(con);
+var data = JSON.stringify(jObject);
 
-function listCall(){
+
+function maListCall(){
+	var table = $("#datatable").DataTable({
+		destroy:true,
+		serverSide:false,
+		ajax:{
+			"url":"/selList.ajax",
+			"type":"get",
+			"data":{
+				"con":"all",
+				"con":"team",
+				"con":"duty",
+				"con":"pos",
+				"con":"state",
+			}
+		},
+		columns:[
+			{data:"emp_name"},
+			{data:"emp_id"},
+			{data:"emp_id",
+				"render" : function(data, type, row) {
+					if (type == 'display') {
+						
+							data = '<a href="/memberDetail.do?emp_id='+row.emp_id+'">'
+								+ row.emp_id +'</a>';
+					}
+					return data;
+				}
+			},
+			{data:"team_name"},
+			{data:"pos_name"},
+			{data:"duty_name"},
+			{data:"emp_state_name"}
+		],
+        columnDefs: [{
+        	
+		targets : [ 1 ],
+
+		searchable : false,
+
+		visible : false     
+
+        }]
+
+	});
+	subListCall();
+}
+
+function subListCall() {
 	$.ajax({
 		type:'get',
-		url:'/selList.ajax',
+		url:'/subSel.ajax',
 		data:{
-			'sel': sel.options[sel.selectedIndex].value,
-			'con' : con.options[con.selectedIndex].value
-			},
+			"data":
+			"data":
+		},
 		dataType:'JSON',
 		success:function(data){
-			drawList(data.sel);
+			drawList(data.list);
+
 		},
 		error:function(e){
 			console.log(e);
 		}
-	});
+	});	
 }
 
 function drawList(list){
 	var content = '';
 	if(list.length>0){
 		for(var i=0; i<list.length; i++){
-			content += '<tr>';
-			content += '<td>'+list[i].emp_name+'</td>';
-			content += '<td><a href="memberDetail.do?emp_id='+list[i].emp_id+'">'+list[i].emp_id+'</a></td>';
-			content += '<td>'+list[i].team_name+'</a></td>';
-			content += '<td>'+list[i].pos_name+'</td>';
-			content += '<td>'+list[i].duty_name+'</td>';
-			content += '<td>'+list[i].emp_state_name+'</td>';
-			content += '</tr>';
+			content += '<select name="sel" id="sel" onchange="suListCall()">';
+			content += '<c:forEach items="'+${stateMem}+'" var="stateMem">';
+			content += '<option value="상태">'+list[i].emp_state_name+'</option>';
+			content += '<td><a href="docFormDetail.go?doc_form_idx='+list[i].doc_form_idx+'">'+list[i].doc_form_name+'</a></td>';
+			content += '</c:forEach>';
+			content += '</select>';
 		}
 	}
-	$('#list').empty();
-	$('#list').append(content);
+	$('#subSel').empty();
+	$('#subSel').append(content);
 }
-// <tr>
-// <td>${member.emp_name}</td>
-// <td><a href="memberDetail.do?emp_id=${member.emp_id}">${member.emp_id}</a></td>
-// <td>${member.team_name}</td>
-// <td>${member.pos_name}</td>
-// <td>${member.duty_name}</td>
-// <td>${member.emp_state_name}</td>
-// </tr>
 
+
+
+
+// function suListCall(obj){
+// 	console.log(obj);
+// }
+
+function team(){
+	var tea = $(".team").val();
+	console.log(tea);
+}
+var sel1 = $(".sel option:selected").val();
+console.log(sel1);
+
+
+
+// function suListCall(){
+// 	var table = $("#datatable").DataTable({
+// 		destroy:true,
+// 		serverSide:false,
+// 		ajax:{
+// 			"url":"/selList.ajax",
+// 			"type":"get",
+// 			"data":{
+// 				"con":"all",
+// 				"con":"team",
+// 				"con":"duty",
+// 				"con":"pos",
+// 				"con":"state",
+// 			}
+// 		},
+// 		columns:[
+// 			{data:"emp_name"},
+// 			{data:"emp_id"},
+// 			{data:"emp_id",
+// 				"render" : function(data, type, row) {
+// 					if (type == 'display') {
+						
+// 							data = '<a href="/memberDetail.do?emp_id='+row.emp_id+'">'
+// 								+ row.emp_id +'</a>';
+// 					}
+// 					return data;
+// 				}
+// 			},
+// 			{data:"team_name"},
+// 			{data:"pos_name"},
+// 			{data:"duty_name"},
+// 			{data:"emp_state_name"}
+// 		],
+//         columnDefs: [{
+        	
+// 		targets : [ 1 ],
+
+// 		searchable : false,
+
+// 		visible : false     
+
+//         }]
+
+// 	});
+// }
+
+
+
+// function drawList(list){
+// 	var content = '';
+// 	if(list.length>0){
+// 		for(var i=0; i<list.length; i++){
+// 			content += '<tr>';
+// 			content += '<td>'+list[i].emp_name+'</td>';
+// 			content += '<td><a href="memberDetail.do?emp_id='+list[i].emp_id+'">'+list[i].emp_id+'</a></td>';
+// 			content += '<td>'+list[i].team_name+'</a></td>';
+// 			content += '<td>'+list[i].pos_name+'</td>';
+// 			content += '<td>'+list[i].duty_name+'</td>';
+// 			content += '<td>'+list[i].emp_state_name+'</td>';
+// 			content += '</tr>';
+// 		}
+// 	}
+// 	$('#list').empty();
+// 	$('#list').append(content);
+// }
+/*
+<tr>
+<td>${member.emp_name}</td>
+<td><a href="memberDetail.do?emp_id=${member.emp_id}">${member.emp_id}</a></td>
+<td>${member.team_name}</td>
+<td>${member.pos_name}</td>
+<td>${member.duty_name}</td>
+<td>${member.emp_state_name}</td>
+</tr>
+*/
 </script>
 </html>

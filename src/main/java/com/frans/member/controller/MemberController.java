@@ -88,72 +88,18 @@ public class MemberController {
 		return "memberJoinForm";
 	}
 	
-//	@PostMapping(value="/memberJoin.do")
-//	public String join(@RequestParam HashMap<String, String> params, MultipartFile file, MultipartFile file2) {
-//		logger.info("params : {}",params);
-//		memberService.join(params,file,file2);
-//		return "index";
-//	}
-	
-	@PostMapping(value="/memberJoin.do")
-	public String join(@RequestParam HashMap<String, String> params, MultipartFile file, MultipartFile file2, HttpServletRequest req) {
-		logger.info("params : {}",params);
-		// 이력번호, 라이센스 이름이 없으면 안넘어가도록
-		memberService.join(params,file,file2,req);
-		return "redirect:/index";
-	}
-	
-//	@ResponseBody
-//	@PostMapping(value="/memberJoin1.ajax")
-//	public HashMap<Object, Object> memberJoin (ArrayList<MemberDTO> list){
-//		
-//		HashMap<Object, Object> map = new HashMap<Object, Object>();
-//		map.put("list", list);
-//		
-////		   public HashMap<String, Object> routeWrite1(@RequestParam(value="locIdx[]") List<Integer> locIdx, 
-////		         @RequestParam String content, @RequestParam String loginId, @RequestParam String title) {
-////
-////		      Object[] locationIdx = locIdx.toArray();
-////		      
-////		      int board_idx = routeService.routeWrite(locationIdx, loginId, title, content);   
-////		      HashMap<String, Object> map = new HashMap<String, Object>();
-////		      map.put("board_idx", board_idx);
-////		      return map;
-////		   }
-//		return map;
-//	}
-	
-//	public HashMap<String, Object> routeWrite1(@RequestParam(value="locIdx[]") List<Integer> locIdx, 
-//		     @RequestMapping(value="/routeWrite1")
-//		   @ResponseBody
-//		        @RequestParam String content, @RequestParam String loginId, @RequestParam String title) {
-//
-//		      Object[] locationIdx = locIdx.toArray();
-//		      
-//		      int board_idx = routeService.routeWrite(locationIdx, loginId, title, content);   
-//		      HashMap<String, Object> map = new HashMap<String, Object>();
-//		      map.put("board_idx", board_idx);
-//		      return map;
-//		   }
-	
-//    public void insetUser(Map<string, object=""> map) {
-//        List<userdto> list = (ArrayList<userdto>)map.get("list");
-//        for(UserDto dto : list) {
-//            mapper.insert("user.insert", dto);
-//        }
-//    }
-	
-//	@ResponseBody
-//	@PostMapping(value="/memberJoin1.ajax")
-//	public HashMap<Object, Object> memberJoin (Map<String, Object> map){
-//		return map;
-//	}
-	
-	
 	
 	@GetMapping(value="/memberList.go")
 	public String listMain(Model model) {
 		ArrayList<MemberDTO> memberList = memberService.memberList();
+		ArrayList<MemberDTO> teamDto = memberService.teamList();
+		ArrayList<MemberDTO> posDto = memberService.posList();
+		ArrayList<MemberDTO> dutyDto = memberService.dutyList();
+		ArrayList<MemberDTO> stateDto = memberService.stateList();
+		model.addAttribute("teamMem",teamDto);
+		model.addAttribute("posMem",posDto);
+		model.addAttribute("dutyMem",dutyDto);
+		model.addAttribute("stateMem",stateDto);
 		model.addAttribute("list",memberList);
 		return "memberList";
 	}
@@ -191,6 +137,26 @@ public class MemberController {
 		return new ResponseEntity<Resource>(resource,header,HttpStatus.OK);
 	}
 	
+	@ResponseBody
+	@GetMapping(value="/selList.ajax")
+	public HashMap<String, Object> selList(@RequestParam HashMap<String, String> params,Model model){
+		logger.info("컨트롤러 호출");
+		ArrayList<MemberDTO> teamDto = memberService.teamList();
+		ArrayList<MemberDTO> posDto = memberService.posList();
+		ArrayList<MemberDTO> dutyDto = memberService.dutyList();
+		ArrayList<MemberDTO> stateDto = memberService.stateList();
+		model.addAttribute("teamMem",teamDto);
+		model.addAttribute("posMem",posDto);
+		model.addAttribute("dutyMem",dutyDto);
+		model.addAttribute("stateMem",stateDto);
+		logger.info("dto :{}",teamDto);
+		logger.info("dto :{}",posDto);
+		logger.info("dto :{}",dutyDto);
+		logger.info("dto :{}",stateDto);
+		logger.info("sel:{}",params);
+
+		return memberService.selList(params);
+	}
 	
 
 	

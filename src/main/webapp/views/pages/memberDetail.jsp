@@ -275,7 +275,7 @@
 											<div class="col-md-6 col-sm-6 offset-md-3">
 												<button class="btn btn-primary" type="button">Cancel</button>
 												<button class="btn btn-primary" type="reset">Reset</button>
-												<button type="submit" class="btn btn-success">Submit</button>
+												<button type="button" onclick="location.href='/memberUpdate.go?emp_id=${mem.emp_id}'" class="btn btn-success">수정하기</button>
 											</div>
 										</div>
 

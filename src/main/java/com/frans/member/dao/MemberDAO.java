@@ -61,7 +61,7 @@ public interface MemberDAO {
 
 	void join4(String emp_id, String license_name, String license_date, String license_place, String license_result);
 
-
+	ArrayList<MemberDTO> selList(HashMap<String, String> params);
 
 
 

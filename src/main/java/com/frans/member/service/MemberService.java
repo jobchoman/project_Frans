@@ -190,11 +190,11 @@ public class MemberService {
 		
 	}
 
-
-	public HashMap<String, Object> selList(String sel, String con) {
+	
+	public HashMap<String, Object> selList(HashMap<String, String> params) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		ArrayList<MemberDTO> selList = memberDao.selList(sel,con);
-		map.put("sel", selList);
+		ArrayList<MemberDTO> selList = memberDao.selList(params);
+		map.put("data", selList);
 		return map;
 	}
 

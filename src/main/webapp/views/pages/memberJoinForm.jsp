@@ -136,7 +136,7 @@
 											</label>
 											<div class="col-md-6 col-sm-6 ">
 												<input type="text" id="emp_address" onclick="addr()" name="emp_address" class="form-control "/>
-												<input type="text" id="address_detail" name="address_detail" required="required" class="form-control ">
+												<input type="text" id="address_detail" placeholder="상세주소" name="address_detail" required="required" class="form-control ">
 											</div>
 										</div>
 
@@ -267,8 +267,7 @@
 											<div class="col-md-6 col-sm-6 ">
 												<div></div>
 												<select name="auth_type" class="form-control " required="required">
-												  <option value="0" selected="selected">없음</option>
-												  <option value="1">공개문서 열람</option>
+												  <option value="1" selected="selected">공개문서 열람</option>
 												  <option value="2">전체 열람</option>
 											    </select>
 											</div>
