@@ -1,9 +1,9 @@
 package com.frans.stock.dao;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.apache.ibatis.annotations.Mapper;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.frans.stock.dto.MenuDTO;
 
@@ -12,8 +12,16 @@ public interface MenuDAO {
 
 	int menuRegister(MenuDTO mDTO);
 
-	void menuPhotoUpload(String oriFileName, String newFileName, String menu_idx);
-
 	int menuCount();
+
+	ArrayList<HashMap<String, String>> menuList();
+
+	ArrayList<HashMap<String, Object>> menuListCall(String menu_state);
+
+	MenuDTO menuDetail(String menu_idx);
+
+	void menuUpdate1(MenuDTO mDTO);
+
+	void menuUpdate2(MenuDTO mDTO);
 
 }

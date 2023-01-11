@@ -3,6 +3,7 @@ package com.frans.stock.service;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.slf4j.Logger;
@@ -18,7 +19,7 @@ import com.frans.stock.dto.MenuDTO;
 @Service
 public class MenuService {
 	
-	@Value("${file.location}") private String root;
+	
 	
 	Logger logger = LoggerFactory.getLogger(getClass());
 	
@@ -29,33 +30,45 @@ public class MenuService {
 		logger.info(row+"개 메뉴 등록 완료!");
 	}
 
-	public void menuPhotoUpload(MultipartFile uploadFile, String menu_idx) {
-		
-		// 1. 파일명 추출
-		String oriFileName = uploadFile.getOriginalFilename();
-		logger.info("oriFileName : "+oriFileName);
-		String ext = oriFileName.substring(oriFileName.lastIndexOf("."));
-		// 2. 새 파일명 생성
-		String newFileName = System.currentTimeMillis()+ext;
-		
-		mDAO.menuPhotoUpload(oriFileName, newFileName, menu_idx);
-		
-		// 파일 저장
-		try {
-			// uploadFile 에서 바이트 추출
-			byte[] arr = uploadFile.getBytes();
-			// 저장할 파일
-			Path path = Paths.get(root+newFileName);
-			// 파일 쓰기
-			Files.write(path, arr);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
 
 	public int menuCount() {
 		int cnt = mDAO.menuCount();
 		return cnt;
+	}
+
+	public ArrayList<HashMap<String, String>> menuList() {
+		ArrayList<HashMap<String, String>> list = mDAO.menuList();
+		return list;
+	}
+
+
+	public HashMap<String, Object> menuListCall(String menu_state) {
+		
+		HashMap<String, Object> menuList = new HashMap<String, Object>();
+		
+		menuList.put("data", mDAO.menuListCall(menu_state));
+		
+		logger.info("메뉴 리스트 : "+menuList);
+		
+		return menuList;
+	}
+
+
+	public MenuDTO menuDetail(String menu_idx) {
+		MenuDTO dto = mDAO.menuDetail(menu_idx);
+		return dto;
+	}
+
+
+	public void menuUpdate1(MenuDTO mDTO) {
+		mDAO.menuUpdate1(mDTO);
+		
+	}
+
+
+	public void menuUpdate2(MenuDTO mDTO) {
+		mDAO.menuUpdate2(mDTO);
+		
 	}
 	
 }

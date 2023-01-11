@@ -45,11 +45,12 @@
 <!-- 								</div> -->
 								<div class="x_content">
 									<br />
-									<form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" action="menuWrite.do" method="POST" enctype="multipart/form-data">
+									<form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" action="menuUpdate.do" method="POST" enctype="multipart/form-data">
 														
 										<div class="item form-group">
 											<label class="col-form-label col-md-3 col-sm-3 label-align">
 												<input type="file" name="uploadFile"/>
+												<img width="300" src="/photo/${detail.menu_photo}"/>
 											</label>
 											
 										</div>
@@ -57,13 +58,29 @@
 											<label class="col-form-label col-md-3 col-sm-3 label-align">메뉴 이름 <span class="required">*</span>
 											</label>
 											<div class="col-md-6 col-sm-6 ">
-												<input type="text" name="menu_name" class="form-control" required="required">
+												<input type="text" name="menu_name" class="form-control" required="required" value="${detail.menu_name}">
+												<input type="hidden" name="menu_idx" value="${detail.menu_idx}">
+											<select name="menu_state" class="form-control ">
+                                             	<option value="${detail.menu_state}" selected="selected">${detail.menu_state}</option>
+                                             	<c:if test="${detail.menu_state eq '판매중'}">
+                                             	<option value="준비중">준비중</option>
+                                             	<option value="비활성화">비활성화</option>
+                                             	</c:if>
+                                             	<c:if test="${detail.menu_state eq '준비중'}">
+                                             	<option value="판매중">판매중</option>
+                                             	<option value="비활성화">비활성화</option>
+                                             	</c:if>
+                                             	<c:if test="${detail.menu_state eq '비활성화'}">
+                                             	<option value="판매중">판매중</option>
+                                             	<option value="준비중">준비중</option>
+                                             	</c:if>
+                                          	</select>
 											</div>
 										</div>
 										<div class="item form-group">
 											<label class="col-form-label col-md-3 col-sm-3 label-align">메뉴 가격 <span class="required">*</span></label> 
 											<div class="col-md-6 col-sm-6 ">
-												<input type="text" name="menu_price" class="form-control" required="required">
+												<input type="text" name="menu_price" class="form-control" required="required" value="${detail.menu_price}">
 											</div>
 										</div>
 <!-- 										<div class="item form-group"> -->
@@ -83,7 +100,7 @@
 											<label class="col-form-label col-md-3 col-sm-3 label-align">출시 일자 <span class="required">*</span>
 											</label>
 											<div class="col-md-6 col-sm-6 ">
-												<input name="menu_start" class="date-picker form-control" placeholder="dd-mm-yyyy" type="text" required="required" type="text" onfocus="this.type='date'" onmouseover="this.type='date'" onclick="this.type='date'" onblur="this.type='text'" onmouseout="timeFunctionLong(this)">
+												<input name="menu_start" class="date-picker form-control" value="${detail.menu_start}" placeholder="dd-mm-yyyy" type="text" required="required" type="text" onfocus="this.type='date'" onmouseover="this.type='date'" onclick="this.type='date'" onblur="this.type='text'" onmouseout="timeFunctionLong(this)" readonly>
 												<script>
 													function timeFunctionLong(input) {
 														setTimeout(function() {
@@ -99,7 +116,7 @@
 										
 											<label class="col-form-label col-md-3 col-sm-3 label-align">레시피 <span class="required">*</span></label>
 											<div class="col-md-6 col-sm-6 ">
-											<textarea name="menu_recipe" required="required" class="form-control" name="message" data-parsley-trigger="keyup" data-parsley-minlength="10" data-parsley-maxlength="100" data-parsley-minlength-message="10글자 이상 작성 바람" data-parsley-validation-threshold="10"></textarea>
+											<textarea name="menu_recipe" required="required" class="form-control" name="message" data-parsley-trigger="keyup" data-parsley-minlength="10" data-parsley-maxlength="100" data-parsley-minlength-message="10글자 이상 작성 바람" data-parsley-validation-threshold="10">${detail.menu_recipe}</textarea>
 											</div>
 										</div>
 
@@ -108,7 +125,7 @@
 											<div class="col-md-6 col-sm-6 offset-md-3">
 												
 												<button class="btn btn-primary" type="reset">초기화</button>
-												<button type="submit" class="btn btn-success" id="menuRigist">등록하기</button>
+												<button type="submit" class="btn btn-success" id="menuUpdate">수정완료</button>
 											</div>
 										</div>
 
@@ -130,8 +147,8 @@
 </body>
 <script>
 $(function() {
-	$('#menuRigist').click(function(){
-		if(!confirm('메뉴 등록을 하시겠습니까?')) {
+	$('#menuUpdate').click(function(){
+		if(!confirm('메뉴 수정을 하시겠습니까?')) {
 			return false;
 		}
 	});

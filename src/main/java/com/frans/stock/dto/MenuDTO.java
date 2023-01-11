@@ -1,10 +1,8 @@
 package com.frans.stock.dto;
 
-import java.sql.Date;
-
 import org.apache.ibatis.type.Alias;
 
-@Alias("menu")
+@Alias("menuDTO")
 public class MenuDTO {
 
 	private String menu_idx;
@@ -13,6 +11,7 @@ public class MenuDTO {
 	private String menu_recipe;
 	private String menu_start;
 	private String menu_state;
+	private String menu_photo;
 	
 	public String getMenu_idx() {
 		return menu_idx;
@@ -49,6 +48,12 @@ public class MenuDTO {
 	}
 	public void setMenu_state(String menu_state) {
 		this.menu_state = menu_state;
+	}
+	public String getMenu_photo() {
+		return menu_photo;
+	}
+	public void setMenu_photo(String menu_photo) {
+		this.menu_photo = menu_photo;
 	}
 	
 	
