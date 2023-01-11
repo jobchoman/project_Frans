@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.frans.member.dto.MemberDTO;
 import com.frans.sign.dto.DocFormDTO;
 import com.frans.sign.dto.signDTO;
 
@@ -15,5 +16,7 @@ public interface SignDAO {
 	ArrayList<signDTO> dateSearch(String startdate, String enddate);
 
 	DocFormDTO signWriteGo(String doc_form_idx);
+
+	ArrayList<MemberDTO> memberList();
 
 }

@@ -39,6 +39,7 @@
 	
 	#docFormSearchBtn {
 		background-color:#2A3F54;
+		border-color:#2A3F54;
 		font-size: 9pt;
 	}
 	
@@ -210,22 +211,6 @@ function listCall(){
 		dataType:'JSON',
 		success:function(data){
 			drawList(data.docformlist);
-/*			
-			if(data.list.length==0){
-				$("#pagination").twbsPagination("destroy");
-			} else {
-				$('#pagination').twbsPagination({
-					startPage:1,
-					totalPages:data.total, 
-					visiblePages:5,
-					onPageClick:function(e,page){ 
-						listCall(page);
-						console.log($("#pagination"));
-
-					}
-				});
-			}
-			*/
 		},
 		error:function(e){
 			console.log(e);

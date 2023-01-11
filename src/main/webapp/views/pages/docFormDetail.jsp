@@ -16,7 +16,15 @@
 history.replaceState({}, null, location.pathname);
 </script> -->
 <style>
+	.addWrap {
+	   display: flex;
+	   flex-direction: column;
+	   justify-content: flex-start;
+	   align-items: center;
+	}
+
 	#formWritediv{
+/*		display: flex;*/
 		justify-content: center;
    		align-items: center;
    		flex-direction: column;
@@ -57,7 +65,7 @@ history.replaceState({}, null, location.pathname);
 			<!-- /top navigation -->
 
 			<!-- page content -->
-			<div class="right_col" role="main">
+			<div class="right_col addWrap" role="main">
 			<div id="formWritediv">
 				<form action="/docForm/write.do" method="post">
 					<div class="col-md-6 col-sm-6  " style="max-width: 100%">

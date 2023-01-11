@@ -13,6 +13,14 @@
 <script type="text/javascript" src="/richtexteditor/rte.js"></script>
 <script type="text/javascript" src='/richtexteditor/plugins/all_plugins.js'></script>
 <style>
+
+	.addWrap {
+	   display: flex;
+	   flex-direction: column;
+	   justify-content: flex-start;
+	   align-items: center;
+	}
+	
 	#formWritediv{
 		justify-content: center;
    		align-items: center;
@@ -53,7 +61,7 @@
 			<!-- /top navigation -->
 
 			<!-- page content -->
-			<div class="right_col" role="main">
+			<div class="right_col addWrap" role="main">
 			<div id="formWritediv">
 				<form action="/docForm/write.do" method="post">
 					<div class="col-md-6 col-sm-6  ">

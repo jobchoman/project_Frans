@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.frans.member.dto.MemberDTO;
 import com.frans.sign.dao.SignDAO;
 import com.frans.sign.dto.DocFormDTO;
 import com.frans.sign.dto.signDTO;
@@ -56,9 +57,20 @@ public class SignService {
 	public ModelAndView signWriteGo(String doc_form_idx) {
 		ModelAndView mav = new ModelAndView("signWrite");
 		DocFormDTO docformdto = signdao.signWriteGo(doc_form_idx);
-		
+		ArrayList<MemberDTO> memberlist = signdao.memberList();
 		mav.addObject("docformdto",docformdto);
+		mav.addObject("memberlist",memberlist);
 		return mav;
+	}
+
+	public String signMember(HashMap<String, String> params, String string) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public String refMember(HashMap<String, String> params, String string) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	

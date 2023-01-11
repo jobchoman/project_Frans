@@ -19,7 +19,12 @@
 	
 	<select id="signWriteGo" resultType="DocFormDTO">
 		SELECT df.doc_form_content, dt.doc_type_name FROM doc_form df, document_type dt
-	WHERE df.doc_type_idx = dt.doc_type_idx AND doc_form_idx = #{param1};
+			WHERE df.doc_type_idx = dt.doc_type_idx AND doc_form_idx = #{param1};
+	</select>
+	
+	<select id="memberList" resultType="com.frans.member.dto.MemberDTO">
+		SELECT e.emp_id, e.emp_name, t.team_name, p.pos_name FROM employee e, team t, position p
+			WHERE e.team_idx = t.team_idx AND e.pos_idx = p.pos_idx;
 	</select>
 
 </mapper>

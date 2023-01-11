@@ -2,12 +2,15 @@ package com.frans.sign.controller;
 
 import java.util.HashMap;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
@@ -53,6 +56,23 @@ public class SignController {
 		logger.info("idx: "+doc_form_idx);
 		
 		return signservice.signWriteGo(doc_form_idx);
+	}
+	
+	@PostMapping(value="/sign/write.do")
+	public String signWrite(@RequestParam HashMap<String, String> params, HttpServletRequest req) {
+		logger.info("params: {}",params);
+		String sign_emp[] = req.getParameterValues("empName");
+		String ref_emp[] = req.getParameterValues("ref_empName");
+		
+		for (int i=0; i<sign_emp.length; i++) {
+			logger.info("결재자: {}",sign_emp[i]);
+			return signservice.signMember(params, sign_emp[i]);
+		}
+		for (int i=0; i<ref_emp.length; i++) {
+			logger.info("참조자: {}",ref_emp[i]);
+			return signservice.refMember(params, ref_emp[i]);
+		}
+		return "redirect:/signList.go";
 	}
 	
 }
