@@ -48,9 +48,9 @@ public class StockService {
 		
 		return stockdao.subList(stock_sort_idx);
 	}
-	public ArrayList<StockDTO> shopSubList(String stock_sort_idx) {
+	public ArrayList<StockDTO> shopSubList(String stock_sort_idx, String emp_id) {
 		
-		return stockdao.shopSubList(stock_sort_idx);
+		return stockdao.shopSubList(stock_sort_idx,emp_id);
 	}
 	public ArrayList<StockDTO> updateView(HashMap<String, String> params) {
 		//stockdao.updateStock(params);	// stock 수정

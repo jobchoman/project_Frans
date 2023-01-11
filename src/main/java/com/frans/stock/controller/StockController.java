@@ -3,6 +3,9 @@ package com.frans.stock.controller;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,14 +68,16 @@ public class StockController {
 	
 	@ResponseBody
 	@GetMapping(value="/stock/shopSubList.do")
-	public HashMap<String, Object> shopSubList(@RequestParam HashMap<String, String> params){
+	public HashMap<String, Object> shopSubList(@RequestParam HashMap<String, String> params,HttpServletRequest req){
 //		HashMap<String, Object> map = new HashMap<String, Object>();
 //		ArrayList<StockDTO> comStockList = stockservice.comList();
 //		map.put("comStockList", comStockList);
+		HttpSession session = req.getSession();
+		String emp_id = (String) session.getAttribute("loginId");
 		logger.info("params : {}",params);
 		String stock_sort_idx = params.get("stock_sort_idx");
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		ArrayList<StockDTO> shopSubList = stockservice.shopSubList(stock_sort_idx);
+		ArrayList<StockDTO> shopSubList = stockservice.shopSubList(stock_sort_idx,emp_id);
 		map.put("data", shopSubList);
 		return map;
 		

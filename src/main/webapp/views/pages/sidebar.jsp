@@ -9,7 +9,7 @@
 
 		<div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
-              <a href="/" class="site_title"><i class="fa fa-paw"></i> <span>Gentelella Alela!</span></a>
+              <a href="/" class="site_title"><i class="fa fa-paw"></i> <span>Frans!</span></a>
             </div>
 
         	<div class="clearfix"></div>
@@ -31,94 +31,85 @@
             <!-- sidebar menu -->
             <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
               <div class="menu_section">
-                <h3>General</h3>
+                <h3>본사</h3>
                 <ul class="nav side-menu">
-                  <li><a><i class="fa fa-edit"></i> Forms <span class="fa fa-chevron-down"></span></a>
+                  <li><a><i class="fa fa-edit"></i> 결재 <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="/form.go">General Form</a></li>
-                      <li><a href="/form_advanced.go">Advanced Components</a></li>
-                      <li><a href="/form_validation.go">Form Validation</a></li>
-                      <li><a href="/form_wizards.go">Form Wizard</a></li>
-                      <li><a href="/form_upload.go">Form Upload</a></li>
-                      <li><a href="/form_buttons.go">Form Buttons</a></li>
+                      <li><a href="/docFormList.go">문서 서식</a></li>
+                      <li><a href="/signList.go">결재 문서</a></li>
+                      <li><a href="/signList.go">결재자 문서</a></li>
+                      <li><a href="/signList.go">참조자 문서</a></li>
                     </ul>
                   </li>
-                  <li><a><i class="fa fa-desktop"></i> UI Elements <span class="fa fa-chevron-down"></span></a>
+                  <li><a><i class="fa fa-group"></i> 직원 <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="/general_elements.go">General Elements</a></li>
-                      <li><a href="/media_gallery.go">Media Gallery</a></li>
-                      <li><a href="/typography.go">Typography</a></li>
-                      <li><a href="/icons.go">Icons</a></li>
-                      <li><a href="/glyphicons.go">Glyphicons</a></li>
-                      <li><a href="/widgets.go">Widgets</a></li>
-                      <li><a href="/invoice.go">Invoice</a></li>
-                      <li><a href="/inbox.go">Inbox</a></li>
-                      <li><a href="/calendar.go">Calendar</a></li>
+                      <li><a href="/general_elements.go">조직도</a></li>
+                      <li><a href="/memberList.go">직원 리스트</a></li>
+                      <li><a href="/infoList.go">팀/직책/직급</a></li>
                     </ul>
                   </li>
-                  <li><a><i class="fa fa-table"></i> Tables <span class="fa fa-chevron-down"></span></a>
+                  <li><a href="/calender.go"><i class="fa fa-calendar"></i> 개인 일정 <span class="fa fa-chevron-down"></span></a>
+                   
+                  </li>
+                  <li><a><i class="fa fa-cog"></i> 시설 <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="/tables.go">Tables</a></li>
-                      <li><a href="/tables_dynamic.go">Table Dynamic</a></li>
+                      <li><a href="/facilitiesManagerMain.go">시설 관리</a></li>
+                      <li><a href="/facilitiesMain.go">시설 일정</a></li>
+                      
                     </ul>
                   </li>
-                  <li><a><i class="fa fa-bar-chart-o"></i> Data Presentation <span class="fa fa-chevron-down"></span></a>
+                  <li><a><i class="fa fa-bookmark"></i> 게시판 <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="/chartjs.go">Chart JS</a></li>
-                      <li><a href="/chartjs2.go">Chart JS2</a></li>
-                      <li><a href="/morisjs.go">Moris JS</a></li>
-                      <li><a href="/echarts.go">ECharts</a></li>
-                      <li><a href="/other_charts.go">Other Charts</a></li>
+                      <li><a href="/notiList.go">공지사항</a></li>
+                      <li><a href="/newMenuList.go">신메뉴 추천 게시판</a></li>
                     </ul>
                   </li>
-                  <li><a><i class="fa fa-clone"></i>Layouts <span class="fa fa-chevron-down"></span></a>
+                  <li><a href="/subList.go"><i class="fa fa-pencil"></i>구독권 <span class="fa fa-chevron-down"></span></a>
+                 
+                  </li>
+                  <li><a href="/storeList.go"><i class="fa fa-institution"></i>매장 <span class="fa fa-chevron-down"></span></a>
+                    
+                  </li>
+                  <li><a href="/menuList.go"><i class="fa fa-cutlery"></i>메뉴 <span class="fa fa-chevron-down"></span></a>
+                    
+                  </li>
+                  <li><a><i class="fa fa-archive"></i>자재 <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="fixed_sidebar.html">Fixed Sidebar</a></li>
-                      <li><a href="fixed_footer.html">Fixed Footer</a></li>
+                      <li><a href="/stockAdd.go">자재 관리</a></li>
+                      <li><a href="/orderList.go">발주</a></li>
+                    </ul>
+                  </li>
+                  <li><a><i class="fa fa-bar-chart"></i>통계 <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="fixed_sidebar.html">매출</a></li>
+                      <li><a href="fixed_footer.html">메뉴</a></li>
+                      <li><a href="fixed_footer.html">구독권</a></li>
                     </ul>
                   </li>
                 </ul>
               </div>
               <div class="menu_section">
-                <h3>Live On</h3>
+                <h3>매장</h3>
                 <ul class="nav side-menu">
-                  <li><a><i class="fa fa-bug"></i> Additional Pages <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="/e_commerce.go">E-commerce</a></li>
-                      <li><a href="/projects.go">Projects</a></li>
-                      <li><a href="/project_detail.go">Project Detail</a></li>
-                      <li><a href="/contacts.go">Contacts</a></li>
-                      <li><a href="/profile.go">Profile</a></li>
+                  <li><a href="/userList.go"><i class="fa fa-user"></i> 회원 관리 <span class="fa fa-chevron-down"></span></a>
+                 
+                  </li>
+                  <li><a><i class="fa fa-shopping-cart"></i> 발주 <span class="fa fa-chevron-down"></span></a>
+                   <ul class="nav child_menu">
+         
+                      <li><a href="/shopStock.go">자재 관리</a></li>
+                      <li><a href="/shopOrderList.go">발주 리스트</a></li>
+
                     </ul>
                   </li>
-                  <li><a><i class="fa fa-windows"></i> Extras <span class="fa fa-chevron-down"></span></a>
+                  <li><a><i class="fa fa-bar-chart"></i> 통계 <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="page_403.html">403 Error</a></li>
-                      <li><a href="page_404.html">404 Error</a></li>
-                      <li><a href="page_500.html">500 Error</a></li>
-                      <li><a href="/plain_page.go">Plain Page</a></li>
-                      <li><a href="/login.go">Login Page</a></li>
-                      <li><a href="/pricing_tables.go">Pricing Tables</a></li>
+                      <li><a href="fixed_sidebar.html">매출</a></li>
+                      <li><a href="fixed_footer.html">메뉴</a></li>
+                      <li><a href="fixed_footer.html">구독권</a></li>
                     </ul>
-                  </li>
-                  <li><a><i class="fa fa-sitemap"></i> Multilevel Menu <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                        <li><a href="#level1_1">Level One</a>
-                        <li><a>Level One<span class="fa fa-chevron-down"></span></a>
-                          <ul class="nav child_menu">
-                            <li class="sub_menu"><a href="/level2.go">Level Two</a>
-                            </li>
-                            <li><a href="#level2_1">Level Two</a>
-                            </li>
-                            <li><a href="#level2_2">Level Two</a>
-                            </li>
-                          </ul>
-                        </li>
-                        <li><a href="#level1_2">Level One</a>
-                        </li>
-                    </ul>
+                       
                   </li>                  
-                  <li><a href="javascript:void(0)"><i class="fa fa-laptop"></i> Landing Page <span class="label label-success pull-right">Coming Soon</span></a></li>
                 </ul>
               </div>
 
@@ -136,7 +127,7 @@
               <a data-toggle="tooltip" data-placement="top" title="Lock">
                 <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
               </a>
-              <a data-toggle="tooltip" data-placement="top" title="Logout" href="login.html">
+              <a data-toggle="tooltip" data-placement="top" title="Logout" href="/memberLogout.do">
                 <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
               </a>
             </div>

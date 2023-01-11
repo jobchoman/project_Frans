@@ -100,7 +100,7 @@ public class MemberController {
 		logger.info("params : {}",params);
 		// 이력번호, 라이센스 이름이 없으면 안넘어가도록
 		memberService.join(params,file,file2,req);
-		return "index";
+		return "redirect:/index";
 	}
 	
 //	@ResponseBody
