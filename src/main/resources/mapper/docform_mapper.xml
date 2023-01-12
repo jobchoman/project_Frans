@@ -29,7 +29,7 @@
 			keyProperty="doc_form_idx"
 			parameterType="DocFormDTO">
 		INSERT INTO doc_form(emp_id, doc_type_idx, doc_form_content, doc_form_name)
-			VALUES('20180001',#{doc_type_idx},#{doc_form_content},#{doc_form_name})
+			VALUES('20102010',#{doc_type_idx},#{doc_form_content},#{doc_form_name})
 	</insert>
 	
 	<select id="docFormDetail" resultType="DocFormDTO">
@@ -41,5 +41,9 @@
 	<delete id="docFormDelete">
 		DELETE FROM doc_form WHERE doc_form_idx = #{param1}
 	</delete>
+	
+	<update id="docForm_hit_update">
+		UPDATE doc_form SET doc_form_upHit = doc_form_upHit +1 WHERE doc_form_idx = #{param1} 
+	</update>
 
 </mapper>

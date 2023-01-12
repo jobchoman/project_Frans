@@ -8,14 +8,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.frans.sign.dto.DocFormDTO;
 import com.frans.sign.service.DocFormService;
 import com.frans.sign.service.SignService;
 
@@ -59,22 +57,24 @@ public class SignController {
 	}
 	
 	@PostMapping(value="/sign/write.do")
-	public String signWrite(@RequestParam HashMap<String, String> params, HttpServletRequest req) {
+	public String signWriteDo(@RequestParam HashMap<String, String> params, HttpServletRequest req) {
+		logger.info("결재 문서 작성 컨트롤러");
 		logger.info("params: {}",params);
-		String sign_emp[] = req.getParameterValues("empName");
-		String ref_emp[] = req.getParameterValues("ref_empName");
-		
-		for (int i=0; i<sign_emp.length; i++) {
-			logger.info("결재자: {}",sign_emp[i]);
-			return signservice.signMember(params, sign_emp[i]);
-		}
-		for (int i=0; i<ref_emp.length; i++) {
-			logger.info("참조자: {}",ref_emp[i]);
-			return signservice.refMember(params, ref_emp[i]);
-		}
-		return "redirect:/signList.go";
+		String[] empIdx_input = req.getParameterValues("empIdx_input");
+		String[] ref_empIdx_input = req.getParameterValues("ref_empIdx_input");
+		logger.info("결재자 길이: "+empIdx_input.length);
+		logger.info("참조자 길이: "+ref_empIdx_input.length);
+	
+		return signservice.signWriteDo(params,empIdx_input,ref_empIdx_input);
 	}
 	
+	@GetMapping(value="/signDetail.go")
+	public ModelAndView signDetailGo(String sign_idx) {
+		logger.info("결재 문서 상세페이지 컨트롤러");
+		logger.info("글 idx: "+sign_idx);
+		return signservice.signDetailGo(sign_idx);
+//		return null;
+	}
 }
 
 

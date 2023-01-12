@@ -18,7 +18,7 @@
 	</select>
 	
 	<select id="signWriteGo" resultType="DocFormDTO">
-		SELECT df.doc_form_content, dt.doc_type_name FROM doc_form df, document_type dt
+		SELECT df.doc_form_idx, df.doc_form_content, dt.doc_type_name, dt.doc_type_idx FROM doc_form df, document_type dt
 			WHERE df.doc_type_idx = dt.doc_type_idx AND doc_form_idx = #{param1};
 	</select>
 	
@@ -26,5 +26,39 @@
 		SELECT e.emp_id, e.emp_name, t.team_name, p.pos_name FROM employee e, team t, position p
 			WHERE e.team_idx = t.team_idx AND e.pos_idx = p.pos_idx;
 	</select>
+	
+	<insert id="signWriteDo"
+			useGeneratedKeys="true"
+			keyColumn="sign_idx"
+			keyProperty="sign_idx"
+			parameterType="signDTO">
+			INSERT INTO sign(emp_id, doc_type_idx, sign_content, sign_title, sign_team_open)
+				VALUES ('20160004', #{doc_type_idx}, #{sign_content},#{sign_title},
+			<if test="sign_team_open.equals('공개')">'공개')</if>
+			<if test="sign_team_open.equals('비공개')">'비공개')</if>
+	</insert>
+	
+ 	<insert id="signMember"
+ 			useGeneratedKeys="true"
+			keyColumn="emp_id"
+			keyProperty="emp_id"
+			parameterType="signMemDTO">
+			INSERT INTO sign_mem(emp_id, sign_idx, sign_mem_order, sign_mem_ip)
+				VALUES(#{emp_id}, #{sign_idx}, #{sign_mem_order}, '127.0.0.1')
+	</insert> 
+	
+	<insert id="refMember"
+			useGeneratedKeys="true"
+			keyColumn="emp_id"
+			keyProperty="emp_id"
+			parameterType="ReferDTO">
+		INSERT INTO reference(emp_id, sign_idx) VALUES(#{emp_id}, #{sign_idx})
+	</insert>
+	
+	<update id="docForm_use_update">
+		UPDATE doc_form SET doc_form_use = doc_form_use +1 WHERE doc_form_idx = #{param1} 
+	</update>
+
+	
 
 </mapper>

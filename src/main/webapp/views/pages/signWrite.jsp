@@ -30,6 +30,7 @@
 	th {
 		display: inline-block;
 		white-space: nowrap;
+		display: table-cell;
 	}
 	
 	#savebtn {
@@ -68,10 +69,6 @@
 		display: none;
 	}
 	
-	th {
-		display: table-cell
-	}
-	
 	.row > .col-sm-6:first-child {
 		display: none;
 	}
@@ -106,7 +103,11 @@
 							<table class="table">
 								<tr>
 									<th scope="row">문서 종류</th>
-									<td>${docformdto.doc_type_name}</td>
+									<td>
+										${docformdto.doc_type_name}
+										<input type="hidden" name="doc_type_idx" value="${docformdto.doc_type_idx}">
+										<input type="hidden" name="doc_form_idx" value="${docformdto.doc_form_idx}">
+									</td>
 								</tr>
 								<tr>
 									<th scope="row">공개 여부</th>
@@ -133,7 +134,7 @@
 									         <div id="emp1">
 									         	<!-- <input type="text" class="empName1" name="empName1" id="empName1" placeholder="사원 검색" onclick="empSearch_popup(event)" readonly> -->
 									            <input type="text" class="empName1" name="empName" id="empName1" placeholder="사원 검색" onclick="empSearch_popup(event)" readonly>
-									            <input class="empIdx_input1" readonly="readonly" type="hidden" />
+									            <input class="empIdx_input1" name="empIdx_input" readonly="readonly" type="hidden" />
 									            <button type="button" id="addSignEmp" name="addSignEmp" onclick="clickP()" class="btn btn-round btn-info">+</button>
 									         </div>
 									      </div>
@@ -146,7 +147,7 @@
 									         <div id="ref_emp1">
 									         	<!-- <input type="text" class="empName1" name="empName1" id="empName1" placeholder="사원 검색" onclick="empSearch_popup(event)" readonly> -->
 									            <input type="text" class="ref_empName1" name="ref_empName" id="ref_empName1" placeholder="사원 검색" onclick="empSearch_popup(event)" readonly>
-									            <input class="ref_empIdx_input1" readonly="readonly" type="hidden" />
+									            <input class="ref_empIdx_input1" name="ref_empIdx_input" readonly="readonly" type="hidden" />
 									            <button type="button" id="addRefEmp" name="addRefEmp" onclick="addRef()" class="btn btn-round btn-info">+</button>
 									         </div>
 									      </div>
@@ -262,7 +263,7 @@ function clickP(){
 	if (cnt<5){
 		addSign += '<div class="emp'+(cnt+1)+'">';
 		addSign += '<input type="text" class="empName'+(cnt+1)+'" name="empName" id="empName'+(cnt+1)+'" placeholder="사원 검색" onclick="empSearch_popup(event);" readonly>';
-		addSign += '<input class="empIdx_input'+(cnt+1)+'" readonly="readonly" type="hidden" />';
+		addSign += '<input class="empIdx_input'+(cnt+1)+'" name="empIdx_input" readonly="readonly" type="hidden" />';
 		addSign += '<button type="button" id="delEmp'+(cnt+1)+'" class="btn btn-round btn-secondary">-</button>';
 		addSign += '</div>';
 		$("#sign").append(addSign);
@@ -276,9 +277,9 @@ function addRef(){
 	var cnt = $('#ref div').length;
 	console.log(cnt);
 	if (cnt<5){
-		addInput += '<div class="ref'+(cnt+1)+'">';
+		addInput += '<div class="ref_emp'+(cnt+1)+'">';
 		addInput += '<input type="text" class="ref_empName'+(cnt+1)+'" name="ref_empName" id="ref_empName'+(cnt+1)+'" placeholder="사원 검색" onclick="empSearch_popup(event);" readonly>';
-		addInput += '<input class="ref_empIdx_input'+(cnt+1)+'" readonly="readonly" type="hidden" />';
+		addInput += '<input class="ref_empIdx_input'+(cnt+1)+'" name="ref_empIdx_input" readonly="readonly" type="hidden" />';
 		addInput += '<button type="button" id="delRef'+(cnt+1)+'" class="btn btn-round btn-secondary">-</button>';
 		addInput += '</div>';
 		$("#ref").append(addInput);
@@ -306,10 +307,13 @@ function memberSel(elem){
 //		var empName = $(this).attr('value');
 //		var empName = $(elem);
 		var empName = $(elem).children('td:eq(1)').text();
+		var empIdx = $(elem).children('td:eq(0)').text();
 		console.log("클릭한 사원 이름: "+empName); 
+		console.log("클릭한 사원 사번: "+empIdx); 
 		
 		if(empInputIdx == "empName1"){
 			$("#empName1").val(empName);
+			$(".empIdx_input1").val(empIdx);
 			$(elem).attr('onclick','event.cancelBubble=true');
 			$(elem).css('background-color',"lightgray");
 			$(elem).css('color',"gray");
@@ -317,7 +321,7 @@ function memberSel(elem){
 		}else if (empInputIdx == 'empName2'){
 //			debugger;
 			$("#empName2").val(empName);
-//			onclick="event.cancelBubble=true"
+			$(".empIdx_input2").val(empIdx);
 			$(elem).attr('onclick','event.cancelBubble=true');
 			$(elem).css('background-color',"lightgray");
 			$(elem).css('color',"gray");
@@ -325,6 +329,7 @@ function memberSel(elem){
 			
 		}else if (empInputIdx == 'empName3'){
 			$("#empName3").val(empName);
+			$(".empIdx_input3").val(empIdx);
 			$(elem).attr('onclick','event.cancelBubble=true');
 			$(elem).css('background-color',"lightgray");
 			$(elem).css('color',"gray");
@@ -332,6 +337,7 @@ function memberSel(elem){
 			
 		}else if (empInputIdx == 'empName4'){
 			$("#empName4").val(empName);
+			$(".empIdx_input4").val(empIdx);
 			$(elem).attr('onclick','event.cancelBubble=true');
 			$(elem).css('background-color',"lightgray");
 			$(elem).css('color',"gray");
@@ -339,6 +345,7 @@ function memberSel(elem){
 			
 		}else if (empInputIdx == 'empName5'){
 			$("#empName5").val(empName);
+			$(".empIdx_input5").val(empIdx);
 			$(elem).attr('onclick','event.cancelBubble=true');
 			$(elem).css('background-color',"lightgray");
 			$(elem).css('color',"gray");
@@ -346,6 +353,7 @@ function memberSel(elem){
 			
 		}else if (empInputIdx == 'ref_empName1'){
 			$("#ref_empName1").val(empName);
+			$(".ref_empIdx_input1").val(empIdx);
 			$(elem).attr('onclick','event.cancelBubble=true');
 			$(elem).css('background-color',"lightgray");
 			$(elem).css('color',"gray");
@@ -353,6 +361,7 @@ function memberSel(elem){
 			
 		}else if (empInputIdx == 'ref_empName2'){
 			$("#ref_empName2").val(empName);
+			$(".ref_empIdx_input2").val(empIdx);
 			$(elem).attr('onclick','event.cancelBubble=true');
 			$(elem).css('background-color',"lightgray");
 			$(elem).css('color',"gray");
@@ -360,6 +369,7 @@ function memberSel(elem){
 			
 		}else if (empInputIdx == 'ref_empName3'){
 			$("#ref_empName3").val(empName);
+			$(".ref_empIdx_input3").val(empIdx);
 			$(elem).attr('onclick','event.cancelBubble=true');
 			$(elem).css('background-color',"lightgray");
 			$(elem).css('color',"gray");
@@ -367,6 +377,7 @@ function memberSel(elem){
 			
 		}else if (empInputIdx == 'ref_empName4'){
 			$("#ref_empName4").val(empName);
+			$(".ref_empIdx_input4").val(empIdx);
 			$(elem).attr('onclick','event.cancelBubble=true');
 			$(elem).css('background-color',"lightgray");
 			$(elem).css('color',"gray");
@@ -374,6 +385,7 @@ function memberSel(elem){
 			
 		}else if (empInputIdx == 'ref_empName5'){
 			$("#ref_empName5").val(empName);
+			$(".ref_empIdx_input5").val(empIdx);
 			$(elem).attr('onclick','event.cancelBubble=true');
 			$(elem).css('background-color',"lightgray");
 			$(elem).css('color',"gray");
@@ -439,6 +451,48 @@ $(document).on("click","#delEmp4",function(){
 
 $(document).on("click","#delEmp5",function(){
 	$('.emp5').remove();
+});
+
+
+/* 참조자 삭제 */
+
+
+$(document).on("click","#delRef2",function(){
+	$('.ref_emp2').remove();
+   
+	for(var i=0; i<3; i++){
+		$(".ref_emp"+(i+3)).attr("class","ref_emp"+(i+2));
+		$(".ref_empName"+(i+3)).attr("class","ref_empName"+(i+2));
+		$("#ref_empName"+(i+3)).attr("id","ref_empName"+(i+2));
+		$(".ref_empIdx_input"+(i+3)).attr("class","ref_empIdx_input"+(i+2));
+		$("#delRef"+(i+3)).attr("id","delRef"+(i+2));
+	}
+});
+
+$(document).on("click","#delRef3",function(){
+	$('.ref_emp3').remove();
+	   
+	for(var i=0; i<2; i++){
+		$(".ref_emp"+(i+4)).attr("class","ref_emp"+(i+3));
+		$(".ref_empName"+(i+4)).attr("class","ref_empName"+(i+3));
+		$("#ref_empName"+(i+4)).attr("id","ref_empName"+(i+3));
+		$(".ref_empIdx_input"+(i+4)).attr("class","ref_empIdx_input"+(i+3));
+		$("#delRef"+(i+4)).attr("id","delRef"+(i+3));
+	}
+});
+	
+$(document).on("click","#delRef4",function(){
+	$('.ref_emp4').remove();
+	var i = 0;	   
+		$(".ref_emp"+(i+5)).attr("class","ref_emp"+(i+4));
+		$(".ref_empName"+(i+5)).attr("class","ref_empName"+(i+4));
+		$("#ref_empName"+(i+5)).attr("id","ref_empName"+(i+4));
+		$(".ref_empIdx_input"+(i+5)).attr("class","ref_empIdx_input"+(i+4));
+		$("#delRef"+(i+5)).attr("id","delRef"+(i+4));
+});
+
+$(document).on("click","#delRef5",function(){
+	$('.ref_emp5').remove();
 });
 
 

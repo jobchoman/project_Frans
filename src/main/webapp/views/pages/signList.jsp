@@ -23,6 +23,12 @@
 	   justify-content: flex-start;
 	   align-items: center;
 	}
+	
+	#dateSearch {
+		background-color:#2A3F54;
+		border-color:#2A3F54;
+		font-size: 9pt;
+	}
 </style>
 </head>
 <body class="nav-md">
@@ -158,7 +164,7 @@ function drawList(list){
 			content += '<tr>';
 			content += '<td>'+list[i].sign_idx+'</td>';
 //			content += '<td><a href="docFormDetail.go?doc_form_idx='+list[i].doc_form_idx+'">'+list[i].doc_form_name+'</a></td>';
-			content += '<td>'+list[i].sign_title+'</td>';
+			content += '<td><a href="signDetail.go?sign_idx='+list[i].sign_idx+'">'+list[i].sign_title+'</td>';
 			content += '<td>'+list[i].emp_name+'</td>';
 			content += '<td>'+list[i].sign_date+'</td>';
 			content += '<td>'+list[i].sign_state_type+'</td>';

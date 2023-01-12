@@ -13,6 +13,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.frans.sign.dao.DocFormDAO;
 import com.frans.sign.dto.DocFormDTO;
+import com.frans.sign.dto.signDTO;
 
 @Service
 public class DocFormService {
@@ -61,9 +62,11 @@ public class DocFormService {
 	}
 
 	public ModelAndView docFormDetail(String doc_form_idx) {
+		docformdao.docForm_hit_update(doc_form_idx);
 		ModelAndView mav = new ModelAndView("docFormDetail");
 		DocFormDTO docformdto = docformdao.docFormDetail(doc_form_idx);
 		mav.addObject("docformdto",docformdto);
+		
 		return mav;
 	}
 

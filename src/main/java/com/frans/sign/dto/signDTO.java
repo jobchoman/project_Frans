@@ -16,11 +16,19 @@ public class signDTO {
 	private Date sign_date;
 	private String sign_title;
 	private String doc_type_name;
+	private String doc_form_idx;
 	private String doc_form_name;
 	private String emp_name;
 	private String team_idx;
 	private String sign_state_type;
 	
+	
+	public String getDoc_form_idx() {
+		return doc_form_idx;
+	}
+	public void setDoc_form_idx(String doc_form_idx) {
+		this.doc_form_idx = doc_form_idx;
+	}
 	public String getSign_state_type() {
 		return sign_state_type;
 	}

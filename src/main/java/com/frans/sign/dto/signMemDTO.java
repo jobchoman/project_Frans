@@ -2,6 +2,9 @@ package com.frans.sign.dto;
 
 import java.sql.Date;
 
+import org.apache.ibatis.type.Alias;
+
+@Alias("signMemDTO")
 public class signMemDTO {
 	
 	private String emp_id;

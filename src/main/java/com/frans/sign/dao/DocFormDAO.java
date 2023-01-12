@@ -18,5 +18,7 @@ public interface DocFormDAO {
 	DocFormDTO docFormDetail(String doc_form_idx);
 
 	int docFormDelete(String doc_form_idx);
+	
+	void docForm_hit_update(String doc_form_idx);
 
 }
