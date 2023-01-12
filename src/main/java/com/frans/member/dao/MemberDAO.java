@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.frans.member.dto.MemberDTO;
 
@@ -38,7 +39,7 @@ public interface MemberDAO {
 	ArrayList<MemberDTO> fileList1(String emp_id);
 
 	void join2(MemberDTO memberDTO);
-//
+
 	void join3(MemberDTO memberDTO);
 
 	void hash(String hash);
@@ -61,7 +62,21 @@ public interface MemberDAO {
 
 	void join4(String emp_id, String license_name, String license_date, String license_place, String license_result);
 
-	ArrayList<MemberDTO> selList(HashMap<String, String> params);
+	ArrayList<MemberDTO> selList();
+
+	ArrayList<MemberDTO> subsubSel(String controll, HashMap<String, String> params);
+
+	ArrayList<MemberDTO> subSelList(String select, String subSelect);
+
+	ArrayList<MemberDTO> memberDetailSchool(String emp_id);
+
+	ArrayList<MemberDTO> memberDetailLicense(String emp_id);
+
+	void memberUpdate(MemberDTO dto);
+
+	int fileUpdate(MemberDTO dto, MultipartFile file, MultipartFile file2);
+
+
 
 
 

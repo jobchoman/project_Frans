@@ -34,14 +34,18 @@
                   <div class="x_content">
                       <div class="row">
                           <div class="col-sm-12">
-                            <div id="subSel" class="card-box table-responsive">
+                            <div class="card-box table-responsive">
                             
-                            <select id="con" onchange="maListCall()">
+                            <select id="con" onchange="subListCall(this)">
 								<option class="all" value="all" selected="selected">전체</option>
-								<option class="team" value="team" onclick="team()">팀</option>
+								<option class="team" value="team" >팀</option>
 								<option class="pos" value="pos">직급</option>
 								<option class="duty" value="duty">직책</option>
 								<option class="state" value="state">상태</option>
+							</select>
+							
+							<select id="subsel" onchange="maListCall(this)">
+								
 							</select>
 		
 <!-- 							<select name="sel" id="sel" onchange="suListCall()"> -->
@@ -90,6 +94,7 @@
 						
 <!--                       </tbody> -->
                     </table>
+                    <button type="button" onclick="location.href='/memberJoin.go'">직원 등록</button>
                   </div>
                   </div>
               </div>
@@ -109,29 +114,22 @@
 	<jsp:include page="script.jsp" />
 </body>
 <script>
-maListCall();
+ListCall();
 
-var sel = $("#sel option:selected").val();
-console.log(sel);
 var con = $("#con option:selected").val();
 console.log(con);
-var data = JSON.stringify(jObject);
+console.log($("#con option:selected").val());
+console.log($("#con target"));
 
 
-function maListCall(){
+function ListCall(){
 	var table = $("#datatable").DataTable({
 		destroy:true,
 		serverSide:false,
 		ajax:{
 			"url":"/selList.ajax",
 			"type":"get",
-			"data":{
-				"con":"all",
-				"con":"team",
-				"con":"duty",
-				"con":"pos",
-				"con":"state",
-			}
+			"data":{}
 		},
 		columns:[
 			{data:"emp_name"},
@@ -162,44 +160,135 @@ function maListCall(){
         }]
 
 	});
-	subListCall();
+	//subListCall();
 }
 
-function subListCall() {
+function subListCall(target) {
+	console.log("중분류 선택 !");
+	console.log(target.value);
+	
+	var controll = target.value;
+	
 	$.ajax({
-		type:'get',
-		url:'/subSel.ajax',
-		data:{
-			"data":
-			"data":
-		},
-		dataType:'JSON',
-		success:function(data){
-			drawList(data.list);
-
-		},
-		error:function(e){
-			console.log(e);
+		type: 'get',
+		url: '/subsubSel.ajax',
+		data: {"controll" : controll},
+		dataType: 'json',
+		success: function(data){
+			console.log(data);
+			//var sublist = data.subList;
+			
+			drawList(data);
 		}
-	});	
+	});
+	
+	
+
 }
 
-function drawList(list){
+function drawList(data){
+	var list = data.subList;
+	console.log(list);
 	var content = '';
-	if(list.length>0){
-		for(var i=0; i<list.length; i++){
-			content += '<select name="sel" id="sel" onchange="suListCall()">';
-			content += '<c:forEach items="'+${stateMem}+'" var="stateMem">';
-			content += '<option value="상태">'+list[i].emp_state_name+'</option>';
-			content += '<td><a href="docFormDetail.go?doc_form_idx='+list[i].doc_form_idx+'">'+list[i].doc_form_name+'</a></td>';
-			content += '</c:forEach>';
-			content += '</select>';
+	
+
+	for(var i=0; i<list.length; i++){
+		if(data.controll == 'team'){
+			content += '<option value="'+list[i].team_idx+'">'+list[i].team_name+'</option>';
+		}
+		if(data.controll == 'pos'){
+			content += '<option value="'+list[i].pos_idx+'">'+list[i].pos_name+'</option>';
+		}
+		if(data.controll == 'duty'){
+			content += '<option value="'+list[i].duty_idx+'">'+list[i].duty_name+'</option>';
+		}
+		if(data.controll == 'state'){
+			content += '<option value="'+list[i].emp_state_idx+'">'+list[i].emp_state_name+'</option>';
 		}
 	}
-	$('#subSel').empty();
-	$('#subSel').append(content);
+	$('#subsel').empty();
+	$('#subsel').append(content);
 }
 
+var select = controll.options[controll.selectedIndex].value
+console.log(select);
+
+
+// 	var val1 = $(this).val();
+
+// 	var select = controll.options[controll.selectedIndex].value
+// 	var sel1 = $("#subsel option:selected").val();
+// 	console.log(sel1);
+
+function maListCall(){
+	var sel1 = document.getElementById('con');
+	var sel2 = document.getElementById('subsel');
+// 	var sel3 = sel2.options[sel2.selectedIndex].value
+	var sel3 = sel1.options[sel1.selectedIndex].value
+	
+	console.log(sel1);
+// 	console.log(sel2);
+	console.log(sel3);
+	var select = sel2.options[sel2.selectedIndex].value
+	var subSelect = sel1.options[sel1.selectedIndex].value
+	var table = $("#datatable").DataTable({
+		destroy:true,
+		serverSide:false,
+		ajax:{
+			"url":"/subSelList.ajax",
+			"type":"get",
+			"data":{"select" : select,"subSelect":subSelect}
+		},
+		columns:[
+			{data:"emp_name"},
+			{data:"emp_id"},
+			{data:"emp_id",
+				"render" : function(data, type, row) {
+					if (type == 'display') {
+						
+							data = '<a href="/memberDetail.do?emp_id='+row.emp_id+'">'
+								+ row.emp_id +'</a>';
+					}
+					return data;
+				}
+			},
+			{data:"team_name"},
+			{data:"pos_name"},
+			{data:"duty_name"},
+			{data:"emp_state_name"}
+		],
+        columnDefs: [{
+        	
+		targets : [ 1 ],
+
+		searchable : false,
+
+		visible : false     
+
+        }]
+
+	});
+	//subListCall();
+}
+
+// function maListCall(){
+// 	var 
+// 	$.ajax({
+// 		type:'get',
+// 		url:'subSelList.ajax',
+// 		data:{
+// 			'doc_type': doc_type.options[doc_type.selectedIndex].value,
+// 			'lineup' : lineup.options[lineup.selectedIndex].value
+// 			},
+// 		dataType:'JSON',
+// 		success:function(data){
+// 			drawList(data.docformlist);
+// 		},
+// 		error:function(e){
+// 			console.log(e);
+// 		}
+// 	});
+// }
 
 
 
@@ -207,12 +296,6 @@ function drawList(list){
 // 	console.log(obj);
 // }
 
-function team(){
-	var tea = $(".team").val();
-	console.log(tea);
-}
-var sel1 = $(".sel option:selected").val();
-console.log(sel1);
 
 
 

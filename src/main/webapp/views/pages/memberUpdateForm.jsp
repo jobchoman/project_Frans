@@ -26,98 +26,99 @@
 			<div class="right_col" role="main">
 				<div class="">
 					<div class="page-title">
+						<div class="title_left">
+							<h3>Form Elements</h3>
+						</div>
 
+						<div class="title_right">
+							<div class="col-md-5 col-sm-5  form-group pull-right top_search">
+								<div class="input-group">
+									<input type="text" class="form-control" placeholder="Search for...">
+									<span class="input-group-btn">
+										<button class="btn btn-default" type="button">Go!</button>
+									</span>
+								</div>
+							</div>
+						</div>
 					</div>
 					<div class="clearfix"></div>
 					<div class="row">
 						<div class="col-md-12 col-sm-12 ">
 							<div class="x_panel">
 								<div class="x_title">
-									<h2>직원 등록</h2>
-
+									<h2>Form Design <small>different form elements</small></h2>
+									<ul class="nav navbar-right panel_toolbox">
+										<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+										</li>
+										<li class="dropdown">
+											<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+											<ul class="dropdown-menu" role="menu">
+												<li><a class="dropdown-item" href="#">Settings 1</a>
+												</li>
+												<li><a class="dropdown-item" href="#">Settings 2</a>
+												</li>
+											</ul>
+										</li>
+										<li><a class="close-link"><i class="fa fa-close"></i></a>
+										</li>
+									</ul>
 									<div class="clearfix"></div>
 								</div>
 								<div class="x_content">
 									<br />
-									<form action="memberJoin.do" id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" method="POST" enctype="multipart/form-data">
+									<form action="memberUpdate.do" id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" method="POST" enctype="multipart/form-data">
 
 										<div class="item form-group">
-											<label class="col-form-label col-md-3 col-sm-3 label-align">사진<span class="required">*</span>
+											<label class="col-form-label col-md-3 col-sm-3 label-align">사진
 											</label>
 											<div class="col-md-6 col-sm-6 ">
-												<input type="file" name="file" required="required" class="form-control ">
+												<c:forEach items="${fileList}" var="path">
+													<img width="100" src="memberPhoto.do?path=${path.file_new}"/>
+												</c:forEach>
+												<input type="file" name="file" class="form-control ">
 											</div>
 										</div>
 										<div class="item form-group">
-											<label class="col-form-label col-md-3 col-sm-3 label-align">아이디<span class="required">*</span>
+											<label class="col-form-label col-md-3 col-sm-3 label-align">아이디
 											</label>
 											<div class="col-md-6 col-sm-6 ">
-												<input type="text" name="emp_id" required="required" class="form-control ">
+												${mem.emp_id}
 											</div>
 										</div>
 										<div class="item form-group">
-											<label class="col-form-label col-md-3 col-sm-3 label-align">비밀번호<span class="required">*</span>
+											<label class="col-form-label col-md-3 col-sm-3 label-align">비밀번호
 											</label>
 											<div class="col-md-6 col-sm-6 ">
-												<input type="password" name="emp_pw" required="required" class="form-control ">
+												<input type="password" name="emp_pw" class="form-control ">
 											</div>
 										</div>
 										<div class="item form-group">
-											<label class="col-form-label col-md-3 col-sm-3 label-align">이름<span class="required">*</span>
+											<label class="col-form-label col-md-3 col-sm-3 label-align">이름
 											</label>
 											<div class="col-md-6 col-sm-6 ">
-												<input type="text" name="emp_name" required="required" class="form-control ">
+												<input type="text" name="emp_name" value="${mem.emp_name}" class="form-control ">
 											</div>
 										</div>
 										<div class="item form-group">
-											<label class="col-form-label col-md-3 col-sm-3 label-align">생년월일<span class="required">*</span>
+											<label class="col-form-label col-md-3 col-sm-3 label-align">연락처
 											</label>
 											<div class="col-md-6 col-sm-6 ">
-												<input type="date" name="emp_birth" value="yyyy-mm-dd" required="required" class="form-control ">
-											</div>
-										</div>
-										<div>
-											<label class="col-form-label col-md-3 col-sm-3 label-align">성별<span class="required">*</span>
-											</label>
-											<div class="radio">
-												<label>
-													<input type="radio" value="남" id="optionsRadios1" name="emp_gender" >남
-												</label>
-											</div>
-											<div class="radio">
-												<label>
-													<input type="radio" value="여" id="optionsRadios2" name="emp_gender">여
-												</label>
+												<input type="text" name="emp_phone" value="${mem.emp_phone}" class="form-control ">
 											</div>
 										</div>
 										<div class="item form-group">
-											<label class="col-form-label col-md-3 col-sm-3 label-align">연락처<span class="required">*</span>
+											<label class="col-form-label col-md-3 col-sm-3 label-align">이메일
 											</label>
 											<div class="col-md-6 col-sm-6 ">
-												<input type="text" name="emp_phone" required="required" class="form-control ">
+												<input type="text" name="emp_email" value="${mem.emp_email}" class="form-control ">
 											</div>
 										</div>
 										<div class="item form-group">
-											<label class="col-form-label col-md-3 col-sm-3 label-align">이메일<span class="required">*</span>
+											<label class="col-form-label col-md-3 col-sm-3 label-align">주소
 											</label>
 											<div class="col-md-6 col-sm-6 ">
-												<input type="text" name="emp_email" required="required" class="form-control ">
-											</div>
-										</div>
-										<div class="item form-group">
-											<label class="col-form-label col-md-3 col-sm-3 label-align">주소<span class="required">*</span>
-											</label>
-											<div class="col-md-6 col-sm-6 ">
-												<input type="text" id="emp_address" onclick="addr()" name="emp_address" class="form-control "/>
-												<input type="text" id="address_detail" placeholder="상세주소" name="address_detail" required="required" class="form-control ">
-											</div>
-										</div>
-
-										<div class="item form-group">
-											<label class="col-form-label col-md-3 col-sm-3 label-align">입사일<span class="required">*</span>
-											</label>
-											<div class="col-md-6 col-sm-6 ">
-												<input type="date" name="emp_hire_date" placeholder="yyyy-mm-dd" required="required" class="form-control ">
+												<input type="text" id="emp_address" onclick="addr()" value="${mem.emp_address}" name="emp_address" class="form-control "/>
+												<input type="text" id="address_detail" name="address_detail"  class="form-control ">
 											</div>
 										</div>
 										<div>
@@ -125,21 +126,21 @@
 												<label class="col-form-label col-md-3 col-sm-3 label-align">학력
 												</label>
 												<div id="career1" class="col-md-6 col-sm-6 " >
-													<div class="school">
-														<select name="emp_career_idx" class="form-control ">
-															<option value="없음" selected="selected">없음</option>
-															<option value="고등학교">고등학교</option>
-															<option value="대학교">대학교</option>
-															<option value="대학원">대학원</option>
-														</select>
-														<input type="text" name="emp_school_name" placeholder="학교명" class="form-control ">
-														<input type="text" name="emp_department" placeholder="학과" class="form-control ">
-														<input type="text" name="emp_degree" placeholder="학위" class="form-control ">
-														입학일<input type="date" name="emp_career_start" placeholder="yyyy-mm-dd" class="form-control ">
-														졸업일<input type="date" name="emp_career_end" placeholder="yyyy-mm-dd" class="form-control ">
-														<input type="text" name="emp_career_etc" placeholder="비고" class="form-control ">
-														<input type="button" value="추가" id="add"/>
-													</div>
+<!-- 													<div class="school"> -->
+<!-- 														<select name="emp_career_idx" class="form-control "> -->
+<!-- 															<option value="없음" selected="selected">없음</option> -->
+<!-- 															<option value="고등학교">고등학교</option> -->
+<!-- 															<option value="대학교">대학교</option> -->
+<!-- 															<option value="대학원">대학원</option> -->
+<!-- 														</select> -->
+<!-- 														<input type="text" name="emp_school_name" placeholder="학교명" class="form-control "> -->
+<!-- 														<input type="text" name="emp_department" placeholder="학과" class="form-control "> -->
+<!-- 														<input type="text" name="emp_degree" placeholder="학위" class="form-control "> -->
+<!-- 														입학일<input type="date" name="emp_career_start" placeholder="yyyy-mm-dd" class="form-control "> -->
+<!-- 														졸업일<input type="date" name="emp_career_end" placeholder="yyyy-mm-dd" class="form-control "> -->
+<!-- 														<input type="text" name="emp_career_etc" placeholder="비고" class="form-control "> -->
+<!-- 														<input type="button" value="추가" id="add"/> -->
+<!-- 													</div> -->
 												</div>
 											</div>
 										</div>
@@ -148,19 +149,19 @@
 												<label class="col-form-label col-md-3 col-sm-3 label-align">이력
 												</label>
 												<div id="career2" class="col-md-6 col-sm-6 ">
-													<div class="spec">
-														<select name="emp_career_idx" class="form-control ">
-															<option value="없음" selected="selected">없음</option>
-															<option value="경력">경력</option>
-														</select>
-														<input type="text" name="emp_school_name" placeholder="회사명" class="form-control ">
-														<input type="text" name="emp_department" placeholder="부서" class="form-control ">
-														<input type="text" name="emp_degree" placeholder="직급" class="form-control ">
-														입사일<input type="date" name="emp_career_start" placeholder="yyyy-mm-dd" class="form-control ">
-														퇴사일<input type="date" name="emp_career_end" placeholder="yyyy-mm-dd" class="form-control ">
-														<input type="text" name="emp_career_etc" placeholder="맡은업무" class="form-control ">
-														<input type="button" value="추가" id="add1"/>
-													</div>
+<!-- 													<div class="spec"> -->
+<!-- 														<select name="emp_career_idx" class="form-control "> -->
+<!-- 															<option value="없음" selected="selected">없음</option> -->
+<!-- 															<option value="경력">경력</option> -->
+<!-- 														</select> -->
+<!-- 														<input type="text" name="emp_school_name" placeholder="회사명" class="form-control "> -->
+<!-- 														<input type="text" name="emp_department" placeholder="부서" class="form-control "> -->
+<!-- 														<input type="text" name="emp_degree" placeholder="직급" class="form-control "> -->
+<!-- 														입사일<input type="date" name="emp_career_start" placeholder="yyyy-mm-dd" class="form-control "> -->
+<!-- 														퇴사일<input type="date" name="emp_career_end" placeholder="yyyy-mm-dd" class="form-control "> -->
+<!-- 														<input type="text" name="emp_career_etc" placeholder="맡은업무" class="form-control "> -->
+<!-- 														<input type="button" value="추가" id="add1"/> -->
+<!-- 													</div> -->
 												</div>
 											</div>
 										</div>
@@ -169,21 +170,22 @@
 												<label class="col-form-label col-md-3 col-sm-3 label-align">자격증
 												</label>
 												<div id="license" class="col-md-6 col-sm-6 ">
-													<div class="licen">
-														<input type="text" name="license_name" placeholder="자격증명" class="form-control ">
-														취득일<input type="date" name="license_date" placeholder="yyyy-mm-dd" class="form-control ">
-														<input type="text" name="license_place" placeholder="발급처" class="form-control ">
-														<input type="text" name="license_result" placeholder="결과" class="form-control ">
-														<input type="button" value="추가" id="add2"/>
-													</div>
+<!-- 													<div class="licen"> -->
+<!-- 														<input type="text" name="license_name" placeholder="자격증명" class="form-control "> -->
+<!-- 														취득일<input type="date" name="license_date" placeholder="yyyy-mm-dd" class="form-control "> -->
+<!-- 														<input type="text" name="license_place" placeholder="발급처" class="form-control "> -->
+<!-- 														<input type="text" name="license_result" placeholder="결과" class="form-control "> -->
+<!-- 														<input type="button" value="추가" id="add2"/> -->
+<!-- 													</div> -->
 												</div>
 											</div>
 										</div>
 										<div class="item form-group">
-											<label class="col-form-label col-md-3 col-sm-3 label-align">관리자 권한<span class="required">*</span>
+											<label class="col-form-label col-md-3 col-sm-3 label-align">관리자 권한
 											</label>
 											<div class="col-md-6 col-sm-6 ">
-												<select name="emp_admin_auth" class="form-control " required="required">
+												${mem.emp_admin_auth}
+												<select name="emp_admin_auth" class="form-control ">
 													<option value="2" selected="selected">일반사원</option>
 													<option value="1">관리자</option>
 													<option value="2">최고관리자</option>
@@ -191,10 +193,11 @@
 											</div>
 										</div>										
 										<div class="item form-group">
-											<label class="col-form-label col-md-3 col-sm-3 label-align">팀<span class="required">*</span>
+											<label class="col-form-label col-md-3 col-sm-3 label-align">팀
 											</label>
 											<div class="col-md-6 col-sm-6 ">
-												<select name="team_idx" class="form-control " required="required">
+												${mem.team_name}
+												<select name="team_idx" class="form-control ">
 													<c:forEach items="${teamMem}" var="teamMem">
 														<option value="${teamMem.team_idx}">${teamMem.team_name}</option>
 													</c:forEach>
@@ -202,10 +205,11 @@
 											</div>
 										</div>										
 										<div class="item form-group">
-											<label class="col-form-label col-md-3 col-sm-3 label-align">직급<span class="required">*</span>
+											<label class="col-form-label col-md-3 col-sm-3 label-align">직급
 											</label>
 											<div class="col-md-6 col-sm-6 ">
-												<select name="pos_idx" class="form-control " required="required">
+												${mem.pos_name}
+												<select name="pos_idx" class="form-control ">
 													<c:forEach items="${posMem}" var="posMem">
 													<option value="${posMem.pos_idx}">${posMem.pos_name}</option>
 													</c:forEach>
@@ -213,10 +217,11 @@
 											</div>
 										</div>										
 										<div class="item form-group">
-											<label class="col-form-label col-md-3 col-sm-3 label-align">직책<span class="required">*</span>
+											<label class="col-form-label col-md-3 col-sm-3 label-align">직책
 											</label>
 											<div class="col-md-6 col-sm-6 ">
-												<select name="duty_idx" class="form-control " required="required">
+												${mem.duty_name}
+												<select name="duty_idx" class="form-control ">
 													<c:forEach items="${dutyMem}" var="dutyMem">
 													<option value="${dutyMem.duty_idx}">${dutyMem.duty_name}</option>
 													</c:forEach>
@@ -224,10 +229,11 @@
 											</div>
 										</div>										
 										<div class="item form-group">
-											<label class="col-form-label col-md-3 col-sm-3 label-align">상태<span class="required">*</span>
+											<label class="col-form-label col-md-3 col-sm-3 label-align">상태
 											</label>
 											<div class="col-md-6 col-sm-6 ">
-												<select name="emp_state_idx" class="form-control " required="required">
+												${mem.emp_state_name}
+												<select name="emp_state_idx" class="form-control ">
 													<c:forEach items="${stateMem}" var="stateMem">
 													<option value="${stateMem.emp_state_idx}">${stateMem.emp_state_name}</option>
 													</c:forEach>
@@ -235,27 +241,33 @@
 											</div>
 										</div>										
 										<div class="item form-group">
-											<label class="col-form-label col-md-3 col-sm-3 label-align">팀등급<span class="required">*</span>
+											<label class="col-form-label col-md-3 col-sm-3 label-align">팀등급
 											</label>
 											<div class="col-md-6 col-sm-6 ">
 												<div></div>
-												<select name="auth_type" class="form-control " required="required">
-												  <option value="1" selected="selected">공개문서 열람</option>
+												${mem.auth_type}
+												<select name="auth_type" class="form-control ">
+												  <option value="1">공개문서 열람</option>
 												  <option value="2">전체 열람</option>
 											    </select>
 											</div>
+											
 										</div>	
 										<div class="item form-group">
-											<label class="col-form-label col-md-3 col-sm-3 label-align">서명 이미지<span class="required">*</span>
+											<label class="col-form-label col-md-3 col-sm-3 label-align">서명 이미지
 											</label>
 											<div class="col-md-6 col-sm-6 ">
-												<input type="file" name="file2" required="required" class="form-control ">
+												<c:forEach items="${fileList1}" var="path">
+													<img width="100" src="memberPhoto.do?path=${path.file_new}"/>
+												</c:forEach>
+												<input type="file" name="file2" class="form-control ">
 											</div>
 										</div>									
 										<div class="ln_solid"></div>
 										<div class="item form-group">
 											<div class="col-md-6 col-sm-6 offset-md-3">
-												<button class="btn btn-primary" onclick="location.href='memberList.go'" type="reset">직원리스트</button>
+												<button class="btn btn-primary" type="button">Cancel</button>
+												<button class="btn btn-primary" type="reset">Reset</button>
 												<button type="submit" id="maker" class="btn btn-success">등록</button>
 											</div>
 										</div>
@@ -419,7 +431,29 @@ $(document).on("click",".del3",function(){
 
 });
 
-
+$(document).on('click','#maker',function() {
+	   if($(".school1").val().length > 0 && $(".school2").val().length > 0) {
+	   var school = [];
+	   for(var i=0; i<$('#career1').children().length+1; i++) {      
+	      school[i] = $(".school"+(i+1)).val();
+	   }
+	   
+	   $.ajax({
+		      url: '/memberJoin1.ajax',
+		      dataType: 'json',
+		      type: 'post',
+		      data:school,
+		      success: function(data) {
+		         console.log(data);
+		      },
+		      error:function(e){
+		    	  console.log(e)
+		      }
+		      });
+		   }else {
+		      alert("실패");
+		   }
+});	   
 	   
 // $(document).on('click','#maker',function() {
 // 	   if($(".sightName1").val().length > 0 && $(".sightName2").val().length > 0) {

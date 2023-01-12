@@ -112,11 +112,18 @@
         WHERE e.team_idx = t.team_idx AND e.duty_idx = d.duty_idx AND e.pos_idx = p.pos_idx AND e.emp_state_idx = es.emp_state_idx AND emp_id = #{emp_id}
 	</select>
 	
-	<select id="memberDetail1" resultType="com.frans.member.dto.MemberDTO" parameterType="String">
+	<select id="memberDetailSchool" resultType="com.frans.member.dto.MemberDTO" parameterType="String">
 		SELECT e.emp_id,c.emp_career_idx, c.emp_school_name,c.emp_career_start,c.emp_career_end, c.emp_department,c.emp_degree,c.emp_career_etc
         FROM career c, employee e
-        WHERE c.emp_id = e.emp_id AND e.emp_id = #{emp_id}
+        WHERE c.emp_id = e.emp_id AND e.emp_id = #{emp_id} order by c.emp_career_end desc
 	</select>
+	
+	<select id="memberDetailLicense" resultType="com.frans.member.dto.MemberDTO" parameterType="String">
+		SELECT e.emp_id,l.license_name,l.license_date,l.license_place,l.license_result
+        FROM employee e, license l
+        WHERE l.emp_id = e.emp_id AND e.emp_id = #{emp_id} order by l.license_date desc
+	</select>
+
 	
 <!-- 	<select id="memberDetail1" resultType="com.frans.member.dto.MemberDTO" parameterType="String"> -->
 <!-- 		SELECT e.emp_id,c.emp_career_idx, c.emp_school_name,c.emp_career_start,c.emp_career_end, c.emp_department,c.emp_degree,c.emp_career_etc,l.license_name,l.license_date,l.license_place,l.license_result -->
@@ -134,17 +141,79 @@
 	
 	<select id="selList" resultType="com.frans.member.dto.MemberDTO" parameterType="String">
 		SELECT e.emp_name, e.emp_id, t.team_name, d.duty_name, p.pos_name, es.emp_state_name 
-			FROM employee e, emp_state es, team t, `position` p, duty d
-			<where>
-				<if test="con.equals('all')">e.pos_idx = p.pos_idx and e.emp_state_idx = es.emp_state_idx and e.team_idx = t.team_idx and e.duty_idx = d.duty_idx</if>
-				<if test="con.equals('team')">e.pos_idx = p.pos_idx and e.emp_state_idx = es.emp_state_idx and e.team_idx = t.team_idx and e.duty_idx = d.duty_idx</if>
-				<if test="con.equals('duty')">e.pos_idx = p.pos_idx and e.emp_state_idx = es.emp_state_idx and e.team_idx = t.team_idx and e.duty_idx = d.duty_idx</if>
-				<if test="con.equals('pos')">e.pos_idx = p.pos_idx and e.emp_state_idx = es.emp_state_idx and e.team_idx = t.team_idx and e.duty_idx = d.duty_idx</if>
-				<if test="con.equals('state')">e.pos_idx = p.pos_idx and e.emp_state_idx = es.emp_state_idx and e.team_idx = t.team_idx and e.duty_idx = d.duty_idx</if>
-			</where>
-			
+			FROM employee e, emp_state es, team t, `position` p, duty d		
+			where e.pos_idx = p.pos_idx and e.emp_state_idx = es.emp_state_idx and e.team_idx = t.team_idx and e.duty_idx = d.duty_idx
 	</select>
+<!-- 				<if test="con.equals('')">e.pos_idx = p.pos_idx and e.emp_state_idx = es.emp_state_idx and e.team_idx = t.team_idx and e.duty_idx = d.duty_idx</if> -->
+<!-- 				<if test="con.equals('all')">e.pos_idx = p.pos_idx and e.emp_state_idx = es.emp_state_idx and e.team_idx = t.team_idx and e.duty_idx = d.duty_idx</if> -->
+<!-- 				<if test="con.equals('team')">e.pos_idx = p.pos_idx and e.emp_state_idx = es.emp_state_idx and e.team_idx = t.team_idx and e.duty_idx = d.duty_idx and team_idx = #{team_idx}</if> -->
+<!-- 				<if test="con.equals('duty')">e.pos_idx = p.pos_idx and e.emp_state_idx = es.emp_state_idx and e.team_idx = t.team_idx and e.duty_idx = d.duty_idx and d.duty_idx = #{duty_idx}</if> -->
+<!-- 				<if test="con.equals('pos')">e.pos_idx = p.pos_idx and e.emp_state_idx = es.emp_state_idx and e.team_idx = t.team_idx and e.duty_idx = d.duty_idx and p.pos_idx = #{pos_idx}</if> -->
+<!-- 				<if test="con.equals('state')">e.pos_idx = p.pos_idx and e.emp_state_idx = es.emp_state_idx and e.team_idx = t.team_idx and e.duty_idx = d.duty_idx and es.emp_state_idx = #{emp_state_idx}</if> -->
 
+
+
+	<select id="subsubSel" resultType="com.frans.member.dto.MemberDTO" parameterType="String">
+		<if test="controll.equals('team')">
+			select * from team;		
+		</if>
+		<if test="controll.equals('pos')">
+			select * from position;		
+		</if>
+		<if test="controll.equals('duty')">
+			select * from duty;		
+		</if>
+		<if test="controll.equals('state')">
+			select * from emp_state;		
+		</if>
+	</select>
+	
+	<select id="subSelList" resultType="com.frans.member.dto.MemberDTO" parameterType="String">
+		<if test="subSelect.equals('team')">
+			SELECT e.emp_name, e.emp_id, t.team_name, d.duty_name, p.pos_name, es.emp_state_name 
+			FROM employee e, emp_state es, team t, `position` p, duty d		
+			where e.pos_idx = p.pos_idx and e.emp_state_idx = es.emp_state_idx and e.team_idx = t.team_idx and e.duty_idx = d.duty_idx and t.team_idx = #{team_idx} 	
+		</if>
+		<if test="subSelect.equals('pos')">
+			SELECT e.emp_name, e.emp_id, t.team_name, d.duty_name, p.pos_name, es.emp_state_name 
+			FROM employee e, emp_state es, team t, `position` p, duty d		
+			where e.pos_idx = p.pos_idx and e.emp_state_idx = es.emp_state_idx and e.team_idx = t.team_idx and e.duty_idx = d.duty_idx and p.pos_idx = #{pos_idx} 	
+		</if>
+		<if test="subSelect.equals('duty')">
+			SELECT e.emp_name, e.emp_id, t.team_name, d.duty_name, p.pos_name, es.emp_state_name 
+			FROM employee e, emp_state es, team t, `position` p, duty d		
+			where e.pos_idx = p.pos_idx and e.emp_state_idx = es.emp_state_idx and e.team_idx = t.team_idx and e.duty_idx = d.duty_idx and d.duty_idx = #{duty_idx} 	
+		</if>
+		<if test="subSelect.equals('state')">
+			SELECT e.emp_name, e.emp_id, t.team_name, d.duty_name, p.pos_name, es.emp_state_name 
+			FROM employee e, emp_state es, team t, `position` p, duty d		
+			where e.pos_idx = p.pos_idx and e.emp_state_idx = es.emp_state_idx and e.team_idx = t.team_idx and e.duty_idx = d.duty_idx and es.emp_state_idx = #{emp_state_idx}	
+		</if>
+	</select>
+	
+	<update id="memberUpdate" parameterType="com.frans.member.dto.MemberDTO">
+		UPDATE employee SET
+			emp_id = #{emp_id},
+			emp_pw = #{emp_pw},
+			emp_name = #{emp_name},
+			emp_address = #{emp_address},
+			emp_phone = #{emp_phone},
+			emp_email = #{emp_email},
+			emp_admin_auth = #{emp_admin_auth},
+			pos_idx = #{pos_idx},
+			duty_idx = #{duty_idx},
+			team_idx = #{team_idx},
+			emp_state_idx = #{emp_state_idx}
+		WHERE emp_id = #{emp_id}
+	</update>
+	
+	<update id="fileUpdate" parameterType="com.frans.member.dto.MemberDTO">
+		UPDATE file SET
+			file_new = #{file_new}
+		WHERE emp_id = #{emp_id}
+	</update>
+	
+	
 </mapper>
 
 

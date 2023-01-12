@@ -144,70 +144,58 @@
 												<label class="col-form-label col-md-3 col-sm-3 label-align">학력
 												</label>
 												<div id="career" class="col-md-6 col-sm-6 " >
-													<div class="del">
-													<c:forEach items="${mem1}" var="mem1">
-														${mem1.emp_career_idx}<br/>
-														${mem1.emp_school_name}<br/>
-														${mem1.emp_department}<br/>
-														${mem1.emp_degree}<br/>
-														${mem1.emp_career_start}<br/>
-														${mem1.emp_career_end}<br/>
-														${mem1.emp_career_etc}<br/>
-													</c:forEach>
-																								
-														
-<!-- 														<select name="emp_career_idx" class="form-control "> -->
-<!-- 															<option value="없음" selected="selected">없음</option> -->
-<!-- 															<option value="고등학교">고등학교</option> -->
-<!-- 															<option value="대학교">대학교</option> -->
-<!-- 															<option value="대학원">대학원</option> -->
-<!-- 														</select> -->
-<!-- 														<input type="text" name="emp_school_name" placeholder="학교명" required="required" class="form-control "> -->
-<!-- 														<input type="text" name="emp_department" placeholder="학과" required="required" class="form-control "> -->
-<!-- 														<input type="text" name="emp_degree" placeholder="학위" required="required" class="form-control "> -->
-<!-- 														입학일<input type="date" name="emp_career_start" placeholder="yyyy-mm-dd" required="required" class="form-control "> -->
-<!-- 														졸업일<input type="date" name="emp_career_end" placeholder="yyyy-mm-dd" required="required" class="form-control "> -->
-<!-- 														<input type="text" name="emp_career_etc" placeholder="비고" required="required" class="form-control "> -->
-<!-- 														<input type="button" name="delete" value="삭제" onclick="delete1()"> -->
-<!-- 														<input type="button" value="추가" onclick="add_textbox()"/> -->
+													<div>
+														<c:forEach items="${memSchool}" var="memSchool">
+														<c:if test="${memSchool.emp_career_idx != '경력'}">
+															${memSchool.emp_career_idx}
+ 															${memSchool.emp_school_name}
+															${memSchool.emp_department}
+															${memSchool.emp_degree}
+															${memSchool.emp_career_start}
+															${memSchool.emp_career_end}
+															${memSchool.emp_career_etc} <br>
+														</c:if>
+														</c:forEach>
+		
 													</div>
 												</div>
 											</div>
 										</div>
 										<div>
 											<div class="item form-group">
-												<label class="col-form-label col-md-3 col-sm-3 label-align">이력<span class="required">*</span>
+												<label class="col-form-label col-md-3 col-sm-3 label-align">이력
 												</label>
 												<div class="col-md-6 col-sm-6 ">
 													<div id="career1">
-														<select name="emp_career_idx" class="form-control ">
-															<option value="없음" selected="selected">없음</option>
-															<option value="경력">경력</option>
-														</select>
-														<input type="text" name="emp_school_name" placeholder="회사명" required="required" class="form-control ">
-														<input type="text" name="emp_department" placeholder="부서" required="required" class="form-control ">
-														<input type="text" name="emp_degree" placeholder="직급" required="required" class="form-control ">
-														입사일<input type="date" name="emp_career_start" placeholder="yyyy-mm-dd" required="required" class="form-control ">
-														퇴사일<input type="date" name="emp_career_end" placeholder="yyyy-mm-dd" required="required" class="form-control ">
-														<input type="text" name="emp_career_etc" placeholder="맡은업무" required="required" class="form-control ">
-														<input type="button" name="delete" value="삭제" onclick="delete2()">
-														<input type="button" value="추가" onclick="add_textbox1()"/>
+														<c:forEach items="${memSchool}" var="memSchool">
+														<c:if test="${memSchool.emp_career_idx == '경력'}">
+															${memSchool.emp_career_idx}
+ 															${memSchool.emp_school_name}
+															${memSchool.emp_department}
+															${memSchool.emp_degree}
+															${memSchool.emp_career_start}
+															${memSchool.emp_career_end}
+															${memSchool.emp_career_etc} <br>
+														</c:if>
+														</c:forEach>
 													</div>
 												</div>
 											</div>
 										</div>
 										<div>
 											<div class="item form-group">
-												<label class="col-form-label col-md-3 col-sm-3 label-align">자격증<span class="required">*</span>
+												<label class="col-form-label col-md-3 col-sm-3 label-align">자격증
 												</label>
 												<div class="col-md-6 col-sm-6 ">
 													<div id="license">
-														<input type="text" name="license_name" placeholder="자격증명" required="required" class="form-control ">
-														취득일<input type="date" name="license_date" placeholder="yyyy-mm-dd" required="required" class="form-control ">
-														<input type="text" name="license_place" placeholder="발급처" required="required" class="form-control ">
-														<input type="text" name="license_result" placeholder="결과" required="required" class="form-control ">
-														<input type="button" name="delete" value="삭제" onclick="delete3()">
-														<input type="button" value="추가" onclick="add_textbox2()"/>
+													<c:if test="${memLicense.size()>0}">
+														<c:forEach items="${memLicense}" var="memLicense">
+																${memLicense.license_name}
+	 															${memLicense.license_date}
+																${memLicense.license_place}
+																${memLicense.license_result}<br>
+														</c:forEach>
+													</c:if>
 													</div>
 												</div>
 											</div>
@@ -275,7 +263,7 @@
 											<div class="col-md-6 col-sm-6 offset-md-3">
 												<button class="btn btn-primary" type="button">Cancel</button>
 												<button class="btn btn-primary" type="reset">Reset</button>
-												<button type="button" onclick="location.href='/memberUpdate.go?emp_id=${mem.emp_id}'" class="btn btn-success">수정하기</button>
+												<button type="button" onclick="location.href='memberUpdate.go?emp_id=${mem.emp_id}'" class="btn btn-success">수정하기</button>
 											</div>
 										</div>
 
@@ -296,7 +284,7 @@
 </body>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
-listCall();
+console.log(${mem.emp_career_idx});
 
 var msg = "${msg}";
 

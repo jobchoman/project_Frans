@@ -4,10 +4,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -22,7 +20,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.frans.member.dao.MemberDAO;
 import com.frans.member.dto.MemberDTO;
-import com.frans.sign.dto.DocFormDTO;
 
 @Service
 public class MemberService {
@@ -42,7 +39,7 @@ public class MemberService {
 			match = encoder.matches(emp_pw, enc_pw);
 		}
 		logger.info("match : "+match);
-		return enc_pw;
+		return emp_id;
 	}
 	
 	
@@ -191,13 +188,51 @@ public class MemberService {
 	}
 
 	
-	public HashMap<String, Object> selList(HashMap<String, String> params) {
+	public HashMap<String, Object> selList() {
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		ArrayList<MemberDTO> selList = memberDao.selList(params);
+		ArrayList<MemberDTO> selList = memberDao.selList();
 		map.put("data", selList);
 		return map;
 	}
 
+
+	public Object subsubSel(String controll, HashMap<String, String> params) {
+		return memberDao.subsubSel(controll,params);
+	}
+
+
+	public HashMap<String, Object> subSelList(String select, String subSelect) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		ArrayList<MemberDTO> subSelList = memberDao.subSelList(select,subSelect);
+		map.put("data", subSelList);
+		return map;
+	}
+
+
+	public ArrayList<MemberDTO> memberDetailSchool(String emp_id, Model model) {
+		return memberDao.memberDetailSchool(emp_id);
+	}
+
+
+	public ArrayList<MemberDTO> memberDetailLicense(String emp_id, Model model) {
+		return memberDao.memberDetailLicense(emp_id);
+	}
+
+	public void memberUpdate(MemberDTO dto) {
+		memberDao.memberUpdate(dto);
+		
+	}
+
+
+	public void fileUpdate(MemberDTO dto, MultipartFile file, MultipartFile file2) {
+		
+		String emp_id = dto.getEmp_id();
+		int success = memberDao.fileUpdate(dto,file,file2);
+		if(success>0) {
+			Upload(file,emp_id);
+			Upload2(file2,emp_id);
+		}
+	}
 
 
 
