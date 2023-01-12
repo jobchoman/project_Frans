@@ -48,7 +48,7 @@
                       <li><a href="/infoList.go">팀/직책/직급</a></li>
                     </ul>
                   </li>
-                  <li><a href="/calender.go"><i class="fa fa-calendar"></i> 개인 일정 <span class="fa fa-chevron-down"></span></a>
+                  <li><a href="/calender.go"><i class="fa fa-calendar"></i> 개인 일정 </a>
                    
                   </li>
                   <li><a><i class="fa fa-cog"></i> 시설 <span class="fa fa-chevron-down"></span></a>
@@ -64,13 +64,13 @@
                       <li><a href="/newMenuList.go">신메뉴 추천 게시판</a></li>
                     </ul>
                   </li>
-                  <li><a href="/subList.go"><i class="fa fa-pencil"></i>구독권 <span class="fa fa-chevron-down"></span></a>
+                  <li><a href="/subList.go"><i class="fa fa-pencil"></i>구독권</a>
                  
                   </li>
-                  <li><a href="/storeList.go"><i class="fa fa-institution"></i>매장 <span class="fa fa-chevron-down"></span></a>
+                  <li><a href="/storeList.go"><i class="fa fa-institution"></i>매장</a>
                     
                   </li>
-                  <li><a href="/menuList.go"><i class="fa fa-cutlery"></i>메뉴 <span class="fa fa-chevron-down"></span></a>
+                  <li><a href="/menuList.go"><i class="fa fa-cutlery"></i>메뉴</a>
                     
                   </li>
                   <li><a><i class="fa fa-archive"></i>자재 <span class="fa fa-chevron-down"></span></a>
@@ -91,7 +91,7 @@
               <div class="menu_section">
                 <h3>매장</h3>
                 <ul class="nav side-menu">
-                  <li><a href="/userList.go"><i class="fa fa-user"></i> 회원 관리 <span class="fa fa-chevron-down"></span></a>
+                  <li><a href="/userList.go"><i class="fa fa-user"></i> 회원 관리</a>
                  
                   </li>
                   <li><a><i class="fa fa-shopping-cart"></i> 발주 <span class="fa fa-chevron-down"></span></a>

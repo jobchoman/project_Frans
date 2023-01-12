@@ -60,7 +60,7 @@
 								<h3>${data[0].shop_name}</h3>
 							</div>
 							<div class="x_content">
-								<form action="/stock/shopOrder.do" method="post">
+								<form action="/order/shopOrder.do" method="post">
 									<table class="table">
 										<thead>
 											<tr>

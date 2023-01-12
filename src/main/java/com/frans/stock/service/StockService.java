@@ -40,17 +40,17 @@ public class StockService {
 			stockdao.comStockAdd(stock_idx,com_stock_amount);			
 		}
 	}
-	public ArrayList<StockDTO> foodList(String stock_sort_idx) {
+	public ArrayList<StockDTO> comStockList(String stock_sort_idx) {
 		
-		return stockdao.foodList(stock_sort_idx);
+		return stockdao.comStockList(stock_sort_idx);
 	}
-	public ArrayList<StockDTO> subList(String stock_sort_idx) {
-		
-		return stockdao.subList(stock_sort_idx);
-	}
-	public ArrayList<StockDTO> shopSubList(String stock_sort_idx, String emp_id) {
-		
-		return stockdao.shopSubList(stock_sort_idx,emp_id);
+//	public ArrayList<StockDTO> subList(String stock_sort_idx) {
+//		
+//		return stockdao.subList(stock_sort_idx);
+//	}
+	public ArrayList<StockDTO> shopStockList(String stock_sort_idx, String emp_id) {
+		logger.info("emp_id : "+emp_id);
+		return stockdao.shopStockList(stock_sort_idx,emp_id);
 	}
 	public ArrayList<StockDTO> updateView(HashMap<String, String> params) {
 		//stockdao.updateStock(params);	// stock 수정

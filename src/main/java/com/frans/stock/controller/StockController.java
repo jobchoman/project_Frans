@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.frans.stock.dto.StockDTO;
+import com.frans.stock.dto.TestDTO;
 import com.frans.stock.service.StockService;
 
 @Controller
@@ -37,48 +38,49 @@ public class StockController {
 	}
 	
 	@ResponseBody
-	@GetMapping(value="/stock/foodList.do")
-	public HashMap<String, Object> foodList(@RequestParam HashMap<String, String> params){
+	@GetMapping(value="/stock/comStockList.do")
+	public HashMap<String, Object> comStockList(@RequestParam HashMap<String, String> params){
 //		HashMap<String, Object> map = new HashMap<String, Object>();
 //		ArrayList<StockDTO> comStockList = stockservice.comList();
 //		map.put("comStockList", comStockList);
 		logger.info("params : {}",params);
 		String stock_sort_idx = params.get("stock_sort_idx");
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		ArrayList<StockDTO> foodStockList = stockservice.foodList(stock_sort_idx);
+		ArrayList<StockDTO> foodStockList = stockservice.comStockList(stock_sort_idx);
 		map.put("data", foodStockList);
 		return map;
 		
 	}
 	
-	@ResponseBody
-	@GetMapping(value="/stock/subList.do")
-	public HashMap<String, Object> subList(@RequestParam HashMap<String, String> params){
+//	@ResponseBody
+//	@GetMapping(value="/stock/subList.do")
+//	public HashMap<String, Object> subList(@RequestParam HashMap<String, String> params){
+////		HashMap<String, Object> map = new HashMap<String, Object>();
+////		ArrayList<StockDTO> comStockList = stockservice.comList();
+////		map.put("comStockList", comStockList);
+//		logger.info("params : {}",params);
+//		String stock_sort_idx = params.get("stock_sort_idx");
 //		HashMap<String, Object> map = new HashMap<String, Object>();
-//		ArrayList<StockDTO> comStockList = stockservice.comList();
-//		map.put("comStockList", comStockList);
-		logger.info("params : {}",params);
-		String stock_sort_idx = params.get("stock_sort_idx");
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		ArrayList<StockDTO> subStockList = stockservice.subList(stock_sort_idx);
-		map.put("data", subStockList);
-		return map;
-		
-	}
+//		ArrayList<StockDTO> subStockList = stockservice.subList(stock_sort_idx);
+//		map.put("data", subStockList);
+//		return map;
+//		
+//	}
 	
 	@ResponseBody
-	@GetMapping(value="/stock/shopSubList.do")
-	public HashMap<String, Object> shopSubList(@RequestParam HashMap<String, String> params,HttpServletRequest req){
+	@GetMapping(value="/stock/shopStockList.do")
+	public HashMap<String, Object> shopStockList(@RequestParam HashMap<String, String> params,HttpServletRequest req){
 //		HashMap<String, Object> map = new HashMap<String, Object>();
 //		ArrayList<StockDTO> comStockList = stockservice.comList();
 //		map.put("comStockList", comStockList);
 		HttpSession session = req.getSession();
 		String emp_id = (String) session.getAttribute("loginId");
+		logger.info("emp_id : "+emp_id);
 		logger.info("params : {}",params);
 		String stock_sort_idx = params.get("stock_sort_idx");
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		ArrayList<StockDTO> shopSubList = stockservice.shopSubList(stock_sort_idx,emp_id);
-		map.put("data", shopSubList);
+		ArrayList<StockDTO> shopStockList = stockservice.shopStockList(stock_sort_idx,emp_id);
+		map.put("data", shopStockList);
 		return map;
 		
 	}

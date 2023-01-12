@@ -4,12 +4,25 @@
 >
 <!-- 이 XML 을 어떤 interface 하고 연결 할 것인가 -->
 <mapper namespace="com.frans.stock.dao.OrderDAO">
-
+	
+	<select id="shopEmp" resultType="String">
+		SELECT shop_idx from shop s2 where emp_id = #{param1}
+	</select>
+	
+	<select id="stockCnt" resultType="int">
+		SELECT count(stock_idx)  from shop_stock where stock_idx = #{param1} and shop_idx = #{param2}
+	</select>
+	
+	<insert id="orderInsert">
+		INSERT into shop_stock (stock_idx,shop_idx, shop_stock_amount) 
+			values (#{param1},#{param2},#{param3})
+	</insert>
+	
 	
 	<select id="foodList" resultType="StockDTO">
 		SELECT * FROM stock s left  JOIN shop_stock ss ON s.stock_idx = ss.stock_idx left  join shop s2 ON ss.shop_idx = s2.shop_idx
 where s.stock_sort_idx = #{param1} and (ss.shop_idx is null or ss.shop_idx = (SELECT s.shop_idx from shop s
-where s.emp_id = (SELECT emp_id from employee e where emp_id = '20210022')))
+where s.emp_id = (SELECT emp_id from employee e where emp_id = #{param2})))
 	</select>
 	
 <!-- 	<select id="subList" resultType="StockDTO">
@@ -21,15 +34,34 @@ where s.emp_id = (SELECT emp_id from employee e where emp_id = '20210022')))
 			values (#{param3},#{param1},#{param2})
 	</insert>
 	
-	<select id="FoodOrderList" resultType="StockDTO">			
+<!-- 	<select id="FoodOrderList" resultType="StockDTO">			
 		SELECT *,(SELECT count(o2.stock_idx) from `order` o2 ,stock s3
 where o2.order_send ='처리전' and s3.stock_sort_idx = 0 and s3.stock_idx= o2.stock_idx 
 and o2.shop_idx = o.shop_idx and o2.order_date = o.order_date) as order_state from `order` o,stock s,shop s2 
 			where o.stock_idx = s.stock_idx and o.shop_idx = s2.shop_idx and s.stock_sort_idx = 0 
 			group by o.shop_idx, o.order_date,s.stock_sort_idx HAVING order_state > 0 order by o.order_date;
+	</select> -->
+	
+	<!-- 본사 발주 리스트 처리전 -->
+	<select id="comOrderList" resultType="StockDTO">			
+		SELECT *,(SELECT count(o2.stock_idx) from `order` o2 ,stock s3
+where o2.order_send ='처리전' and s3.stock_sort_idx = #{stock_sort_idx} and s3.stock_idx= o2.stock_idx 
+and o2.shop_idx = o.shop_idx and o2.order_date = o.order_date) as order_state from `order` o,stock s,shop s2 
+			where o.stock_idx = s.stock_idx and o.shop_idx = s2.shop_idx and s.stock_sort_idx = #{stock_sort_idx} 
+			group by o.shop_idx, o.order_date,s.stock_sort_idx HAVING order_state > 0 order by o.order_date;
 	</select>
 	
-	<select id="FoodOrderListOk" resultType="StockDTO">			
+	<!-- 본사 발주 리스트 처리완료 -->
+	<select id="comOrderListOk" resultType="StockDTO">			
+		SELECT o.shop_idx,o.order_date ,s2.shop_name,(SELECT count(o2.stock_idx) from `order` o2 ,stock s3
+		where o2.order_send ='처리전' and s3.stock_sort_idx = #{stock_sort_idx} and s3.stock_idx= o2.stock_idx 
+		and o2.shop_idx = o.shop_idx and o2.order_date = o.order_date) as order_state 
+	from `order` o,stock s,shop s2 
+	where o.stock_idx = s.stock_idx and o.shop_idx = s2.shop_idx and s.stock_sort_idx = #{stock_sort_idx} 
+	group by o.shop_idx, o.order_date,s.stock_sort_idx HAVING order_state <![CDATA[ < ]]> 1 order by o.order_date
+	</select>
+	
+	<!-- <select id="FoodOrderListOk" resultType="StockDTO">			
 		SELECT o.shop_idx,o.order_date ,s2.shop_name,(SELECT count(o2.stock_idx) from `order` o2 ,stock s3
 		where o2.order_send ='처리전' and s3.stock_sort_idx = 0 and s3.stock_idx= o2.stock_idx 
 		and o2.shop_idx = o.shop_idx and o2.order_date = o.order_date) as order_state 
@@ -53,7 +85,7 @@ and o2.shop_idx = o.shop_idx and o2.order_date = o.order_date) as order_state fr
 	from `order` o,stock s,shop s2 
 	where o.stock_idx = s.stock_idx and o.shop_idx = s2.shop_idx and s.stock_sort_idx = 1 
 	group by o.shop_idx, o.order_date,s.stock_sort_idx HAVING order_state <![CDATA[ < ]]> 1 order by o.order_date;
-	</select> 
+	</select>  -->
 	
  	<select id="FoodOrderDetail" resultType="StockDTO">
 		SELECT o.shop_idx, o.stock_idx , o.order_date , sum(o.order_amount) as order_amount ,o.order_send,s.stock_name ,cs.com_stock_amount,s2.shop_name  
@@ -84,20 +116,20 @@ and o2.shop_idx = o.shop_idx and o2.order_date = o.order_date) as order_state fr
 		where stock_idx = #{stock_idx}
 	</update>
 	
-	<select id="shopFoodOrderList" resultType="StockDTO">			
+	<select id="shopOrderList" resultType="StockDTO">			
 		SELECT *,(SELECT count(o2.stock_idx) from `order` o2 ,stock s3
-			where o2.order_send ='처리전' and s3.stock_sort_idx = 0 and s3.stock_idx= o2.stock_idx and o2.shop_idx = o.shop_idx and o2.order_date = o.order_date) as order_state 
+			where o2.order_send ='처리전' and s3.stock_sort_idx = #{param2} and s3.stock_idx= o2.stock_idx and o2.shop_idx = o.shop_idx and o2.order_date = o.order_date) as order_state 
 			from `order` o,stock s,shop s2 
-			where o.stock_idx = s.stock_idx and o.shop_idx = s2.shop_idx and s.stock_sort_idx = 0 and o.shop_idx = 'SH005'
+			where o.stock_idx = s.stock_idx and o.shop_idx = s2.shop_idx and s.stock_sort_idx = #{param2} and o.shop_idx = #{param1}
 			group by o.shop_idx, o.order_date,s.stock_sort_idx HAVING order_state > 0 order by o.order_date
 	</select>
 	
-	<select id="shopFoodOrderListOk" resultType="StockDTO">			
+	<select id="shopOrderListOk" resultType="StockDTO">			
 		SELECT o.shop_idx,o.order_date ,s2.shop_name,(SELECT count(o2.stock_idx) from `order` o2 ,stock s3
-		where o2.order_send ='처리전' and s3.stock_sort_idx = 0 and s3.stock_idx= o2.stock_idx 
+		where o2.order_send ='처리전' and s3.stock_sort_idx = #{param2} and s3.stock_idx= o2.stock_idx 
 		and o2.shop_idx = o.shop_idx and o2.order_date = o.order_date) as order_state 
 	from `order` o,stock s,shop s2 
-	where o.stock_idx = s.stock_idx and o.shop_idx = s2.shop_idx and s.stock_sort_idx = 0 and o.shop_idx ='SH005'
+	where o.stock_idx = s.stock_idx and o.shop_idx = s2.shop_idx and s.stock_sort_idx = #{param2} and o.shop_idx =#{param1}
 	group by o.shop_idx, o.order_date,s.stock_sort_idx HAVING order_state <![CDATA[ < ]]> 1 order by o.order_date
 	</select>
 	

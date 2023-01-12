@@ -37,14 +37,9 @@ public class OrderService {
 		
 	}
 
-	public ArrayList<StockDTO> FoodOrderList() {
+	public ArrayList<StockDTO> comOrderList(HashMap<String, String> params) {
 		
-		return orderdao.FoodOrderList();
-	}
-
-	public ArrayList<StockDTO> SubOrderList() {
-		
-		return orderdao.SubOrderList();
+		return orderdao.comOrderList(params);
 	}
 
 	public ArrayList<StockDTO> FoodOrderDetail(HashMap<String, String> params) {
@@ -57,26 +52,29 @@ public class OrderService {
 		return orderdao.subOrderDetail(params);
 	}
 
-	public ArrayList<StockDTO> FoodOrderListOk() {
+	public ArrayList<StockDTO> comOrderListOk(HashMap<String, String> params) {
 		logger.info("처리완료");
-		return orderdao.FoodOrderListOk();
-	}
-
-	public ArrayList<StockDTO> SubOrderListOk() {
-		logger.info("처리완료");
-		return orderdao.SubOrderListOk();
+		return orderdao.comOrderListOk(params);
 	}
 
 	public void orderChk(HashMap<String, String> params) {
 		logger.info("발주처리하기");
-		 orderdao.orderChk(params); // 매장 재고 업데이트
+		String stock_idx = params.get("stock_idx");
+		String shop_idx = params.get("shop_idx");
+		String shop_stock_amount = params.get("order_amount");
+		int stockCnt = orderdao.stockCnt(stock_idx,shop_idx);
+		if(stockCnt > 0) {
+			orderdao.orderChk(params); // 매장 재고 업데이트			
+		}else {
+			orderdao.orderInsert(stock_idx,shop_idx,shop_stock_amount);
+		}
 		 orderdao.orderStateChange(params); // 발주 상태 변경
 		 orderdao.orderComChk(params);	// 본사 재고 업데이트
 	}
 
-	public ArrayList<StockDTO> shopFoodOrderList() {
+	public ArrayList<StockDTO> shopOrderList(String shop_idx, String stock_sort_idx) {
 		
-		return orderdao.shopFoodOrderList();
+		return orderdao.shopOrderList(shop_idx,stock_sort_idx);
 	}
 
 	public ArrayList<StockDTO> shopFoodOrderDetail(HashMap<String, String> params) {
@@ -84,9 +82,9 @@ public class OrderService {
 		return orderdao.shopFoodOrderDetail(params);
 	}
 
-	public ArrayList<StockDTO> shopFoodOrderListOk() {
+	public ArrayList<StockDTO> shopOrderListOk(String shop_idx, String stock_sort_idx) {
 		
-		return orderdao.shopFoodOrderListOk();
+		return orderdao.shopOrderListOk(shop_idx,stock_sort_idx);
 	}
 
 	public ArrayList<StockDTO> shopSubOrderListCall() {
@@ -100,8 +98,13 @@ public class OrderService {
 	}
 
 	public ArrayList<StockDTO> shopSubOrderDetail(HashMap<String, String> params) {
-		// TODO Auto-generated method stub
+		
 		return orderdao.shopSubOrderDetail(params);
+	}
+
+	public String shopEmp(String emp_id) {
+		
+		return orderdao.shopEmp(emp_id);
 	}
 
 	

@@ -112,7 +112,7 @@ var table = $('#datatable').DataTable({
 	destroy : true,
 	serverSide: false,
 	ajax : {
-        "url":"/stock/foodOrderList.do",
+        "url":"/stock/shopStockList.do",
         "type":"get",
         "data": {
         	"stock_sort_idx" : 0
@@ -135,7 +135,7 @@ var table = $('#datatable').DataTable({
 			destroy : true,
 			serverSide: false,
 			ajax : {
-		        "url":"/stock/shopSubList.do",
+		        "url":"/stock/shopStockList.do",
 		        "type":"get",
 		        "data": {
 		        	"stock_sort_idx" : 1

@@ -21,15 +21,18 @@
 		VALUES(#{param1}, #{param2})
 	</insert>
 	
-	<select id="foodList" resultType="StockDTO">
+	<!-- 본사 식자재 리스트 -->
+	<select id="comStockList" resultType="StockDTO">
 		SELECT * from com_stock cs, stock s where cs.stock_idx = s.stock_idx and stock_sort_idx= #{param1}; 
 	</select>
 	
-	<select id="subList" resultType="StockDTO">
+	<!-- 본사 부자재 리스트 -->
+	<!-- <select id="subList" resultType="StockDTO">
 		SELECT * from com_stock cs, stock s where cs.stock_idx = s.stock_idx and stock_sort_idx= #{param1}; 
-	</select>
+	</select> -->
 	
-	<select id="shopSubList" resultType="StockDTO">				
+	<!-- 매장 자재 리스트 -->
+	<select id="shopStockList" resultType="StockDTO">				
 		SELECT * FROM stock s left  JOIN shop_stock ss ON s.stock_idx = ss.stock_idx left  join shop s2 ON ss.shop_idx = s2.shop_idx
 where s.stock_sort_idx = #{param1} and (ss.shop_idx is null or ss.shop_idx = (SELECT s.shop_idx from shop s
 where s.emp_id = (SELECT emp_id from employee e where emp_id = #{param2}))) 

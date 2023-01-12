@@ -229,7 +229,7 @@ function foodListCall() {
 		destroy:true,
 		serverSide: false,
 		ajax : {
-            "url":"/stock/foodList.do",
+            "url":"/stock/comStockList.do",
             "type":"get",
             "data": {
             	"stock_sort_idx" : 0
@@ -261,7 +261,7 @@ function foodListCall() {
 			destroy:true,
 			serverSide: false,
 			ajax : {
-	            "url":"/stock/subList.do",
+	            "url":"/stock/comStockList.do",
 	            "type":"get",
 	            "data": {
 	            	"stock_sort_idx" : 1

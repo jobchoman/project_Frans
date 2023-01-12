@@ -17,11 +17,11 @@ public interface StockDAO {
 
 	void comStockAdd(String stock_idx,String com_stock_amount);
 
-	ArrayList<StockDTO> foodList(String stock_sort_idx);
+	ArrayList<StockDTO> comStockList(String stock_sort_idx);
 
-	ArrayList<StockDTO> subList(String stock_sort_idx);
+//	ArrayList<StockDTO> subList(String stock_sort_idx);
 
-	ArrayList<StockDTO> shopSubList(String stock_sort_idx, String emp_id);
+	ArrayList<StockDTO> shopStockList(String stock_sort_idx, String emp_id);
 
 	ArrayList<StockDTO> updateView(HashMap<String, String> params); // 모달
 

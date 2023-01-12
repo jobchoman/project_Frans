@@ -96,9 +96,9 @@ th {
 					destroy : true,
 					serverSide : false,
 					ajax : {
-						"url" : "/order/shopFoodOrderList.do",
+						"url" : "/order/shopOrderList.do",
 						"type" : "get",
-						"data" : {}
+						"data" : {"stock_sort_idx" : 0}
 					},
 					columns : [
 							{
@@ -157,9 +157,9 @@ th {
 					destroy : true,
 					serverSide : false,
 					ajax : {
-						"url" : "/order/shopFoodOrderListOk.do",
+						"url" : "/order/shopOrderListOk.do",
 						"type" : "get",
-						"data" : {}
+						"data" : {"stock_sort_idx" : 0}
 					},
 					columns : [
 							{
@@ -219,9 +219,9 @@ th {
 					destroy : true,
 					serverSide : false,
 					ajax : {
-						"url" : "/order/shopSubOrderListCall.do",
+						"url" : "/order/shopOrderList.do",
 						"type" : "get",
-						"data" : {}
+						"data" : {"stock_sort_idx" : 1}
 					},
 					columns : [
 							{
@@ -280,9 +280,9 @@ th {
 					destroy : true,
 					serverSide : false,
 					ajax : {
-						"url" : "/order/shopSubOrderListOkCall.do",
+						"url" : "/order/shopOrderListOk.do",
 						"type" : "get",
-						"data" : {}
+						"data" : {"stock_sort_idx" : 1}
 					},
 					columns : [
 							{

@@ -96,9 +96,9 @@ th {
 					destroy : true,
 					serverSide : false,
 					ajax : {
-						"url" : "/order/FoodOrderList.do",
+						"url" : "/order/comOrderList.do",
 						"type" : "get",
-						"data" : {}
+						"data" : {"stock_sort_idx" : 0}
 					},
 					columns : [
 							{
@@ -147,9 +147,9 @@ th {
 					destroy : true,
 					serverSide : false,
 					ajax : {
-						"url" : "/order/FoodOrderListOk.do",
+						"url" : "/order/comOrderListOk.do",
 						"type" : "get",
-						"data" : {}
+						"data" : {"stock_sort_idx" : 0}
 					},
 					columns : [
 							{
@@ -198,9 +198,9 @@ th {
 					destroy : true,
 					serverSide : false,
 					ajax : {
-						"url" : "/order/SubOrderList.do",
+						"url" : "/order/comOrderList.do",
 						"type" : "get",
-						"data" : {}
+						"data" : {"stock_sort_idx" : 1}
 					},
 					columns : [
 							{
@@ -249,9 +249,9 @@ th {
 					destroy : true,
 					serverSide : false,
 					ajax : {
-						"url" : "/order/SubOrderListOk.do",
+						"url" : "/order/comOrderListOk.do",
 						"type" : "get",
-						"data" : {}
+						"data" : {"stock_sort_idx" : 1}
 					},
 					columns : [
 							{

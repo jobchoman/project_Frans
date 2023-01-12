@@ -15,17 +15,13 @@ public interface OrderDAO {
 
 	void shopOrder(String stock_idx, String order_amount, String shop_idx);
 
-	ArrayList<StockDTO> FoodOrderList();
-
-	ArrayList<StockDTO> SubOrderList();
+	ArrayList<StockDTO> comOrderList(HashMap<String, String> params);
 
 	ArrayList<StockDTO> FoodOrderDetail(HashMap<String, String> params);
 
 	ArrayList<StockDTO> subOrderDetail(HashMap<String, String> params);
 
-	ArrayList<StockDTO> FoodOrderListOk();
-
-	ArrayList<StockDTO> SubOrderListOk();
+	ArrayList<StockDTO> comOrderListOk(HashMap<String, String> params);
 
 	void orderChk(HashMap<String, String> params);
 
@@ -33,17 +29,23 @@ public interface OrderDAO {
 
 	void orderComChk(HashMap<String, String> params);
 
-	ArrayList<StockDTO> shopFoodOrderList();
+	ArrayList<StockDTO> shopOrderList(String shop_idx, String stock_sort_idx);
 
 	ArrayList<StockDTO> shopFoodOrderDetail(HashMap<String, String> params);
 
-	ArrayList<StockDTO> shopFoodOrderListOk();
+	ArrayList<StockDTO> shopOrderListOk(String shop_idx, String stock_sort_idx);
 
 	ArrayList<StockDTO> shopSubOrderListCall();
 
 	ArrayList<StockDTO> shopSubOrderListOkCall();
 
 	ArrayList<StockDTO> shopSubOrderDetail(HashMap<String, String> params);
+
+	String shopEmp(String emp_id);
+
+	int stockCnt(String stock_idx, String shop_idx);
+
+	void orderInsert(String stock_idx, String shop_idx, String shop_stock_amount);
 
 //	ArrayList<StockDTO> subList(String stock_sort_idx);
 
