@@ -33,7 +33,7 @@ public class MenuController {
 	@Autowired MenuService mService;
 	
 	@GetMapping(value="/menuList")
-	public String menuList(Model model) {
+	public String menuList() {
 		
 		
 //		model.addAttribute("list", mService.menuList());
@@ -43,8 +43,6 @@ public class MenuController {
 	@ResponseBody
 	@RequestMapping(value="/menuList.do")
 	public HashMap<String, Object> menuListCall(@RequestParam String menu_state) {
-
-		logger.info("dddddddddddddddddddddddddd");
 		
 		return mService.menuListCall(menu_state);
 	}
@@ -127,7 +125,7 @@ public class MenuController {
 	}
 	
 	@PostMapping(value="/menuUpdate.do")
-	public String menuUpdate(MultipartFile uploadFile, String menu_idx, String menu_name, int menu_price, String menu_recipe, String menu_state) {
+	public String updateMenu(MultipartFile uploadFile, String menu_idx, String menu_name, int menu_price, String menu_recipe, String menu_state) {
 			
 		logger.info("출시일 : "+menu_idx);
 		logger.info("이름 : "+menu_name);

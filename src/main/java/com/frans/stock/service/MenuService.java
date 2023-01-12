@@ -36,10 +36,10 @@ public class MenuService {
 		return cnt;
 	}
 
-	public ArrayList<HashMap<String, String>> menuList() {
-		ArrayList<HashMap<String, String>> list = mDAO.menuList();
-		return list;
-	}
+//	public ArrayList<HashMap<String, String>> menuList() {
+//		ArrayList<HashMap<String, String>> list = mDAO.menuList();
+//		return list;
+//	}
 
 
 	public HashMap<String, Object> menuListCall(String menu_state) {

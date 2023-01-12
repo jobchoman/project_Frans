@@ -2,7 +2,7 @@ package com.frans.stock.dto;
 
 import org.apache.ibatis.type.Alias;
 
-@Alias("menuDTO")
+@Alias("MenuDTO")
 public class MenuDTO {
 
 	private String menu_idx;

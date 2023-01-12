@@ -45,31 +45,38 @@
 <!-- 								</div> -->
 								<div class="x_content">
 									<br />
-									<form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" action="menuWrite.do" method="POST">
+									<form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" action="subWrite.do" method="POST">
 														
 										<div class="item form-group">
 											<label class="col-form-label col-md-3 col-sm-3 label-align">구독권 이름 <span class="required">*</span>
 											</label>
 											<div class="col-md-6 col-sm-6 ">
-												<input type="text" name="menu_name" class="form-control" required="required">
+												<input type="text" name="sub_name" class="form-control" required="required">
 											</div>
 										</div>
 										<div class="item form-group">
 											<label class="col-form-label col-md-3 col-sm-3 label-align">구독권 가격 <span class="required">*</span></label> 
 											<div class="col-md-6 col-sm-6 ">
-												<input type="text" name="menu_price" class="form-control" required="required">
+												<input type="text" name="sub_price" class="form-control" required="required">
 											</div>
 										</div>
 										<div class="item form-group">
 											<label class="col-form-label col-md-3 col-sm-3 label-align">횟수/요일 <span class="required">*</span></label> 
 											<div class="col-md-6 col-sm-6 ">
-												<input type="text" name="menu_price" class="form-control" required="required">
+												<div class="radio">
+													<label>
+														<input type="radio" class="flat" checked name="sub_sort_idx" value="0"> 횟수권
+														&nbsp;&nbsp;&nbsp;
+														<input type="radio" class="flat" name="sub_sort_idx" value="1"> 요일권
+													</label>
+												</div>
+
 											</div>
 										</div>
 										<div class="item form-group">
 											<label class="col-form-label col-md-3 col-sm-3 label-align">횟수 <span class="required">*</span></label> 
 											<div class="col-md-6 col-sm-6 ">
-												<input type="text" name="menu_price" class="form-control" required="required">
+												<input type="text" name="sub_num" class="form-control" required="required">
 											</div>
 										</div>
 										<div class="item form-group">
@@ -77,14 +84,14 @@
 											<div class="col-md-6 col-sm-6 ">
 												<div class="col-md-9 col-sm-9 ">
 												
-													<select id="selectbox" name="sub_period" class="form-control" style="width: 300px;" onchange="chageLangSelect()">
+													<select id="selectbox" class="form-control" style="width: 300px;" onchange="chageLangSelect()">
                                              			<option value="" selected="selected">선택하기</option>
                                              			<c:forEach var="item" items="${menuList}">
                                              			<option value="${item.menu_idx}">${item.menu_name}</option>              
                                              			</c:forEach>                          			
                                           			</select>
 												
-													<div id="menuTags" style="border: 1px solid #D3D3D3; width: 300px; height:100px;"></div>
+													<div id="menuTags" style="border: 1px solid #D3D3D3; width: 300px; min-height:100px;"></div>
 												</div>
 											</div>
 										</div>
@@ -157,7 +164,7 @@
 											<div class="col-md-6 col-sm-6 offset-md-3">
 												
 												<button class="btn btn-primary" type="reset">초기화</button>
-												<button type="submit" class="btn btn-success" id="menuRigist">등록하기</button>
+												<button type="submit" class="btn btn-success" id="subRigist">등록하기</button>
 											</div>
 										</div>
 
@@ -179,8 +186,8 @@
 </body>
 <script>
 $(function() {
-	$('#menuRigist').click(function(){
-		if(!confirm('메뉴 등록을 하시겠습니까?')) {
+	$('#subRigist').click(function(){
+		if(!confirm('구독권 등록을 하시겠습니까?')) {
 			return false;
 		}
 	});
@@ -188,7 +195,7 @@ $(function() {
 
 function putTags(selectValue,selectText) {
 	
-	var content = '<div><span>'+selectText+'</span><a href="#" onclick="delTags();">x</a><input type="hidden" value="'+selectValue+'"></div>';
+	var content = '<div><span>'+selectText+'</span><a class="delete" href="javascript:void(0)"> x</a><input type="hidden" id="idx" name="menuIdx" value="'+selectValue+'"></div>';
 	
 	$('#menuTags').append(content);
 	
@@ -207,7 +214,9 @@ function chageLangSelect(){
     putTags(selectValue,selectText);
 }
 
-
+$(document).on("click", ".delete", function(){
+    $(this).closest("div").remove();
+});
 
 </script>
 </html>

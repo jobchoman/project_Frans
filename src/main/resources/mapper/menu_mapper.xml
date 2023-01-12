@@ -7,7 +7,7 @@
 <mapper namespace="com.frans.stock.dao.MenuDAO">
 
 	<select id="menuCount" resultType="int">
-		SELECT COUNT(menu_idx) FROM menu;
+		SELECT COUNT(menu_idx) FROM menu
 	</select>
 
 	<insert id="menuRegister" parameterType="MenuDTO">

@@ -14,7 +14,7 @@ public interface MenuDAO {
 
 	int menuCount();
 
-	ArrayList<HashMap<String, String>> menuList();
+//	ArrayList<HashMap<String, String>> menuList();
 
 	ArrayList<HashMap<String, Object>> menuListCall(String menu_state);
 

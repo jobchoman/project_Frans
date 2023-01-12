@@ -8,4 +8,62 @@
 	<select id="menuList" resultType="hashmap">
 		SELECT menu_idx, menu_name FROM menu
 	</select>
+	
+	<select id="subCount" resultType="int">
+		SELECT COUNT(sub_idx) FROM subscribe
+	</select>
+	
+	<insert id="subWrite" parameterType="SubDTO">
+		INSERT INTO subscribe(sub_idx,sub_sort_idx,sub_name,sub_price,sub_num,sub_start,sub_end,sub_period)
+			VALUES(#{sub_idx},#{sub_sort_idx},#{sub_name},#{sub_price},#{sub_num},#{sub_start},#{sub_end},#{sub_period})
+	</insert>
+	
+	<insert id="subMenuWrite" parameterType="String">
+		INSERT INTO sub_menu(sub_idx, menu_idx)
+			VALUES(#{sub_idx},#{menu_idx})
+	</insert>
+	
+	<select id="subListCall" resultType="hashmap">
+		SELECT s.sub_idx, s.sub_name, s.sub_price, s.sub_period, ss.sub_sort_type FROM subscribe s
+		JOIN sub_sort ss ON s.sub_sort_idx = ss.sub_sort_idx
+		WHERE sub_state = #{param1}
+	</select>
+	
+	<select id="menuListCall" resultType="String">
+		SELECT m.menu_name FROM sub_menu sm JOIN menu m on sm.menu_idx = m.menu_idx 
+		where sm.sub_idx = #{param1};
+	</select>
+	
+	<select id="subDetail" resultType="hashmap">
+		SELECT s.sub_idx, s.sub_name, s.sub_price, s.sub_num, s.sub_state, s.sub_period, s.sub_start, s.sub_end, ss.sub_sort_type, ss.sub_sort_idx 
+		FROM subscribe s 
+		JOIN sub_sort ss ON s.sub_sort_idx = ss.sub_sort_idx 
+		WHERE sub_idx = #{param1}
+	</select>
+	
+	<select id="subMenu" resultType="hashmap">
+		SELECT sm.menu_idx, m.menu_name 
+			FROM sub_menu sm 
+			JOIN menu m ON sm.menu_idx = m.menu_idx 
+		WHERE sm.sub_idx = #{param1}
+	</select>
+	
+	<update id="subUpdate" parameterType="SubDTO">
+		UPDATE subscribe 
+			SET 
+				sub_sort_idx = #{sub_sort_idx}, 
+				sub_name = #{sub_name}, 
+				sub_price = #{sub_price}, 
+				sub_num = #{sub_num}, 
+				sub_start = #{sub_start}, 
+				sub_end = #{sub_end}, 
+				sub_state = #{sub_state}, 
+				sub_period = #{sub_period}
+			WHERE sub_idx = #{sub_idx}	
+	</update>
+	
+	<delete id="subMenuDelete" parameterType="String">
+		DELETE FROM sub_menu WHERE sub_idx = #{sub_idx}
+	</delete>
+	
 </mapper>
