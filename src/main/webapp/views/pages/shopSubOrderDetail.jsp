@@ -13,6 +13,9 @@
 .orderData{
 	display: none;
 }
+.nav_menu {
+     margin-bottom: 0;
+}
 </style>
 </head>
 <body class="nav-md">

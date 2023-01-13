@@ -11,6 +11,10 @@
 #notiIcon{
 	padding-left: 10px;
 }
+
+.hiddenClass{
+	display: none;
+}
 </style>
 </head>
 
@@ -43,12 +47,12 @@
 					id="navbarDropdown1" data-toggle="dropdown" aria-expanded="false">
 						<i class="fa fa-bell-o"></i> 
 						<!-- 알림 갯수 --> 
-						<span class="badge bg-green">3</span>
+						<span id="notiCount" class="badge bg-green"></span>
 				</a>
 				
-					<ul class="dropdown-menu list-unstyled msg_list" role="menu"
+					<ul id="notiList" class="dropdown-menu list-unstyled msg_list" role="menu"
 						aria-labelledby="navbarDropdown1">
-						<li id="notiList"></li>
+					
 						
 						<li class="nav-item">
 							<div class="text-center">
@@ -90,49 +94,6 @@
 </body>
 
 <script type="text/javascript">
-notiList();
-function notiList() {
-	$.ajax({
-		type : 'get',
-		url : '/noti/notiList.ajax',
-		dataType : 'json',
-		data : {
-			
-		},
-		success : function(data) {
-			console.log(data);
-			drawList(data.data)
-		}
-	});
-	
-	
-}
-
-function drawList(list) {
-	var test = "실패";
-	var content = '';
-	console.log(list);
-	for (i = 0; i < 2; i++) {
-		if(list.noti_type == '결재'){
-			test = "결재 알림입니다.";
-		}else if(list.noti_type == '참조'){
-			test = "참조 알림입니다.";
-		}else{
-			test = "성공";
-		}
-		console.log(list[i]);
-		content += '<li class="nav-item"><a class="dropdown-item">';
-		content += '<span>';
-		content += '<span>' + list.emp_name + '</span>';
-		content += '<span class="time">'+list.noti_hour+'</span>';
-		content += '</span>';
-		content += '<span class="message">'+test+'</span>';
-		content += '</a></li>';
-	}
-	$('#notiList').empty();
-	$('#notiList').append(content);
-
-}
 
 /* <li class="nav-item"><a class="dropdown-item"> <!-- 보낸사람 이미지 -->
  <span>

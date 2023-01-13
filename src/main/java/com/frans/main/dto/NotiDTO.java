@@ -14,6 +14,15 @@ public class NotiDTO {
 	private String no_check;
 	private String no_date;
 	private String emp_name;
+	private String noti_count;
+	
+	
+	public String getNoti_count() {
+		return noti_count;
+	}
+	public void setNoti_count(String noti_count) {
+		this.noti_count = noti_count;
+	}
 	public String getNoti_idx() {
 		return noti_idx;
 	}

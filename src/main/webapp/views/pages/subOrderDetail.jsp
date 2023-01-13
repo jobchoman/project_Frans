@@ -10,6 +10,9 @@
 <jsp:include page="css.jsp" />
 
 <style type="text/css">
+.nav_menu {
+     margin-bottom: 0;
+}
 .orderData{
 	display: none;
 }

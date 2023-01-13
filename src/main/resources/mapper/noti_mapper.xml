@@ -5,9 +5,18 @@
 <!-- 이 XML 을 어떤 interface 하고 연결 할 것인가 -->
 <mapper namespace="com.frans.main.dao.NotiDAO">
 	<select id="notiList" resultType="NotiDTO">
-		select n.emp_id,e.emp_name, n.noti_type, n.noti_hour from notification n, employee e,noti_box nb 
+		select (SELECT COUNT(nb2.noti_idx) from noti_box nb2 where nb2.no_check='읽지않음' and nb2.emp_id=nb.emp_id) as noti_count,n.emp_id,e.emp_name, n.noti_type, n.noti_hour, nb.no_check, nb.no_date,n.noti_pk,nb.noti_idx from notification n, employee e,noti_box nb 
 where n.emp_id = e.emp_id  and nb.emp_id = #{param1} and nb.noti_idx = n.noti_idx order by n.noti_idx desc
 	</select>
+	
+	<select id="notiListBox" resultType="NotiDTO">
+		select n.emp_id,e.emp_name, n.noti_type, n.noti_hour, nb.no_check, nb.no_date,n.noti_pk,nb.noti_idx from notification n, employee e,noti_box nb 
+where n.emp_id = e.emp_id  and nb.emp_id = #{param1} and nb.noti_idx = n.noti_idx order by n.noti_idx desc
+	</select>
+	
+	<delete id="notiDelete">
+		delete from noti_box  where emp_id = #{param2} and noti_idx = #{param1};
+	</delete>
 </mapper>
 
 

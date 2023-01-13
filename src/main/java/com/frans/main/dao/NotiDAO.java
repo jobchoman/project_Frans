@@ -13,4 +13,8 @@ public interface NotiDAO {
 
 	ArrayList<StockDTO> notiList(String emp_id);
 
+	ArrayList<StockDTO> notiListBox(String emp_id);
+
+	int notiDelete(String noti_idx, String emp_id);
+
 }

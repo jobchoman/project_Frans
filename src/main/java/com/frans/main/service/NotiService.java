@@ -29,6 +29,16 @@ public class NotiService {
 		return notidao.notiList(emp_id);
 	}
 
+	public ArrayList<StockDTO> notiListBox(String emp_id) {
+		logger.info("알림 수신함 서비스 아이디 : "+emp_id);
+		return notidao.notiListBox(emp_id);
+	}
+
+	public int notiDelete(String noti_idx, String emp_id) {
+		logger.info("알림삭제 서비스 param: {}",noti_idx);
+		return notidao.notiDelete(noti_idx,emp_id);
+	}
+
 	
 
 }

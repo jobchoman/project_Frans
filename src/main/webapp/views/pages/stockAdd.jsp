@@ -76,6 +76,9 @@ p{
 .modal{
 	top : 25%;
 }
+.nav_menu {
+     margin-bottom: 0;
+}
 
 </style>
 </head>

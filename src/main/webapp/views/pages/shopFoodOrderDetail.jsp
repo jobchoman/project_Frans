@@ -12,6 +12,10 @@
 <style type="text/css">
 .orderData{
 	display: none;
+	
+}
+.nav_menu {
+     margin-bottom: 0;
 }
 </style>
 </head>

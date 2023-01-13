@@ -9,7 +9,7 @@
 
 		<div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
-              <a href="/" class="site_title"><i class="fa fa-paw"></i> <span>Frans!</span></a>
+              <a href="/index.go" class="site_title"><i class="fa fa-paw"></i> <span>Frans!</span></a>
             </div>
 
         	<div class="clearfix"></div>
@@ -60,7 +60,7 @@
                   </li>
                   <li><a><i class="fa fa-bookmark"></i> 게시판 <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="/notiList.go">공지사항</a></li>
+                      <li><a href="/noticeList.go">공지사항</a></li>
                       <li><a href="/newMenuList.go">신메뉴 추천 게시판</a></li>
                     </ul>
                   </li>

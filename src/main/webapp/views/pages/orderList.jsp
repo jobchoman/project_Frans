@@ -26,6 +26,9 @@
 th {
 	pointer-events:none;
 }
+.nav_menu {
+     margin-bottom: 0;
+}
 
 </style>
 </head>
@@ -56,7 +59,7 @@ th {
 					<div class="row">
 						<div class="col-sm-12">
 							<div class="card-box table-responsive">
-									<table id="datatable"
+									<table id="comOrderList"
 									class="table table-striped table-bordered dataTable no-footer"
 									style="width: 100%" aria-describedby="datatable_info">
 										<h3>발주리스트</h3>
@@ -91,9 +94,11 @@ th {
 <script>
 	FoodOrderListCall();
 	function FoodOrderListCall() {
-		var table = $('#datatable').DataTable(
+		$("#order_state").prop('selectedIndex',0);
+		var table = $('#comOrderList').DataTable(
 				{
 					destroy : true,
+					"dom": 'frtp',
 					serverSide : false,
 					ajax : {
 						"url" : "/order/comOrderList.do",
@@ -142,9 +147,10 @@ th {
 	}
 	
 	function FoodOrderListOkCall() {
-		var table = $('#datatable').DataTable(
+		var table = $('#comOrderList').DataTable(
 				{
 					destroy : true,
+					"dom": 'frtp',
 					serverSide : false,
 					ajax : {
 						"url" : "/order/comOrderListOk.do",
@@ -193,9 +199,11 @@ th {
 	}
 	
 	function SubOrderListCall() {
-		var table = $('#datatable').DataTable(
+		$("#order_state").prop('selectedIndex',0);
+		var table = $('#comOrderList').DataTable(
 				{
 					destroy : true,
+					"dom": 'frtp',
 					serverSide : false,
 					ajax : {
 						"url" : "/order/comOrderList.do",
@@ -244,9 +252,10 @@ th {
 	}
 	
 	function SubOrderListOkCall() {
-		var table = $('#datatable').DataTable(
+		var table = $('#comOrderList').DataTable(
 				{
 					destroy : true,
+					"dom": 'frtp',
 					serverSide : false,
 					ajax : {
 						"url" : "/order/comOrderListOk.do",
