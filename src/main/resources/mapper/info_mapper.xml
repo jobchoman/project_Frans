@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC   "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd"
+>
+<!-- 이 XML 을 어떤 interface 를 통해서 연결 할 건가? -->
+<mapper namespace="com.frans.member.dao.InfoDAO">
+
+<!-- 	<select id="infoTeamList" resultType="String" parameterType="String"> -->
+<!-- 		SELECT e.emp_id ,t.team_idx,t.team_name,t.team_state,d.duty_idx,d.duty_name,d.duty_state,p.pos_idx,p.pos_name,p.pos_level,p.pos_state -->
+<!-- 		 from team t, duty d, position p, employee e  -->
+<!-- 		 where e.team_idx = t.team_idx and e.duty_idx = d.duty_idx and e.pos_idx = p.pos_idx ; -->
+<!-- 	</select> -->
+	<select id="infoTeamList" resultType="com.frans.member.dto.MemberDTO" parameterType="String">
+		SELECT team_idx, team_name, team_state FROM team 
+	</select>
+	
+	<select id="infoPosList" resultType="com.frans.member.dto.MemberDTO" parameterType="String">
+		SELECT pos_name,pos_idx,pos_level,pos_state FROM position 
+	</select>
+	
+	<select id="infoDutyList" resultType="com.frans.member.dto.MemberDTO" parameterType="String">
+		SELECT duty_name,duty_idx,duty_state FROM duty 
+	</select>
+	
+<!-- 	<select id="infoList" resultType="com.frans.member.dto.MemberDTO" parameterType="String"> -->
+<!-- 		SELECT team_idx, team_name, team_state FROM team -->
+<!-- 	</select> -->
+	
+<!-- 	<select id="teamList" resultType="com.frans.member.dto.MemberDTO" parameterType="String"> -->
+<!-- 		SELECT team_idx, team_name, team_state FROM team -->
+<!-- 	</select> -->
+<!-- 	<select id="dutyList" resultType="com.frans.member.dto.MemberDTO" parameterType="String"> -->
+<!-- 		SELECT duty_name,duty_idx,duty_state FROM duty -->
+<!-- 	</select> -->
+<!-- 	<select id="posList" resultType="com.frans.member.dto.MemberDTO" parameterType="String"> -->
+<!-- 		SELECT pos_name,pos_idx,pos_level,pos_state FROM position -->
+<!-- 	</select> -->
+	
+	<insert id="teamWrite" parameterType="String">
+		insert into team (team_idx,team_name,team_state) values (#{team_idx},#{team_name},#{team_state})
+	</insert>
+	
+	<insert id="posWrite" parameterType="String">
+		insert into `position` (pos_idx,pos_name,pos_state,pos_level) values (#{pos_idx},#{pos_name},#{pos_state},#{pos_level})
+	</insert>
+	
+	<insert id="dutyWrite" parameterType="String">
+		insert into duty (duty_idx,duty_name,duty_state) values (#{duty_idx},#{duty_name},#{duty_state})
+	</insert>
+
+	<select id="subCount" resultType="int">
+		SELECT COUNT(team_idx) FROM team
+	</select>
+	
+	<select id="teamUpdateForm" resultType="com.frans.member.dto.MemberDTO" parameterType="String">
+		SELECT team_idx, team_name, team_state FROM team where team_idx = #{team_idx};
+	</select>
+	
+	<update id="teamUpdate" parameterType="hashmap">
+		update team set team_idx=#{team_idx}, team_name=#{team_name},team_state=#{team_state} where team_idx = #{team_idx}
+
+	</update>
+
+
+	
+</mapper>
+
+
+
