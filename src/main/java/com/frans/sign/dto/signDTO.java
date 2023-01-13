@@ -21,8 +21,15 @@ public class signDTO {
 	private String emp_name;
 	private String team_idx;
 	private String sign_state_type;
+	private String team_name;
 	
 	
+	public String getTeam_name() {
+		return team_name;
+	}
+	public void setTeam_name(String team_name) {
+		this.team_name = team_name;
+	}
 	public String getDoc_form_idx() {
 		return doc_form_idx;
 	}

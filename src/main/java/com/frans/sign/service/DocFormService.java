@@ -28,7 +28,7 @@ public class DocFormService {
 		logger.info("lineup:{} ",lineup);
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		ArrayList<DocFormDTO> docformlist = docformdao.docFormList(doc_type,lineup);
-		map.put("docformlist", docformlist);
+		map.put("data", docformlist);
 		return map;
 	}
 

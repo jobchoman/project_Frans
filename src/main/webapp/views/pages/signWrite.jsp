@@ -93,7 +93,7 @@
 			<div id="signwritediv">
 <!-- 				<form action="/sign/write.do" method="post" enctype="multipart/form-data"> -->
 				<form action="/sign/write.do" method="post">
-					<div class="col-md-6 col-sm-6  ">
+					<div class="col-md-6 col-sm-6  " style="max-width: 100%">
 						<div class="x_panel" style="display: inline-table">
 							<div class="x_title">
 								<h2>결재 문서 작성</h2>
@@ -121,11 +121,11 @@
 								</tr>
 								<tr>
 									<th scope="row">작성자</th>
-									<td></td>
+									<td>${memberdto.emp_name}</td>
 								</tr>
 								<tr>
 									<th scope="row">팀</th>
-									<td></td>
+									<td>${memberdto.team_name}</td>
 								</tr>
 								<tr>
 									<th scope="row">결재경로</th>
@@ -236,6 +236,8 @@
 	<jsp:include page="script.jsp" />
 </body>
 <script>
+var loginId = "${sessionScope.emp_id}";
+console.log(loginId);
 
 var config = {};
 config.editorResizeMode = "none";

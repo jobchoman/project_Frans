@@ -59,6 +59,30 @@
 		UPDATE doc_form SET doc_form_use = doc_form_use +1 WHERE doc_form_idx = #{param1} 
 	</update>
 
+	<select id="signDetailGo" resultType="signDTO">
+		SELECT s.sign_idx, dt.doc_type_name, s.sign_team_open, s.emp_id, t.team_name, s.sign_title, s.sign_content, e.emp_name, e.emp_admin_auth
+			FROM sign s, employee e, document_type dt, team t 
+			WHERE s.emp_id = e.emp_id AND e.team_idx = t.team_idx AND s.doc_type_idx = dt.doc_type_idx AND s.sign_idx=#{param1}
+	</select>
 	
+ 	<select id="signDetailSignmem" resultType="hashmap">
+		SELECT s.sign_idx, sm.emp_id, e.emp_name FROM sign s, sign_mem sm, employee e 
+			WHERE s.sign_idx = sm.sign_idx AND sm.emp_id = e.emp_id AND sm.sign_idx=#{param1}
+	</select>
+	
+	<select id="signDetailRefermem" resultType="hashmap">
+		SELECT s.sign_idx, r.emp_id, e.emp_name FROM sign s, reference r, employee e 
+			WHERE s.sign_idx = r.sign_idx AND r.emp_id = e.emp_id AND r.sign_idx=#{param1}
+	</select>
+	
+	<select id="selectEmpName" resultType="com.frans.member.dto.MemberDTO">
+		SELECT e.emp_name, t.team_name FROM employee e, team t WHERE e.team_idx = t.team_idx AND e.emp_id = #{param1}
+	</select>
+	
+	<select id="signHistory" resultType="SignHistoryDTO">
+		SELECT e.emp_name, s.sign_idx, sm.emp_id, sm.sign_mem_ip, p.pos_name, sm.sign_mem_time, sm.sign_mem_state
+			FROM sign s, sign_mem sm, sign_state ss, employee e, `position` p
+			WHERE e.emp_id = sm.emp_id AND s.sign_idx = sm.sign_idx AND e.pos_idx = p.pos_idx AND s.sign_state_idx = ss.sign_state_idx AND s.sign_idx = #{param1}
+	</select>
 
 </mapper>

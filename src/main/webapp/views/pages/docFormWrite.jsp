@@ -87,10 +87,10 @@
 									</select>
 									</td>
 								</tr>
-								<tr>
+<!-- 								<tr>
 									<th scope="row">작성자</th>
 									<td></td>
-								</tr>
+								</tr> -->
 								<tr>
 									<th scope="row">서식 이름</th>
 									<td><input type="text" name="doc_form_name" placeholder="서식 이름을 입력하세요." style="width:50%"></td>

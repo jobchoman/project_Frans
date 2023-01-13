@@ -46,7 +46,27 @@
 	.modal fade bs-example-modal-sm {
 		width: 100%;
 	}
+	
+	#datatable_length {
+		display: none;
+	}
+	
+	.row > .col-sm-6:first-child {
+		display: none;
+	}
 
+	#datatable_info {
+		display: none;
+	}
+	
+	.col-sm-6 {
+		flex: 100%;
+		max-width: 100%;
+	}
+	
+	.row {
+		width: 100%;
+	}
 	
 </style>
 </head>
@@ -62,25 +82,18 @@
 			<!-- page content -->
 			<div class="right_col addWrap" role="main">
 			<div id="docformdiv">
+			<div class="table-responsive">
 				<div style="width:100%"><h3 style="float:left">결재 문서 양식</h3></div>
-				<div style="width:100%">
-					<div class="input-group" style="float: left; width:30%">
-						<input type="text" id="searchInput" class="form-control" style="height: 1%">
-							<span class="input-group-btn">
-							<button type="button" class="btn btn-primary" id="docFormSearchBtn" onclick="docFormSearch()">검색</button>
-							</span>
-					</div>
-				</div>
 				
-				<div style="width:100%">
+ 				<div style="width:100%">
 				
-				<select id="lineup" style="float: right" onchange="listCall()">
+				<select id="lineup" style="float: right" onchange="listCall(doc_type,lineup)">
 					<option value="최신순" selected="selected">최신순</option>
 					<option value="조회수">조회수</option>
 					<option value="사용수">사용수</option>
 				</select>
 				
-				<select id="doc_type" name="doc_type" style="float: right" onchange="listCall()">
+				<select id="doc_type" name="doc_type" style="float: right" onchange="listCall(doc_type,lineup)">
 					<option value="all" selected="selected">전체</option>
 					<option value="DT001">품의서</option>
 					<option value="DT002">지출결의서</option>
@@ -92,40 +105,25 @@
 				</select>
 				
 				<button type="button" onclick="location.href='/docFormWrite.go'" class="btn btn-round btn-info" id="docformbtn" style="float:right">양식작성</button>
-				</div>
+				</div> 
 				
-				<div class="table-responsive">
-					<table id="docform" class="table table-striped jambo_table bulk_action">
+					<table id="docform" class="table table-striped table-bordered bulk_action" style="width:100%">
+						
 						<thead>
 						<tr class="headings">
 							<th><input type="checkbox" id="check-all" class="flat"></th>
-							<th class="column-title">양식 종류</th>
-							<th class="column-title">제목</th>
-							<th class="column-title">작성자</th>
-							<th class="column-title">사용수</th>
-							<th class="column-title">조회수</th>
-							<th class="bulk-actions" colspan="5"></th>
+							<th>양식 idx</th>
+							<th>양식 종류</th>
+							<th>제목</th>
+							<th>작성자</th>
+							<th>사용수</th>
+							<th>조회수</th>
 						</tr>
 						</thead>
 
-						<tbody id="docformlist">
-						<!-- 
-							<c:if test="${docformlist.size()<1}">
-							<tr><td colspan="5">데이터가 존재하지 않습니다.</td></tr>
-							</c:if>
-							
-							<c:forEach items="${docformlist}" var="docform">
-							<tr class="even pointer">
-								<td class="a-center "><input type="checkbox" class="flat" name="table_records"></td>
-								<td>${docform.doc_type_name}</td>
-								<td>${docform.doc_form_name}</td>
-								<td>${docform.emp_name}</td>
-								<td>${docform.doc_form_use}</td>
-								<td>${docform.doc_form_upHit}</td>
-							</tr>
-							</c:forEach>
-						-->
-						</tbody>
+<!-- 						<tbody id="docformlist">
+
+						</tbody> -->
 					</table>
 					<!-- <button type="button" onclick="docFormDelete()" class="btn btn-round btn-info" id="docFormDelBtn" style="float:left">삭제</button> -->
 					 
@@ -187,19 +185,94 @@
 	<jsp:include page="script.jsp" />
 </body>
 <script>
-/* 
-var msg="${msg}";
-if(msg != ""){
-	alert(msg);
-} */
-// console.log(${total});
 
-// var showPage = 1;
-listCall();
+listCall(doc_type,lineup);
+
+
+function listCall(doc_type,lineup) {
+	var doc_type_value = doc_type.value;
+	var lineup_value = lineup.value;
+	console.log(doc_type_value);
+	console.log(lineup_value);
+
+		
+	var table = $('#docform').DataTable(
+			{
+				destroy : true,
+				aaSorting : [],
+				serverSide : false,
+				ajax : {
+					"url" : "docForm/list.do",
+					"type" : "get",
+					"data" : {
+								"doc_type" : doc_type_value,
+								 "lineup" : lineup_value
+							}
+				},
+				columns : [
+						{
+							data : "doc_form_idx",
+							"render" : function(data, type, row) {
+								if (type == 'display') {
+									
+										data = '<input type="checkbox" value='+row.doc_form_idx+' class="flat" name="table_records">';
+								
+								}
+								return data;
+							}
+						},
+						{
+							data : "doc_form_idx"
+						},
+						{
+							data : "doc_type_name"
+						},
+						{
+							data : "doc_form_name",
+								"render" : function(data, type, row) {
+									if (type == 'display') {
+										
+											data = '<a href="/docFormDetail.go?doc_form_idx='+row.doc_form_idx+'">'+row.doc_form_name+'</a>';
+									}
+									return data;
+								}
+						},
+						{
+							data : "emp_name"
+
+						},
+						{
+							data : "doc_form_use"
+
+						},
+						{
+							data : "doc_form_upHit"
+						}
+						
+					],
+				columnDefs : [ {
+
+					targets : [ 1 ],
+
+					searchable : false,
+
+					visible : false
+
+				}
+					
+				]
+
+			});
+
+}
+
+
+//function listCall_order(order)
+
 // var doc_type = $("#doc_type option:selected").val();
 // console.log(doc_type);
 //var lineup = $("#lineup option:selected").val();
-
+/*
 function listCall(){
 	$.ajax({
 		type:'get',
@@ -235,7 +308,7 @@ function drawList(list){
 	$('#docformlist').empty();
 	$('#docformlist').append(content);
 }
-
+*/
 /*
 var flag = true;
 
@@ -306,7 +379,7 @@ function docFormDelete(){
 //				alert(data.msg);
 				display.innerHTML = data.msg;
 				$('#secondmodal').modal();
-				listCall();
+				listCall(value);
 //	         	listCall(showPage);
 	         }
 	         

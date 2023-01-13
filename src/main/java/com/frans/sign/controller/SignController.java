@@ -3,6 +3,7 @@ package com.frans.sign.controller;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -49,11 +50,14 @@ public class SignController {
 	}
 	
 	@GetMapping(value="/signWrite.go")
-	public ModelAndView signWriteGo(@RequestParam String doc_form_idx){
+	public ModelAndView signWriteGo(@RequestParam String doc_form_idx, HttpServletRequest req){
+		HttpSession session = req.getSession();
+		String loginId = (String) session.getAttribute("loginId");
 		logger.info("결재 문서 작성 이동 컨트롤러");
+		logger.info("로그인 아이디: "+loginId);
 		logger.info("idx: "+doc_form_idx);
 		
-		return signservice.signWriteGo(doc_form_idx);
+		return signservice.signWriteGo(doc_form_idx, loginId);
 	}
 	
 	@PostMapping(value="/sign/write.do")
@@ -69,10 +73,12 @@ public class SignController {
 	}
 	
 	@GetMapping(value="/signDetail.go")
-	public ModelAndView signDetailGo(String sign_idx) {
+	public ModelAndView signDetailGo(String sign_idx, HttpServletRequest req) {
+		HttpSession session = req.getSession();
+		String loginId = (String) session.getAttribute("loginId");
 		logger.info("결재 문서 상세페이지 컨트롤러");
 		logger.info("글 idx: "+sign_idx);
-		return signservice.signDetailGo(sign_idx);
+		return signservice.signDetailGo(sign_idx, loginId);
 //		return null;
 	}
 }

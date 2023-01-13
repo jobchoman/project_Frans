@@ -11,9 +11,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.frans.member.dto.MemberDTO;
+import com.frans.member.dto.MemberDTO2;
 import com.frans.sign.dao.SignDAO;
 import com.frans.sign.dto.DocFormDTO;
 import com.frans.sign.dto.ReferDTO;
+import com.frans.sign.dto.SignHistoryDTO;
 import com.frans.sign.dto.signDTO;
 import com.frans.sign.dto.signMemDTO;
 
@@ -56,12 +58,15 @@ public class SignService {
 		return map;
 	}
 
-	public ModelAndView signWriteGo(String doc_form_idx) {
+	public ModelAndView signWriteGo(String doc_form_idx, String loginId) {
 		ModelAndView mav = new ModelAndView("signWrite");
 		DocFormDTO docformdto = signdao.signWriteGo(doc_form_idx);
 		ArrayList<MemberDTO> memberlist = signdao.memberList();
+		MemberDTO memberdto =  signdao.selectEmpName(loginId);
 		mav.addObject("docformdto",docformdto);
 		mav.addObject("memberlist",memberlist);
+		mav.addObject("memberdto",memberdto);
+//		mav.addObject("loginId", loginId);
 		return mav;
 	}
 
@@ -109,12 +114,18 @@ public class SignService {
 	}
 	
 
-	public ModelAndView signDetailGo(String sign_idx) {
+	public ModelAndView signDetailGo(String sign_idx, String loginId) {
 		logger.info("결재 문서 상세페이지 서비스");
 		ModelAndView mav = new ModelAndView("signDetail");
-		signDTO signdto = new signDTO();
-		signMemDTO signmemdto = new signMemDTO();
+		signDTO signdto = signdao.signDetailGo(sign_idx);
+		ArrayList<signMemDTO> signmemlist = signdao.signDetailSignmem(sign_idx);
+		ArrayList<ReferDTO> referlist = signdao.signDetailRefermem(sign_idx);
+		ArrayList<SignHistoryDTO> history = signdao.signHistory(sign_idx);
+		mav.addObject("signdto", signdto);
+		mav.addObject("signmemlist", signmemlist);
+		mav.addObject("referlist", referlist);
+		mav.addObject("history",history);
 		
-		return null;
+		return mav;
 	}
 }

@@ -8,6 +8,7 @@ import org.apache.ibatis.type.Alias;
 public class signMemDTO {
 	
 	private String emp_id;
+	private String emp_name;
 	private int sign_idx;
 	private int sign_mem_order;
 	private boolean sign_mem_state;
@@ -15,6 +16,13 @@ public class signMemDTO {
 	private String sign_mem_ip;
 	private Date sign_mem_time;
 	
+	
+	public String getEmp_name() {
+		return emp_name;
+	}
+	public void setEmp_name(String emp_name) {
+		this.emp_name = emp_name;
+	}
 	public String getEmp_id() {
 		return emp_id;
 	}

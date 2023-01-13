@@ -5,8 +5,10 @@ import java.util.ArrayList;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.frans.member.dto.MemberDTO;
+import com.frans.member.dto.MemberDTO2;
 import com.frans.sign.dto.DocFormDTO;
 import com.frans.sign.dto.ReferDTO;
+import com.frans.sign.dto.SignHistoryDTO;
 import com.frans.sign.dto.signDTO;
 import com.frans.sign.dto.signMemDTO;
 
@@ -32,6 +34,18 @@ public interface SignDAO {
 	void signMember(signMemDTO signmemdto);
 
 	void refMember(ReferDTO referdto);
+
+	signDTO signDetailGo(String sign_idx);
+
+	ArrayList<signMemDTO> signDetailSignmem(String sign_idx);
+
+	ArrayList<ReferDTO> signDetailRefermem(String sign_idx);
+
+	MemberDTO selectEmpName(String loginId);
+
+	ArrayList<SignHistoryDTO> signHistory(String sign_idx);
+
+//	MemberDTO2 loginsession(String sign_idx, String loginId);
 
 
 }
