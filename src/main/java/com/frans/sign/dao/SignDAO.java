@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.frans.member.dto.MemberDTO;
-import com.frans.member.dto.MemberDTO2;
 import com.frans.sign.dto.DocFormDTO;
 import com.frans.sign.dto.ReferDTO;
 import com.frans.sign.dto.SignHistoryDTO;
@@ -45,7 +44,19 @@ public interface SignDAO {
 
 	ArrayList<SignHistoryDTO> signHistory(String sign_idx);
 
-//	MemberDTO2 loginsession(String sign_idx, String loginId);
+	String lastOrder(String sign_idx);
+
+	int signMemUpdate(String sign_idx, String loginId, String userIP, String comment);
+
+	int signStateUpdate(String sign_idx, String loginId, String sign_order, String last_order_id);
+
+	int signStateUpdate_first(String sign_idx);
+
+	String loginName(String loginId);
+
+	void fileUpload(int sign_idx, String oriFileName, String newFileName);
+
+
 
 
 }
