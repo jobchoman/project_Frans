@@ -62,6 +62,10 @@
 	<insert id="fileUpload">
 		INSERT INTO file(file_sort_idx, file_from, file_ori, file_new) VALUES('3', #{param1}, #{param2}, #{param3})
 	</insert>
+	
+	<select id="fileList" resultType="fileDTO">
+		SELECT file_new FROM file WHERE file_sort_idx = 3 AND file_from = #{param1};
+	</select>
 
 	<select id="signDetailGo" resultType="signDTO">
 		SELECT s.sign_idx, dt.doc_type_name, s.sign_team_open, s.emp_id, t.team_name, s.sign_title, s.sign_content, e.emp_name, e.emp_admin_auth
@@ -70,7 +74,7 @@
 	</select>
 	
  	<select id="signDetailSignmem" resultType="hashmap">
-		SELECT s.sign_idx, sm.emp_id, e.emp_name, sm.sign_mem_order FROM sign s, sign_mem sm, employee e 
+		SELECT s.sign_idx, sm.emp_id, e.emp_name, sm.sign_mem_order, sm.sign_mem_comment, sm.sign_mem_state FROM sign s, sign_mem sm, employee e 
 			WHERE s.sign_idx = sm.sign_idx AND sm.emp_id = e.emp_id AND sm.sign_idx=#{param1}
 	</select>
 	
@@ -114,7 +118,7 @@
 	</update>
 	
 	<select id="signDoMemCnt" resultType="signMemDTO">
-		SELECT sm.emp_id, sm.sign_mem_comment, sm.sign_mem_comment, e.emp_name FROM sign_mem sm, employee e WHERE e.emp_id = sm.emp_id AND sign_idx = #{param1} AND sign_mem_state = 1;
+		SELECT sm.emp_id, sm.sign_mem_comment, e.emp_name FROM sign_mem sm, employee e WHERE e.emp_id = sm.emp_id AND sign_idx = #{param1} AND sign_mem_state = 1;
 	</select>
 	
 

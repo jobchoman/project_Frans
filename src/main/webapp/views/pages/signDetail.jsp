@@ -59,7 +59,7 @@
 		padding-inline: revert;
 	}
 	
-	#commentInputOwn, #commentInputOther {
+	#commentInput, #commentInputOwn, #commentInputOther {
 		margin-left: 1%;
 	}
 		
@@ -161,12 +161,28 @@
 													<c:forEach items="${signmemlist}" var="signmem">
 														<c:choose>
 														<c:when test="${signmem.emp_id eq loginId}">
-															
-															<p style="font-weight:bold" class="commentName">${signmem.emp_name}<input type="text" id="commentInputOwn" style="width:80%; border: 1px solid lightgray" placeholder="코멘트를 입력하세요"/> </p>
+														
+															<c:choose>
+																<c:when test="${signmem.sign_mem_comment ne null && signmem.sign_mem_comment ne '없음'}">
+																	<p style="font-weight:bold" class="commentName">${signmem.emp_name}<input type="text" id="commentInputOwn" style="width:80%; border: none" readonly value="${signmem.sign_mem_comment}"/> </p>
+																</c:when>
+																<c:otherwise>
+																	<p style="font-weight:bold" class="commentName">${signmem.emp_name}<input type="text" id="commentInput" style="width:80%; border: 1px solid lightgray" placeholder="코멘트를 입력하세요"/> </p>
+																</c:otherwise>
+															</c:choose>
 															
 														</c:when>
 														<c:when test="${signmem.emp_id ne loginId}">
-															<p style="font-weight:bold" class="commentNameOther">${signmem.emp_name}<input type="text" id="commentInputOther" style="width:80%; background-color:#D5D5D5; border: gray" readonly/> </p>
+														
+															<c:choose>
+																<c:when test="${signmem.sign_mem_comment ne null && signmem.sign_mem_comment ne '없음'}">
+																	<p style="font-weight:bold" class="commentNameOther">${signmem.emp_name}<input type="text" id="commentInputOther" style="width:80%; border: none" readonly value="${signmem.sign_mem_comment}"/> </p>
+																</c:when>
+																<c:otherwise>
+																	<p style="font-weight:bold" class="commentNameOther">${signmem.emp_name}<input type="text" id="commentInputOther" style="width:80%; background-color:#D5D5D5; border: gray" readonly/> </p>
+																</c:otherwise>
+															</c:choose>
+														
 														</c:when>
 														</c:choose>
 													</c:forEach>
@@ -176,18 +192,18 @@
 									</c:forEach>
 								<tr>
 									<th scope="row">첨부파일</th>
-<%-- 									<c:forEach items=${ }> --%>
 										<td>
-											
+									<c:forEach items="${fileList}" var="path">
+											<p>다운로드</p>
+									</c:forEach>
 										</td>									
-<%-- 									</c:forEach> --%>
 								</tr>
 								<tr>
 									<td colspan="2">
 										<button type="button" onclick="location.href='/signList.go'" class="btn btn-round btn-secondary" id="goList" style="float:left">목록</button>
 										<c:set var="loginId" value="${sessionScope.loginId}" scope="page"/>
 											<c:forEach items="${signmemlist}" var="sign">
-												<c:if test="${loginId eq sign.emp_id}">
+												<c:if test="${loginId eq sign.emp_id && sign.sign_mem_state eq '0'}">
 													<input type="hidden" value="${sign.sign_mem_order}" id="sign_mem_order"/>
 													<input type="hidden" value="${lastOrder}" id="lastorder"/>
 													<button type="button" onclick="signDo()" class="btn btn-round btn-secondary" id="sign" style="float:right">결재</button>
@@ -322,6 +338,7 @@ function signDo(){
 			draw_signImg_th(data);
 			draw_signImg_td(data);
 			inputComment(comment);
+			window.location.href = "/signDetail.go?sign_idx="+sign_idx;
 		},
 		error:function(e){
 			console.log(e);
@@ -358,10 +375,7 @@ function inputComment(comment){
 	if(login_name == $(".commentName").text()){
 		$("#commentInputOwn").val(comment);
 	}
-	
-	
-//	$("#empName2").val(empName);
-//	commentInput
+
 }
 
 

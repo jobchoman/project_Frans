@@ -8,6 +8,7 @@ import com.frans.member.dto.MemberDTO;
 import com.frans.sign.dto.DocFormDTO;
 import com.frans.sign.dto.ReferDTO;
 import com.frans.sign.dto.SignHistoryDTO;
+import com.frans.sign.dto.fileDTO;
 import com.frans.sign.dto.signDTO;
 import com.frans.sign.dto.signMemDTO;
 
@@ -57,6 +58,8 @@ public interface SignDAO {
 	void fileUpload(int sign_idx, String oriFileName, String newFileName);
 
 	ArrayList<signMemDTO> signDoMemCnt(String sign_idx);
+
+	ArrayList<fileDTO> fileList(String sign_idx);
 
 
 

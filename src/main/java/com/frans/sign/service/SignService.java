@@ -20,6 +20,7 @@ import com.frans.sign.dao.SignDAO;
 import com.frans.sign.dto.DocFormDTO;
 import com.frans.sign.dto.ReferDTO;
 import com.frans.sign.dto.SignHistoryDTO;
+import com.frans.sign.dto.fileDTO;
 import com.frans.sign.dto.signDTO;
 import com.frans.sign.dto.signMemDTO;
 
@@ -30,7 +31,7 @@ public class SignService {
 	
 	@Autowired SignDAO signdao;
 	
-	@Value("{file.location}") private String root;
+	@Value("${file.location}") private String root;
 
 	public HashMap<String, Object> signList() {
 		logger.info("결재 문서 리스트 서비스");
@@ -125,20 +126,22 @@ public class SignService {
 	
 
 	private void fileUpload(List<MultipartFile> files, int sign_idx) {
-		try {
-			for(int i=0; i<files.size(); i++) {
-				MultipartFile file = files.get(i);
-				String oriFileName = file.getOriginalFilename();
-				String ext = oriFileName.substring(oriFileName.lastIndexOf("."));
-				String newFileName = System.currentTimeMillis()+i+ext;
+		
+		for(int i=0; i<files.size(); i++) {
+			MultipartFile file = files.get(i);
+			String oriFileName = file.getOriginalFilename();
+			String ext = oriFileName.substring(oriFileName.lastIndexOf("."));
+			String newFileName = System.currentTimeMillis()+i+ext;
 				
-				signdao.fileUpload(sign_idx, oriFileName, newFileName);
-				byte[] bytes = files.get(i).getBytes();
-				Path path = Paths.get(root+newFileName);
-				Files.write(path, bytes);
+			try {
+					signdao.fileUpload(sign_idx, oriFileName, newFileName);
+					byte[] bytes = files.get(i).getBytes();
+//					logger.info("root: "+root);
+					Path path = Paths.get(root+newFileName);
+					Files.write(path, bytes);
+			} catch (Exception e) {
+					e.printStackTrace();
 			}
-		} catch (Exception e) {
-			e.printStackTrace();
 		}
 
 	}
@@ -153,6 +156,8 @@ public class SignService {
 		String lastOrder = signdao.lastOrder(sign_idx);
 		String loginName = signdao.loginName(loginId);
 		ArrayList<signMemDTO> signDoMemCnt = signdao.signDoMemCnt(sign_idx);
+		ArrayList<fileDTO> fileList = signdao.fileList(sign_idx);
+		
 		mav.addObject("signdto", signdto);
 		mav.addObject("signmemlist", signmemlist);
 		mav.addObject("referlist", referlist);
@@ -160,6 +165,7 @@ public class SignService {
 		mav.addObject("lastOrder", lastOrder);
 		mav.addObject("loginName", loginName);
 		mav.addObject("signDoMemCnt", signDoMemCnt);
+		mav.addObject("fileList",fileList);
 		return mav;
 	}
 
