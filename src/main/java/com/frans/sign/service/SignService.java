@@ -1,5 +1,8 @@
 package com.frans.sign.service;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -7,11 +10,12 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.frans.member.dto.MemberDTO;
-import com.frans.member.dto.MemberDTO2;
 import com.frans.sign.dao.SignDAO;
 import com.frans.sign.dto.DocFormDTO;
 import com.frans.sign.dto.ReferDTO;
@@ -25,6 +29,8 @@ public class SignService {
 	Logger logger = LoggerFactory.getLogger(getClass());
 	
 	@Autowired SignDAO signdao;
+	
+	@Value("{file.location}") private String root;
 
 	public HashMap<String, Object> signList() {
 		logger.info("결재 문서 리스트 서비스");
@@ -71,7 +77,7 @@ public class SignService {
 	}
 
 	
-	public String signWriteDo(HashMap<String, String> params, String[] empIdx_input, String[] ref_empIdx_input) {
+	public String signWriteDo(List<MultipartFile> files, HashMap<String, String> params, String[] empIdx_input, String[] ref_empIdx_input, String loginId) {
 
 		signDTO signdto = new signDTO();
 		signdto.setDoc_form_idx(params.get("doc_form_idx"));
@@ -79,7 +85,9 @@ public class SignService {
 		signdto.setSign_content(params.get("sign_content"));
 		signdto.setSign_team_open(params.get("sign_team_open"));
 		signdto.setSign_title(params.get("sign_title"));
+		signdto.setEmp_id(loginId);
 		int success = signdao.signWriteDo(signdto);
+		int sign_idx = signdto.getSign_idx();
 		logger.info("작성된 결재 문서 idx: "+signdto.getSign_idx());
 		
 		if (success != 0){
@@ -105,6 +113,8 @@ public class SignService {
 					signdao.refMember(referdto);				
 				}
 			}
+			fileUpload(files,sign_idx);
+			
 			logger.info("doc_form_idx"+signdto.getDoc_form_idx());
 			signdao.docForm_use_update(signdto.getDoc_form_idx());
 		}
@@ -114,6 +124,25 @@ public class SignService {
 	}
 	
 
+	private void fileUpload(List<MultipartFile> files, int sign_idx) {
+		try {
+			for(int i=0; i<files.size(); i++) {
+				MultipartFile file = files.get(i);
+				String oriFileName = file.getOriginalFilename();
+				String ext = oriFileName.substring(oriFileName.lastIndexOf("."));
+				String newFileName = System.currentTimeMillis()+i+ext;
+				
+				signdao.fileUpload(sign_idx, oriFileName, newFileName);
+				byte[] bytes = files.get(i).getBytes();
+				Path path = Paths.get(root+newFileName);
+				Files.write(path, bytes);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+
 	public ModelAndView signDetailGo(String sign_idx, String loginId) {
 		logger.info("결재 문서 상세페이지 서비스");
 		ModelAndView mav = new ModelAndView("signDetail");
@@ -121,11 +150,50 @@ public class SignService {
 		ArrayList<signMemDTO> signmemlist = signdao.signDetailSignmem(sign_idx);
 		ArrayList<ReferDTO> referlist = signdao.signDetailRefermem(sign_idx);
 		ArrayList<SignHistoryDTO> history = signdao.signHistory(sign_idx);
+		String lastOrder = signdao.lastOrder(sign_idx);
+		String loginName = signdao.loginName(loginId);
 		mav.addObject("signdto", signdto);
 		mav.addObject("signmemlist", signmemlist);
 		mav.addObject("referlist", referlist);
 		mav.addObject("history",history);
-		
+		mav.addObject("lastOrder", lastOrder);
+		mav.addObject("loginName", loginName);
 		return mav;
 	}
+
+	
+	public HashMap<String, Object> sign(String sign_idx, String loginId, String userIP, String comment, String sign_order, String last_order_id) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		// 결재자 테이블 업데이트
+		signMemDTO signmem = new signMemDTO();
+		signmem.setSign_mem_comment(comment);
+		signmem.setSign_mem_ip(userIP);
+		int signMemUpdate =  signdao.signMemUpdate(sign_idx, loginId, userIP, comment);
+		map.put("signMemUpdate", signMemUpdate);
+		
+		logger.info("결재 순서: "+sign_order);
+		logger.info("로그인 아이디: "+loginId+" / 마지막 결재자: "+last_order_id);
+		
+		// 결재 테이블 결재상태 업데이트
+				
+		if ((sign_order.equals("1")) && (loginId.equals(last_order_id))) {
+			logger.info("처음이자 마지막 결재자");
+			int signStateUpdate_first = signdao.signStateUpdate_first(sign_idx);
+			map.put("signStateUpdate_first", signStateUpdate_first);
+		}else if((sign_order.equals("1")) || (loginId.equals(last_order_id))) {
+			logger.info(sign_order+"번째 결재자");
+			int signStateUpdate = signdao.signStateUpdate(sign_idx, loginId, sign_order, last_order_id);
+			map.put("signStateUpdate", signStateUpdate);	
+		}
+		
+		
+		return map;
+	}
+	
+	
+	
+	
+	
+	
+	
 }

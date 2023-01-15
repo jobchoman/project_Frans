@@ -33,7 +33,7 @@
 			keyProperty="sign_idx"
 			parameterType="signDTO">
 			INSERT INTO sign(emp_id, doc_type_idx, sign_content, sign_title, sign_team_open)
-				VALUES ('20160004', #{doc_type_idx}, #{sign_content},#{sign_title},
+				VALUES (#{emp_id}, #{doc_type_idx}, #{sign_content},#{sign_title},
 			<if test="sign_team_open.equals('공개')">'공개')</if>
 			<if test="sign_team_open.equals('비공개')">'비공개')</if>
 	</insert>
@@ -58,6 +58,10 @@
 	<update id="docForm_use_update">
 		UPDATE doc_form SET doc_form_use = doc_form_use +1 WHERE doc_form_idx = #{param1} 
 	</update>
+	
+	<insert id="fileUpload">
+		INSERT INTO file(file_sort_idx, file_from, file_ori, file_new) VALUES('3', #{param1}, #{param2}, #{param3})
+	</insert>
 
 	<select id="signDetailGo" resultType="signDTO">
 		SELECT s.sign_idx, dt.doc_type_name, s.sign_team_open, s.emp_id, t.team_name, s.sign_title, s.sign_content, e.emp_name, e.emp_admin_auth
@@ -66,7 +70,7 @@
 	</select>
 	
  	<select id="signDetailSignmem" resultType="hashmap">
-		SELECT s.sign_idx, sm.emp_id, e.emp_name FROM sign s, sign_mem sm, employee e 
+		SELECT s.sign_idx, sm.emp_id, e.emp_name, sm.sign_mem_order FROM sign s, sign_mem sm, employee e 
 			WHERE s.sign_idx = sm.sign_idx AND sm.emp_id = e.emp_id AND sm.sign_idx=#{param1}
 	</select>
 	
@@ -79,10 +83,36 @@
 		SELECT e.emp_name, t.team_name FROM employee e, team t WHERE e.team_idx = t.team_idx AND e.emp_id = #{param1}
 	</select>
 	
+	<select id="loginName" resultType="String">
+		SELECT emp_name FROM employee WHERE emp_id = #{param1}
+	</select>
+	
 	<select id="signHistory" resultType="SignHistoryDTO">
 		SELECT e.emp_name, s.sign_idx, sm.emp_id, sm.sign_mem_ip, p.pos_name, sm.sign_mem_time, sm.sign_mem_state
 			FROM sign s, sign_mem sm, sign_state ss, employee e, `position` p
 			WHERE e.emp_id = sm.emp_id AND s.sign_idx = sm.sign_idx AND e.pos_idx = p.pos_idx AND s.sign_state_idx = ss.sign_state_idx AND s.sign_idx = #{param1}
 	</select>
+	
+	<select id="lastOrder" resultType="String">
+		SELECT emp_id FROM sign_mem
+			WHERE sign_mem_order = (SELECT (SELECT count(emp_id) FROM sign_mem sm WHERE sign_idx=s.sign_idx) FROM sign s WHERE s.sign_idx = #{param1}) AND sign_idx = #{param1}
+	</select>
+	
+	<update id="signMemUpdate">
+		UPDATE sign_mem set sign_mem_comment = #{param4}, sign_mem_ip = #{param3}, sign_mem_state = 1 WHERE sign_idx = #{param1} AND emp_id = #{param2}
+	</update>
+	
+	<update id="signStateUpdate">
+		UPDATE sign
+				<if test="sign_order == '1'.toString()">set sign_state_idx = 1</if>
+				<if test="last_order_id == loginId">set sign_state_idx = 2</if>
+		WHERE sign_idx = #{param1}
+	</update>
+	
+	<update id="signStateUpdate_first">
+		UPDATE sign set sign_state_idx = 2 WHERE sign_idx = #{param1}
+	</update>
+	
+	
 
 </mapper>

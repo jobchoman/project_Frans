@@ -1,6 +1,7 @@
 package com.frans.sign.controller;
 
 import java.util.HashMap;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.frans.sign.service.DocFormService;
@@ -61,7 +63,9 @@ public class SignController {
 	}
 	
 	@PostMapping(value="/sign/write.do")
-	public String signWriteDo(@RequestParam HashMap<String, String> params, HttpServletRequest req) {
+	public String signWriteDo(List<MultipartFile> files, @RequestParam HashMap<String, String> params, HttpServletRequest req) {
+		HttpSession session = req.getSession();
+		String loginId = (String) session.getAttribute("loginId");
 		logger.info("결재 문서 작성 컨트롤러");
 		logger.info("params: {}",params);
 		String[] empIdx_input = req.getParameterValues("empIdx_input");
@@ -69,7 +73,7 @@ public class SignController {
 		logger.info("결재자 길이: "+empIdx_input.length);
 		logger.info("참조자 길이: "+ref_empIdx_input.length);
 	
-		return signservice.signWriteDo(params,empIdx_input,ref_empIdx_input);
+		return signservice.signWriteDo(files,params,empIdx_input,ref_empIdx_input,loginId);
 	}
 	
 	@GetMapping(value="/signDetail.go")
@@ -79,9 +83,21 @@ public class SignController {
 		logger.info("결재 문서 상세페이지 컨트롤러");
 		logger.info("글 idx: "+sign_idx);
 		return signservice.signDetailGo(sign_idx, loginId);
-//		return null;
 	}
+	
+	@ResponseBody
+	@GetMapping(value="/sign.do")
+	public HashMap<String, Object> sign(HttpServletRequest req, String sign_idx, String loginId, String comment, String sign_order, String last_order_id) {
+		HttpSession session = req.getSession();
+		String userIP = (String) session.getAttribute("userIP");
+		logger.info("sign_idx: "+sign_idx+" / loginId: "+loginId+" / userIP: "+userIP+" / comment: "+comment+" / sign_order: "+sign_order);
+		
+		return signservice.sign(sign_idx, loginId, userIP, comment, sign_order, last_order_id);
+	}
+	
 }
+
+
 
 
 
