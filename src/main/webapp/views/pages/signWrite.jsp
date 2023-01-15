@@ -92,7 +92,7 @@
 			<div class="right_col addWrap" role="main">
 			<div id="signwritediv">
 <!-- 				<form action="/sign/write.do" method="post" enctype="multipart/form-data"> -->
-				<form action="/sign/write.do" method="post">
+				<form action="/sign/write.do" method="post" enctype="multipart/form-data">
 					<div class="col-md-6 col-sm-6  " style="max-width: 100%">
 						<div class="x_panel" style="display: inline-table">
 							<div class="x_title">

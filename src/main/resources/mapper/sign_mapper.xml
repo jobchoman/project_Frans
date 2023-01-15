@@ -113,6 +113,9 @@
 		UPDATE sign set sign_state_idx = 2 WHERE sign_idx = #{param1}
 	</update>
 	
+	<select id="signDoMemCnt" resultType="signMemDTO">
+		SELECT sm.emp_id, sm.sign_mem_comment, sm.sign_mem_comment, e.emp_name FROM sign_mem sm, employee e WHERE e.emp_id = sm.emp_id AND sign_idx = #{param1} AND sign_mem_state = 1;
+	</select>
 	
 
 </mapper>

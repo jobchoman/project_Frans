@@ -56,6 +56,8 @@ public interface SignDAO {
 
 	void fileUpload(int sign_idx, String oriFileName, String newFileName);
 
+	ArrayList<signMemDTO> signDoMemCnt(String sign_idx);
+
 
 
 

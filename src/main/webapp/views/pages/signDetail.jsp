@@ -58,6 +58,10 @@
 		margin-left: 1%;
 		padding-inline: revert;
 	}
+	
+	#commentInputOwn, #commentInputOther {
+		margin-left: 1%;
+	}
 		
 </style>
 </head>
@@ -80,15 +84,32 @@
 						<div class="x_panel" style="display: inline-table">
 							<div class="x_title">
 								<h2>결재 문서</h2>
+								<input type="hidden" value="${loginName}" id="loginName">
 								<button type="button" class="btn btn-warning" id="signHistory" onclick="sign_history()">히스토리</button>
-								<div class="clearfix"></div>
+									<table id="sign_img" style="float:right; border:1px solid lightgray">
+										<tr id="signImg_th">
+											<th rowspan="2"
+												style="writing-mode: vertical-rl; text-align: center">결재</th>
+											<c:forEach items="${signDoMemCnt}" var="cnt">
+												<th>${cnt.emp_name}</th>
+											</c:forEach>
+										</tr>
+											<tr id="signImg_td">
+										<c:forEach items="${signDoMemCnt}" var="cnt">
+												<td>이미지</td>
+										</c:forEach>
+											</tr>
+									</table>
+									<div class="clearfix"></div>
 							</div>
+
 							<div class="x_content">
+
 							<table class="table">
 								<tr>
 									<th scope="row">문서 종류</th>
 									<td>${signdto.doc_type_name}
-										<%-- <input type="hidden" name="doc_type_idx" value="${docformdto.doc_type_idx}"> --%>
+									<input type="hidden" id="sign_idx" value="${signdto.sign_idx}">
 									</td>
 								</tr>
 								<tr>
@@ -140,10 +161,12 @@
 													<c:forEach items="${signmemlist}" var="signmem">
 														<c:choose>
 														<c:when test="${signmem.emp_id eq loginId}">
-															<p style="font-weight:bold">${signmem.emp_name} : <input type="text" style="width:80%; border: 1px solid lightgray" placeholder="코멘트를 입력하세요"/> </p>
+															
+															<p style="font-weight:bold" class="commentName">${signmem.emp_name}<input type="text" id="commentInputOwn" style="width:80%; border: 1px solid lightgray" placeholder="코멘트를 입력하세요"/> </p>
+															
 														</c:when>
 														<c:when test="${signmem.emp_id ne loginId}">
-															<p style="font-weight:bold">${signmem.emp_name} : <input type="text" style="width:80%; background-color:lightgray; border: gray" readonly/> </p>
+															<p style="font-weight:bold" class="commentNameOther">${signmem.emp_name}<input type="text" id="commentInputOther" style="width:80%; background-color:#D5D5D5; border: gray" readonly/> </p>
 														</c:when>
 														</c:choose>
 													</c:forEach>
@@ -153,9 +176,11 @@
 									</c:forEach>
 								<tr>
 									<th scope="row">첨부파일</th>
-									<td>
-										<input type="file" name="files" multiple="multiple"/>
-									</td>
+<%-- 									<c:forEach items=${ }> --%>
+										<td>
+											
+										</td>									
+<%-- 									</c:forEach> --%>
 								</tr>
 								<tr>
 									<td colspan="2">
@@ -163,7 +188,9 @@
 										<c:set var="loginId" value="${sessionScope.loginId}" scope="page"/>
 											<c:forEach items="${signmemlist}" var="sign">
 												<c:if test="${loginId eq sign.emp_id}">
-													<button type="button" onclick="" class="btn btn-round btn-secondary" id="sign" style="float:right">결재</button>
+													<input type="hidden" value="${sign.sign_mem_order}" id="sign_mem_order"/>
+													<input type="hidden" value="${lastOrder}" id="lastorder"/>
+													<button type="button" onclick="signDo()" class="btn btn-round btn-secondary" id="sign" style="float:right">결재</button>
 													<button type="button" onclick="" class="btn btn-round btn-secondary" id="nosign" style="float:right">반려</button>
 												</c:if> 
 											</c:forEach>
@@ -226,9 +253,9 @@
 							</div>
 
 							</div>
-							<div class="modal-footer">
+<!-- 							<div class="modal-footer">
 								<button type="button" class="btn btn-primary" data-dismiss="modal">확인</button>
-							</div>
+							</div> -->
 						</div>
 					</div>
 				</div>
@@ -253,11 +280,11 @@ var editor = new RichTextEditor("#div_editor",config);
 editor.setHTMLCode($("#signdetail").html());
 editor.setReadOnly();
 
- var display = document.getElementById('modaltitle');
+/*  var display = document.getElementById('modaltitle');
  if("${msg}" != ""){
 	display.innerHTML = "${msg}";
 	$('#secondmodal').modal();
- }
+ } */
  
  var loginId = ${sessionScope.loginId};
  console.log(loginId);
@@ -266,6 +293,79 @@ function sign_history(){
 	$('#signhistorymodal').modal();
 
 }
+
+var sign_idx = $('#sign_idx').val();
+var sign_order = $('#sign_mem_order').val();
+var last_order_id = $('#lastorder').val();
+console.log(sign_idx);
+console.log(sign_order);
+
+
+function signDo(){
+	
+	var comment = $('#commentInput').val();
+//	console.log(comment);
+	
+	$.ajax({
+		type:'get',
+		url:'sign.do',
+		data:{
+			"loginId" : loginId,
+			"sign_idx" : sign_idx,
+			"comment" : comment,
+			"sign_order" : sign_order,
+			"last_order_id" : last_order_id
+			},
+		dataType:'JSON',
+		success:function(data){
+			console.log(data);
+			draw_signImg_th(data);
+			draw_signImg_td(data);
+			inputComment(comment);
+		},
+		error:function(e){
+			console.log(e);
+		}
+		
+	});
+}
+
+var login_name = $('#loginName').val();
+//console.log(login_name);
+
+function draw_signImg_th(list){
+	console.log(list);
+	var content = '';
+	content += '<th>'+login_name+'</th>';
+//	$('#signImg_th').empty();
+	$('#signImg_th').append(content);
+}
+
+function draw_signImg_td(list){
+	var content = '';
+	content += '<td>이미지</td>';
+//	$('#signImg_td').empty();
+	$('#signImg_td').append(content);
+}
+
+function inputComment(comment){
+	console.log($(".commentName").text());
+	console.log($(".commentNameOther").text());
+	console.log($(".commentNameOther").length);
+	
+	var otherSignLength = $(".commentNameOther").length;
+	
+	if(login_name == $(".commentName").text()){
+		$("#commentInputOwn").val(comment);
+	}
+	
+	
+//	$("#empName2").val(empName);
+//	commentInput
+}
+
+
+
  
 </script>
 </html>

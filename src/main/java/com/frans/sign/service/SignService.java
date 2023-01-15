@@ -152,12 +152,14 @@ public class SignService {
 		ArrayList<SignHistoryDTO> history = signdao.signHistory(sign_idx);
 		String lastOrder = signdao.lastOrder(sign_idx);
 		String loginName = signdao.loginName(loginId);
+		ArrayList<signMemDTO> signDoMemCnt = signdao.signDoMemCnt(sign_idx);
 		mav.addObject("signdto", signdto);
 		mav.addObject("signmemlist", signmemlist);
 		mav.addObject("referlist", referlist);
 		mav.addObject("history",history);
 		mav.addObject("lastOrder", lastOrder);
 		mav.addObject("loginName", loginName);
+		mav.addObject("signDoMemCnt", signDoMemCnt);
 		return mav;
 	}
 
@@ -185,7 +187,6 @@ public class SignService {
 			int signStateUpdate = signdao.signStateUpdate(sign_idx, loginId, sign_order, last_order_id);
 			map.put("signStateUpdate", signStateUpdate);	
 		}
-		
 		
 		return map;
 	}
