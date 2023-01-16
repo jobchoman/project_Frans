@@ -6,7 +6,7 @@
 <mapper namespace="com.frans.member.dao.MemberDAO">
 
 	<select id="login" resultType="String" parameterType="String">
-		SELECT emp_pw FROM employee WHERE emp_id = #{emp_id}
+		SELECT emp_pw,emp_name FROM employee WHERE emp_id = #{emp_id}
 	</select>
 
 	<insert id="join" parameterType="hashmap" useGeneratedKeys="true" keyColumn="emp_id" keyProperty="emp_id" >
@@ -79,11 +79,11 @@
 		values(#{emp_id},#{license_name},#{license_date},#{license_place},#{license_result})
 	</insert>
 	
-	<insert id="fileUpload1" parameterType="String">
+	<insert id="fileUpload1" parameterType="com.frans.member.dto.MemberDTO">
 		insert into file (file_ori, file_new,file_from, file_sort_idx) values (#{file_ori},#{file_new},#{param3},1)
 	</insert>
 
-	<insert id="fileUpload2" parameterType="String">
+	<insert id="fileUpload2" parameterType="com.frans.member.dto.MemberDTO">
 		insert into file (file_ori, file_new,file_from, file_sort_idx) values (#{file_ori},#{file_new},#{param3},0)
 	</insert>
 	
@@ -107,7 +107,7 @@
 	</select>
 	
 	<select id="memberDetail" resultType="com.frans.member.dto.MemberDTO" parameterType="String">
-		SELECT e.emp_id, e.emp_name, e.emp_gender, e.emp_birth, e.emp_address, e.emp_email,e.emp_phone, e.emp_hire_date, t.team_name, d.duty_name, p.pos_name, es.emp_state_name
+		SELECT e.emp_id, e.emp_name, e.emp_gender, e.emp_birth, e.emp_address, e.emp_email,e.emp_phone, e.emp_hire_date, e.emp_admin_auth, t.team_name, d.duty_name, p.pos_name, es.emp_state_name
         FROM employee e, emp_state es, team t, `position` p, duty d
         WHERE e.team_idx = t.team_idx AND e.duty_idx = d.duty_idx AND e.pos_idx = p.pos_idx AND e.emp_state_idx = es.emp_state_idx AND emp_id = #{emp_id}
 	</select>
@@ -122,6 +122,12 @@
 		SELECT e.emp_id,l.license_name,l.license_date,l.license_place,l.license_result
         FROM employee e, license l
         WHERE l.emp_id = e.emp_id AND e.emp_id = #{emp_id} order by l.license_date desc
+	</select>
+	
+	<select id="memberDetailRight" resultType="com.frans.member.dto.MemberDTO" parameterType="String">
+		SELECT t.team_name
+        FROM employee e, `right` r, team t
+        WHERE r.emp_id = e.emp_id AND t.team_idx = r.team_idx AND e.emp_id = #{emp_id}
 	</select>
 
 	
@@ -207,11 +213,59 @@
 		WHERE emp_id = #{emp_id}
 	</update>
 	
-	<update id="fileUpdate" parameterType="com.frans.member.dto.MemberDTO">
-		UPDATE file SET
-			file_new = #{file_new}
+	<update id="fileUpdate1" parameterType="com.frans.member.dto.MemberDTO">
+		update file set file_new = #{file_new} where file_from = #{emp_id} and file_sort_idx = 1
+	</update>
+	
+	<update id="fileUpdate2" parameterType="com.frans.member.dto.MemberDTO">
+		update file set file_new = #{file_new} where file_from = #{emp_id} and file_sort_idx = 0
+	</update>
+	
+	<update id="highUpdate" parameterType="com.frans.member.dto.MemberDTO">
+		update career set 
+		emp_career_idx = #{emp_career_idx},
+		emp_school_name = #{emp_school_name},
+		emp_department = #{emp_department},
+		emp_career_start = #{emp_career_start},
+		emp_career_end = #{emp_career_end},
+		emp_career_etc = #{emp_career_etc}
+	</update>
+	
+	<update id="careerUpdate" parameterType="com.frans.member.dto.MemberDTO">
+		update career set 
+		emp_career_idx = #{emp_career_idx},
+		emp_school_name = #{emp_school_name},
+		emp_department = #{emp_department},
+		emp_career_start = #{emp_career_start},
+		emp_career_end = #{emp_career_end},
+		emp_career_etc = #{emp_career_etc},
+		emp_degree = #{emp_degree}
+	</update>
+	
+	<update id="licenUpdate" parameterType="com.frans.member.dto.MemberDTO">
+		update career set 
+		license_name = #{license_name},
+		license_date = #{license_date},
+		license_place = #{license_place},
+		license_result = #{license_result}
+	</update>
+	
+	<update id="myPageUpdate" parameterType="com.frans.member.dto.MemberDTO">
+		UPDATE employee SET
+			emp_id = #{emp_id},
+			emp_pw = #{emp_pw},
+			emp_name = #{emp_name},
+			emp_address = #{emp_address},
+			emp_phone = #{emp_phone},
+			emp_email = #{emp_email},
+			emp_admin_auth = #{emp_admin_auth},
+			pos_idx = #{pos_idx},
+			duty_idx = #{duty_idx},
+			team_idx = #{team_idx},
+			emp_state_idx = #{emp_state_idx}
 		WHERE emp_id = #{emp_id}
 	</update>
+
 	
 	
 </mapper>

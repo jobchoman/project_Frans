@@ -50,15 +50,29 @@ public class MemberController {
 	}
 	
 	@PostMapping(value="/memberLogin.do")
-	public String login(String emp_id, String emp_pw,RedirectAttributes rAttr, HttpSession session) {
+	public String login(String emp_id, String emp_pw,RedirectAttributes rAttr, HttpSession session,Model model,HttpServletRequest req) {
 		String page = "redirect:/";
 		String msg = "아이디와 비밀번호를 확인하세요";
 		String loginId = null;
+		String userIP = req.getRemoteAddr();
+		ArrayList<MemberDTO> fileList = memberService.fileList(emp_id);
+		MemberDTO dto = memberService.memberDetail(emp_id,model);
+		String emp_name = dto.getEmp_name();
+		int power = dto.getEmp_admin_auth();
+		String team = dto.getTeam_name();
+		logger.info("mem : {}",dto);
+		dto.getEmp_name();
 		loginId = memberService.login(emp_id,emp_pw);
 		if(loginId != null) {
 			page = "index";
 			msg = "안녕하세요. "+emp_id+" 님";
 			session.setAttribute("loginId", loginId);
+			session.setAttribute("emp_name", emp_name);
+			session.setAttribute("fileList", fileList);
+			session.setAttribute("power", power);
+			session.setAttribute("team", team);
+			session.setAttribute("userIP", userIP);
+			
 
 		}
 		rAttr.addFlashAttribute("msg",msg);
@@ -111,8 +125,13 @@ public class MemberController {
 		MemberDTO dto = memberService.memberDetail(emp_id,model);
 		ArrayList<MemberDTO> SchoolDTO =  memberService.memberDetailSchool(emp_id,model); 
 		ArrayList<MemberDTO> LicenseDTO =  memberService.memberDetailLicense(emp_id,model); 
+		ArrayList<MemberDTO> rightDTO = memberService.memberDetailRight(emp_id);
+		
+		model.addAttribute("rgh",rightDTO);
 		model.addAttribute("memSchool",SchoolDTO);
 		model.addAttribute("memLicense",LicenseDTO);
+		logger.info("rightDTO : {}",rightDTO);
+		logger.info("memLicense : {}",LicenseDTO);
 		logger.info("memLicense : {}",LicenseDTO);
 		logger.info("memSchool : {}",SchoolDTO);
 		logger.info("mem : {}",dto);
@@ -193,12 +212,18 @@ public class MemberController {
 	public String updateForm(String emp_id, Model model) {
 		logger.info("detail emp_id : "+emp_id);
 		MemberDTO dto = memberService.memberDetail(emp_id, model);
+		ArrayList<MemberDTO> SchoolDTO =  memberService.memberDetailSchool(emp_id,model); 
+		ArrayList<MemberDTO> LicenseDTO =  memberService.memberDetailLicense(emp_id,model); 
+		ArrayList<MemberDTO> rightDTO = memberService.memberDetailRight(emp_id);
 		ArrayList<MemberDTO> fileList = memberService.fileList(emp_id);
 		ArrayList<MemberDTO> fileList1 = memberService.fileList1(emp_id);
 		ArrayList<MemberDTO> teamDto = memberService.teamList();
 		ArrayList<MemberDTO> posDto = memberService.posList();
 		ArrayList<MemberDTO> dutyDto = memberService.dutyList();
 		ArrayList<MemberDTO> stateDto = memberService.stateList();
+		model.addAttribute("rgh",rightDTO);
+		model.addAttribute("memSchool",SchoolDTO);
+		model.addAttribute("memLicense",LicenseDTO);
 		model.addAttribute("teamMem",teamDto);
 		model.addAttribute("posMem",posDto);
 		model.addAttribute("dutyMem",dutyDto);
@@ -210,10 +235,61 @@ public class MemberController {
 	}
 	
 	@PostMapping(value="/memberUpdate.do")
-	public String update(MemberDTO dto, @RequestParam HashMap<String, String> params, MultipartFile file, MultipartFile file2) {
-		memberService.memberUpdate(dto);
-//		memberService.fileUpdate(dto,file,file2);
-		return "redirect:/memberList.go";
+	public String update(MemberDTO dto, @RequestParam HashMap<String, String> params,String emp_id,Model model, MultipartFile file, MultipartFile file2, HttpServletRequest req) {
+		memberService.memberUpdate(dto,req);
+		MemberDTO dto1 = memberService.memberDetail(emp_id,model);
+		emp_id = dto1.getEmp_id();
+		logger.info("id:{}",emp_id);
+		memberService.fileUpdate(dto,file,file2);
+		return "redirect:/memberDetail.do?emp_id="+emp_id;
+	}
+	
+	@GetMapping(value="/myPage.go")
+	public String myPage(Model model,String emp_id) {
+		MemberDTO dto = memberService.memberDetail(emp_id,model);
+		String id = dto.getEmp_id();
+		ArrayList<MemberDTO> fileList = memberService.fileList(emp_id);
+		ArrayList<MemberDTO> fileList1 = memberService.fileList1(emp_id);
+		model.addAttribute("fileList",fileList);
+		model.addAttribute("fileList1",fileList1);
+		model.addAttribute("mem",dto);
+		return "memberMyPage";
+	}
+	
+	@GetMapping(value="/myPageUpdate.go")
+	public String myPageUpdateForm(String emp_id, Model model) {
+		logger.info("detail emp_id : "+emp_id);
+		MemberDTO dto = memberService.memberDetail(emp_id, model);
+		ArrayList<MemberDTO> SchoolDTO =  memberService.memberDetailSchool(emp_id,model); 
+		ArrayList<MemberDTO> LicenseDTO =  memberService.memberDetailLicense(emp_id,model); 
+		ArrayList<MemberDTO> rightDTO = memberService.memberDetailRight(emp_id);
+		ArrayList<MemberDTO> fileList = memberService.fileList(emp_id);
+		ArrayList<MemberDTO> fileList1 = memberService.fileList1(emp_id);
+		ArrayList<MemberDTO> teamDto = memberService.teamList();
+		ArrayList<MemberDTO> posDto = memberService.posList();
+		ArrayList<MemberDTO> dutyDto = memberService.dutyList();
+		ArrayList<MemberDTO> stateDto = memberService.stateList();
+		model.addAttribute("rgh",rightDTO);
+		model.addAttribute("memSchool",SchoolDTO);
+		model.addAttribute("memLicense",LicenseDTO);
+		model.addAttribute("teamMem",teamDto);
+		model.addAttribute("posMem",posDto);
+		model.addAttribute("dutyMem",dutyDto);
+		model.addAttribute("stateMem",stateDto);
+		model.addAttribute("fileList",fileList);
+		model.addAttribute("fileList1",fileList1);
+		model.addAttribute("mem", dto);
+		return "MyPageUpdate";
+	}
+	
+	@PostMapping(value="/myPageUpdate.do")
+	public String myPageUpdate(MemberDTO dto, @RequestParam HashMap<String, String> params,String emp_id,Model model, MultipartFile file, MultipartFile file2, HttpServletRequest req) {
+		memberService.myPageUpdate(dto,req);
+		MemberDTO dto1 = memberService.memberDetail(emp_id,model);
+		emp_id = dto1.getEmp_id();
+		logger.info("id:{}",emp_id);
+		memberService.fileUpdate(dto,file,file2);
+		return "redirect:/myPage.go?emp_id="+emp_id;
 	}
 	
 	

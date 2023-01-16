@@ -36,6 +36,20 @@ public interface InfoDAO {
 
 	void teamUpdate(HashMap<String, String> params);
 
+	MemberDTO dutyUpdateForm(String duty_idx);
+
+	void dutyUpdate(HashMap<String, String> params);
+
+	MemberDTO posUpdateForm(String pos_idx);
+
+	void posUpdate(HashMap<String, String> params);
+
+	void TeamDelete(String team_idx);
+
+	void DutyDelete(String duty_idx);
+
+	void PosDelete(String pos_idx);
+
 
 
 

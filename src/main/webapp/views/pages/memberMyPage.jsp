@@ -9,11 +9,11 @@
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <jsp:include page="css.jsp" />
 <style type="text/css">
-.btn{
-	background-color:#2A3F54;
-    border-color:#2A3F54;
-    font-size: 8pt;
-}
+	#but{
+	   background-color:#2A3F54;
+	   border-color:#2A3F54;
+	   font-size: 8pt;
+	}
 </style>
 </head>
 <body class="nav-md">
@@ -37,7 +37,7 @@
 						<div class="col-md-12 col-sm-12 ">
 							<div class="x_panel">
 								<div class="x_title">
-									<h2>직원 상세보기</h2>
+									<h2>내 정보보기</h2>
 									<div class="clearfix"></div>
 								</div>
 								<div class="x_content">
@@ -125,22 +125,18 @@
 												</label>
 												<div id="career" class="col-md-6 col-sm-6 " >
 													<div>
-													<ul>
 														<c:forEach items="${memSchool}" var="memSchool">
 														<c:if test="${memSchool.emp_career_idx != '경력'}">
-													<li>
 															${memSchool.emp_career_idx}
  															${memSchool.emp_school_name}
 															${memSchool.emp_department}
 															${memSchool.emp_degree}
 															${memSchool.emp_career_start}
 															${memSchool.emp_career_end}
-															${memSchool.emp_career_etc} 
-													</li>
-													<br>
+															${memSchool.emp_career_etc} <br>
 														</c:if>
 														</c:forEach>
-													</ul>
+		
 													</div>
 												</div>
 											</div>
@@ -151,21 +147,17 @@
 												</label>
 												<div class="col-md-6 col-sm-6 ">
 													<div id="career1">
-													<ul>
 														<c:forEach items="${memSchool}" var="memSchool">
 														<c:if test="${memSchool.emp_career_idx == '경력'}">
-														<li>
 															${memSchool.emp_career_idx}
  															${memSchool.emp_school_name}
 															${memSchool.emp_department}
 															${memSchool.emp_degree}
 															${memSchool.emp_career_start}
 															${memSchool.emp_career_end}
-															${memSchool.emp_career_etc}
-														</li><br>
+															${memSchool.emp_career_etc} <br>
 														</c:if>
 														</c:forEach>
-													</ul>
 													</div>
 												</div>
 											</div>
@@ -176,31 +168,18 @@
 												</label>
 												<div class="col-md-6 col-sm-6 ">
 													<div id="license">
-													<ul>
 													<c:if test="${memLicense.size()>0}">
 														<c:forEach items="${memLicense}" var="memLicense">
-														<li>
 																${memLicense.license_name}
 	 															${memLicense.license_date}
 																${memLicense.license_place}
-																${memLicense.license_result}
-														</li><br>
+																${memLicense.license_result}<br>
 														</c:forEach>
 													</c:if>
-													</ul>
 													</div>
 												</div>
 											</div>
-										</div>
-										<div class="item form-group">
-											<label class="col-form-label col-md-3 col-sm-3 label-align">관리자 권한
-											</label>
-											<div class="col-md-6 col-sm-6 ">
-												<c:if test="${mem.emp_admin_auth == '2'}">일반사원</c:if>
-												<c:if test="${mem.emp_admin_auth == '1'}">관리자</c:if>
-												<c:if test="${mem.emp_admin_auth == '0'}">최고관리자</c:if>
-											</div>
-										</div>										
+										</div>									
 										<div class="item form-group">
 											<label class="col-form-label col-md-3 col-sm-3 label-align">팀
 											</label>
@@ -230,15 +209,6 @@
 											</div>
 										</div>										
 										<div class="item form-group">
-											<label class="col-form-label col-md-3 col-sm-3 label-align">팀등급
-											</label>
-											<div class="col-md-6 col-sm-6 ">
-											<c:forEach items="${rgh}" var="rgh">
-												${rgh.team_name}
-											</c:forEach>
-											</div>
-										</div>	
-										<div class="item form-group">
 										<label class="col-form-label col-md-3 col-sm-3 label-align">서명 이미지
 											</label>
 											<div class="col-md-6 col-sm-6 ">
@@ -253,8 +223,7 @@
 										<div class="ln_solid"></div>
 										<div class="item form-group">
 											<div class="col-md-6 col-sm-6 offset-md-3">
-												<button class="btn btn-round btn-info" type="button" onclick="location.href='memberList.go'">리스트</button>
-												<button type="button" onclick="location.href='memberUpdate.go?emp_id=${mem.emp_id}'" class="btn btn-round btn-info">수정하기</button>
+												<button type="button" class="btn btn-round btn-info" id="but" onclick="location.href='myPageUpdate.go?emp_id=${sessionScope.loginId}'" class="btn btn-success">수정하기</button>
 											</div>
 										</div>
 

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.frans.member.dto.MemberDTO;
@@ -81,7 +82,7 @@ public class InfoController {
 	@GetMapping(value="/memberInfoDutyWrite.do")
 	public String infoDutyWrite(@RequestParam HashMap<String, String> params) {
 		infoService.dutyWrite(params);
-		return "redirect:/memberInfoList.go";
+		return "redirect:/memberInfoDutyList.go";
 	}
 	
 	@GetMapping(value="/memberInfoTeamUpdate.go")
@@ -96,6 +97,51 @@ public class InfoController {
 		infoService.teamUpdate(params);
 		return "redirect:/memberInfoList.go";
 	}
+	
+	@GetMapping(value="/memberInfoDutyUpdate.go")
+	public String infoDutyUpdate(Model model, String duty_idx) {
+		MemberDTO dto = infoService.dutyUpdateForm(duty_idx);
+		model.addAttribute("mem",dto);
+		return "memberInfoDutyUpdate";
+	}
+	
+	@GetMapping(value="/memberInfoDutyUpdate.do")
+	public String dutyUpdate(@RequestParam HashMap<String, String> params) {
+		infoService.dutyUpdate(params);
+		return "redirect:/memberInfoDutyList.go";
+	}
+	
+	@GetMapping(value="/memberInfoPosUpdate.go")
+	public String infoPosUpdate(Model model, String pos_idx) {
+		MemberDTO dto = infoService.posUpdateForm(pos_idx);
+		model.addAttribute("mem",dto);
+		return "memberInfoPosUpdate";
+	}
+	
+	@GetMapping(value="/memberInfoPosUpdate.do")
+	public String posUpdate(@RequestParam HashMap<String, String> params) {
+		infoService.posUpdate(params);
+		return "redirect:/memberInfoPosList.go";
+	}
+	
+	@RequestMapping(value="/memberInfoTeamDelete.do")
+	public String teamDelete(String team_idx) {
+		infoService.TeamDelete(team_idx);
+		return "redirect:/memberInfoList.go";
+	}
+	
+	@RequestMapping(value="/memberInfoDutyDelete.do")
+	public String dutyDelete(String duty_idx) {
+		infoService.DutyDelete(duty_idx);
+		return "redirect:/memberInfoDutyList.go";
+	}
+	
+	@RequestMapping(value="/memberInfoPosDelete.do")
+	public String posDelete(String pos_idx) {
+		infoService.PosDelete(pos_idx);
+		return "redirect:/memberInfoPosList.go";
+	}
+	
 	
 	
 	

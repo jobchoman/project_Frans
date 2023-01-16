@@ -49,6 +49,7 @@ public class MemberService {
 		dto.setEmp_id(params.get("emp_id"));
 		String emp_id = params.get("emp_id");
 		String plain_pw = params.get("emp_pw");
+		String enc_pw = encoder.encode(plain_pw);
 		String emp_career_idx[] = req.getParameterValues("emp_career_idx");
 		String emp_school_name[] = req.getParameterValues("emp_school_name");
 		String emp_department[] = req.getParameterValues("emp_department");
@@ -60,7 +61,6 @@ public class MemberService {
 		String license_date[] = req.getParameterValues("license_date");
 		String license_place[] = req.getParameterValues("license_place");
 		String license_result[] = req.getParameterValues("license_result");
-		String enc_pw = encoder.encode(plain_pw);
 		logger.info("plain pw : "+plain_pw);
 		logger.info("emp_id : "+emp_id);
 		logger.info("enc_pw : "+enc_pw);
@@ -73,11 +73,15 @@ public class MemberService {
 //				if(emp_career_etc[i].equals("") || emp_career_etc[i] == null) {
 //					emp_career_etc[i] = "없음";
 //				}
-				if(!emp_career_idx[i].equals("") || emp_career_idx[i] != null) {
+				if(!emp_career_idx[i].equals("없음") && emp_career_idx[i] != "없음" && emp_career_idx[i] != "" && emp_career_idx[i] != null) {
 					if(emp_career_idx[i].equals("고등학교")) {
 						memberDao.joinHigh(emp_career_idx[i],emp_school_name[i],emp_department[i],emp_career_start[i],emp_career_end[i],emp_id,emp_career_etc[i]);
+					}else if(emp_career_idx[i].equals("경력")){
+						memberDao.joinCareer(emp_career_idx[i],emp_school_name[i],emp_department[i],emp_career_start[i],emp_career_end[i],emp_id,emp_career_etc[i],emp_degree[i]);
+						logger.info("경력개수:"+emp_career_idx[i].length());
 					}else {
 						memberDao.joinCareer(emp_career_idx[i],emp_school_name[i],emp_department[i],emp_career_start[i],emp_career_end[i],emp_id,emp_career_etc[i],emp_degree[i]);
+						logger.info("경력개수:"+emp_career_idx[i].length());
 					}
 				}
 				logger.info("career idx : {},{},{}",emp_school_name[i],emp_career_idx[i],emp_career_etc[i]);
@@ -217,22 +221,124 @@ public class MemberService {
 	public ArrayList<MemberDTO> memberDetailLicense(String emp_id, Model model) {
 		return memberDao.memberDetailLicense(emp_id);
 	}
+	
+	public ArrayList<MemberDTO> memberDetailRight(String emp_id) {
+		return memberDao.memberDetailRight(emp_id);
+	}
 
-	public void memberUpdate(MemberDTO dto) {
+	public void memberUpdate(MemberDTO dto, HttpServletRequest req) {
+//		String emp_id = dto.getEmp_id();
+//		String emp_career_idx[] = req.getParameterValues("emp_career_idx");
+//		String emp_school_name[] = req.getParameterValues("emp_school_name");
+//		String emp_department[] = req.getParameterValues("emp_department");
+//		String emp_degree[] = req.getParameterValues("emp_degree");
+//		String emp_career_start[] = req.getParameterValues("emp_career_start");
+//		String emp_career_end[] = req.getParameterValues("emp_career_end");
+//		String emp_career_etc[] = req.getParameterValues("emp_career_etc");
+//		String license_name[] = req.getParameterValues("license_name");
+//		String license_date[] = req.getParameterValues("license_date");
+//		String license_place[] = req.getParameterValues("license_place");
+//		String license_result[] = req.getParameterValues("license_result");
+//		for(int i=0; i<emp_career_idx.length; i++) {
+//			if(!emp_career_idx[i].equals("없음") && emp_career_idx[i] != "없음" && emp_career_idx[i] != "" && emp_career_idx[i] != null) {
+//				if(emp_career_idx[i].equals("고등학교")) {
+//					memberDao.highUpdate(emp_career_idx[i],emp_school_name[i],emp_department[i],emp_career_start[i],emp_career_end[i],emp_id,emp_career_etc[i]);
+//				}else if(emp_career_idx[i].equals("경력")){
+//					memberDao.careerUpdate(emp_career_idx[i],emp_school_name[i],emp_department[i],emp_career_start[i],emp_career_end[i],emp_id,emp_career_etc[i],emp_degree[i]);
+//					logger.info("경력개수:"+emp_career_idx[i].length());
+//				}else {
+//					memberDao.careerUpdate(emp_career_idx[i],emp_school_name[i],emp_department[i],emp_career_start[i],emp_career_end[i],emp_id,emp_career_etc[i],emp_degree[i]);
+//					logger.info("경력개수:"+emp_career_idx[i].length());
+//				}
+//			}
+//			logger.info("career idx : {},{},{}",emp_school_name[i],emp_career_idx[i],emp_career_etc[i]);
+//		}
+//		for(int j=0; j<license_name.length; j++) {
+//			
+//			if(!license_name[j].equals("")) {
+//				logger.info("자격증 넣기");
+//				memberDao.licenUpdate(emp_id,license_name[j],license_date[j],license_place[j],license_result[j]);	// 자격증
+//				
+//			}
+//		}
+		String plain_pw = dto.getEmp_pw();
+		String enc_pw = encoder.encode(plain_pw);
+		dto.setEmp_pw(enc_pw);
 		memberDao.memberUpdate(dto);
 		
 	}
 
 
 	public void fileUpdate(MemberDTO dto, MultipartFile file, MultipartFile file2) {
-		
 		String emp_id = dto.getEmp_id();
-		int success = memberDao.fileUpdate(dto,file,file2);
-		if(success>0) {
-			Upload(file,emp_id);
-			Upload2(file2,emp_id);
+		if(!file.getOriginalFilename().equals("")) {
+			Update(file,emp_id);
+		}
+		if(!file2.getOriginalFilename().equals("")) {
+			Update2(file2,emp_id);
+		}
+
+	}
+	
+	private void Update(MultipartFile file, String emp_id) {
+		//1. 파일명 추출
+		String file_ori = file.getOriginalFilename();
+		logger.info("emp_id:"+emp_id);
+		logger.info("file_ori : "+file_ori);
+		String ext = file_ori.substring(file_ori.lastIndexOf("."));
+		
+		//2. 새파일명 생성
+		String file_new = System.currentTimeMillis()+ext;
+		
+		
+		//3. 파일 저장
+		try {
+			//uploadFile 에서 바이트 추출
+			byte[] arr = file.getBytes();
+			//저장할 파일 위치 지정
+			Path path = Paths.get(root+file_new);
+			//파일 쓰기
+			Files.write(path, arr);
+			memberDao.fileUpdate1(file_ori,file_new,emp_id);
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
+
+	private void Update2(MultipartFile file, String emp_id) {
+		//1. 파일명 추출
+		String file_ori = file.getOriginalFilename();
+		logger.info("emp_id:"+emp_id);
+		logger.info("file_ori : "+file_ori);
+		String ext = file_ori.substring(file_ori.lastIndexOf("."));
+		
+		//2. 새파일명 생성
+		String file_new = System.currentTimeMillis()+ext;
+		
+		
+		//3. 파일 저장
+		try {
+			//uploadFile 에서 바이트 추출
+			byte[] arr = file.getBytes();
+			//저장할 파일 위치 지정
+			Path path = Paths.get(root+file_new);
+			//파일 쓰기
+			Files.write(path, arr);
+			memberDao.fileUpdate2(file_ori,file_new,emp_id);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+
+	public void myPageUpdate(MemberDTO dto, HttpServletRequest req) {
+		String plain_pw = dto.getEmp_pw();
+		String enc_pw = encoder.encode(plain_pw);
+		dto.setEmp_pw(enc_pw);
+		memberDao.myPageUpdate(dto);
+		
+	}
+
 
 
 

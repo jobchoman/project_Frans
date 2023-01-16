@@ -19,6 +19,8 @@
 </head>
 
 <body>
+
+<jsp:include page="loginBox.jsp"/>
 	<div class="nav_menu">
 		<div class="nav toggle">
 			<a id="menu_toggle"><i class="fa fa-bars"></i></a>
@@ -29,12 +31,15 @@
 				<li class="nav-item dropdown open" style="padding-left: 15px;">
 					<a href="javascript:;" class="user-profile dropdown-toggle"
 					aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown"
-					aria-expanded="false"> <img src="/production/images/eunwoo.png"
-						alt="">차은우
+					aria-expanded="false"> <c:if test="${fileList.size()>0}">
+													<c:forEach items="${sessionScope.fileList}" var="path">
+													<img  src="memberPhoto.do?path=${path.file_new}"/>
+													</c:forEach>
+												</c:if>${sessionScope.emp_name}
 				</a>
 					<div class="dropdown-menu dropdown-usermenu pull-right"
 						aria-labelledby="navbarDropdown">
-						<a class="dropdown-item" href="javascript:;"> 내 정보 관리</a>  
+						<a class="dropdown-item" href="/myPage.go?emp_id=${sessionScope.loginId}"> 내 정보 관리</a>  
 						<a
 							class="dropdown-item" href="/memberLogout.do"><i
 							class="fa fa-sign-out pull-right"></i> Log Out</a>

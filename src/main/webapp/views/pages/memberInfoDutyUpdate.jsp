@@ -12,6 +12,13 @@
 
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <jsp:include page="css.jsp" />
+<style type="text/css">
+.btn{
+	background-color:#2A3F54;
+    border-color:#2A3F54;
+    font-size: 8pt;
+}
+</style>
 </head>
 <body class="nav-md">
 	<div class="container body">
@@ -39,24 +46,24 @@
 								</div>
 								<div class="x_content">
 									<br />
-									<form action="memberInfoDutyWrite.do" id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" method="get" enctype="multipart/form-data">
+									<form action="memberInfoDutyUpdate.do" id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" method="get" enctype="multipart/form-data">
 										<div class="item form-group">
 											<label class="col-form-label col-md-3 col-sm-3 label-align">직책 코드
 											</label>
 											<div class="col-md-6 col-sm-6 ">
-												<input type="text" name="duty_idx" class="form-control ">
+												<input type="text" name="duty_idx" class="form-control " value="${mem.duty_idx}">
 											</div>
 										</div>
 										<div class="item form-group">
 											<label class="col-form-label col-md-3 col-sm-3 label-align">직책 명
 											</label>
 											<div class="col-md-6 col-sm-6 ">
-												<input type="text" name="duty_name" class="form-control ">
+												<input type="text" name="duty_name" class="form-control " value="${mem.duty_name}">
 											</div>
 										</div>
 
 										<div>
-											<label class="col-form-label col-md-3 col-sm-3 label-align">상태<span class="required">*</span>
+											<label class="col-form-label col-md-3 col-sm-3 label-align">상태
 											</label>
 											<div class="radio">
 												<label>
@@ -72,8 +79,8 @@
 										<div class="ln_solid"></div>
 										<div class="item form-group">
 											<div class="col-md-6 col-sm-6 offset-md-3">
-												<button class="btn btn-primary" onclick="location.href='memberInfoDutyList.go'" type="reset">리스트</button>
-												<button type="submit" id="maker" class="btn btn-success">등록</button>
+												<button class="btn btn-primary" class="btn btn-round btn-info" onclick="location.href='memberInfoDutyList.go'" type="reset">리스트</button>
+												<button type="submit" id="maker" class="btn btn-round btn-info">등록</button>
 											</div>
 										</div>	
 									</form>
@@ -99,6 +106,11 @@ var msg = "${msg}";
 if(msg != ""){
 	alert(msg);
 }
+
+window.onload = function(){
+	$('input:radio[name="duty_state"]:radio[value="'+${mem.duty_state}+'"]').prop('checked',true);
+}
+	$('input:radio[name="duty_state"]:radio').prop('checked',false);
 
 
 

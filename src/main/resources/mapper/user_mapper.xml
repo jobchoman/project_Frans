@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC   "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd"
+>
+<!-- 이 XML 을 어떤 interface 를 통해서 연결 할 건가? -->
+<mapper namespace="com.frans.member.dao.UserDAO">
+
+	
+	<select id="userList" resultType="com.frans.member.dto.UserDTO" parameterType="String">
+		select client_name, client_id, client_gender from client
+	</select>
+	
+	<select id="clientList" resultType="com.frans.member.dto.UserDTO" parameterType="String">
+		select client_name, client_id, client_gender from client
+	</select>
+	
+	<insert id="userJoin" parameterType="hashmap">
+		insert into client (client_id,client_pw,client_name,client_gender,client_birth,client_phone,client_address,client_state)
+			values(#{client_id},#{client_pw},#{client_name},#{client_gender},#{client_birth},#{client_phone},#{client_address}#{address_detail},#{client_state})
+	</insert>
+	
+	<select id="userDetail" resultType="com.frans.member.dto.UserDTO" parameterType="String">
+		select client_id,client_pw,client_name,client_gender,client_phone,client_address,client_state,client_birth from client where client_id = #{client_id}
+	</select>
+	
+	<update id="userUpdate" parameterType="com.frans.member.dto.UserDTO">
+		update client set 
+		client_id = #{client_id},
+		client_pw = #{client_pw},
+		client_name = #{client_name},
+		client_address = #{client_address},
+		client_phone = #{client_phone},
+		client_state = #{client_state}
+		where client_id = #{client_id}
+	</update>
+	
+	
+
+
+	
+	
+</mapper>
+
+
+

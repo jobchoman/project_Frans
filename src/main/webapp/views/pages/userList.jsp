@@ -8,13 +8,6 @@
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <jsp:include page="css.jsp" />
-<style type="text/css">
-.btn{
-	background-color:#2A3F54;
-    border-color:#2A3F54;
-    font-size: 8pt;
-}
-</style>
 </head>
 <body class="nav-md">
 <jsp:include page="loginBox.jsp"/>
@@ -44,17 +37,7 @@
                           <div class="col-sm-12">
                             <div class="card-box table-responsive">
                             
-                            <select id="con" onchange="subListCall(this)">
-								<option class="all" value="all" selected="selected">전체</option>
-								<option class="team" value="team" >팀</option>
-								<option class="pos" value="pos">직급</option>
-								<option class="duty" value="duty">직책</option>
-								<option class="state" value="state">상태</option>
-							</select>
-							
-							<select id="subsel" onchange="maListCall(this)">
-								
-							</select>
+
 		
 <!-- 							<select name="sel" id="sel" onchange="suListCall()"> -->
 <%-- 								<c:forEach items="${stateMem}" var="stateMem"> --%>
@@ -75,13 +58,10 @@
 													style="width: 100%" aria-describedby="datatable_info">
                       <thead>
 						<tr>
-							<th>이름</th>
-							<th>이름</th>
 							<th>아이디</th>
-							<th>팀</th>
-							<th>직급</th>
-							<th>직책</th>
-							<th>상태</th>
+							<th>이름</th>
+							<th>성별</th>
+
 						</tr>
 					  </thead>
 <!-- 					  <tbody id="list"> -->
@@ -102,7 +82,7 @@
 						
 <!--                       </tbody> -->
                     </table>
-                    <button type="button" class="btn btn-round btn-info" onclick="location.href='/memberJoin.go'">직원 등록</button>
+                    <button type="button" onclick="location.href='/userJoin.go'">회원 등록</button>
                   </div>
                   </div>
               </div>
@@ -135,35 +115,32 @@ function ListCall(){
 		destroy:true,
 		serverSide:false,
 		ajax:{
-			"url":"/selList.ajax",
+			"url":"/userList.ajax",
 			"type":"get",
 			"data":{}
 		},
 		columns:[
-			{data:"emp_name"},
-			{data:"emp_id"},
-			{data:"emp_id",
+			{data:"client_id",
 				"render" : function(data, type, row) {
 					if (type == 'display') {
 						
-							data = '<a href="/memberDetail.do?emp_id='+row.emp_id+'">'
-								+ row.emp_id +'</a>';
+							data = '<a href="/userDetail.do?client_id='+row.client_id+'">'
+								+ row.client_id +'</a>';
 					}
 					return data;
 				}
 			},
-			{data:"team_name"},
-			{data:"pos_name"},
-			{data:"duty_name"},
-			{data:"emp_state_name"}
+			{data:"client_name"},
+			{data:"client_gender"},
+
 		],
         columnDefs: [{
         	
-		targets : [ 1 ],
+		targets : [ 0 ],
 
-		searchable : false,
+		searchable : true,
 
-		visible : false     
+		visible : true     
 
         }]
 

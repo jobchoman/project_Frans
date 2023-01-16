@@ -96,6 +96,47 @@ public class InfoService {
 	}
 
 
+	public MemberDTO dutyUpdateForm(String duty_idx) {
+		return infoDao.dutyUpdateForm(duty_idx);
+	}
+
+
+	public void dutyUpdate(HashMap<String, String> params) {
+		infoDao.dutyUpdate(params);
+		
+	}
+
+
+	public MemberDTO posUpdateForm(String pos_idx) {
+		return infoDao.posUpdateForm(pos_idx);
+	}
+
+
+	public void posUpdate(HashMap<String, String> params) {
+		infoDao.posUpdate(params);
+		
+	}
+
+
+	public void TeamDelete(String team_idx) {
+		infoDao.TeamDelete(team_idx);
+		
+	}
+
+
+	public void DutyDelete(String duty_idx) {
+		infoDao.DutyDelete(duty_idx);
+		
+	}
+
+
+	public void PosDelete(String pos_idx) {
+		infoDao.PosDelete(pos_idx);
+		
+	}
+
+
+
 
 
 

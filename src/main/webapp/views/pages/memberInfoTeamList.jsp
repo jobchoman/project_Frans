@@ -8,6 +8,13 @@
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <jsp:include page="css.jsp" />
+<style type="text/css">
+.btn{
+	background-color:#2A3F54;
+    border-color:#2A3F54;
+    font-size: 8pt;
+}
+</style>
 </head>
 <body class="nav-md">
 	<div class="container body">
@@ -56,6 +63,8 @@
 							<th>팀명</th>
 							<th>상태</th>
 							<th>수정</th>
+							<th>삭제</th>
+							
 						</tr>
 					  </thead>
 					  <tbody>
@@ -64,13 +73,14 @@
 								<td>${list.team_idx}</td>
 								<td>${list.team_name}</td>
 								<td>${list.team_state}</td>
-								<td><button type="button" onclick="location.href='memberInfoTeamUpdate.go?team_idx=${list.team_idx}'">수정</button></td>
+								<td><button type="button" class="btn btn-round btn-info" onclick="location.href='memberInfoTeamUpdate.go?team_idx=${list.team_idx}'">수정</button></td>
+								<td><button type="button" class="btn btn-round btn-info" onclick="location.href='memberInfoTeamDelete.do?team_idx=${list.team_idx}'">삭제</button></td>
 
 							</tr>
 						</c:forEach>
 					  </tbody>
                     </table>
-                    <button type="button" onclick="location.href='memberInfoTeamWrite.go'">추가</button>
+                    <button type="button" class="btn btn-round btn-info" onclick="location.href='memberInfoTeamWrite.go'">추가</button>
                   </div>
                   </div>
               </div>

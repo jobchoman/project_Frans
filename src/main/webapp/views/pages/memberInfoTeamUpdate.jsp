@@ -12,6 +12,13 @@
 
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <jsp:include page="css.jsp" />
+<style type="text/css">
+.btn{
+	background-color:#2A3F54;
+    border-color:#2A3F54;
+    font-size: 8pt;
+}
+</style>
 </head>
 <body class="nav-md">
 	<div class="container body">
@@ -59,10 +66,10 @@
 										<div>
 											<label class="col-form-label col-md-3 col-sm-3 label-align">상태
 											</label>
+											
 											<!-- 테스트 박스 -->
 											<div class="radio">
 												<label>
-													<input type="text" id="testBox1" value="${mem.team_state}" /> 
 													<input type="radio" class="radioBtn555" value="1" id="on" name="team_state" >활성화
 												</label>
 											</div>
@@ -75,8 +82,8 @@
 										<div class="ln_solid"></div>
 										<div class="item form-group">
 											<div class="col-md-6 col-sm-6 offset-md-3">
-												<button class="btn btn-primary" onclick="location.href='memberInfoList.go'" type="reset">리스트</button>
-												<button type="submit" id="maker" class="btn btn-success">등록</button>
+												<button class="btn btn-round btn-info" onclick="location.href='memberInfoList.go'" type="reset">리스트</button>
+												<button type="submit" id="maker" class="btn btn-round btn-info">등록</button>
 											</div>
 										</div>										
 									</form>
@@ -105,44 +112,67 @@ var msg = "${msg}";
 //2. 돔탐색을 해서... input class 또는 name의 이름을 찾는다
 //3. 2번에서 찾은 이름을 통해 속성을 변경 해준다.
 //3번의 예시 ) if(radioNum == ) $(".className").prop("checked",true);
-/*
-window.onload()=function(){
-	var testBox =$("#testBox1").val();
-	console.log()
+
+// window.onload=function(){
+// 	var testBox =$("#testBox1").val();
+// 	console.log()
 	
+// }
+
+// window.onload = function(){
+// 	$('input:radio[name="team_state"]:radio[value="'+${mem.team_state}+'"]').prop('checked',true); 
+// }
+
+window.onload = function(){
+	$('input:radio[name="team_state"]:radio[value="'+${mem.team_state}+'"]').prop('checked',true);
 }
-*/
+	$('input:radio[name="team_state"]:radio').prop('checked',false);
+
+// 	$('#btnPinkChangeChecked').click(function() {
+// 		$('#rdPink').prop('checked', true);
+// 		$('#rdPink').trigger('change');
+// 	});
+
+// 	/* PINK (Radio 1개) Checked 해제 */
+// 	$('#btnPinkChangeUnchecked').click(function() {
+// 		$('#rdPink').prop('checked', false);
+// 		$('#rdPink').trigger('change');
+// 	});	
+
+
+// $('input[name="team_state"]').change(function(){
+	
+//     var value = $(this).val();
+//     var checked = $(this).prop('checked');
+// });
+
 ${mem.team_state}
 if(msg != ""){
 	alert(msg);
 }
 
-var check = document.getElementById("on");
-var check1 = $("#on").click
-console.log(check);
-if (frm.on.checked == true) {
-	 frm.option.value = "1; 
-	} 
-	else if (frm.of.checked == true) {
-	 frm.option.value = "0";
-	}
+// var check = document.getElementById("on");
+// var check1 = $("#on").click
+// console.log(check);
+// if (frm.on.checked == true) {
+// 	 frm.option.value = "1"; 
+// 	} 
+// 	else if (frm.of.checked == true) {
+// 	 frm.option.value = "0";
+// 	}
 	
-var chk = $("input:radio[id='on']:checked").val();
-console.log(chk);
+// $("input[name='team_state']").each(function(){
+// 	console.log($(this).val())
+// });
 
-var chk1 = $('input:radio[name=team_state]').is(':checked');
-console.log(chk1);
-
-$("input[name='team_state']").each(function(){
-	console.log($(this).val())
-});
-
-$('input[name="team_state"]').change(function(){
-    var value = $(this).val();
-    var checked = $(this).prop('checked');
-    console.log(value);
-    console.log(checked);
-});
+// $('input[name="team_state"]').change(function(){
+	
+//     var value = $(this).val();
+//     var checked = $(this).prop('checked');
+//     console.log(value);
+//     console.log(checked);
+//     $('input:radio[name="team_state"]:radio[value="'+${mem.team_state}+'"]').prop('checked',true); 
+// });
 
 //$('input:radio[name="라디오네임"]:radio[value="'+체크값(밸류)+'"]').prop('checked',true); 
 //$('input:radio[name="team_state"]:radio[value="'+${mem.team_state}+'"]').prop('checked',true); 

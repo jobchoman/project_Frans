@@ -6,7 +6,8 @@
     <title>그룹웨어</title>
 
 </head>
-
+<jsp:include page="loginBox.jsp"/>
+		<jsp:include page="loginBox.jsp"/>
 		<div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
               <a href="/index.go" class="site_title"><i class="fa fa-paw"></i> <span>Frans!</span></a>
@@ -17,11 +18,15 @@
             <!-- menu profile quick info -->
             <div class="profile clearfix">
               <div class="profile_pic">
-                <img src="/production/images/eunwoo.png" alt="..." class="img-circle profile_img">
+                <c:if test="${fileList.size()>0}">
+					<c:forEach items="${sessionScope.fileList}" var="path">
+					<img src="memberPhoto.do?path=${path.file_new}" class="img-circle profile_img"/>
+					</c:forEach>
+				</c:if>
               </div>
               <div class="profile_info">
                 <span>Welcome,</span>
-                <h2>차은우</h2>
+                <h2>${sessionScope.emp_name}</h2>
               </div>
             </div>
             <!-- /menu profile quick info -->
@@ -44,8 +49,10 @@
                   <li><a><i class="fa fa-group"></i> 직원 <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="/general_elements.go">조직도</a></li>
+                      <c:if test="${sessionScope.power == '0' || sessionScope.team == '인사팀'}">
                       <li><a href="/memberList.go">직원 리스트</a></li>
-                      <li><a href="/infoList.go">팀/직책/직급</a></li>
+                      <li><a href="/memberInfoList.go">팀/직책/직급</a></li>
+                      </c:if> 
                     </ul>
                   </li>
                   <li><a href="/calender.go"><i class="fa fa-calendar"></i> 개인 일정 </a>
@@ -91,8 +98,13 @@
               <div class="menu_section">
                 <h3>매장</h3>
                 <ul class="nav side-menu">
-                  <li><a href="/userList.go"><i class="fa fa-user"></i> 회원 관리</a>
-                 
+                  <li><a><i class="fa fa-user"></i> 회원 관리<span class="fa fa-chevron-down"></span></a>
+					<ul class="nav child_menu">
+         
+                      <li><a href="/userList.go">회원 관리</a></li>
+                      <li><a href="/subUserList.go">구독 회원</a></li>
+
+                    </ul>
                   </li>
                   <li><a><i class="fa fa-shopping-cart"></i> 발주 <span class="fa fa-chevron-down"></span></a>
                    <ul class="nav child_menu">

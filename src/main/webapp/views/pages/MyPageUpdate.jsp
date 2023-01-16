@@ -33,20 +33,33 @@
 			<div class="right_col" role="main">
 				<div class="">
 					<div class="page-title">
+						<div class="title_left">
+							<h3>Form Elements</h3>
+						</div>
 
+						<div class="title_right">
+							<div class="col-md-5 col-sm-5  form-group pull-right top_search">
+								<div class="input-group">
+									<input type="text" class="form-control" placeholder="Search for...">
+									<span class="input-group-btn">
+										<button class="btn btn-default" type="button">Go!</button>
+									</span>
+								</div>
+							</div>
+						</div>
 					</div>
 					<div class="clearfix"></div>
 					<div class="row">
 						<div class="col-md-12 col-sm-12 ">
 							<div class="x_panel">
 								<div class="x_title">
-									<h2>정보 수정</h2>
+									<h2>Form Design <small>different form elements</small></h2>
 
 									<div class="clearfix"></div>
 								</div>
 								<div class="x_content">
 									<br />
-									<form action="memberUpdate.do" id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" method="POST" enctype="multipart/form-data">
+									<form action="myPageUpdate.do" id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" method="POST" enctype="multipart/form-data">
 
 										<div class="item form-group">
 											<label class="col-form-label col-md-3 col-sm-3 label-align">사진
@@ -255,7 +268,7 @@
 										<div class="ln_solid"></div>
 										<div class="item form-group">
 											<div class="col-md-6 col-sm-6 offset-md-3">
-												<button class="btn btn-round btn-info" type="button" onclick="location.href='memberDetail.do?emp_id=${mem.emp_id}'">리스트</button>
+												<button class="btn btn-round btn-info" type="button" onclick="location.href='myPage.go?emp_id=${mem.emp_id}'">취소</button>
 												<button type="submit" id="maker" class="btn btn-round btn-info">등록</button>
 											</div>
 										</div>

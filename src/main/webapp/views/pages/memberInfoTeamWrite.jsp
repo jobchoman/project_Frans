@@ -12,6 +12,13 @@
 
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <jsp:include page="css.jsp" />
+<style type="text/css">
+.btn{
+	background-color:#2A3F54;
+    border-color:#2A3F54;
+    font-size: 8pt;
+}
+</style>
 </head>
 <body class="nav-md">
 	<div class="container body">
@@ -73,8 +80,8 @@
 										<div class="ln_solid"></div>
 										<div class="item form-group">
 											<div class="col-md-6 col-sm-6 offset-md-3">
-												<button class="btn btn-primary" onclick="location.href='memberInfoList.go'" type="reset">리스트</button>
-												<button type="submit" id="maker" class="btn btn-success">등록</button>
+												<button class="btn btn-round btn-info" onclick="location.href='memberInfoList.go'" type="reset">리스트</button>
+												<button type="submit" id="maker" class="btn btn-round btn-info">등록</button>
 											</div>
 										</div>										
 									</form>

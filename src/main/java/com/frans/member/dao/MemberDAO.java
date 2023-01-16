@@ -72,9 +72,25 @@ public interface MemberDAO {
 
 	ArrayList<MemberDTO> memberDetailLicense(String emp_id);
 
+	ArrayList<MemberDTO> memberDetailRight(String emp_id);
+	
 	void memberUpdate(MemberDTO dto);
 
-	int fileUpdate(MemberDTO dto, MultipartFile file, MultipartFile file2);
+	int fileUpdate(String emp_id, MultipartFile file, MultipartFile file2);
+
+	void fileUpdate1(String file_ori, String file_new, String emp_id);
+
+	void fileUpdate2(String file_ori, String file_new, String emp_id);
+
+	void highUpdate(String emp_career_idx, String emp_school_name, String emp_department, String emp_career_start,
+			String emp_career_end, String emp_id, String emp_career_etc);
+
+	void careerUpdate(String emp_career_idx, String emp_school_name, String emp_department, String emp_career_start,
+			String emp_career_end, String emp_id,String emp_degree, String emp_career_etc);
+
+	void licenUpdate(String emp_id, String license_name, String license_date, String license_place, String license_result);
+
+	void myPageUpdate(MemberDTO dto);
 
 
 
