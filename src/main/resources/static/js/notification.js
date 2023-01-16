@@ -36,8 +36,10 @@ function drawList(list) {
 				test = "결재 알림입니다.";
 			}else if(list.notiList[i].noti_type == '참조'){
 				test = "참조 알림입니다.";
+			}else if(list.notiList[i].noti_type == '결재완료'){
+				test = "결재가 완료되었습니다.";			
 			}else{
-				test = "성공";
+				test = "알림";
 			}
 			
 			content += '<li class="nav-item"><a onclick="notiMove(this.id,this.text)" class="dropdown-item" id="' + list.notiList[i].noti_pk + '">';
@@ -68,6 +70,10 @@ function notiMove(idx,text) {
 	}else if(text.includes("결재 알림")){
 		console.log("결재 디테일 이동");
 		window.location.href="/signDetail.go?sign_idx="+idx;
+	}else if(text.includes("결재가 완료")){
+		console.log("결재완료 디테일 이동");
+		var noti_type = '결재완료';
+		window.location.href="/signDetailTest.do?sign_idx="+idx;
 	}else{
 		console.log("기타이동");
 	}

@@ -129,11 +129,14 @@
 console.log("시작1");
 notiListCall();
 function notiListCall() {
+	
+		
 	var table = $('#notiListBox').DataTable(
 			{
 				"bDestroy": true,
 				destroy : true,
 				"dom": 'frtp',
+				aaSorting : [],
 				serverSide : false,
 				ajax : {
 					"url" : "/noti/notiListBox.ajax",
@@ -173,6 +176,8 @@ function notiListCall() {
 											row.noti_type = '결재 알림입니다.'
 										}else if(row.noti_type == '참조'){
 											row.noti_type = '참조 알림입니다.'
+										}else if(row.noti_type == '결재완료'){
+											row.noti_type = '결재가 완료되었습니다.'
 										}else{
 											row.noti_type = '기타 알림입니다.'
 										}
@@ -235,6 +240,10 @@ function notiBoxMove(idx,text) {
 	}else if(text == "결재 알림입니다."){
 		console.log("리스트 결재 디테일 이동");
 		window.location.href="/signDetail.go?sign_idx="+idx;
+	}else if(text == "결재가 완료되었습니다."){
+		console.log("결재완료 디테일 이동");
+		var noti_type = '결재완료';
+		window.location.href="/signDetailTest.do?sign_idx="+idx;
 	}else{
 		console.log("기타");
 	}
@@ -315,6 +324,12 @@ $("#delModalBtn").click(function(){
 		});
 	});
 });
+
+
+
+
+
+
 
 
 

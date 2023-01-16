@@ -6,7 +6,7 @@
 <mapper namespace="com.frans.main.dao.NotiDAO">
 	<select id="notiList" resultType="NotiDTO">
 		select (SELECT COUNT(nb2.noti_idx) from noti_box nb2 where nb2.no_check='읽지않음' and nb2.emp_id=nb.emp_id) as noti_count,n.emp_id,e.emp_name, n.noti_type, n.noti_hour, nb.no_check, nb.no_date,n.noti_pk,nb.noti_idx from notification n, employee e,noti_box nb 
-where n.emp_id = e.emp_id  and nb.emp_id = #{param1} and nb.noti_idx = n.noti_idx order by n.noti_idx desc
+where n.emp_id = e.emp_id  and nb.emp_id = #{param1} and nb.noti_idx = n.noti_idx and nb.no_check = '읽지않음' order by n.noti_idx desc
 	</select>
 	
 	<select id="notiListBox" resultType="NotiDTO">
@@ -17,6 +17,92 @@ where n.emp_id = e.emp_id  and nb.emp_id = #{param1} and nb.noti_idx = n.noti_id
 	<delete id="notiDelete">
 		delete from noti_box  where emp_id = #{param2} and noti_idx = #{param1};
 	</delete>
+	
+	<insert id="notiSignInsert"
+			useGeneratedKeys="true"
+			keyColumn="noti_idx"
+			keyProperty="noti_idx"
+			parameterType="NotiDTO">
+		INSERT into notification (emp_id,noti_type,noti_pk)
+			values(#{emp_id},#{noti_type},#{noti_pk})
+	</insert>
+	
+	<insert id="notiBoxInsert">
+		insert into noti_box (noti_idx, emp_id) 
+			values (#{param1},#{param2})
+	</insert>
+	
+	<select id="notiSignMem" resultType="String">
+		SELECT n.noti_idx from noti_box nb,notification n 
+		where nb.emp_id = (SELECT emp_id from sign_mem sm where emp_id = #{param1} and sign_idx = #{param2}) 
+and n.noti_pk = #{param2} and n.noti_idx  = nb.noti_idx and n.noti_type ='결재';
+	</select>
+	
+	<select id="notiRefMem" resultType="String">
+		SELECT n.noti_idx from noti_box nb,notification n 
+		where nb.emp_id = (SELECT emp_id from reference r where emp_id = #{param1} and sign_idx = #{param2}) 
+and n.noti_pk = #{param2} and n.noti_idx  = nb.noti_idx and n.noti_type ='참조';
+	</select>
+	
+	<select id="notiSignMemOk" resultType="String">
+		SELECT n.noti_idx from noti_box nb,notification n 
+		where nb.emp_id = (SELECT emp_id from sign_mem sm where emp_id = #{param1} and sign_idx = #{param2}) 
+and n.noti_pk = #{param2} and n.noti_idx  = nb.noti_idx and n.noti_type ='결재완료';
+	</select>
+	
+	<select id="notiRefMemOk" resultType="String">
+		SELECT n.noti_idx from noti_box nb,notification n 
+		where nb.emp_id = (SELECT emp_id from reference r where emp_id = #{param1} and sign_idx = #{param2}) 
+and n.noti_pk = #{param2} and n.noti_idx  = nb.noti_idx and n.noti_type ='결재완료';
+	</select>
+	
+	<update id="notiBoxUpdate">
+		update noti_box set no_check = '읽음' 
+		where noti_idx = #{param1} and emp_id = #{param2} and no_check = '읽지않음';
+	</update>
+	
+	<select id="notiSignMemIdx" resultType="String">
+		SELECT n.noti_idx from noti_box nb,notification n where nb.emp_id = (SELECT emp_id from sign_mem 
+sm where emp_id = (SELECT emp_id from sign_mem sm
+	where sign_mem_order = (SELECT max(sign_mem_order) from sign_mem sm3 where sign_mem_state = 1 and sign_idx = #{param1})
+	and sign_idx =#{param1}) and sign_idx = #{param1}) and n.noti_pk = #{param1} and n.noti_idx = nb.noti_idx; 
+	</select>
+	
+	<select id="notiSignAll" resultType="String">
+		SELECT nb.emp_id from notification n, noti_box nb,sign_mem sm 
+where noti_pk = #{param1} and n.noti_idx = nb.noti_idx and sm.sign_mem_order NOT IN (SELECT Max(sign_mem_order) from sign_mem sm2 where sign_idx = #{param1} and sign_idx = n.noti_pk) 
+and sm.sign_idx = n.noti_pk and nb.emp_id = sm.emp_id
+	</select>
+	
+	<insert id="notiSignAllInsert">
+		INSERT into noti_box (emp_id, noti_idx) 
+			values(#{param1},#{param2})
+	</insert>
+	
+	<select id="notiEmpSearch" resultType="String">
+		SELECT emp_id from notification n2 where noti_idx = #{param1}
+	</select>
+	
+<!-- 	<insert id="notiSoloInsert">
+		INSERT into noti_box (emp_id, noti_idx) 
+			values(#{param1},#{param2})
+	</insert> -->
+	
+	<select id="notiRefList" resultType="String">
+		SELECT nb.emp_id from notification n, noti_box nb where noti_pk = #{param1} and n.noti_idx = nb.noti_idx and n.noti_type = '참조'
+	</select>
+	
+<!-- 	<insert id="newNotification" 
+			useGeneratedKeys="true"
+			keyColumn="noti_idx"
+			keyProperty="noti_idx"
+			parameterType="NotiDTO">
+		INSERT into notification (emp_id, noti_type, noti_pk) 
+			values (#{notidto},'결재완료',#{param2})
+	</insert> -->
+	
+	
+	
 </mapper>
 
 

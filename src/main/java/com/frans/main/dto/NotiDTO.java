@@ -10,13 +10,34 @@ public class NotiDTO {
 	private String emp_id;
 	private String noti_hour;
 	private String noti_type;
-	private String noti_pk;
+	private int noti_pk;
 	private String no_check;
 	private String no_date;
 	private String emp_name;
 	private String noti_count;
+	private int sign_idx;
+	private int sign_mem_order;
+	private boolean sign_mem_state;
 	
 	
+	public int getSign_idx() {
+		return sign_idx;
+	}
+	public void setSign_idx(int sign_idx) {
+		this.sign_idx = sign_idx;
+	}
+	public int getSign_mem_order() {
+		return sign_mem_order;
+	}
+	public void setSign_mem_order(int sign_mem_order) {
+		this.sign_mem_order = sign_mem_order;
+	}
+	public boolean isSign_mem_state() {
+		return sign_mem_state;
+	}
+	public void setSign_mem_state(boolean sign_mem_state) {
+		this.sign_mem_state = sign_mem_state;
+	}
 	public String getNoti_count() {
 		return noti_count;
 	}
@@ -47,10 +68,10 @@ public class NotiDTO {
 	public void setNoti_type(String noti_type) {
 		this.noti_type = noti_type;
 	}
-	public String getNoti_pk() {
+	public int getNoti_pk() {
 		return noti_pk;
 	}
-	public void setNoti_pk(String noti_pk) {
+	public void setNoti_pk(int noti_pk) {
 		this.noti_pk = noti_pk;
 	}
 	public String getNo_check() {
