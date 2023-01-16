@@ -21,4 +21,6 @@ public interface DocFormDAO {
 	
 	void docForm_hit_update(String doc_form_idx);
 
+	int docFormListGo(String loginId);
+
 }

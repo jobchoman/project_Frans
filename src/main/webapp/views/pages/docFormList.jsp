@@ -84,16 +84,16 @@
 			<div id="docformdiv">
 			<div class="table-responsive">
 				<div style="width:100%"><h3 style="float:left">결재 문서 양식</h3></div>
-				
+				<input type="hidden" value="${auth_type}" id="auth_type"/>
  				<div style="width:100%">
 				
-				<select id="lineup" style="float: right" onchange="listCall(doc_type,lineup)">
+				<select id="lineup" style="float: right" onchange="listCall(doc_type,lineup,auth_type)">
 					<option value="최신순" selected="selected">최신순</option>
 					<option value="조회수">조회수</option>
 					<option value="사용수">사용수</option>
 				</select>
 				
-				<select id="doc_type" name="doc_type" style="float: right" onchange="listCall(doc_type,lineup)">
+				<select id="doc_type" name="doc_type" style="float: right" onchange="listCall(doc_type,lineup,auth_type)">
 					<option value="all" selected="selected">전체</option>
 					<option value="DT001">품의서</option>
 					<option value="DT002">지출결의서</option>
@@ -111,7 +111,9 @@
 						
 						<thead>
 						<tr class="headings">
+						<%-- <c:if test="${auth_type ne '2'}"> --%>
 							<th><input type="checkbox" id="check-all" class="flat"></th>
+						<%-- </c:if> --%>
 							<th>양식 idx</th>
 							<th>양식 종류</th>
 							<th>제목</th>
@@ -188,18 +190,25 @@
 
 listCall(doc_type,lineup);
 
+// var auth_type = $("#auth_type").val();
+// console.log("관리자 권한: "+auth_type);
+
 
 function listCall(doc_type,lineup) {
 	var doc_type_value = doc_type.value;
 	var lineup_value = lineup.value;
+	var auth_type = $("#auth_type").val();
 	console.log(doc_type_value);
 	console.log(lineup_value);
+	console.log("관리자 권한: "+auth_type);
 
 		
 	var table = $('#docform').DataTable(
 			{
 				destroy : true,
 				aaSorting : [],
+				"dom": 'frtp',
+				pageLength : 15,
 				serverSide : false,
 				ajax : {
 					"url" : "docForm/list.do",
@@ -212,14 +221,14 @@ function listCall(doc_type,lineup) {
 				columns : [
 						{
 							data : "doc_form_idx",
-							"render" : function(data, type, row) {
-								if (type == 'display') {
-									
-										data = '<input type="checkbox" value='+row.doc_form_idx+' class="flat" name="table_records">';
-								
-								}
+ 							"render" : function(data, type, row) {
+									if (type == 'display') {
+										if(auth_type != '2'){
+											data = '<input type="checkbox" value='+row.doc_form_idx+' class="flat" name="table_records">';											
+										}
+									}
 								return data;
-							}
+							} 
 						},
 						{
 							data : "doc_form_idx"
@@ -230,8 +239,8 @@ function listCall(doc_type,lineup) {
 						{
 							data : "doc_form_name",
 								"render" : function(data, type, row) {
+									
 									if (type == 'display') {
-										
 											data = '<a href="/docFormDetail.go?doc_form_idx='+row.doc_form_idx+'">'+row.doc_form_name+'</a>';
 									}
 									return data;
@@ -258,8 +267,23 @@ function listCall(doc_type,lineup) {
 
 					visible : false
 
-				}
+				},
+				{
+
+					targets : [ 0 ],
+
+					searchable : false,
+
+					visible : true,
 					
+					/* render: function (data, row) {
+		                if ($("#auth_type").val() != "2") {
+		                  return data;
+		                } 
+		              } */
+					
+					}
+			              
 				]
 
 			});
@@ -328,7 +352,7 @@ function drawPage(){
 	paging += "</nav></div></td>";
 	$("#page").append(paging);
 }
-*/
+
 
 function docFormSearch(){
 	var keyword = document.getElementById('searchInput').value;
@@ -345,7 +369,7 @@ function docFormSearch(){
 			
 	})
 }
-
+*/
 $("#check-all").click(function(){
 	   var $chk = $('input[type="checkbox"]');
 	   console.log($chk);

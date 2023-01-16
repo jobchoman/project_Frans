@@ -63,14 +63,18 @@
 		INSERT INTO file(file_sort_idx, file_from, file_ori, file_new) VALUES('3', #{param1}, #{param2}, #{param3})
 	</insert>
 	
-	<select id="fileList" resultType="fileDTO">
-		SELECT file_new FROM file WHERE file_sort_idx = 3 AND file_from = #{param1};
+	<select id="fileList" parameterType="String" resultType="String">
+		SELECT file_new FROM file WHERE file_sort_idx = 3 AND file_from = #{param1} ORDER BY file_idx
+	</select>
+	
+	<select id="orifileList" parameterType="String" resultType="String">
+		SELECT file_ori FROM file WHERE file_sort_idx = 3 AND file_from = #{param1} ORDER BY file_idx
 	</select>
 
 	<select id="signDetailGo" resultType="signDTO">
-		SELECT s.sign_idx, dt.doc_type_name, s.sign_team_open, s.emp_id, t.team_name, s.sign_title, s.sign_content, e.emp_name, e.emp_admin_auth
-			FROM sign s, employee e, document_type dt, team t 
-			WHERE s.emp_id = e.emp_id AND e.team_idx = t.team_idx AND s.doc_type_idx = dt.doc_type_idx AND s.sign_idx=#{param1}
+		SELECT s.sign_idx, dt.doc_type_name, s.sign_team_open, s.emp_id, t.team_name, s.sign_title, s.sign_content, e.emp_name, e.emp_admin_auth, ss.sign_state_type 
+			FROM sign s, employee e, document_type dt, team t, sign_state ss
+			WHERE s.emp_id = e.emp_id AND e.team_idx = t.team_idx AND s.doc_type_idx = dt.doc_type_idx AND s.sign_state_idx = ss.sign_state_idx AND s.sign_idx=#{param1}
 	</select>
 	
  	<select id="signDetailSignmem" resultType="hashmap">
@@ -118,8 +122,29 @@
 	</update>
 	
 	<select id="signDoMemCnt" resultType="signMemDTO">
-		SELECT sm.emp_id, sm.sign_mem_comment, e.emp_name FROM sign_mem sm, employee e WHERE e.emp_id = sm.emp_id AND sign_idx = #{param1} AND sign_mem_state = 1;
+		SELECT sm.emp_id, sm.sign_mem_comment, e.emp_name FROM sign_mem sm, employee e WHERE e.emp_id = sm.emp_id AND sign_idx = #{param1} AND sign_mem_state = 1
 	</select>
 	
+	<select id="signImgUpdate" resultType="String">
+		SELECT file_new FROM file f, sign s, sign_mem sm WHERE s.sign_idx = #{param1} AND sm.sign_mem_state = 1 AND s.sign_idx = sm.sign_idx AND f.file_sort_idx = 0 AND sm.emp_id = f.file_from
+	</select>
+	
+	<select id="download" resultType="String">
+		SELECT file_ori FROM file WHERE file_new = #{param1}
+	</select>
+	
+	<update id="signReturn">
+		UPDATE sign_mem set sign_mem_comment = #{param1},sign_mem_ip = #{param2},sign_mem_state=2 WHERE emp_id = #{param3} AND sign_idx = #{param4}
+	</update>
+	
+	<update id="signReturnUpdate">
+		UPDATE sign set sign_state_idx = 3 WHERE sign_idx = #{param1}
+	</update>
+	
+	<select id="notiSignNext" resultType="String">
+		SELECT emp_id FROM sign_mem sm
+			WHERE sign_mem_order = (SELECT max(sign_mem_order) FROM sign_mem sm3 WHERE sign_mem_state = 1 AND sign_idx = #{param1})+1 
+			AND sign_idx =#{param1};
+   </select>
 
 </mapper>

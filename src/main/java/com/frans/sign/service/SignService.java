@@ -15,6 +15,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.frans.main.dao.NotiDAO;
+import com.frans.main.dto.NotiDTO;
 import com.frans.member.dto.MemberDTO;
 import com.frans.sign.dao.SignDAO;
 import com.frans.sign.dto.DocFormDTO;
@@ -30,14 +32,33 @@ public class SignService {
 	Logger logger = LoggerFactory.getLogger(getClass());
 	
 	@Autowired SignDAO signdao;
+	@Autowired NotiDAO notidao;
 	
 	@Value("${file.location}") private String root;
 
-	public HashMap<String, Object> signList() {
+	public HashMap<String, Object> signList(String date1, String date2) {
 		logger.info("결재 문서 리스트 서비스");
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		ArrayList<signDTO> signdto = signdao.signList();
-		map.put("signdto", signdto);
+		if(date1 == null) {
+			ArrayList<signDTO> signdto = signdao.signList();
+			map.put("data", signdto);
+		}else if(date1 != null) {
+			String first_month = date1.substring(0,date1.indexOf("/"));
+			String first_date = date1.substring(3,5);
+			String first_year = date1.substring(date1.lastIndexOf("/")+1);
+			logger.info(first_year+"년"+first_month+"월"+first_date+"일");
+			
+			String second_month = date2.substring(0,date2.indexOf("/"));
+			String second_date = date2.substring(3,5);
+			String second_year = date2.substring(date2.lastIndexOf("/")+1);
+			logger.info(second_year+"년"+second_month+"월"+second_date+"일");
+			
+			String startdate = first_year+first_month+first_date;
+			String enddate = second_year+second_month+second_date;
+			ArrayList<signDTO> signdto = signdao.dateSearch(startdate,enddate);
+			map.put("data", signdto);
+		}
+		
 		return map;
 	}
 
@@ -60,7 +81,7 @@ public class SignService {
 		
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		ArrayList<signDTO> searchlist = signdao.dateSearch(startdate,enddate);
-		map.put("searchlist", searchlist);
+		map.put("data", searchlist);
 		
 		return map;
 	}
@@ -91,7 +112,44 @@ public class SignService {
 		int sign_idx = signdto.getSign_idx();
 		logger.info("작성된 결재 문서 idx: "+signdto.getSign_idx());
 		
+		 // 알림 작업
+	      String emp_id = loginId;
+	      logger.info("noti emp_id : "+emp_id);
+	      logger.info("작성된 결재 문서 idx: "+signdto.getSign_idx());
+		
 		if (success != 0){
+
+			logger.info("doc_form_idx"+signdto.getDoc_form_idx());
+			signdao.docForm_use_update(signdto.getDoc_form_idx());
+			
+			int noti_pk = signdto.getSign_idx();
+	         NotiDTO notidto = new NotiDTO();
+	         notidto.setEmp_id(emp_id);
+	         notidto.setNoti_pk(noti_pk);
+	         if(noti_pk != 0) {
+	            // notification 테이블 결재 insert
+	            logger.info("noti_pk");
+	            String noti_type = "결재";
+	            notidto.setNoti_type(noti_type);
+	            notidao.notiSignInsert(notidto);      
+	            String noti_idx = notidto.getNoti_idx();
+	            if(ref_empIdx_input != null && ref_empIdx_input[0] != "") {
+	               noti_type = "참조";
+	               notidto.setNoti_type(noti_type);
+	               notidao.notiSignInsert(notidto);
+	               String refNoti_idx = notidto.getNoti_idx();   
+	               // 참조자 알림 수신함 추가
+	               for (int i=0; i<ref_empIdx_input.length; i++) {
+	                  String ref_empId = ref_empIdx_input[i];
+	                  notidao.notiBoxInsert(refNoti_idx,ref_empId);
+	               }
+	            }
+	            //결재자 알림 수신함 추가
+	            String notiBox_emp_id = empIdx_input[0];
+	            logger.info("notiBox_emp_id : "+notiBox_emp_id);
+	            notidao.notiBoxInsert(noti_idx,notiBox_emp_id);
+	         }
+			
 			for (int i=0; i<empIdx_input.length; i++) {
 				logger.info("결재자: {}",empIdx_input[i]);
 				if (empIdx_input[i] != "") {
@@ -106,7 +164,7 @@ public class SignService {
 			}
 			for (int i=0; i<ref_empIdx_input.length; i++) {
 				logger.info("참조자: {}",ref_empIdx_input[i]);
-				if (ref_empIdx_input[i] != "") {
+				if (ref_empIdx_input[i] != "" && !(ref_empIdx_input[i] == "")) {
 					ReferDTO referdto = new ReferDTO();
 					String refermem = ref_empIdx_input[i];
 					referdto.setEmp_id(refermem);
@@ -114,10 +172,13 @@ public class SignService {
 					signdao.refMember(referdto);				
 				}
 			}
-			fileUpload(files,sign_idx);
+
+			if(files != null && !files.equals("")) {
+				logger.info("파일 리스트: "+files.size());
+				logger.info("파일 리스트: "+files);
+				fileUpload(files,sign_idx);
+			}
 			
-			logger.info("doc_form_idx"+signdto.getDoc_form_idx());
-			signdao.docForm_use_update(signdto.getDoc_form_idx());
 		}
 		
 		return "redirect:/signList.go";
@@ -157,6 +218,9 @@ public class SignService {
 		String loginName = signdao.loginName(loginId);
 		ArrayList<signMemDTO> signDoMemCnt = signdao.signDoMemCnt(sign_idx);
 		ArrayList<fileDTO> fileList = signdao.fileList(sign_idx);
+		ArrayList<fileDTO> orifileList = signdao.orifileList(sign_idx);
+		ArrayList<fileDTO> sign_img = signdao.signImgUpdate(sign_idx);
+		
 		
 		mav.addObject("signdto", signdto);
 		mav.addObject("signmemlist", signmemlist);
@@ -166,8 +230,64 @@ public class SignService {
 		mav.addObject("loginName", loginName);
 		mav.addObject("signDoMemCnt", signDoMemCnt);
 		mav.addObject("fileList",fileList);
+		mav.addObject("orifileList",orifileList);
+		mav.addObject("sign_img", sign_img);
+		
+		// 알림 업데이트
+	      String emp_id = loginId;
+	      String notiSignMemIdx = notidao.notiSignMem(emp_id,sign_idx);
+	      String notiRefMemIdx = notidao.notiRefMem(emp_id,sign_idx);
+	      logger.info("결재 알림 noti_idx : "+notiSignMemIdx);
+	      logger.info("참조 알림 noti_idx : "+notiRefMemIdx);
+	      if(notiSignMemIdx != "" && notiSignMemIdx != null) {
+	         notidao.notiBoxUpdate(notiSignMemIdx,emp_id);
+	      }else if(notiRefMemIdx != "" && notiRefMemIdx != null){
+	         notidao.notiBoxUpdate(notiRefMemIdx,emp_id);
+	      }else {
+	         logger.info("검색결과 없음");
+	      }
+
 		return mav;
 	}
+	
+	
+	public ModelAndView signDetailTest(String sign_idx, String loginId) {
+	      logger.info("결재 문서 상세페이지 서비스");
+	      ModelAndView mav = new ModelAndView("signDetail");
+	      signDTO signdto = signdao.signDetailGo(sign_idx);
+	      ArrayList<signMemDTO> signmemlist = signdao.signDetailSignmem(sign_idx);
+	      ArrayList<ReferDTO> referlist = signdao.signDetailRefermem(sign_idx);
+	      ArrayList<SignHistoryDTO> history = signdao.signHistory(sign_idx);
+	      String lastOrder = signdao.lastOrder(sign_idx);
+	      String loginName = signdao.loginName(loginId);
+	      ArrayList<signMemDTO> signDoMemCnt = signdao.signDoMemCnt(sign_idx);
+	      ArrayList<fileDTO> fileList = signdao.fileList(sign_idx);
+	      
+	      // 알림 업데이트
+	            String emp_id = loginId;
+	            String notiSignMemIdx = notidao.notiSignMemOk(emp_id,sign_idx);
+	            String notiRefMemIdx = notidao.notiRefMemOk(emp_id,sign_idx);
+	            logger.info("결재 알림 noti_idx : "+notiSignMemIdx);
+	            logger.info("참조 알림 noti_idx : "+notiRefMemIdx);
+	            if(notiSignMemIdx != "" && notiSignMemIdx != null) {
+	               notidao.notiBoxUpdate(notiSignMemIdx,emp_id);
+	            }else if(notiRefMemIdx != "" && notiRefMemIdx != null){
+	               notidao.notiBoxUpdate(notiRefMemIdx,emp_id);
+	            }else {
+	               logger.info("검색결과 없음");
+	            }
+	            mav.addObject("signdto", signdto);
+	            mav.addObject("signmemlist", signmemlist);
+	            mav.addObject("referlist", referlist);
+	            mav.addObject("history",history);
+	            mav.addObject("lastOrder", lastOrder);
+	            mav.addObject("loginName", loginName);
+	            mav.addObject("signDoMemCnt", signDoMemCnt);
+	            mav.addObject("fileList",fileList);
+	            return mav;
+	      
+	   }
+	
 
 	
 	public HashMap<String, Object> sign(String sign_idx, String loginId, String userIP, String comment, String sign_order, String last_order_id) {
@@ -188,19 +308,120 @@ public class SignService {
 			logger.info("처음이자 마지막 결재자");
 			int signStateUpdate_first = signdao.signStateUpdate_first(sign_idx);
 			map.put("signStateUpdate_first", signStateUpdate_first);
+			
+			// 최종결재 알림 바로 보내기(마지막 결재자 제외)
+	         logger.info("결재자 한명 전체 알람 보내기");
+	         
+	         if(signStateUpdate_first >0) {
+	             // 원래 결재자 찾아오기
+	             String noti_idx = notidao.notiSignMemIdx(sign_idx);
+	             String notiEmp = notidao.notiEmpSearch(noti_idx);
+	             int noti_pk = Integer.parseInt(sign_idx);
+	             ArrayList<String> notiRefList = notidao.notiRefList(sign_idx);
+	             //새 알림 idx 만들기
+	             NotiDTO notidto = new NotiDTO();
+	             String noti_type = "결재완료";
+	             notidto.setEmp_id(notiEmp);
+	             notidto.setNoti_pk(noti_pk);
+	             notidto.setNoti_type(noti_type);
+	             
+	             notidao.notiSignInsert(notidto);
+	             String newNotiIdx = notidto.getNoti_idx();
+	             logger.info("new noti_idx : "+notidto.getNoti_idx());
+	             notidao.notiSignAllInsert(notiEmp,newNotiIdx);
+	             
+	             // 참조자 알림
+	             logger.info("SignList size : "+notiRefList.size());
+	             for(int i=0; i<notiRefList.size(); i++) {
+	                logger.info("notiRefList : {}",notiRefList.get(i));
+	                notidao.notiSignAllInsert(notiRefList.get(i),newNotiIdx);
+	             }
+	             
+	          }
+	         
 		}else if((sign_order.equals("1")) || (loginId.equals(last_order_id))) {
 			logger.info(sign_order+"번째 결재자");
 			int signStateUpdate = signdao.signStateUpdate(sign_idx, loginId, sign_order, last_order_id);
 			map.put("signStateUpdate", signStateUpdate);	
-		}
+			 logger.info("signStateUpdate : "+signStateUpdate);
+	         // 결재자 다음 사람 emp_id, noti_idx
+	         if(signStateUpdate > 0) {
+	            String notiSignNext = signdao.notiSignNext(sign_idx); //emp_id
+	            String noti_idx = notidao.notiSignMemIdx(sign_idx);
+	            logger.info("결재자 다음 사람 noti_idx :"+noti_idx);
+	            
+	            
+	            if(notiSignNext != null && notiSignNext != "") {
+	               notidao.notiBoxInsert(noti_idx, notiSignNext);
+	            }
+	            if(notiSignNext == null) {
+	               logger.info("전체알람 보내기");
+	             //for문으로 뽑아내기?
+	               
+	               ArrayList<String> notiSignList = notidao.notiSignAll(sign_idx);
+	               ArrayList<String> notiRefList = notidao.notiRefList(sign_idx);
+	               String notiEmp = notidao.notiEmpSearch(noti_idx);
+	                  int noti_pk = Integer.parseInt(sign_idx);
+	                  NotiDTO notidto = new NotiDTO();
+	                  String noti_type = "결재완료";
+	                  notidto.setEmp_id(notiEmp);
+	                  notidto.setNoti_pk(noti_pk);
+	                  notidto.setNoti_type(noti_type);
+	                  
+	                  notidao.notiSignInsert(notidto);
+	                  String newNotiIdx = notidto.getNoti_idx();
+	                  logger.info("new noti_idx : "+notidto.getNoti_idx());
+	               
+	               logger.info("SignList size : "+notiSignList.size());
+	               for(int i=0; i<notiSignList.size(); i++) {
+	                  logger.info("notiSignList : {}",notiSignList.get(i));
+	                  notidao.notiSignAllInsert(notiSignList.get(i),newNotiIdx);
+	               }
+	               // 참조자 알림
+	               logger.info("SignList size : "+notiRefList.size());
+	               for(int i=0; i<notiRefList.size(); i++) {
+	                  logger.info("notiRefList : {}",notiRefList.get(i));
+	                  notidao.notiSignAllInsert(notiRefList.get(i),newNotiIdx);
+	               }
+	            }            
+	         }
+	      }else if((sign_order.equals("2")) ||(sign_order.equals("3")) ||(sign_order.equals("4"))){
+	         // 결재자 다음 사람 emp_id, noti_idx
+	         
+	         String notiSignNext = signdao.notiSignNext(sign_idx); //emp_id
+	         String noti_idx = notidao.notiSignMemIdx(sign_idx);
+	         logger.info("결재자 다음 사람 noti_idx :"+noti_idx);
+	         if(notiSignNext != null && notiSignNext != "") {
+	            notidao.notiBoxInsert(noti_idx, notiSignNext);
+	         }
+	                     
+	         
+	      }
 		
 		return map;
 	}
+
+	public String download(String path) {
+		return signdao.download(path);
+	}
+
+	public HashMap<String, Object> signReturn(HashMap<String, String> params, String userIP) {
+		logger.info("반려 서비스");
+		signMemDTO signmemdto = new signMemDTO();
+		String comment = params.get("comment");
+		String loginId = params.get("loginId");
+		signmemdto.setSign_mem_comment(params.get("comment"));
+		signmemdto.setSign_mem_ip(userIP);
+		String sign_idx = params.get("sign_idx");
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		int signreturn = signdao.signReturn(comment,userIP,loginId, sign_idx);
+		if (signreturn > 0) {
+			signdao.signReturnUpdate(sign_idx);
+		}
+		map.put("signreturn", signreturn);
+		return map;
+	}
 	
-	
-	
-	
-	
-	
+
 	
 }

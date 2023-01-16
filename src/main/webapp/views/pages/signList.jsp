@@ -95,19 +95,19 @@
 				</div>
 				 -->
 				<div class="table-responsive">
-					<table id="docform" class="table table-striped jambo_table bulk_action">
+					<table id="signlist" class="table table-striped table-bordered bulk_action" style="width:100%">
 						<thead>
 						<tr class="headings">
-							<th class="column-title">글번호</th>
-							<th class="column-title">제목</th>
-							<th class="column-title">작성자</th>
-							<th class="column-title">작성일</th>
-							<th class="column-title">결재상태</th>
+							<th>글번호</th>
+							<th>제목</th>
+							<th>작성자</th>
+							<th>작성일</th>
+							<th>결재상태</th>
 						</tr>
 						</thead>
 
-						<tbody id="signlist">
-						</tbody>
+						<!-- <tbody id="signlist">
+						</tbody> -->
 					</table>
 				</div>
 			</div>
@@ -124,8 +124,75 @@ if(msg != ""){
 	alert(msg);
 }
 
+/* 
+ $(function () {
+    $("#single_cal1").daterangepicker({
+    	locale : {
+    		format: moment().format('YYYY-MM-DD')
+    	},
+    	
+    });
+});  */
+
 listCall();
 
+
+function listCall(date1, date2) {
+	
+	console.log(date1);
+	console.log(date2);
+	
+	var table = $('#signlist').DataTable(
+			{
+				destroy : true,
+				aaSorting : [],
+				"dom": 'frtp',
+				serverSide : false,
+				ajax : {
+					"url" : "sign/list.do",
+					"type" : "get",
+					"data" : {
+						"date1" : date1,
+						"date2" : date2
+					}
+				},
+				columns : [
+						{
+							data : "sign_idx",
+						},
+						{
+							data : "sign_title",
+							"render" : function(data, type, row) {
+								if (type == 'display') {
+									
+										data = '<a href="/signDetail.go?sign_idx='+row.sign_idx+'">'+row.sign_title+'</a>';
+								}
+								return data;
+							}
+						},
+						{
+							data : "emp_name"
+						},
+						{
+							data : "sign_date"
+
+						},
+						{
+							data : "sign_state_type"
+
+						}
+						
+					],
+				
+				columnDefs : []
+
+			});
+
+}
+
+
+
+/*
 function listCall(){
 	$.ajax({
 		type:'get',
@@ -134,22 +201,7 @@ function listCall(){
 		dataType:'JSON',
 		success:function(data){
 			drawList(data.signdto);
-/*			
-			if(data.list.length==0){
-				$("#pagination").twbsPagination("destroy");
-			} else {
-				$('#pagination').twbsPagination({
-					startPage:1,
-					totalPages:data.total, 
-					visiblePages:5,
-					onPageClick:function(e,page){ 
-						listCall(page);
-						console.log($("#pagination"));
 
-					}
-				});
-			}
-			*/
 		},
 		error:function(e){
 			console.log(e);
@@ -179,7 +231,7 @@ function drawList(list){
 	$('#signlist').append(content);
 }
 
-
+*/
 function dateSearch(){
 	var date1 = document.getElementById('single_cal1').value;
 	var date2 = document.getElementById('single_cal2').value;
@@ -197,7 +249,7 @@ function dateSearch(){
 		dataType:'JSON',
 		success:function(data){
 //			console.log(data);
-			drawList(data.searchlist);
+			listCall(date1, date2);
 		},
 		error:function(e){
 			console.log(e);
@@ -205,6 +257,8 @@ function dateSearch(){
 		
 	});
 }
+
+
 
 </script>
 </html>

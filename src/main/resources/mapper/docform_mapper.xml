@@ -4,6 +4,10 @@
 >
 <mapper namespace="com.frans.sign.dao.DocFormDAO">
 
+	<select id="docFormListGo" resultType="int">
+		SELECT emp_admin_auth FROM employee WHERE emp_id = #{param1}
+	</select>
+
 	<select id="docFormList" resultType="DocFormDTO">
 		SELECT df.doc_form_idx, dt.doc_type_name, df.doc_form_name, e.emp_name, df.doc_form_use, df.doc_form_upHit
 			FROM employee e, document_type dt, doc_form df

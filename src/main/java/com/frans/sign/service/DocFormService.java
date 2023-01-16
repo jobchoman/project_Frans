@@ -7,13 +7,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.frans.sign.dao.DocFormDAO;
 import com.frans.sign.dto.DocFormDTO;
-import com.frans.sign.dto.signDTO;
 
 @Service
 public class DocFormService {
@@ -21,6 +19,15 @@ public class DocFormService {
 	Logger logger = LoggerFactory.getLogger(getClass());
 	
 	@Autowired DocFormDAO docformdao;
+	
+	
+	public HashMap<String, Object> docFormListGo(String loginId) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		int auth_type = docformdao.docFormListGo(loginId);
+		map.put("auth_type",auth_type);
+		return map;
+	}
+	
 
 	public HashMap<String, Object> docFormList(String doc_type, String lineup) {
 		logger.info("서식 리스트 호출 서비스");
@@ -85,7 +92,7 @@ public class DocFormService {
 
 	      return total;
 	}
-	
-	
+
+
 
 }

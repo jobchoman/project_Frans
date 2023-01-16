@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -55,7 +56,7 @@
 	
 	#signHistory {
 		font-size: 8pt;
-		margin-left: 1%;
+		margin-left: 5%;
 		padding-inline: revert;
 	}
 	
@@ -83,9 +84,13 @@
 					<div class="col-md-6 col-sm-6  " style="max-width: 100%">
 						<div class="x_panel" style="display: inline-table">
 							<div class="x_title">
+								<div style="float: left; white-space: nowrap">
 								<h2>결재 문서</h2>
+								<input type="hidden" value="${signdto.sign_state_type}" id="sign_state"/>
 								<input type="hidden" value="${loginName}" id="loginName">
 								<button type="button" class="btn btn-warning" id="signHistory" onclick="sign_history()">히스토리</button>
+								</div>
+								<div>
 									<table id="sign_img" style="float:right; border:1px solid lightgray">
 										<tr id="signImg_th">
 											<th rowspan="2"
@@ -95,11 +100,15 @@
 											</c:forEach>
 										</tr>
 											<tr id="signImg_td">
-										<c:forEach items="${signDoMemCnt}" var="cnt">
-												<td>이미지</td>
-										</c:forEach>
+											<c:forEach items="${sign_img}" var="img">
+												<td>
+													<img width="80" height="auto" src="sign/photo.do?path=${img}">
+													<input type="hidden" value="${img}" id="sign_img"/>
+												</td>
+											</c:forEach>
 											</tr>
 									</table>
+								</div>
 									<div class="clearfix"></div>
 							</div>
 
@@ -193,24 +202,25 @@
 								<tr>
 									<th scope="row">첨부파일</th>
 										<td>
-									<c:forEach items="${fileList}" var="path">
-											<p>다운로드</p>
-									</c:forEach>
+										<c:forEach items="${fileList}" var="path" varStatus="status">
+											<p><a href="download.do?path=${path}">${orifileList[status.index]}</a></p>
+										</c:forEach>
 										</td>									
 								</tr>
 								<tr>
 									<td colspan="2">
 										<button type="button" onclick="location.href='/signList.go'" class="btn btn-round btn-secondary" id="goList" style="float:left">목록</button>
 										<c:set var="loginId" value="${sessionScope.loginId}" scope="page"/>
+										<c:if test="${signdto.sign_state_type eq '결재전' || signdto.sign_state_type eq '결재중'}">
 											<c:forEach items="${signmemlist}" var="sign">
 												<c:if test="${loginId eq sign.emp_id && sign.sign_mem_state eq '0'}">
 													<input type="hidden" value="${sign.sign_mem_order}" id="sign_mem_order"/>
 													<input type="hidden" value="${lastOrder}" id="lastorder"/>
 													<button type="button" onclick="signDo()" class="btn btn-round btn-secondary" id="sign" style="float:right">결재</button>
-													<button type="button" onclick="" class="btn btn-round btn-secondary" id="nosign" style="float:right">반려</button>
+													<button type="button" onclick="signReturn()" class="btn btn-round btn-secondary" id="nosign" style="float:right">반려</button>
 												</c:if> 
 											</c:forEach>
-										
+										</c:if>
 									</td>
 								</tr>
 							</table>
@@ -260,6 +270,9 @@
 												</c:when>
 												<c:when test="${his.sign_mem_state eq '1'}">
 													<td style="font-weight:bold; color:red">결재완료</td>
+												</c:when>
+												<c:when test="${his.sign_mem_state eq '2'}">
+													<td style="font-weight:bold; color:orange">반려</td>
 												</c:when>
 											</c:choose>
 										</tr>
@@ -313,6 +326,7 @@ function sign_history(){
 var sign_idx = $('#sign_idx').val();
 var sign_order = $('#sign_mem_order').val();
 var last_order_id = $('#lastorder').val();
+
 console.log(sign_idx);
 console.log(sign_order);
 
@@ -348,7 +362,8 @@ function signDo(){
 }
 
 var login_name = $('#loginName').val();
-//console.log(login_name);
+var sign_img = $('#sign_img').val();
+//consoin_name);
 
 function draw_signImg_th(list){
 	console.log(list);
@@ -360,7 +375,7 @@ function draw_signImg_th(list){
 
 function draw_signImg_td(list){
 	var content = '';
-	content += '<td>이미지</td>';
+	content += '<td><img width="200" src="/photo.do?path='+sign_img+'"></td>';
 //	$('#signImg_td').empty();
 	$('#signImg_td').append(content);
 }
@@ -378,6 +393,34 @@ function inputComment(comment){
 
 }
 
+function signReturn(){
+	
+	var comment = $('#commentInput').val();
+	
+	$.ajax({
+		type:'get',
+		url:'sign/return.do',
+		data:{
+			"loginId" : loginId,
+			"sign_idx" : sign_idx,
+			"comment" : comment,
+			"sign_order" : sign_order,
+			"last_order_id" : last_order_id
+			},
+		dataType:'JSON',
+		success:function(data){
+			console.log(data);
+//			draw_signImg_th(data);
+//			draw_returnImg_td(data);
+			inputComment(comment);
+			window.location.href = "/signDetail.go?sign_idx="+sign_idx;
+		},
+		error:function(e){
+			console.log(e);
+		}
+		
+	});
+}
 
 
  

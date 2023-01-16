@@ -61,6 +61,21 @@ public interface SignDAO {
 
 	ArrayList<fileDTO> fileList(String sign_idx);
 
+	String download(String path);
+
+	ArrayList<fileDTO> orifileList(String sign_idx);
+
+	int signReturn(String comment, String userIP, String loginId, String sign_idx);
+
+	void signReturnUpdate(String sign_idx);
+	
+	//알람 관련
+	String notiSignNext(String sign_idx);
+
+	int signReturn(signMemDTO signmemdto);
+
+	ArrayList<fileDTO> signImgUpdate(String loginId);
+
 
 
 

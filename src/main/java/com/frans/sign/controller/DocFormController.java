@@ -3,8 +3,8 @@ package com.frans.sign.controller;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,11 +27,13 @@ public class DocFormController {
 	
 	@Autowired DocFormService docformservice;
 	
-	/* 서식 리스트 만들기
-	 * 서식 리스트에 서식 작성 폼 버튼
-	 * 서식 작성 폼 만들기
-	 * 작성 버튼에 서식 작성 이벤트 걸기
-	 */
+	@GetMapping(value="/docFormList.go")
+	public HashMap<String, Object> docFormListGo(HttpServletRequest req) {
+		HttpSession session = req.getSession();
+		String loginId = (String) session.getAttribute("loginId");
+		logger.info("서식 리스트 go");
+		return docformservice.docFormListGo(loginId);
+	}
 	
 	@ResponseBody
 	@GetMapping(value="/docForm/list.do")
