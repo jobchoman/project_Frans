@@ -15,9 +15,9 @@ import com.frans.sign.dto.signMemDTO;
 @Mapper
 public interface SignDAO {
 
-	ArrayList<signDTO> signList();
+	ArrayList<signDTO> signList(String team_value);
 
-	ArrayList<signDTO> dateSearch(String startdate, String enddate);
+	ArrayList<signDTO> dateSearch(String startdate, String enddate, String team_value);
 
 	DocFormDTO signWriteGo(String doc_form_idx);
 
@@ -76,7 +76,7 @@ public interface SignDAO {
 
 	ArrayList<fileDTO> signImgUpdate(String loginId);
 
-
+	ArrayList<MemberDTO> selTeam(String loginId);
 
 
 }

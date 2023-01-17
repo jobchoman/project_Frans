@@ -91,7 +91,6 @@
 			<!-- page content -->
 			<div class="right_col addWrap" role="main">
 			<div id="signwritediv">
-<!-- 				<form action="/sign/write.do" method="post" enctype="multipart/form-data"> -->
 				<form action="/sign/write.do" method="post" enctype="multipart/form-data">
 					<div class="col-md-6 col-sm-6  " style="max-width: 100%">
 						<div class="x_panel" style="display: inline-table">
@@ -147,7 +146,7 @@
 									         <div id="ref_emp1">
 									         	<!-- <input type="text" class="empName1" name="empName1" id="empName1" placeholder="사원 검색" onclick="empSearch_popup(event)" readonly> -->
 									            <input type="text" class="ref_empName1" name="ref_empName" id="ref_empName1" placeholder="사원 검색" onclick="empSearch_popup(event)" readonly>
-									            <input class="ref_empIdx_input1" name="ref_empIdx_input" readonly="readonly" type="hidden" />
+									            <input class="ref_empIdx_input1" name="ref_empIdx_input" value="없음" readonly="readonly" type="hidden" />
 									            <button type="button" id="addRefEmp" name="addRefEmp" onclick="addRef()" class="btn btn-round btn-info">+</button>
 									         </div>
 									      </div>
@@ -218,9 +217,6 @@
 								</table>
 							</div>
 
-							</div>
-							<div class="modal-footer">
-								<button type="button" class="btn btn-primary" data-dismiss="modal">확인</button>
 							</div>
 						</div>
 					</div>

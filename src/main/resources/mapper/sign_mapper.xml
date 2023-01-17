@@ -7,14 +7,18 @@
 	<select id="signList" resultType="signDTO">
 		SELECT s.sign_idx , s.sign_title, e.emp_name, s.sign_date, ss.sign_state_type
 			FROM sign s, sign_state ss, employee e
-			WHERE s.emp_id = e.emp_id AND s.sign_state_idx = ss.sign_state_idx AND s.sign_date BETWEEN DATE_ADD(NOW(), INTERVAL -2 WEEK ) AND NOW()
+			WHERE s.emp_id = e.emp_id AND s.sign_state_idx = ss.sign_state_idx AND e.team_idx = #{param1} AND s.sign_date BETWEEN DATE_ADD(NOW(), INTERVAL -2 WEEK ) AND NOW()
 			ORDER BY sign_idx
+	</select>
+	
+	<select id="selTeam" resultType="com.frans.member.dto.MemberDTO">
+		SELECT r.team_idx, t.team_name FROM `right` r, team t WHERE r.team_idx = t.team_idx AND r.emp_id = #{param1} AND r.auth_type > 0
 	</select>
 	
 	<select id="dateSearch" resultType="signDTO">
 		SELECT s.sign_idx , s.sign_title, e.emp_name, s.sign_date, ss.sign_state_type
 			FROM sign s, sign_state ss, employee e
-			WHERE s.emp_id = e.emp_id AND s.sign_state_idx = ss.sign_state_idx AND s.sign_date BETWEEN #{param1} AND #{param2} ORDER BY sign_idx
+			WHERE s.emp_id = e.emp_id AND s.sign_state_idx = ss.sign_state_idx AND e.team_idx = #{param3} AND s.sign_date BETWEEN #{param1} AND #{param2} ORDER BY sign_idx
 	</select>
 	
 	<select id="signWriteGo" resultType="DocFormDTO">

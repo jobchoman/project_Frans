@@ -55,7 +55,7 @@
                           <div class="control-group">
                             <div class="controls">
                               <div class="col-md-11 xdisplay_inputx form-group row has-feedback">
-                                <input type="text" class="form-control has-feedback-left" id="single_cal1" placeholder="First Name" aria-describedby="inputSuccess2Status">
+                                <input type="text" class="form-control has-feedback-left" name="single_cal1" id="single_cal1" placeholder="First Name" aria-describedby="inputSuccess2Status">
                                 <span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span>
                                 <span id="inputSuccess2Status" class="sr-only">(success)</span>
                               </div>
@@ -69,7 +69,7 @@
                           <div class="control-group">
                             <div class="controls">
                               <div class="col-md-11 xdisplay_inputx form-group row has-feedback">
-                                <input type="text" class="form-control has-feedback-left" id="single_cal2" placeholder="First Name" aria-describedby="inputSuccess2Status2">
+                                <input type="text" class="form-control has-feedback-left" name="single_cal2" id="single_cal2" placeholder="First Name" aria-describedby="inputSuccess2Status2">
                                 <span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span>
                                 <span id="inputSuccess2Status2" class="sr-only">(success)</span>
                               </div>
@@ -77,25 +77,24 @@
                           </div>
                         </fieldset>
 						<span class="input-group-btn">
-							<button type="button" class="btn btn-primary" id="dateSearch" onclick="dateSearch()">검색</button>
+							<button type="button" class="btn btn-primary" id="dateSearch" onclick="listCall(single_cal1,single_cal2,selTeam)">검색</button>
 						</span> 
                       </div>
                         
 				</div>
-				<!-- 
+
 				<div style="width:100%">
 				
-				<select id="lineup" style="float: right" onchange="listCall()">
-					<option value="all" selected="selected">전체</option>
-					<c:forEach var="testList" items="${testList}" varStatus="i">
-         				<option value="${testList.name}">${testList.name}</option>
+				<select id="selTeam" style="float: right" onchange="listCall(single_cal1,single_cal2,selTeam)">
+					<c:forEach var="member" items="${memberdto}" varStatus="i">
+         				<option value="${member.team_idx}">${member.team_name}</option>
       				</c:forEach>
 				</select>
 				
 				</div>
-				 -->
+
 				<div class="table-responsive">
-					<table id="signlist" class="table table-striped table-bordered bulk_action" style="width:100%">
+					<table id="signlist" class="table table-striped table-bordered bulk_action" style="width:100%; white-space: nowrap;">
 						<thead>
 						<tr class="headings">
 							<th>글번호</th>
@@ -124,36 +123,51 @@ if(msg != ""){
 	alert(msg);
 }
 
-/* 
- $(function () {
-    $("#single_cal1").daterangepicker({
-    	locale : {
-    		format: moment().format('YYYY-MM-DD')
-    	},
-    	
-    });
-});  */
+$(function() {
+	  $('input[name="single_cal1"]').daterangepicker({
+	    singleDatePicker: true,
+	    startDate: moment().subtract(14, 'days'),
+	    locale: {
+	        format: 'YYYY-MM-DD'
+	      }
+	});
+});
 
-listCall();
+$(function() {
+	  $('input[name="single_cal2"]').daterangepicker({
+	    singleDatePicker: true,
+	    endDate: moment(),
+	    locale: {
+	        format: 'YYYY-MM-DD'
+	      }
+	});
+});
 
 
-function listCall(date1, date2) {
-	
-	console.log(date1);
-	console.log(date2);
+listCall(single_cal1,single_cal2,selTeam);
+
+function listCall(single_cal1, single_cal2, selTeam) {
+	var date1 = single_cal1.value;
+	var date2 = single_cal2.value;
+	var team_value = selTeam.value;
+//	console.log(single_cal1.value);
+//	console.log(single_cal2.value);
+//	console.log(selTeam.value);
 	
 	var table = $('#signlist').DataTable(
 			{
 				destroy : true,
 				aaSorting : [],
 				"dom": 'frtp',
+//				pageLength : 15,
 				serverSide : false,
 				ajax : {
 					"url" : "sign/list.do",
 					"type" : "get",
 					"data" : {
 						"date1" : date1,
-						"date2" : date2
+						"date2" : date2,
+						"team_value" : team_value
 					}
 				},
 				columns : [
@@ -235,21 +249,23 @@ function drawList(list){
 function dateSearch(){
 	var date1 = document.getElementById('single_cal1').value;
 	var date2 = document.getElementById('single_cal2').value;
+	var team_value = $('#selTeam').val();
 	console.log(date1);
 	console.log(date2);
-//	console.log(typeof date1);
+	console.log(team_value);
 
 	$.ajax({
 		type:'get',
 		url:'sign/dateSearch.do',
 		data:{
 			'date1':date1,
-			'date2':date2
+			'date2':date2,
+			"team_value":team_value
 			},
 		dataType:'JSON',
 		success:function(data){
 //			console.log(data);
-			listCall(date1, date2);
+			listCall(date1, date2, team_value);
 		},
 		error:function(e){
 			console.log(e);

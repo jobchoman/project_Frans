@@ -35,34 +35,43 @@ public class SignService {
 	@Autowired NotiDAO notidao;
 	
 	@Value("${file.location}") private String root;
+	
+	public HashMap<String, Object> signListGo(String loginId) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		ArrayList<MemberDTO> memberdto = signdao.selTeam(loginId);
+		map.put("memberdto",memberdto);
+		return map;
+	}
+	
 
-	public HashMap<String, Object> signList(String date1, String date2) {
+	public HashMap<String, Object> signList(String date1, String date2, String team_value) {
 		logger.info("결재 문서 리스트 서비스");
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		if(date1 == null) {
-			ArrayList<signDTO> signdto = signdao.signList();
+		
+		if(date1 == "") {
+			ArrayList<signDTO> signdto = signdao.signList(team_value);
 			map.put("data", signdto);
-		}else if(date1 != null) {
-			String first_month = date1.substring(0,date1.indexOf("/"));
-			String first_date = date1.substring(3,5);
-			String first_year = date1.substring(date1.lastIndexOf("/")+1);
+		}else if(date1 != "") {
+			String first_year = date1.substring(0,date1.indexOf("-"));
+			String first_month = date1.substring(5,7);
+			String first_date = date1.substring(date1.lastIndexOf("-")+1);
 			logger.info(first_year+"년"+first_month+"월"+first_date+"일");
 			
-			String second_month = date2.substring(0,date2.indexOf("/"));
-			String second_date = date2.substring(3,5);
-			String second_year = date2.substring(date2.lastIndexOf("/")+1);
+			String second_year = date2.substring(0,date2.indexOf("-"));
+			String second_month = date2.substring(5,7);
+			String second_date = date2.substring(date2.lastIndexOf("-")+1);
 			logger.info(second_year+"년"+second_month+"월"+second_date+"일");
 			
 			String startdate = first_year+first_month+first_date;
 			String enddate = second_year+second_month+second_date;
-			ArrayList<signDTO> signdto = signdao.dateSearch(startdate,enddate);
+			ArrayList<signDTO> signdto = signdao.dateSearch(startdate,enddate,team_value);
 			map.put("data", signdto);
 		}
 		
 		return map;
 	}
 
-	public HashMap<String, Object> dateSearch(String date1, String date2) {
+	public HashMap<String, Object> dateSearch(String date1, String date2, String team_value) {
 		logger.info("결재 문서 기간 검색 서비스");
 //		logger.info(date1+"/"+date2);
 		
@@ -80,7 +89,7 @@ public class SignService {
 		String enddate = second_year+second_month+second_date;
 		
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		ArrayList<signDTO> searchlist = signdao.dateSearch(startdate,enddate);
+		ArrayList<signDTO> searchlist = signdao.dateSearch(startdate,enddate,team_value);
 		map.put("data", searchlist);
 		
 		return map;
@@ -111,6 +120,7 @@ public class SignService {
 		int success = signdao.signWriteDo(signdto);
 		int sign_idx = signdto.getSign_idx();
 		logger.info("작성된 결재 문서 idx: "+signdto.getSign_idx());
+		logger.info("첫번째 참조자: "+ref_empIdx_input[0]);
 		
 		 // 알림 작업
 	      String emp_id = loginId;
@@ -133,8 +143,9 @@ public class SignService {
 	            notidto.setNoti_type(noti_type);
 	            notidao.notiSignInsert(notidto);      
 	            String noti_idx = notidto.getNoti_idx();
-	            if(ref_empIdx_input != null && ref_empIdx_input[0] != "") {
+	            if(ref_empIdx_input != null && ref_empIdx_input[0] != "" && !ref_empIdx_input[0].equals("없음")) {
 	               noti_type = "참조";
+	               logger.info("첫번째 참조자: "+ref_empIdx_input[0]);
 	               notidto.setNoti_type(noti_type);
 	               notidao.notiSignInsert(notidto);
 	               String refNoti_idx = notidto.getNoti_idx();   
@@ -164,7 +175,7 @@ public class SignService {
 			}
 			for (int i=0; i<ref_empIdx_input.length; i++) {
 				logger.info("참조자: {}",ref_empIdx_input[i]);
-				if (ref_empIdx_input[i] != "" && !(ref_empIdx_input[i] == "")) {
+				if (ref_empIdx_input[i] != "" && !(ref_empIdx_input[i] == "") && !ref_empIdx_input[0].equals("없음")) {
 					ReferDTO referdto = new ReferDTO();
 					String refermem = ref_empIdx_input[i];
 					referdto.setEmp_id(refermem);
@@ -173,7 +184,7 @@ public class SignService {
 				}
 			}
 
-			if(files != null && !files.equals("")) {
+			if(files != null && !files.get(0).getOriginalFilename().equals("")) {
 				logger.info("파일 리스트: "+files.size());
 				logger.info("파일 리스트: "+files);
 				fileUpload(files,sign_idx);
@@ -207,19 +218,19 @@ public class SignService {
 
 	}
 
-	public ModelAndView signDetailGo(String sign_idx, String loginId) {
+	public ModelAndView signDetailGo(String sign_idx, String loginId, int admin_type) {
 		logger.info("결재 문서 상세페이지 서비스");
 		ModelAndView mav = new ModelAndView("signDetail");
 		signDTO signdto = signdao.signDetailGo(sign_idx);
-		ArrayList<signMemDTO> signmemlist = signdao.signDetailSignmem(sign_idx);
-		ArrayList<ReferDTO> referlist = signdao.signDetailRefermem(sign_idx);
-		ArrayList<SignHistoryDTO> history = signdao.signHistory(sign_idx);
-		String lastOrder = signdao.lastOrder(sign_idx);
-		String loginName = signdao.loginName(loginId);
-		ArrayList<signMemDTO> signDoMemCnt = signdao.signDoMemCnt(sign_idx);
-		ArrayList<fileDTO> fileList = signdao.fileList(sign_idx);
-		ArrayList<fileDTO> orifileList = signdao.orifileList(sign_idx);
-		ArrayList<fileDTO> sign_img = signdao.signImgUpdate(sign_idx);
+		ArrayList<signMemDTO> signmemlist = signdao.signDetailSignmem(sign_idx); // 결재자
+		ArrayList<ReferDTO> referlist = signdao.signDetailRefermem(sign_idx); // 참조자
+		ArrayList<SignHistoryDTO> history = signdao.signHistory(sign_idx); // 결재 히스토리
+		String lastOrder = signdao.lastOrder(sign_idx); // 마지막 결재자
+		String loginName = signdao.loginName(loginId); // 유저 이름
+		ArrayList<signMemDTO> signDoMemCnt = signdao.signDoMemCnt(sign_idx); // 결재 순서
+		ArrayList<fileDTO> fileList = signdao.fileList(sign_idx); // 첨부파일 리스트
+		ArrayList<fileDTO> orifileList = signdao.orifileList(sign_idx); // 첨부파일 oriname
+		ArrayList<fileDTO> sign_img = signdao.signImgUpdate(sign_idx); // 서명 이미지
 		
 		
 		mav.addObject("signdto", signdto);
@@ -232,6 +243,7 @@ public class SignService {
 		mav.addObject("fileList",fileList);
 		mav.addObject("orifileList",orifileList);
 		mav.addObject("sign_img", sign_img);
+		mav.addObject("admin",admin_type);
 		
 		// 알림 업데이트
 	      String emp_id = loginId;
@@ -421,7 +433,7 @@ public class SignService {
 		map.put("signreturn", signreturn);
 		return map;
 	}
-	
+
 
 	
 }

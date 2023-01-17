@@ -87,13 +87,13 @@
 				<input type="hidden" value="${auth_type}" id="auth_type"/>
  				<div style="width:100%">
 				
-				<select id="lineup" style="float: right" onchange="listCall(doc_type,lineup,auth_type)">
+				<select id="lineup" style="float: right" onchange="listCall(doc_type,lineup)">
 					<option value="최신순" selected="selected">최신순</option>
 					<option value="조회수">조회수</option>
 					<option value="사용수">사용수</option>
 				</select>
 				
-				<select id="doc_type" name="doc_type" style="float: right" onchange="listCall(doc_type,lineup,auth_type)">
+				<select id="doc_type" name="doc_type" style="float: right" onchange="listCall(doc_type,lineup)">
 					<option value="all" selected="selected">전체</option>
 					<option value="DT001">품의서</option>
 					<option value="DT002">지출결의서</option>
@@ -114,7 +114,6 @@
 						<%-- <c:if test="${auth_type ne '2'}"> --%>
 							<th><input type="checkbox" id="check-all" class="flat"></th>
 						<%-- </c:if> --%>
-							<th>양식 idx</th>
 							<th>양식 종류</th>
 							<th>제목</th>
 							<th>작성자</th>
@@ -222,16 +221,19 @@ function listCall(doc_type,lineup) {
 						{
 							data : "doc_form_idx",
  							"render" : function(data, type, row) {
-									if (type == 'display') {
+ 								if (type == 'display') {
+ 									data = '<input type="checkbox" value='+row.doc_form_idx+' class="flat" name="table_records">';			
+ 								}
+ 							
+									/* 
 										if(auth_type != '2'){
 											data = '<input type="checkbox" value='+row.doc_form_idx+' class="flat" name="table_records">';											
-										}
-									}
-								return data;
+										}else if(auth_type == '2'){
+											data = '';
+										} */
+									return data;
+									
 							} 
-						},
-						{
-							data : "doc_form_idx"
 						},
 						{
 							data : "doc_type_name"
@@ -269,18 +271,17 @@ function listCall(doc_type,lineup) {
 
 				},
 				{
-
 					targets : [ 0 ],
 
 					searchable : false,
 
 					visible : true,
 					
-					/* render: function (data, row) {
-		                if ($("#auth_type").val() != "2") {
-		                  return data;
-		                } 
-		              } */
+/* 					render : function(data, type, row) {
+						if(auth_type != '2'){
+							return true;
+						}
+					} */
 					
 					}
 			              

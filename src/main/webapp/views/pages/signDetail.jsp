@@ -88,7 +88,9 @@
 								<h2>결재 문서</h2>
 								<input type="hidden" value="${signdto.sign_state_type}" id="sign_state"/>
 								<input type="hidden" value="${loginName}" id="loginName">
+								<c:if test="${admin lt '2'}">
 								<button type="button" class="btn btn-warning" id="signHistory" onclick="sign_history()">히스토리</button>
+								</c:if>
 								</div>
 								<div>
 									<table id="sign_img" style="float:right; border:1px solid lightgray">
@@ -165,7 +167,7 @@
 									<c:forEach items="${signmemlist}" var="sign">
 										<c:if test="${loginId eq sign.emp_id}">
 											<tr>
-												<th scope="row">코멘트</th>
+												<th scope="row">의견</th>
 												<td>
 													<c:forEach items="${signmemlist}" var="signmem">
 														<c:choose>

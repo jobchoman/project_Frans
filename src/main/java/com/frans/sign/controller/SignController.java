@@ -11,6 +11,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.ibatis.binding.MapperMethod.ParamMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,30 +39,40 @@ public class SignController {
 	@Autowired SignService signservice;
 	@Autowired DocFormService docformservice;
 	
-	/* 결재 문서 작성 */
-	
 	
 	/* 결재 문서 리스트 */
+	@GetMapping(value="/signList.go")
+	public HashMap<String, Object> signListGo(HttpServletRequest req){
+		HttpSession session = req.getSession();
+		String loginId = (String) session.getAttribute("loginId");
+		
+		return signservice.signListGo(loginId);
+	}
+	
 	@ResponseBody
 	@GetMapping(value="/sign/list.do")
 	public HashMap<String, Object> signList(@RequestParam HashMap<String, String> params){
 		logger.info("결재 문서 리스트 컨트롤러");
 		String date1 = params.get("date1");
 		String date2 = params.get("date2");
+		String team_value = params.get("team_value");
+		logger.info("시작일: "+date1+"종료일"+date2);
+		logger.info("팀 이름: "+team_value);
 
-		return signservice.signList(date1,date2);
+		return signservice.signList(date1,date2,team_value);
 	}
 	
 	@ResponseBody
 	@GetMapping(value="/sign/dateSearch.do")
 	public HashMap<String, Object> dateSearch(@RequestParam HashMap<String, String> params){
 		logger.info("결재 문서 기간 검색 컨트롤러");
-//		logger.info("params:{}",params);
+		logger.info("params:{}",params);
 		String date1 = params.get("date1");
 		String date2 = params.get("date2");
+		String team_value = params.get("team_value");
 //		logger.info(date1+"/"+date2);
 		
-		return signservice.dateSearch(date1,date2);
+		return signservice.dateSearch(date1,date2,team_value);
 	}
 	
 	@GetMapping(value="/signWrite.go")
@@ -85,6 +96,7 @@ public class SignController {
 		String[] ref_empIdx_input = req.getParameterValues("ref_empIdx_input");
 		logger.info("결재자 길이: "+empIdx_input.length);
 		logger.info("참조자 길이: "+ref_empIdx_input.length);
+		logger.info("참조자: "+ref_empIdx_input);
 	
 		return signservice.signWriteDo(files,params,empIdx_input,ref_empIdx_input,loginId);
 	}
@@ -93,9 +105,11 @@ public class SignController {
 	public ModelAndView signDetailGo(String sign_idx, HttpServletRequest req) {
 		HttpSession session = req.getSession();
 		String loginId = (String) session.getAttribute("loginId");
+		int admin_type = (int) session.getAttribute("power");
 		logger.info("결재 문서 상세페이지 컨트롤러");
 		logger.info("글 idx: "+sign_idx);
-		return signservice.signDetailGo(sign_idx, loginId);
+		logger.info("로그인: "+loginId+" 권한: "+admin_type);
+		return signservice.signDetailGo(sign_idx, loginId, admin_type);
 	}
 	
 	   @GetMapping(value="/signDetailTest.do")

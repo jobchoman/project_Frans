@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC   "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd"
+>
+
+<mapper namespace="com.frans.stock.dao.StoreDAO">
+
+	<select id="storeList" resultType="StoreDTO">
+		SELECT s.shop_idx, s.emp_id, e.emp_name, s.shop_name, s.shop_contact FROM shop s, employee e WHERE s.emp_id = e.emp_id
+	</select>
+
+</mapper>
