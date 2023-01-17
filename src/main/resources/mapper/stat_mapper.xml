@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC   "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd"
+>
+
+<!-- 이 XML을 어떤 interface 를 통해서 연결 할 것인가? -->
+<mapper namespace="com.frans.stats.dao.StatDAO">
+	<select id="provinceListCall" resultType="hashmap">
+		SELECT province_idx, province_name from province
+	</select>
+	
+	<select id="cityListCall" resultType="hashmap">
+		SELECT city_idx, city_name from city
+		WHERE province_idx = #{param1}
+	</select>
+	
+	<select id="shopListCall" resultType="hashmap">
+		SELECT shop_idx, shop_name from shop
+		WHERE city_idx = #{param1}
+	</select>
+	
+	<select id="subListCall1" resultType="hashmap">
+		SELECT sub_idx, sub_name from subscribe
+	</select>
+	
+	<select id="subListCall2" resultType="hashmap">
+		SELECT sub_idx, sub_name from subscribe WHERE sub_sort_idx = #{param1}
+	</select>
+
+</mapper>

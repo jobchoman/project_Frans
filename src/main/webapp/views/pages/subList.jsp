@@ -8,6 +8,12 @@
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <jsp:include page="css.jsp" />
+<style>
+	#subRegister {
+   font-size: 8pt;
+}
+</style>
+
 </head>
 <body class="nav-md">
 	<div class="container body">
@@ -42,6 +48,8 @@
 							</tr>
 						</thead>
 					</table>
+					<button type="button" class="btn btn-round btn-secondary" id="subRegister" onclick="location.href='/subRegister'">등록하기</button>
+
 				</div>
 			</div>
 			<!-- /page content -->
