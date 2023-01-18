@@ -65,7 +65,7 @@
 	</select>
 	
 	<update id="dutyUpdate" parameterType="hashmap">
-		update team set duty_idx=#{duty_idx}, duty_name=#{duty_name},duty_state=#{duty_state} where duty_idx = #{duty_idx}
+		update duty set duty_idx=#{duty_idx}, duty_name=#{duty_name},duty_state=#{duty_state} where duty_idx = #{duty_idx}
 	</update>
 	
 	<select id="posUpdateForm" resultType="com.frans.member.dto.MemberDTO" parameterType="String">

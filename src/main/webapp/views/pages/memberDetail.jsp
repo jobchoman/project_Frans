@@ -9,11 +9,24 @@
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <jsp:include page="css.jsp" />
 <style type="text/css">
-.btn{
+.nam{
 	background-color:#2A3F54;
     border-color:#2A3F54;
     font-size: 8pt;
 }
+.ghl{
+    font-size: 8pt;
+}
+.addWrap {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+ }
+ .offset-md-3{
+ 	text-align: right;
+ 	 margin-left:50%;
+ }
 </style>
 </head>
 <body class="nav-md">
@@ -27,13 +40,13 @@
 			<!-- /top navigation -->
 
 			<!-- page content -->
-			<div class="right_col" role="main">
-				<div class="">
+			<div class="right_col addWrap" role="main">
+				<div class="" style="width:100%">
 					<div class="page-title">
 
 					</div>
 					<div class="clearfix"></div>
-					<div class="row">
+					<div class="row" style="width:100%">
 						<div class="col-md-12 col-sm-12 ">
 							<div class="x_panel">
 								<div class="x_title">
@@ -251,13 +264,12 @@
 										</div>									
 									
 										<div class="ln_solid"></div>
-										<div class="item form-group">
-											<div class="col-md-6 col-sm-6 offset-md-3">
-												<button class="btn btn-round btn-info" type="button" onclick="location.href='memberList.go'">리스트</button>
-												<button type="button" onclick="location.href='memberUpdate.go?emp_id=${mem.emp_id}'" class="btn btn-round btn-info">수정하기</button>
+										<div class="item form-group" >
+											<div class="col-md-6 col-sm-6 offset-md-3" >
+												<button class="btn btn-round btn-secondary ghl"  type="button" onclick="location.href='memberList.go'">리스트</button>
+												<button type="button" onclick="location.href='memberUpdate.go?emp_id=${mem.emp_id}'" class="btn btn-round btn-info nam">수정</button>
 											</div>
 										</div>
-
 								</div>
 							</div>
 						</div>

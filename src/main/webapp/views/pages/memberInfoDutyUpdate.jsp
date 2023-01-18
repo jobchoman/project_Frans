@@ -13,11 +13,24 @@
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <jsp:include page="css.jsp" />
 <style type="text/css">
-.btn{
+.nam{
 	background-color:#2A3F54;
     border-color:#2A3F54;
     font-size: 8pt;
 }
+.ghl{
+    font-size: 8pt;
+}
+.addWrap {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+ }
+ .offset-md-3{
+ 	text-align: right;
+ 	 margin-left:50%;
+ }
 </style>
 </head>
 <body class="nav-md">
@@ -30,13 +43,13 @@
 			<!-- /top navigation -->
 
 			<!-- page content -->
-			<div class="right_col" role="main">
-				<div class="">
+			<div class="right_col addWrap" role="main">
+				<div class="" style="width:100%">
 					<div class="page-title">
 
 					</div>
 					<div class="clearfix"></div>
-					<div class="row">
+					<div class="row" >
 						<div class="col-md-12 col-sm-12 ">
 							<div class="x_panel">
 								<div class="x_title">
@@ -46,7 +59,7 @@
 								</div>
 								<div class="x_content">
 									<br />
-									<form action="memberInfoDutyUpdate.do" id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" method="get" enctype="multipart/form-data">
+									<form action="memberInfoDutyUpdate.do" id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" method="post" enctype="multipart/form-data">
 										<div class="item form-group">
 											<label class="col-form-label col-md-3 col-sm-3 label-align">직책 코드
 											</label>
@@ -79,8 +92,8 @@
 										<div class="ln_solid"></div>
 										<div class="item form-group">
 											<div class="col-md-6 col-sm-6 offset-md-3">
-												<button class="btn btn-primary" class="btn btn-round btn-info" onclick="location.href='memberInfoDutyList.go'" type="reset">리스트</button>
-												<button type="submit" id="maker" class="btn btn-round btn-info">등록</button>
+												<button class="btn btn-round btn-secondary ghl" onclick="location.href='memberInfoDutyList.go'" type="reset">리스트</button>
+												<button type="submit" id="maker" class="btn btn-round btn-info nam">등록</button>
 											</div>
 										</div>	
 									</form>

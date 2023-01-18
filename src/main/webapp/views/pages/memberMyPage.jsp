@@ -14,6 +14,12 @@
 	   border-color:#2A3F54;
 	   font-size: 8pt;
 	}
+	.addWrap {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+ }
 </style>
 </head>
 <body class="nav-md">
@@ -27,13 +33,13 @@
 			<!-- /top navigation -->
 
 			<!-- page content -->
-			<div class="right_col" role="main">
+			<div class="right_col addWrap" role="main">
 				<div class="">
 					<div class="page-title">
 
 					</div>
 					<div class="clearfix"></div>
-					<div class="row">
+					<div class="row" style="width:100%">
 						<div class="col-md-12 col-sm-12 ">
 							<div class="x_panel">
 								<div class="x_title">

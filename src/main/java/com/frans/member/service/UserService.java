@@ -53,9 +53,52 @@ public class UserService {
 		
 	}
 
-//	public UserDTO userClient_id(String client_id) {
-//		return userDao.userClient_id(client_id);
-//	}
+	public ArrayList<UserDTO> subUserList() {
+		return userDao.subUserList();
+	}
+
+	public HashMap<String, Object> subList() {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		ArrayList<UserDTO> subList = userDao.subList();
+		map.put("data", subList);
+		return map;
+	}
+
+	public ArrayList<UserDTO> searchList() {
+		return userDao.searchList();
+	}
+
+	public HashMap<String, Object> searchPop() {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		ArrayList<UserDTO> searchPop = userDao.searchPop();
+		map.put("data", searchPop);
+		return map;
+	}
+
+	public ArrayList<UserDTO> clientSearchList() {
+		return userDao.clientSearchList();
+	}
+
+	public void subUserJoin(HashMap<String, String> params) {
+		UserDTO dto = new UserDTO();
+		dto.setClient_id("client_name");
+		dto.setSub_idx("sub_name");
+		userDao.subUser(params);
+	}
+
+	public UserDTO subUserDetail(String client_id) {
+		return userDao.subUserDetail(client_id);
+	}
+
+	public ArrayList<UserDTO> rec(String client_id) {
+		return userDao.rec(client_id);
+	}
+
+	public void subUpdate(UserDTO dto) {
+		userDao.cliUpdate(dto);
+	}
+
+
 
 
 

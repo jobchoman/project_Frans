@@ -79,7 +79,7 @@ public class InfoController {
 	public String infoDutyWriteForm() {
 		return "memberInfoDutyWrite";
 	}
-	@GetMapping(value="/memberInfoDutyWrite.do")
+	@PostMapping(value="/memberInfoDutyWrite.do")
 	public String infoDutyWrite(@RequestParam HashMap<String, String> params) {
 		infoService.dutyWrite(params);
 		return "redirect:/memberInfoDutyList.go";
@@ -92,7 +92,7 @@ public class InfoController {
 		return "memberInfoTeamUpdate";
 	}
 	
-	@GetMapping(value="/memberInfoTeamUpdate.do")
+	@PostMapping(value="/memberInfoTeamUpdate.do")
 	public String teamUpdate(@RequestParam HashMap<String, String> params) {
 		infoService.teamUpdate(params);
 		return "redirect:/memberInfoList.go";
@@ -105,7 +105,7 @@ public class InfoController {
 		return "memberInfoDutyUpdate";
 	}
 	
-	@GetMapping(value="/memberInfoDutyUpdate.do")
+	@PostMapping(value="/memberInfoDutyUpdate.do")
 	public String dutyUpdate(@RequestParam HashMap<String, String> params) {
 		infoService.dutyUpdate(params);
 		return "redirect:/memberInfoDutyList.go";

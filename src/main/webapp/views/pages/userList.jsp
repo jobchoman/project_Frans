@@ -8,6 +8,26 @@
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <jsp:include page="css.jsp" />
+<style type="text/css">
+.nam{
+	background-color:#2A3F54;
+    border-color:#2A3F54;
+    font-size: 8pt;
+}
+.ghl{
+    font-size: 8pt;
+}
+.addWrap {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+ }
+ .offset-md-3{
+ 	text-align: right;
+ 	 margin-left:50%;
+ }
+</style>
 </head>
 <body class="nav-md">
 <jsp:include page="loginBox.jsp"/>
@@ -20,15 +40,15 @@
 			<!-- /top navigation -->
 
 			<!-- page content -->
-		<div class="right_col" role="main">
+		<div class="right_col addWrap" role="main">
 
-            <div class="clearfix"></div>
+            <div class="clearfix" ></div>
 
-            <div class="row">
+            <div class="row" style="width:100%">
               <div class="col-md-12 col-sm-12 ">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>직원 리스트 <small>Users</small></h2>
+                    <h2>회원 리스트 <small>Users</small></h2>
                     <div class="clearfix"></div>
                   </div>
                   
@@ -53,7 +73,7 @@
 <%-- 								<option value="팀" class="team">${teamMem.team_name}</option> --%>
 <%-- 								</c:forEach> --%>
 <!-- 							</select> -->
-                            
+                    <button type="button" class="btn btn-round btn-info nam" onclick="location.href='/userJoin.go'" style="margin-left: 90%">회원 등록</button>
                     <table id="datatable" class="table table-striped table-bordered dataTable no-footer"
 													style="width: 100%" aria-describedby="datatable_info">
                       <thead>
@@ -61,6 +81,7 @@
 							<th>아이디</th>
 							<th>이름</th>
 							<th>성별</th>
+							<th>구독상태</th>
 
 						</tr>
 					  </thead>
@@ -82,7 +103,7 @@
 						
 <!--                       </tbody> -->
                     </table>
-                    <button type="button" onclick="location.href='/userJoin.go'">회원 등록</button>
+                    
                   </div>
                   </div>
               </div>
@@ -114,6 +135,7 @@ function ListCall(){
 	var table = $("#datatable").DataTable({
 		destroy:true,
 		serverSide:false,
+		"dom": 'frtp',
 		ajax:{
 			"url":"/userList.ajax",
 			"type":"get",
@@ -132,6 +154,7 @@ function ListCall(){
 			},
 			{data:"client_name"},
 			{data:"client_gender"},
+			{data:"client_state"}
 
 		],
         columnDefs: [{

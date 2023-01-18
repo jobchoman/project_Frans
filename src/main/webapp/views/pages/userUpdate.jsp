@@ -13,11 +13,24 @@
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <jsp:include page="css.jsp" />
 <style type="text/css">
-.btn{
+.nam{
 	background-color:#2A3F54;
     border-color:#2A3F54;
     font-size: 8pt;
 }
+.ghl{
+    font-size: 8pt;
+}
+.addWrap {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+ }
+ .offset-md-3{
+ 	text-align: right;
+ 	 margin-left:50%;
+ }
 </style>
 </head>
 <body class="nav-md">
@@ -30,13 +43,13 @@
 			<!-- /top navigation -->
 
 			<!-- page content -->
-			<div class="right_col" role="main">
-				<div class="">
+			<div class="right_col addWrap" role="main">
+				<div class="" style="width:100%">
 					<div class="page-title">
 
 					</div>
 					<div class="clearfix"></div>
-					<div class="row">
+					<div class="row" >
 						<div class="col-md-12 col-sm-12 ">
 							<div class="x_panel">
 								<div class="x_title">
@@ -60,7 +73,7 @@
 											<label class="col-form-label col-md-3 col-sm-3 label-align">아이디
 											</label>
 											<div class="col-md-6 col-sm-6 ">
-												${client.client_id}
+												<input type="text" name="client_id" id="id" value="${client.client_id}" class="form-control " readonly="readonly"/>
 											</div>
 										</div>
 <!-- 										<div class="item form-group"> -->
@@ -109,21 +122,12 @@
 												${client.client_birth}
 											</div>
 										</div>
-										<div class="item form-group">
-											<label class="col-form-label col-md-3 col-sm-3 label-align">회원구분
-											</label>
-											<div class="col-md-6 col-sm-6 ">
-												<select name="client_state" class="form-control ">
-														<option value="0" ${client.client_state == "0" ? "selected" :""}>일반회원</option>
-														<option value="1" ${client.client_state == "1" ? "selected" :""}>구독회원</option>
-												</select>
-											</div>
-										</div>								
+															
 										<div class="ln_solid"></div>
 										<div class="item form-group">
 											<div class="col-md-6 col-sm-6 offset-md-3">
-												<button class="btn btn-round btn-info" onclick="location.href='userList.go'" type="reset">직원리스트</button>
-												<button type="submit" id="maker" class="btn btn-round btn-info">등록</button>
+												<button class="btn btn-round btn-secondary ghl" onclick="location.href='userList.go'" type="reset">직원리스트</button>
+												<button type="submit" id="maker" class="btn btn-round btn-info nam">등록</button>
 											</div>
 										</div>
 

@@ -7,16 +7,16 @@
 
 	
 	<select id="userList" resultType="com.frans.member.dto.UserDTO" parameterType="String">
-		select client_name, client_id, client_gender from client
+		select client_name, client_id, client_gender,client_state from client
 	</select>
 	
 	<select id="clientList" resultType="com.frans.member.dto.UserDTO" parameterType="String">
-		select client_name, client_id, client_gender from client
+		select client_name, client_id, client_gender,client_state from client
 	</select>
 	
 	<insert id="userJoin" parameterType="hashmap">
-		insert into client (client_id,client_pw,client_name,client_gender,client_birth,client_phone,client_address,client_state)
-			values(#{client_id},#{client_pw},#{client_name},#{client_gender},#{client_birth},#{client_phone},#{client_address}#{address_detail},#{client_state})
+		insert into client (client_id,client_pw,client_name,client_gender,client_birth,client_phone,client_address)
+			values(#{client_id},#{client_pw},#{client_name},#{client_gender},#{client_birth},#{client_phone},#{client_address}#{address_detail})
 	</insert>
 	
 	<select id="userDetail" resultType="com.frans.member.dto.UserDTO" parameterType="String">
@@ -24,13 +24,58 @@
 	</select>
 	
 	<update id="userUpdate" parameterType="com.frans.member.dto.UserDTO">
-		update client set 
+		update client set
 		client_id = #{client_id},
 		client_pw = #{client_pw},
 		client_name = #{client_name},
 		client_address = #{client_address},
-		client_phone = #{client_phone},
-		client_state = #{client_state}
+		client_phone = #{client_phone}
+		where client_id = #{client_id}
+	</update>
+	
+	<select id="subUserList" resultType="com.frans.member.dto.UserDTO" parameterType="String">
+		select s.sub_name, su.sub_use_start, su.sub_use_end, c.client_phone, c.client_name ,c.client_id , c.client_state
+		from sub_use su, client c,subscribe s
+		where s.sub_idx = su.sub_idx and su.client_id = c.client_id
+	</select>
+	
+	<select id="subList" resultType="com.frans.member.dto.UserDTO" parameterType="String">
+		select s.sub_name, su.sub_use_start, su.sub_use_end, c.client_phone, c.client_name,c.client_id 
+		from sub_use su, client c,subscribe s
+		where s.sub_idx = su.sub_idx and su.client_id = c.client_id
+		group by c.client_id
+	</select>
+	
+	<select id="searchList" resultType="com.frans.member.dto.UserDTO" parameterType="String">
+		select * from subscribe
+	</select>
+	
+	<select id="clientSearchList" resultType="com.frans.member.dto.UserDTO" parameterType="String">
+		select * from client
+	</select>
+	
+	<insert id="subUser" parameterType="hashmap">
+		insert into sub_use (client_id,sub_idx,sub_use_start,sub_use_end,sub_use_condition) values(#{client_id},#{sub_idx},#{sub_use_start},#{sub_use_end},#{sub_use_condition})
+	</insert>
+	
+	<select id="subUserDetail" resultType="com.frans.member.dto.UserDTO" parameterType="String">
+		select s.sub_name, su.sub_use_start, su.sub_use_end, c.client_phone, c.client_name ,su.sub_use_state,
+			c.client_id,c.client_gender,c.client_address,c.client_birth,su.sub_use_condition
+		from sub_use su, client c,subscribe s
+		where s.sub_idx = su.sub_idx and su.client_id = c.client_id and c.client_id = #{client_id}
+		group by c.client_id
+	</select>
+	
+	<select id="rec" resultType="com.frans.member.dto.UserDTO" parameterType="String">
+		select s.sub_name, su.sub_use_start, su.sub_use_end,su.sub_use_state,su.sub_use_condition,c.client_id
+		from sub_use su,subscribe s,client c
+		where s.sub_idx = su.sub_idx and su.client_id = c.client_id and c.client_id = #{client_id} order by su.sub_use_end desc
+	</select>
+	
+	<update id="cliUpdate" parameterType="com.frans.member.dto.UserDTO">
+		update client set 
+		client_address = #{client_address},
+		client_phone = #{client_phone}
 		where client_id = #{client_id}
 	</update>
 	

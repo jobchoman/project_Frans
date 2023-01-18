@@ -13,11 +13,24 @@
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <jsp:include page="css.jsp" />
 <style type="text/css">
-.btn{
+.nam{
 	background-color:#2A3F54;
     border-color:#2A3F54;
     font-size: 8pt;
 }
+.ghl{
+    font-size: 8pt;
+}
+.addWrap {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+ }
+ .offset-md-3{
+ 	text-align: right;
+ 	 margin-left:50%;
+ }
 </style>
 </head>
 <body class="nav-md">
@@ -30,8 +43,8 @@
 			<!-- /top navigation -->
 
 			<!-- page content -->
-			<div class="right_col" role="main">
-				<div class="">
+			<div class="right_col addWrap" role="main">
+				<div class="" style="width:100%">
 					<div class="page-title">
 
 					</div>
@@ -46,36 +59,36 @@
 								</div>
 								<div class="x_content">
 									<br />
-									<form action="memberJoin.do" id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" method="POST" enctype="multipart/form-data">
+									<form action="memberJoin.do" id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" method="POST" enctype="multipart/form-data" onsubmit="return checks()">
 
 										<div class="item form-group">
 											<label class="col-form-label col-md-3 col-sm-3 label-align">사진<span class="required">*</span>
 											</label>
 											<div class="col-md-6 col-sm-6 ">
-												<input type="file" name="file" required="required" class="form-control "/>
+												<input type="file" name="file" id="file1" required="required" class="form-control "/>
 											</div>
 										</div>
 										<div class="item form-group">
 											<label class="col-form-label col-md-3 col-sm-3 label-align">아이디<span class="required">*</span>
 											</label>
 											<div class="col-md-6 col-sm-6 ">
-												<input type="text" name="emp_id" id="id" onkeyup="idchk()" required="required" class="form-control "/>
+												<input type="text" name="emp_id" id="id" required="required" class="form-control "/>
 											</div>
 										</div>
 										<div class="item form-group">
 											<label class="col-form-label col-md-3 col-sm-3 label-align">비밀번호<span class="required">*</span>
 											</label>
 											<div class="col-md-6 col-sm-6 ">
-												<input type="password" id="pw" name="emp_pw" required="required" class="form-control "/>
+												<input type="password" id="pw" required="required" class="form-control "/>
 											</div>
 										</div>
-<!-- 										<div class="item form-group"> -->
-<!-- 											<label class="col-form-label col-md-3 col-sm-3 label-align">비밀번호 확인<span class="required">*</span> -->
-<!-- 											</label> -->
-<!-- 											<div class="col-md-6 col-sm-6 "> -->
-<!-- 												<input type="password" name="emp_pw" id="pw2" required="required" class="form-control "/> -->
-<!-- 											</div> -->
-<!-- 										</div> -->
+										<div class="item form-group">
+											<label class="col-form-label col-md-3 col-sm-3 label-align">비밀번호 확인<span class="required">*</span>
+											</label>
+											<div class="col-md-6 col-sm-6 ">
+												<input type="password" name="emp_pw" id="pw_chk" required="required" class="form-control "/>
+											</div>
+										</div>
 										<div class="item form-group">
 											<label class="col-form-label col-md-3 col-sm-3 label-align">이름<span class="required">*</span>
 											</label>
@@ -252,7 +265,6 @@
 											<label class="col-form-label col-md-3 col-sm-3 label-align">팀등급<span class="required">*</span>
 											</label>
 											<div class="col-md-6 col-sm-6 ">
-												<div></div>
 												<select name="auth_type" class="form-control " required="required">
 												  <option value="1" selected="selected">공개문서 열람</option>
 												  <option value="2">전체 열람</option>
@@ -263,14 +275,14 @@
 											<label class="col-form-label col-md-3 col-sm-3 label-align">서명 이미지<span class="required">*</span>
 											</label>
 											<div class="col-md-6 col-sm-6 ">
-												<input type="file" name="file2" required="required" class="form-control ">
+												<input type="file" name="file2" id="file2" required="required" class="form-control ">
 											</div>
 										</div>									
 										<div class="ln_solid"></div>
 										<div class="item form-group">
 											<div class="col-md-6 col-sm-6 offset-md-3">
-												<button class="btn btn-round btn-info" onclick="location.href='memberList.go'" type="reset">직원리스트</button>
-												<button type="submit" id="maker" class="btn btn-round btn-info">등록</button>
+												<button class="btn btn-round btn-secondary ghl" onclick="location.href='memberList.go'" type="reset">직원리스트</button>
+												<button type="submit" id="maker" class="btn btn-round btn-info nam">등록</button>
 											</div>
 										</div>
 
@@ -465,67 +477,124 @@ $(document).on("click",".del3",function(){
 
 });
 
+  
+function checks(){
+    var hobbyCheck = false;
+    var getMail = RegExp(/^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/);
+    var getCheck= RegExp(/^[a-zA-Z0-9]{4,12}$/);
+    var getName= RegExp(/^[가-힣]+$/);
+    var getId = RegExp(/^[0-9]{8}$/);
+    var fmt = RegExp(/^\d{6}[1234]\d{6}$/); //형식 설정
+    var buf = new Array(13); //주민등록번호 배열
+    var phone = RegExp(/^\d{3}-\d{3,4}-\d{4}$/);
+    
+    //아이디 공백 확인
+    if($("#id").val() == ""){
+      alert("아이디를 입력해주세요.");
+      $("#id").focus();
+      return false;
+    }
+         
+    //아이디 유효성검사
+    if(!getId.test($("#id").val())){
+      alert("00년00월0000순서로 숫자8자리 입력해주세요. ");
+      $("#id").val("");
+      $("#id").focus();
+      return false;
+    }
 
-	   
-// $(document).on('click','#maker',function() {
-// 	   if($(".sightName1").val().length > 0 && $(".sightName2").val().length > 0) {
-// 	   var sight1 = [];
-// 	   var locIdx1 = [];
-// 	   for(var i=0; i<$('#route1').children().length+1; i++) {      
-// 	      sight1[i] = $(".sightName"+(i+1)).val();
-// 	      locIdx1[i] = $(".locationIdx_input"+(i+1)).val();
-// 	   }
-// 	   $.ajax({
-// 		      url: 'routeWrite1',
-// 		      dataType: 'json',
-// 		      type: 'post',
-// 		      data : {
-// 		         locIdx : locIdx1,
-// 		         content : content1,
-// 		         loginId : loginId1,
-// 		         title : title1
-// 		      },
-// 		      success: function(data) {
-// 		         alert("글 작성을 완료하였습니다.");
-// 		         board_idx = data.board_idx;
-// 		         console.log(board_idx);
-// 		         location.href="./routeDetail?board_idx="+board_idx;
-// 		      }
-// 		      });
-// 		   }else {
-// 		      alert("최소 출발지, 도착지 입력 바람");
-// 		   }
-// });
+    //비밀번호 공백 확인
+    if($("#pw").val() == ""){
+      alert("패스워드를 입력해주세요.");
+      $("#pw").focus();
+      return false;
+    }
+         
+    
+    //비밀번호 유효성검사
+    if(!getCheck.test($("#pw").val())){
+      alert("4자리 이상 12자리 이하로 입력해주세요.");
+      $("#pw").val("");
+      $("#pw").focus();
+      return false;
+    }
+         
+    //비밀번호 확인란 공백 확인
+    if($("#pw_chk").val() == ""){
+      alert("패스워드 확인란을 입력해주세요");
+      $("#pw_chk").focus();
+      return false;
+    }
+         
+    //비밀번호 서로확인
+    if($("#pw").val() != $("#pw_chk").val()){
+        alert("비밀번호가 상이합니다");
+        $("#pw").val("");
+        $("#pw_chk").val("");
+        $("#pw").focus();
+        return false;
+    }
+        
+    //이메일 공백 확인
+    if($("#email").val() == ""){
+      alert("이메일을 입력해주세요");
+      $("#email").focus();
+      return false;
+    }
+         
+    //이메일 유효성 검사
+    if(!getMail.test($("#email").val())){
+      alert("이메일형식에 맞게 입력해주세요")
+      $("#email").val("");
+      $("#email").focus();
+      return false;
+    }
+         
+    //이름 공백 검사
+    if($("#name").val() == ""){
+      alert("이름을 입력해주세요");
+      $("#name").focus();
+      return false;
+    }
 
-// $(document).on("click",".delWay1",function(){
-// 	   $('.wayPoint1').remove();
-	   
-// 	   for(var i=0; i<4; i++){
-// 	      $(".wayPoint"+(i+2)).attr("class","wayPoint"+(i+1));
-// 	      $(".sightName"+(i+4)).attr("class","sightName"+(i+3));
-// 	      $(".locationIdx_input"+(i+4)).attr("class","locationIdx_input"+(i+3));
-// 	      $(".search"+(i+4)).attr("class","search"+(i+3));
-// 	      $(".delWay"+(i+2)).attr("class","delWay"+(i+1));
-// 	   }
+    //이름 유효성 검사
+    if(!getName.test($("#name").val())){
+      alert("이름형식에 맞게 입력해주세요")
+      $("#name").val("");
+      $("#name").focus();
+      return false;
+    }
+    
+    //전화번호 공백 검사
+    if($("#phone").val() == ""){
+      alert("전화번호를 입력해주세요");
+      $("#phone").focus();
+      return false;
+    }
 
-// 	});
- 
-//  $('#addWay').on('click',function() {
-// 	   var wayPoint = '';
-// 	   var cnt = $('#route1 div').length;
-// 	   if(cnt < 6) {
-// 	   wayPoint += '<div class="wayPoint'+cnt+'">';
-// 	   wayPoint += '<input type="text" class="sightName'+(cnt+2)+'" class="wpTxt'+cnt+'" value="" placeholder="경유지" readonly>';
-// 	   wayPoint += '<input class="locationIdx_input'+(cnt+2)+'" readonly="readonly" type="hidden" />';
-// 	   wayPoint += '<input type="button" value="위치찾기" '+'onclick="location_popup'+(cnt+2)+'();">';
-// 	   wayPoint += '<input type="button" class="delWay'+cnt+'" value="-">';
-// 	   wayPoint += '</div>';
-// 	   $('#route1').append(wayPoint);
-// 	   } else {
-// 	      return false;
-// 	   }
+    //전화번호 유효성 검사
+    if(!phone.test($("#phone").val())){
+      alert("전화번호 형식에 맞게 입력해주세요")
+      $("#phone").val("");
+      $("#phone").focus();
+      return false;
+    }
+    
+    //프로필 사진 공백 검사
+    if($("#file1").val() == ""){
+      alert("프로필사진을 첨부해주세요");
+      $("#file1").focus();
+      return false;
+    }
+    
+    //서명이미지 공백 검사
+    if($("#file2").val() == ""){
+      alert("서명이미지를 첨부해주세요");
+      $("#file2").focus();
+      return false;
+    }
 
-// 	});
+}
 
 
 </script>

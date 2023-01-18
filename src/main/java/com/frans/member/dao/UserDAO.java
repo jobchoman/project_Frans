@@ -24,6 +24,30 @@ public interface UserDAO {
 
 	UserDTO userClient_id(String client_id);
 
+	ArrayList<UserDTO> subUserList();
+
+	ArrayList<UserDTO> subList();
+
+	ArrayList<UserDTO> searchList();
+
+	ArrayList<UserDTO> searchPop();
+
+	ArrayList<UserDTO> clientSearchList();
+
+	void subUser(HashMap<String, String> params);
+
+	UserDTO subUserDetail(String client_id);
+
+	ArrayList<UserDTO> rec(String client_id);
+
+	void cliUpdate(UserDTO dto);
+
+//	void subscribe(HashMap<String, String> params);
+//
+//	void subUserJoin(HashMap<String, String> params);
+
+
+
 
 
 

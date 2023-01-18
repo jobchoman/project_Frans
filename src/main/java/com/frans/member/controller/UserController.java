@@ -80,6 +80,69 @@ public class UserController {
 		return "redirect:/userDetail.do?client_id="+client_id;
 	}
 	
+	@GetMapping(value="/subUserList.go")
+	public String subUserList(Model model) {
+		ArrayList<UserDTO> dto = userService.subUserList();
+		model.addAttribute("list",dto);
+		return "subUserList";
+	}
+	
+	@ResponseBody
+	@GetMapping(value="/subUserList.ajax")
+	public HashMap<String, Object> subList() {
+		return userService.subList();
+	}
+	
+	@GetMapping(value="/subUserJoin.go")
+	public String subJoinForm(Model model) {
+		ArrayList<UserDTO> searchList = userService.searchList();
+		ArrayList<UserDTO> clientSearchList = userService.clientSearchList();
+		model.addAttribute("list",searchList);
+		model.addAttribute("mem",clientSearchList);
+		return "subUserJoin";
+	}
+	
+	@PostMapping(value="/subUserJoin.do")
+	public String subJoin(@RequestParam HashMap<String, String> params) {
+		logger.info("params : {}",params);
+		userService.subUserJoin(params);
+		return "redirect:/subUserList.go";
+	}
+	
+	@GetMapping(value="/subUserDetail.do")
+	public String subJoinDetail(@RequestParam HashMap<String, String> params,Model model, String client_id) {
+		UserDTO dto = userService.subUserDetail(client_id);
+		ArrayList<UserDTO> list = userService.rec(client_id);
+		model.addAttribute("dtl",dto);
+		model.addAttribute("list",list);
+		logger.info("dto",dto);
+		return "subUserDetail";
+	}
+	
+	@GetMapping(value="/subUserUpdate.go")
+	public String subUserUpdateForm(String client_id, Model model) {
+		ArrayList<UserDTO> searchList = userService.searchList();
+		UserDTO dto = userService.subUserDetail(client_id);
+		ArrayList<UserDTO> list = userService.rec(client_id);
+		model.addAttribute("sear",searchList);
+		model.addAttribute("dtl",dto);
+		model.addAttribute("list",list);
+		return "subUserUpdate";
+	}
+	
+	@PostMapping(value="/subUserUpdate.do")
+	public String subUpdate(UserDTO dto, @RequestParam HashMap<String, String> params,String client_id,Model model) {
+		userService.subUpdate(dto);
+		logger.info("params: {}",params);
+		UserDTO dto1 = userService.subUserDetail(client_id);
+		client_id = dto1.getClient_id();
+		return "redirect:/subUserDetail.do?client_id="+client_id;
+	}
+	
+	
+
+	
+	
 
 	
 

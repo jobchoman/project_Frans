@@ -13,12 +13,6 @@
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <jsp:include page="css.jsp" />
 <style type="text/css">
-.btn{
-	background-color:#2A3F54;
-    border-color:#2A3F54;
-    font-size: 8pt;
-}
-
 #resetBtn{
 	background-color:#2A3F54;
    border-color:#2A3F54;
@@ -40,6 +34,10 @@
       flex-direction: column;
       justify-content: flex-start;
       align-items: center;
+ }
+ .offset-md-3{
+ 	text-align: right;
+ 	 margin-left:50%;
  }
 </style>
 </head>
@@ -310,8 +308,8 @@
                          	비밀번호를 초기화 하시겠습니까?
                         </div>
                          <div class="modal-footer">
-                           <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
-                           <button id="delModalBtn" type="button" onclick = "resetPw('${mem.emp_id}')" data-dismiss="modal" class="btn btn-primary">확인</button>
+                           <button type="button" class="btn btn-round btn-secondary ghl" data-dismiss="modal">취소</button>
+                           <button id="delModalBtn" type="button" onclick = "resetPw('${mem.emp_id}')" data-dismiss="modal" class="btn btn-primary nam">확인</button>
                          </div>
              
                      </div>
