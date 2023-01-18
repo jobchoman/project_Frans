@@ -18,6 +18,29 @@
     border-color:#2A3F54;
     font-size: 8pt;
 }
+
+#resetBtn{
+	background-color:#2A3F54;
+   border-color:#2A3F54;
+   font-size: 8pt;
+   float: right;
+   margin-top: 5px;
+}
+
+.nam{
+   background-color:#2A3F54;
+    border-color:#2A3F54;
+    font-size: 8pt;
+}
+.ghl{
+    font-size: 8pt;
+}
+.addWrap {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+ }
 </style>
 </head>
 <body class="nav-md">
@@ -55,7 +78,7 @@
 												<c:forEach items="${fileList}" var="path">
 													<img width="100" src="memberPhoto.do?path=${path.file_new}"/>
 												</c:forEach>
-												<input type="file" name="file" class="form-control ">
+												<input type="file" name="file" class="form-control " readonly="readonly">
 											</div>
 										</div>
 										<div class="item form-group">
@@ -69,36 +92,39 @@
 											<label class="col-form-label col-md-3 col-sm-3 label-align">비밀번호
 											</label>
 											<div class="col-md-6 col-sm-6 ">
-												<input type="password" name="emp_pw" class="form-control ">
+												<input type="password" name="emp_pw" class="form-control " readonly="readonly">
+												
 											</div>
+											<button onclick = "$('#secondmodal').modal()" type="button" class="btn btn-round btn-info"
+										id="resetBtn" value="">초기화</button>
 										</div>
 										<div class="item form-group">
 											<label class="col-form-label col-md-3 col-sm-3 label-align">이름
 											</label>
 											<div class="col-md-6 col-sm-6 ">
-												<input type="text" name="emp_name" value="${mem.emp_name}" class="form-control ">
+												<input type="text" name="emp_name" value="${mem.emp_name}" class="form-control " readonly="readonly"> 
 											</div>
 										</div>
 										<div class="item form-group">
 											<label class="col-form-label col-md-3 col-sm-3 label-align">연락처
 											</label>
 											<div class="col-md-6 col-sm-6 ">
-												<input type="text" name="emp_phone" value="${mem.emp_phone}" class="form-control ">
+												<input type="text" name="emp_phone" value="${mem.emp_phone}" class="form-control " readonly="readonly">
 											</div>
 										</div>
 										<div class="item form-group">
 											<label class="col-form-label col-md-3 col-sm-3 label-align">이메일
 											</label>
 											<div class="col-md-6 col-sm-6 ">
-												<input type="text" name="emp_email" value="${mem.emp_email}" class="form-control ">
+												<input type="text" name="emp_email" value="${mem.emp_email}" class="form-control " readonly="readonly">
 											</div>
 										</div>
 										<div class="item form-group">
 											<label class="col-form-label col-md-3 col-sm-3 label-align">주소
 											</label>
 											<div class="col-md-6 col-sm-6 ">
-												<input type="text" id="emp_address" onclick="addr()" value="${mem.emp_address}" name="emp_address" class="form-control "/>
-												<input type="text" id="address_detail" name="address_detail"  class="form-control ">
+												<input type="text" id="emp_address" onclick="addr()" value="${mem.emp_address}" name="emp_address" class="form-control " readonly="readonly"/>
+												<input type="text" id="address_detail" name="address_detail"  class="form-control " readonly="readonly">
 											</div>
 										</div>
 										<div>
@@ -175,6 +201,7 @@
 												</div>
 											</div>
 										</div>
+										<c:if test="${sessionScope.power == '0'}">
 										<div class="item form-group">
 											<label class="col-form-label col-md-3 col-sm-3 label-align">관리자 권한
 											</label>
@@ -185,7 +212,8 @@
 													<option value="0" ${mem.emp_admin_auth == "0" ? "selected" :""}>최고관리자</option>
 												</select>
 											</div>
-										</div>										
+										</div>	
+										</c:if>									
 										<div class="item form-group">
 											<label class="col-form-label col-md-3 col-sm-3 label-align">팀
 											</label>
@@ -255,8 +283,8 @@
 										<div class="ln_solid"></div>
 										<div class="item form-group">
 											<div class="col-md-6 col-sm-6 offset-md-3">
-												<button class="btn btn-round btn-info" type="button" onclick="location.href='memberDetail.do?emp_id=${mem.emp_id}'">리스트</button>
-												<button type="submit" id="maker" class="btn btn-round btn-info">등록</button>
+												<button class="btn btn-round btn-secondary ghl"  type="button" onclick="location.href='memberDetail.do?emp_id=${mem.emp_id}'">리스트</button>
+                                    <button type="submit" id="maker" class="btn btn-round btn-info nam">등록</button>
 											</div>
 										</div>
 
@@ -267,11 +295,33 @@
 					</div>
 					</div>
 					</div>
+					
+					<!-- 비밀번호 초기화 모달 -->
+					<div class="modal fade bs-example-modal-sm" id="secondmodal" tabindex="-1" role="dialog" aria-hidden="true">
+                  <div class="modal-dialog modal-sm">
+                       <div class="modal-content">
+
+                         <div class="modal-header">
+                              <h5 class="modal-title" id="myModalLabel2">비밀번호 초기화</h5>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                         </div>
+                         
+                         <div class="modal-body">
+                         	비밀번호를 초기화 하시겠습니까?
+                        </div>
+                         <div class="modal-footer">
+                           <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+                           <button id="delModalBtn" type="button" onclick = "resetPw('${mem.emp_id}')" data-dismiss="modal" class="btn btn-primary">확인</button>
+                         </div>
+             
+                     </div>
+                  </div>
+               </div>
+               <!-- 비밀번호 초기화 모달 끝 -->
+               
 			<!-- /page content -->
 
-			<!-- footer content -->
-			<footer><jsp:include page="footer.jsp" /></footer>
-			<!-- /footer content -->
+		
 		</div>
 	</div>
 	<jsp:include page="script.jsp" />
@@ -284,6 +334,27 @@ if(msg != ""){
 	alert(msg);
 }
 
+function resetPw(data) {
+	console.log(data);
+	$.ajax({
+		type : 'post',
+		url : '/member/resetPw.ajax',
+		dataType : 'TEXT',
+		data : {
+			"emp_id" : data
+		},
+		success : function(data) {
+			console.log(data);
+			if(data == "성공"){
+				alert("비밀번호 변경 성공");
+			}
+			
+		},
+		error : function(e) {
+			console.log(e);
+		}
+	});
+}
 
 
 function addr() {
@@ -355,15 +426,15 @@ $('#add1').on('click',function() {
 		var cnt = $('#career2 div').length;
 		if(cnt < 11) {
 		sel1 += '<div class="spec'+cnt+'">';
-		sel1 += '<select name="emp_career_idx1" class="form-control ">'
+		sel1 += '<select name="emp_career_idx" class="form-control ">'
 		sel1 += '<option value="없음" selected="selected">없음</option>'
 		sel1 += '<option value="경력">경력</option></select>'	
-		sel1 += '<input type="text" name="emp_school_name1" placeholder="회사명" class="form-control "/>'	  
-		sel1 += '<input type="text" name="emp_department1" placeholder="부서" class="form-control "/>'	  
-		sel1 += '<input type="text" name="emp_degree1" placeholder="직급" class="form-control "/>'	  
-		sel1 += '입학일<input type="date" name="emp_career_start1" value="yyyy-mm-dd" class="form-control "/>'	  
-		sel1 += '졸업일<input type="date" name="emp_career_end1" value="yyyy-mm-dd" class="form-control "/>'	  
-		sel1 += '<input type="text" name="emp_career_etc1" placeholder="맡은업무" class="form-control "/>'	  
+		sel1 += '<input type="text" name="emp_school_name" placeholder="회사명" class="form-control "/>'	  
+		sel1 += '<input type="text" name="emp_department" placeholder="부서" class="form-control "/>'	  
+		sel1 += '<input type="text" name="emp_degree" placeholder="직급" class="form-control "/>'	  
+		sel1 += '입학일<input type="date" name="emp_career_start" value="yyyy-mm-dd" class="form-control "/>'	  
+		sel1 += '졸업일<input type="date" name="emp_career_end" value="yyyy-mm-dd" class="form-control "/>'	  
+		sel1 += '<input type="text" name="emp_career_etc" placeholder="맡은업무" class="form-control "/>'	  
 		sel1 += '<input type="button" name="delete" value="삭제" class="del2"/>'	  
 		sel1 += '</div>'
 		$('#career2').append(sel1);

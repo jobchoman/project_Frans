@@ -197,10 +197,8 @@
 		</if>
 	</select>
 	
-	<update id="memberUpdate" parameterType="com.frans.member.dto.MemberDTO">
+	<update id="memberUpdate">
 		UPDATE employee SET
-			emp_id = #{emp_id},
-			emp_pw = #{emp_pw},
 			emp_name = #{emp_name},
 			emp_address = #{emp_address},
 			emp_phone = #{emp_phone},
@@ -212,6 +210,7 @@
 			emp_state_idx = #{emp_state_idx}
 		WHERE emp_id = #{emp_id}
 	</update>
+	
 	
 	<update id="fileUpdate1" parameterType="com.frans.member.dto.MemberDTO">
 		update file set file_new = #{file_new} where file_from = #{emp_id} and file_sort_idx = 1
@@ -221,7 +220,7 @@
 		update file set file_new = #{file_new} where file_from = #{emp_id} and file_sort_idx = 0
 	</update>
 	
-	<update id="highUpdate" parameterType="com.frans.member.dto.MemberDTO">
+	<update id="highUpdate" parameterType="String">
 		update career set 
 		emp_career_idx = #{emp_career_idx},
 		emp_school_name = #{emp_school_name},
@@ -229,9 +228,10 @@
 		emp_career_start = #{emp_career_start},
 		emp_career_end = #{emp_career_end},
 		emp_career_etc = #{emp_career_etc}
+		where emp_id = #{emp_id} and emp_career_idx = #{emp_career_idx} and emp_school_name = #{emp_school_name}
 	</update>
 	
-	<update id="careerUpdate" parameterType="com.frans.member.dto.MemberDTO">
+	<update id="careerUpdate" parameterType="String">
 		update career set 
 		emp_career_idx = #{emp_career_idx},
 		emp_school_name = #{emp_school_name},
@@ -240,33 +240,52 @@
 		emp_career_end = #{emp_career_end},
 		emp_career_etc = #{emp_career_etc},
 		emp_degree = #{emp_degree}
+		where emp_career_idx = #{emp_career_idx} and emp_school_name = #{emp_school_name} and emp_id = #{emp_id}
 	</update>
 	
-	<update id="licenUpdate" parameterType="com.frans.member.dto.MemberDTO">
+	<update id="licenUpdate" parameterType="String">
 		update career set 
 		license_name = #{license_name},
 		license_date = #{license_date},
 		license_place = #{license_place},
 		license_result = #{license_result}
+		where license_name = #{license_name} and emp_id = #{emp_id} 
 	</update>
 	
-	<update id="myPageUpdate" parameterType="com.frans.member.dto.MemberDTO">
+	<update id="myPageUpdate">
 		UPDATE employee SET
-			emp_id = #{emp_id},
-			emp_pw = #{emp_pw},
 			emp_name = #{emp_name},
 			emp_address = #{emp_address},
 			emp_phone = #{emp_phone},
-			emp_email = #{emp_email},
-			emp_admin_auth = #{emp_admin_auth},
-			pos_idx = #{pos_idx},
-			duty_idx = #{duty_idx},
-			team_idx = #{team_idx},
-			emp_state_idx = #{emp_state_idx}
+			emp_email = #{emp_email}			
 		WHERE emp_id = #{emp_id}
 	</update>
 
+	<!-- 멤버 업데이트 작업 -->
+	<select id="memCareer" resultType="int">
+		SELECT count(*) from career c where emp_id = #{emp_id} and emp_career_idx = #{emp_career_idx} and emp_school_name = #{emp_school_name}
+	</select>
 	
+	<select id="memLicense" resultType="int">
+		SELECT count(*) from license l 
+		WHERE emp_id = #{emp_id} and license_name = #{license_name} and license_result = #{license_result}
+	</select>
+	
+	<update id="updatePw">
+		UPDATE employee SET
+			emp_pw = #{param2}						
+		WHERE emp_id = #{param1}
+	</update>
+	
+	<update id="resetPw">
+		UPDATE employee SET
+			emp_pw = #{param2}						
+		WHERE emp_id = #{param1}
+	</update>
+	
+	<select id="loginId" resultType="String" parameterType="String">
+		SELECT emp_id FROM employee WHERE emp_id = #{emp_id}
+	</select>
 	
 </mapper>
 

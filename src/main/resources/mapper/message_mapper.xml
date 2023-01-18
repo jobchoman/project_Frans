@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC	"-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd"
+>
+<!-- 이 XML 을 어떤 interface 하고 연결 할 것인가 -->
+<mapper namespace="com.frans.main.dao.MessageDAO">
+	<insert id="msgWriteDo"
+			useGeneratedKeys="true"
+			keyColumn="msg_idx"
+			keyProperty="msg_idx"
+			parameterType="MessageDTO">
+		INSERT INTO message(emp_id, msg_content) 
+			values(#{emp_id},#{msg_content})
+	</insert>
+	
+	<insert id="msgBoxWriteDo">
+		INSERT into message_box (msg_idx, emp_id) 
+			values(#{param1},#{param2})
+	</insert>
+	
+	<select id="msgList" resultType="MessageDTO">
+		SELECT mb.msg_idx,e.emp_name, m.msg_content, m.msg_date, (select count(msg_idx) from message_box mb2 
+where message_state='읽지않음' and mb2.emp_id=mb.emp_id) as msg_count from message m, message_box mb, employee e 
+where m.emp_id = e.emp_id and mb.msg_idx = m.msg_idx and mb.emp_id = #{param1}
+	</select>
+	
+	
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

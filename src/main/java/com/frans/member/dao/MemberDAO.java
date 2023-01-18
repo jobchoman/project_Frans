@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.frans.member.dto.MemberDTO;
@@ -32,7 +33,7 @@ public interface MemberDAO {
 
 	ArrayList<MemberDTO> memberList();
 
-	MemberDTO memberDetail(String emp_id);
+	MemberDTO memberDetail(String emp_id, Model model);
 
 	ArrayList<MemberDTO> fileList(String emp_id);
 
@@ -74,7 +75,7 @@ public interface MemberDAO {
 
 	ArrayList<MemberDTO> memberDetailRight(String emp_id);
 	
-	void memberUpdate(MemberDTO dto);
+	int memberUpdate(HashMap<String, String> params);
 
 	int fileUpdate(String emp_id, MultipartFile file, MultipartFile file2);
 
@@ -90,7 +91,20 @@ public interface MemberDAO {
 
 	void licenUpdate(String emp_id, String license_name, String license_date, String license_place, String license_result);
 
-	void myPageUpdate(MemberDTO dto);
+
+	int memCareer(String emp_id, String emp_career_idx, String emp_school_name);
+
+	int memLicense(String emp_id, String license_name, String license_date, String license_place, String license_result);
+
+	void updatePw(String emp_id, String emp_pw);
+
+	int resetPw(String emp_id, String emp_pw);
+
+	int myPageUpdate(HashMap<String, String> params);
+
+	String loginId(String emp_id, String emp_pw);
+
+//	int memberUpdateParam(HashMap<String, String> params);
 
 
 

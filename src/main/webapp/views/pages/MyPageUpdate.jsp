@@ -18,6 +18,28 @@
     border-color:#2A3F54;
     font-size: 8pt;
 }
+#resetBtn{
+	background-color:#2A3F54;
+   border-color:#2A3F54;
+   font-size: 8pt;
+   float: right;
+   margin-top: 5px;
+}
+
+.nam{
+   background-color:#2A3F54;
+    border-color:#2A3F54;
+    font-size: 8pt;
+}
+.ghl{
+    font-size: 8pt;
+}
+.addWrap {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+ }
 </style>
 </head>
 <body class="nav-md">
@@ -34,17 +56,12 @@
 				<div class="">
 					<div class="page-title">
 						<div class="title_left">
-							<h3>Form Elements</h3>
+							<h3>내 정보 수정</h3>
 						</div>
 
 						<div class="title_right">
 							<div class="col-md-5 col-sm-5  form-group pull-right top_search">
-								<div class="input-group">
-									<input type="text" class="form-control" placeholder="Search for...">
-									<span class="input-group-btn">
-										<button class="btn btn-default" type="button">Go!</button>
-									</span>
-								</div>
+								
 							</div>
 						</div>
 					</div>
@@ -53,7 +70,7 @@
 						<div class="col-md-12 col-sm-12 ">
 							<div class="x_panel">
 								<div class="x_title">
-									<h2>Form Design <small>different form elements</small></h2>
+									
 
 									<div class="clearfix"></div>
 								</div>
@@ -82,8 +99,10 @@
 											<label class="col-form-label col-md-3 col-sm-3 label-align">비밀번호
 											</label>
 											<div class="col-md-6 col-sm-6 ">
-												<input type="password" name="emp_pw" class="form-control ">
+												<input type="password" name="emp_pw" class="form-control " readonly="readonly">
 											</div>
+											<button onclick = "$('#secondmodal').modal()" type="button" class="btn btn-round btn-info"
+										id="resetBtn" value="">비밀번호 변경</button>
 										</div>
 										<div class="item form-group">
 											<label class="col-form-label col-md-3 col-sm-3 label-align">이름
@@ -188,7 +207,7 @@
 												</div>
 											</div>
 										</div>
-										<div class="item form-group">
+									<%-- 	<div class="item form-group">
 											<label class="col-form-label col-md-3 col-sm-3 label-align">관리자 권한
 											</label>
 											<div class="col-md-6 col-sm-6 ">
@@ -198,12 +217,12 @@
 													<option value="0" ${mem.emp_admin_auth == "0" ? "selected" :""}>최고관리자</option>
 												</select>
 											</div>
-										</div>										
+										</div> --%>										
 										<div class="item form-group">
 											<label class="col-form-label col-md-3 col-sm-3 label-align">팀
 											</label>
 											<div class="col-md-6 col-sm-6 ">
-												<select id="team" name="team_idx" class="form-control ">
+												<select id="team" name="team_idx" class="form-control " disabled="disabled">
 													<c:forEach items="${teamMem}" var="teamMem">
 														<option value="${teamMem.team_idx}" ${mem.team_name == teamMem.team_name ? "selected" :""}>${teamMem.team_name}</option>
 													</c:forEach>
@@ -214,7 +233,7 @@
 											<label class="col-form-label col-md-3 col-sm-3 label-align">직급
 											</label>
 											<div class="col-md-6 col-sm-6 ">
-												<select name="pos_idx" class="form-control ">
+												<select name="pos_idx" class="form-control " disabled="disabled"> 
 													<c:forEach items="${posMem}" var="posMem">
 													<option value="${posMem.pos_idx}" ${mem.pos_name == posMem.pos_name ? "selected" :""}>${posMem.pos_name}</option>
 													</c:forEach>
@@ -225,7 +244,7 @@
 											<label class="col-form-label col-md-3 col-sm-3 label-align">직책
 											</label>
 											<div class="col-md-6 col-sm-6 ">
-												<select name="duty_idx" class="form-control ">
+												<select name="duty_idx" class="form-control " disabled="disabled">
 													<c:forEach items="${dutyMem}" var="dutyMem">
 													<option value="${dutyMem.duty_idx}" ${mem.duty_name == dutyMem.duty_name ? "selected" :""}>${dutyMem.duty_name}</option>
 													</c:forEach>
@@ -236,7 +255,7 @@
 											<label class="col-form-label col-md-3 col-sm-3 label-align">상태
 											</label>
 											<div class="col-md-6 col-sm-6 ">
-												<select name="emp_state_idx" class="form-control ">
+												<select name="emp_state_idx" class="form-control " disabled="disabled">
 													<c:forEach items="${stateMem}" var="stateMem">
 													<option value="${stateMem.emp_state_idx}" ${mem.emp_state_name == stateMem.emp_state_name ? "selected" :""}>${stateMem.emp_state_name}</option>
 													</c:forEach>
@@ -248,7 +267,7 @@
 											</label>
 											<div class="col-md-6 col-sm-6 ">
 												<div></div>
-												<select name="auth_type" class="form-control ">
+												<select name="auth_type" class="form-control " disabled="disabled">
 												  <option value="1">공개문서 열람</option>
 												  <option value="2">전체 열람</option>
 											    </select>
@@ -268,8 +287,8 @@
 										<div class="ln_solid"></div>
 										<div class="item form-group">
 											<div class="col-md-6 col-sm-6 offset-md-3">
-												<button class="btn btn-round btn-info" type="button" onclick="location.href='myPage.go?emp_id=${mem.emp_id}'">취소</button>
-												<button type="submit" id="maker" class="btn btn-round btn-info">등록</button>
+												<button class="btn btn-round btn-secondary ghl"  type="button" onclick="location.href='memberMyPage.go?emp_id=${mem.emp_id}'">상세정보</button>
+                                    <button type="submit" id="maker" class="btn btn-round btn-info nam">등록</button>
 											</div>
 										</div>
 
@@ -280,11 +299,35 @@
 					</div>
 					</div>
 					</div>
+					
+					<!-- 비밀번호 변경 모달 -->
+					<div class="modal fade bs-example-modal-sm" id="secondmodal" tabindex="-1" role="dialog" aria-hidden="true">
+                  <div class="modal-dialog modal-sm">
+                       <div class="modal-content">
+
+                         <div class="modal-header">
+                              <h5 class="modal-title" id="myModalLabel2">비밀번호 변경</h5>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                         </div>
+                         <form action="/member/updatePw.do" method="post">
+                         <div class="modal-body">
+                         	<p>비밀번호</p>
+                           <input type="password" name="emp_pw" class="form-control ">
+                        </div>
+                         <div class="modal-footer">
+                           <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+                           <button id="delModalBtn" type="submit" class="btn btn-primary">변경</button>
+                         </div>
+                         </form>
+                     </div>
+                  </div>
+               </div>
+               <!-- 비밀번호 변경 모달 끝 -->
+					
+					
 			<!-- /page content -->
 
-			<!-- footer content -->
-			<footer><jsp:include page="footer.jsp" /></footer>
-			<!-- /footer content -->
+		
 		</div>
 	</div>
 	<jsp:include page="script.jsp" />
@@ -368,15 +411,15 @@ $('#add1').on('click',function() {
 		var cnt = $('#career2 div').length;
 		if(cnt < 11) {
 		sel1 += '<div class="spec'+cnt+'">';
-		sel1 += '<select name="emp_career_idx1" class="form-control ">'
+		sel1 += '<select name="emp_career_idx" class="form-control ">'
 		sel1 += '<option value="없음" selected="selected">없음</option>'
 		sel1 += '<option value="경력">경력</option></select>'	
-		sel1 += '<input type="text" name="emp_school_name1" placeholder="회사명" class="form-control "/>'	  
-		sel1 += '<input type="text" name="emp_department1" placeholder="부서" class="form-control "/>'	  
-		sel1 += '<input type="text" name="emp_degree1" placeholder="직급" class="form-control "/>'	  
-		sel1 += '입학일<input type="date" name="emp_career_start1" value="yyyy-mm-dd" class="form-control "/>'	  
-		sel1 += '졸업일<input type="date" name="emp_career_end1" value="yyyy-mm-dd" class="form-control "/>'	  
-		sel1 += '<input type="text" name="emp_career_etc1" placeholder="맡은업무" class="form-control "/>'	  
+		sel1 += '<input type="text" name="emp_school_name" placeholder="회사명" class="form-control "/>'	  
+		sel1 += '<input type="text" name="emp_department" placeholder="부서" class="form-control "/>'	  
+		sel1 += '<input type="text" name="emp_degree" placeholder="직급" class="form-control "/>'	  
+		sel1 += '입학일<input type="date" name="emp_career_start" value="yyyy-mm-dd" class="form-control "/>'	  
+		sel1 += '졸업일<input type="date" name="emp_career_end" value="yyyy-mm-dd" class="form-control "/>'	  
+		sel1 += '<input type="text" name="emp_career_etc" placeholder="맡은업무" class="form-control "/>'	  
 		sel1 += '<input type="button" name="delete" value="삭제" class="del2"/>'	  
 		sel1 += '</div>'
 		$('#career2').append(sel1);

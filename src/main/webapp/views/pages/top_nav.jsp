@@ -15,7 +15,16 @@
 .hiddenClass{
 	display: none;
 }
+
+.message { 
+display:block; 
+width:200px; 
+overflow:hidden; 
+text-overflow:ellipsis; 
+white-space:nowrap; 
+}
 </style>
+
 </head>
 
 <body>
@@ -39,7 +48,7 @@
 				</a>
 					<div class="dropdown-menu dropdown-usermenu pull-right"
 						aria-labelledby="navbarDropdown">
-						<a class="dropdown-item" href="/myPage.go?emp_id=${sessionScope.loginId}"> 내 정보 관리</a>  
+						<a class="dropdown-item" href="/memberMyPage.go?emp_id=${sessionScope.loginId}"> 내 정보 관리</a>  
 						<a
 							class="dropdown-item" href="/memberLogout.do"><i
 							class="fa fa-sign-out pull-right"></i> Log Out</a>
@@ -61,7 +70,7 @@
 						
 						<li class="nav-item">
 							<div class="text-center">
-								<a class="dropdown-item"> <strong>알림 더보기</strong> <i
+								<a href="/notiList.go" class="dropdown-item"> <strong>알림 더보기</strong> <i
 									class="fa fa-angle-right"></i>
 								</a>
 							</div>
@@ -73,20 +82,16 @@
 				<li role="presentation" class="nav-item dropdown open"><a
 					href="javascript:;" class="dropdown-toggle info-number"
 					id="navbarDropdown2" data-toggle="dropdown" aria-expanded="false">
-						<i class="fa fa-envelope-o"></i> <!-- 메신저 알림 갯수 --> <span
-						class="badge bg-green"></span>
+						<i class="fa fa-envelope-o"></i> 
+						<!-- 메신저 알림 갯수 --> 
+						<span id= "messageCount" class="badge bg-green"></span>
 				</a>
-					<ul class="dropdown-menu list-unstyled msg_list" role="menu"
+					<ul id="msgList" class="dropdown-menu list-unstyled msg_list" role="menu"
 						aria-labelledby="navbarDropdown1">
-						<li class="nav-item"><a class="dropdown-item"> <!-- 보낸사람 이미지 -->
-								<span class="image"><img
-									src="/production/images/eunwoo.png" alt="Profile Image" /></span> <span>
-									<!-- 보낸사람 --> <span>김민정</span> <!-- 받은시간 --> <span class="time">2023-01-02</span>
-							</span> <!-- 받은 내용 --> <span class="message"> 메신저 </span>
-						</a></li>
+						
 						<li class="nav-item">
 							<div class="text-center">
-								<a class="dropdown-item"> <strong>메신저 더보기</strong> <i
+								<a href="/msgList.go" class="dropdown-item"> <strong>메신저 더보기</strong> <i
 									class="fa fa-angle-right"></i>
 								</a>
 							</div>
@@ -104,7 +109,7 @@
  <span>
 <!-- 보낸사람 --> <span>김채영</span> 
 <!-- 받은시간 --> <span class="time">2023-01-02</span>						
-</span> 
+</span>  
 <!-- 받은 내용 --> 
 <span class="message"> 알림 </span> 
 

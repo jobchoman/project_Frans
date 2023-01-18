@@ -14,7 +14,7 @@
 	display: none;
 }
 
-#orderButton{
+#delButton{
 	background-color:#2A3F54;
    border-color:#2A3F54;
    font-size: 8pt;
@@ -89,7 +89,7 @@
 
 			
 												</table>
-												<div id="delButton">
+												<div id="listBtn">
 												<button onclick = "$('#secondmodal').modal()" type="button" class="btn btn-round btn-info"
 										id="delButton" value="">삭제</button></div>
 											</form>
@@ -324,6 +324,8 @@ $("#delModalBtn").click(function(){
 		});
 	});
 });
+
+
 
 
 
