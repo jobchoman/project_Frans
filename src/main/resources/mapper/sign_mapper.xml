@@ -48,7 +48,7 @@
 			keyProperty="emp_id"
 			parameterType="signMemDTO">
 			INSERT INTO sign_mem(emp_id, sign_idx, sign_mem_order, sign_mem_ip)
-				VALUES(#{emp_id}, #{sign_idx}, #{sign_mem_order}, '127.0.0.1')
+				VALUES(#{emp_id}, #{sign_idx}, #{sign_mem_order}, #{sign_mem_ip})
 	</insert> 
 	
 	<insert id="refMember"

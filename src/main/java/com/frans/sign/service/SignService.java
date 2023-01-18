@@ -108,7 +108,7 @@ public class SignService {
 	}
 
 	
-	public String signWriteDo(List<MultipartFile> files, HashMap<String, String> params, String[] empIdx_input, String[] ref_empIdx_input, String loginId) {
+	public String signWriteDo(List<MultipartFile> files, HashMap<String, String> params, String[] empIdx_input, String[] ref_empIdx_input, String loginId, String userIP) {
 
 		signDTO signdto = new signDTO();
 		signdto.setDoc_form_idx(params.get("doc_form_idx"));
@@ -117,6 +117,7 @@ public class SignService {
 		signdto.setSign_team_open(params.get("sign_team_open"));
 		signdto.setSign_title(params.get("sign_title"));
 		signdto.setEmp_id(loginId);
+
 		int success = signdao.signWriteDo(signdto);
 		int sign_idx = signdto.getSign_idx();
 		logger.info("작성된 결재 문서 idx: "+signdto.getSign_idx());
@@ -170,6 +171,7 @@ public class SignService {
 					signmemdto.setEmp_id(signmem);
 					signmemdto.setSign_idx(signdto.getSign_idx());
 					signmemdto.setSign_mem_order(signorder);
+					signmemdto.setSign_mem_ip(userIP);
 					signdao.signMember(signmemdto);
 				}
 			}

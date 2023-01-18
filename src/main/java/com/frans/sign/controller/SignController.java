@@ -90,6 +90,7 @@ public class SignController {
 	public String signWriteDo(List<MultipartFile> files, @RequestParam HashMap<String, String> params, HttpServletRequest req) {
 		HttpSession session = req.getSession();
 		String loginId = (String) session.getAttribute("loginId");
+		String userIP = (String) session.getAttribute("userIP");
 		logger.info("결재 문서 작성 컨트롤러");
 		logger.info("params: {}",params);
 		String[] empIdx_input = req.getParameterValues("empIdx_input");
@@ -98,7 +99,7 @@ public class SignController {
 		logger.info("참조자 길이: "+ref_empIdx_input.length);
 		logger.info("참조자: "+ref_empIdx_input);
 	
-		return signservice.signWriteDo(files,params,empIdx_input,ref_empIdx_input,loginId);
+		return signservice.signWriteDo(files,params,empIdx_input,ref_empIdx_input,loginId,userIP);
 	}
 	
 	@GetMapping(value="/signDetail.go")

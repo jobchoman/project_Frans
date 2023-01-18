@@ -10,13 +10,28 @@ public class StoreDTO {
 	private String emp_name;
 	private String shop_name;
 	private String shop_location;
-	private int shop_emp_num;
-	private int shop_space;
+	private String shop_emp_num;
+	private String shop_space;
 	private String shop_contact;
 	private int province_idx;
 	private int city_idx;
+	private String shop_lat;
+	private String shop_lon;
 	
 	
+
+	public String getShop_lat() {
+		return shop_lat;
+	}
+	public void setShop_lat(String shop_lat) {
+		this.shop_lat = shop_lat;
+	}
+	public String getShop_lon() {
+		return shop_lon;
+	}
+	public void setShop_lon(String shop_lon) {
+		this.shop_lon = shop_lon;
+	}
 	public String getEmp_name() {
 		return emp_name;
 	}
@@ -47,17 +62,17 @@ public class StoreDTO {
 	public void setShop_location(String shop_location) {
 		this.shop_location = shop_location;
 	}
-	public int getShop_emp_num() {
+	public String getShop_emp_num() {
 		return shop_emp_num;
 	}
-	public void setShop_emp_num(int shop_emp_num) {
+	public void setShop_emp_num(String shop_emp_num) {
 		this.shop_emp_num = shop_emp_num;
 	}
-	public int getShop_space() {
+	public String getShop_space() {
 		return shop_space;
 	}
-	public void setShop_space(int shop_space) {
-		this.shop_space = shop_space;
+	public void setShop_space(String string) {
+		this.shop_space = string;
 	}
 	public String getShop_contact() {
 		return shop_contact;

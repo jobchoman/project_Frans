@@ -8,5 +8,46 @@
 	<select id="storeList" resultType="StoreDTO">
 		SELECT s.shop_idx, s.emp_id, e.emp_name, s.shop_name, s.shop_contact FROM shop s, employee e WHERE s.emp_id = e.emp_id
 	</select>
+	
+	<select id="managerList" resultType="com.frans.member.dto.MemberDTO">
+		SELECT emp_id, emp_name FROM employee e WHERE team_idx = 'TM007'
+	</select>
+	
+	<select id="storeCount" resultType="int">
+		SELECT count(shop_idx) FROM shop
+	</select>
+	
+	<select id="selProvince" resultType="int">
+		SELECT province_idx FROM province WHERE province_name like CONCAT('%',#{param1},'%');
+	</select>
+	
+	<select id="selCity" resultType="int">
+		SELECT city_idx from city WHERE province_idx = #{param2} AND city_name like CONCAT('%',#{param1},'%');
+	</select>
+	
+	<insert id="storeWrite" parameterType="StoreDTO">
+		INSERT INTO shop (shop_idx, emp_id, shop_name, shop_location, shop_emp_num, shop_space, shop_contact, province_idx, city_idx, shop_lat, shop_lon)
+			VALUES (#{shop_idx},#{emp_id},#{shop_name},#{shop_location},#{shop_emp_num},#{shop_space},#{shop_contact},#{province_idx},#{city_idx}, #{shop_lat}, #{shop_lon})
+	</insert>
+	
+	<select id="storeDetail" resultType="StoreDTO">
+		SELECT s.shop_idx, s.emp_id, s.shop_name, s.shop_location, s.shop_emp_num, s.shop_space, s.shop_contact, e.emp_name, s.shop_lat, s.shop_lon
+			FROM shop s, employee e WHERE e.emp_id = s.emp_id AND shop_idx = #{param1}
+	</select>
+	
+	<update id="storeUpdateDo">
+		UPDATE shop SET
+			emp_id = #{param2},
+			shop_name = #{param3},
+			shop_location = #{param7},
+			shop_emp_num = #{param5},
+			shop_space = #{param4},
+			shop_contact = #{param6},
+			province_idx = #{param10},
+			city_idx = #{param11},
+			shop_lat = #{param8},
+			shop_lon = #{param9}
+		WHERE shop_idx = #{param1}
+	</update>
 
 </mapper>

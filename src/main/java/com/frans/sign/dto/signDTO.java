@@ -9,6 +9,7 @@ public class signDTO {
 	
 	private int sign_idx;
 	private String emp_id;
+	private String sign_mem_ip;
 	private int sign_state_idx;
 	private String doc_type_idx;
 	private String sign_content;
@@ -24,6 +25,12 @@ public class signDTO {
 	private String team_name;
 	
 	
+	public String getSign_mem_ip() {
+		return sign_mem_ip;
+	}
+	public void setSign_mem_ip(String sign_mem_ip) {
+		this.sign_mem_ip = sign_mem_ip;
+	}
 	public String getTeam_name() {
 		return team_name;
 	}
