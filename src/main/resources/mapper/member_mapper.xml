@@ -244,7 +244,7 @@
 	</update>
 	
 	<update id="licenUpdate" parameterType="String">
-		update career set 
+		update license set 
 		license_name = #{license_name},
 		license_date = #{license_date},
 		license_place = #{license_place},
@@ -285,6 +285,10 @@
 	
 	<select id="loginId" resultType="String" parameterType="String">
 		SELECT emp_id FROM employee WHERE emp_id = #{emp_id}
+	</select>
+	
+	<select id="memberHistLog" resultType="com.frans.member.dto.MemberDTO" parameterType="String">
+		select * from `change` where emp_id = #{emp_id} order by change_date desc
 	</select>
 	
 </mapper>

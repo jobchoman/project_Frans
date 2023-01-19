@@ -23,6 +23,9 @@
 .row > .col-sm-6:first-child {
       display: none;
    }
+ td,th{
+ 	text-align: center;
+ }
 </style>
 </head>
 <body class="nav-md">
@@ -90,7 +93,8 @@
 							<tr>
 								<td>${list.team_idx}</td>
 								<td>${list.team_name}</td>
-								<td>${list.team_state}</td>
+								<c:if test="${list.team_state=='1'}"><td>사용</td></c:if>
+								<c:if test="${list.team_state=='0'}"><td>미사용</td></c:if>
 								<td><button type="button" class="btn btn-round btn-info" onclick="location.href='memberInfoTeamUpdate.go?team_idx=${list.team_idx}'">수정</button></td>
 								<td><button type="button" class="btn btn-round btn-info" onclick="location.href='memberInfoTeamDelete.do?team_idx=${list.team_idx}'">삭제</button></td>
 

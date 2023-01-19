@@ -20,6 +20,9 @@
       justify-content: flex-start;
       align-items: center;
  }
+ td,th{
+ 	text-align: center;
+ }
 </style>
 </head>
 <body class="nav-md">

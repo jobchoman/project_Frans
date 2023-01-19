@@ -23,6 +23,10 @@
 .row > .col-sm-6:first-child {
       display: none;
    }
+ td,th{
+ 	text-align: center;
+ }
+   
 </style>
 </head>
 <body class="nav-md">
@@ -91,7 +95,8 @@
 								<td>${list.pos_idx}</td>
 								<td>${list.pos_name}</td>
 								<td>${list.pos_level}</td>
-								<td>${list.pos_state}</td>
+								<c:if test="${list.pos_state=='1'}"><td>사용</td></c:if>
+								<c:if test="${list.pos_state=='0'}"><td>미사용</td></c:if>
 								<td><button type="button" class="btn btn-round btn-info" onclick="location.href='memberInfoPosUpdate.go?pos_idx=${list.pos_idx}'">수정</button></td>
 								<td><button type="button" class="btn btn-round btn-info" onclick="location.href='memberInfoPosDelete.do?pos_idx=${list.pos_idx}'">삭제</button></td>
 							</tr>

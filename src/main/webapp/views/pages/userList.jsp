@@ -27,6 +27,9 @@
  	text-align: right;
  	 margin-left:50%;
  }
+  td,th{
+ 	text-align: center;
+ }
 </style>
 </head>
 <body class="nav-md">
@@ -154,8 +157,19 @@ function ListCall(){
 			},
 			{data:"client_name"},
 			{data:"client_gender"},
-			{data:"client_state"}
-
+			{data:"client_state",
+				"render" : function(data, type, row) {
+					if (type == 'display') {
+						if(row.client_state == 1){
+							data = '<span>구독회원</span>'
+						}else if(row.client_state == 0){
+							data = '<span>일반회원</span>'
+						}
+							
+					}
+					return data;
+				}
+			}
 		],
         columnDefs: [{
         	

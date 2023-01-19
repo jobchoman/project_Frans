@@ -25,6 +25,9 @@
    .row > .col-sm-6:first-child {
       display: none;
    }
+  td,th{
+ 	text-align: center;
+ }
 </style>
 </head>
 <body class="nav-md">
@@ -92,7 +95,8 @@
 							<tr>						
 								<td>${list.duty_idx}</td>
 								<td>${list.duty_name}</td>
-								<td>${list.duty_state}</td>
+								<c:if test="${list.duty_state == '1'}"><td>사용</td></c:if>
+								<c:if test="${list.duty_state == '0'}"><td>미사용</td></c:if>								
 								<td><button type="button" class="btn btn-round btn-info" onclick="location.href='memberInfoDutyUpdate.go?duty_idx=${list.duty_idx}'">수정</button></td>
 								<td><button type="button" class="btn btn-round btn-info" onclick="location.href='memberInfoDutyDelete.do?duty_idx=${list.duty_idx}'">삭제</button></td>
 							</tr>

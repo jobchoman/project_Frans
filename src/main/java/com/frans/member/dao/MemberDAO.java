@@ -104,6 +104,8 @@ public interface MemberDAO {
 
 	String loginId(String emp_id, String emp_pw);
 
+	ArrayList<MemberDTO> memberHistLog(String emp_id);
+
 //	int memberUpdateParam(HashMap<String, String> params);
 
 

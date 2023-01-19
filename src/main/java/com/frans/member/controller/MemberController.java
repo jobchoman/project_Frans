@@ -101,7 +101,8 @@ public class MemberController {
 		ArrayList<MemberDTO> SchoolDTO =  memberService.memberDetailSchool(emp_id,model); 
 		ArrayList<MemberDTO> LicenseDTO =  memberService.memberDetailLicense(emp_id,model); 
 		ArrayList<MemberDTO> rightDTO = memberService.memberDetailRight(emp_id);
-		
+		ArrayList<MemberDTO> hisLog = memberService.memberHisLog(emp_id);
+		model.addAttribute("hist",hisLog);
 		model.addAttribute("rgh",rightDTO);
 		model.addAttribute("memSchool",SchoolDTO);
 		model.addAttribute("memLicense",LicenseDTO);

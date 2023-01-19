@@ -41,6 +41,35 @@ public class MemberDTO {
 	private Date emp_career_start1;
 	private Date emp_career_end;
 	private Date emp_career_end1;
+	private Date change_date;
+	private String changes;
+	private String change_reason;
+	private String change_division;
+	
+	public Date getChange_date() {
+		return change_date;
+	}
+	public void setChange_date(Date change_date) {
+		this.change_date = change_date;
+	}
+	public String getChanges() {
+		return changes;
+	}
+	public void setChanges(String changes) {
+		this.changes = changes;
+	}
+	public String getChange_reason() {
+		return change_reason;
+	}
+	public void setChange_reason(String change_reason) {
+		this.change_reason = change_reason;
+	}
+	public String getChange_division() {
+		return change_division;
+	}
+	public void setChange_division(String change_division) {
+		this.change_division = change_division;
+	}
 	public String getEmp_school_name1() {
 		return emp_school_name1;
 	}

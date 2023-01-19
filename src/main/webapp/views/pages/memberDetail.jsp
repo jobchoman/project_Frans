@@ -261,8 +261,15 @@
 													</c:forEach>
 												</c:if>
 											</div>
-										</div>									
-									
+										</div>			
+										<div class="item form-group">
+										<label class="col-form-label col-md-3 col-sm-3 label-align">히스토리
+											</label>
+											<div class="col-md-6 col-sm-6 ">
+												<button type="button" class="btn btn-round btn-info nam" onclick="hist(event)">변경 히스토리</button>
+											</div>
+										</div>								
+										
 										<div class="ln_solid"></div>
 										<div class="item form-group" >
 											<div class="col-md-6 col-sm-6 offset-md-3" >
@@ -270,6 +277,47 @@
 												<button type="button" onclick="location.href='memberUpdate.go?emp_id=${mem.emp_id}'" class="btn btn-round btn-info nam">수정</button>
 											</div>
 										</div>
+				<!-- modal -->
+				<div class="modal fade bs-example-modal-lg" id="hist" tabindex="-1" role="dialog" aria-hidden="true">
+					<div class="modal-dialog modal-lg">
+	  					<div class="modal-content">
+	  						<div class="modal-header">
+	     						<h5 class="modal-title" id="subSearchLabel">팀/직급/직책 히스토리</h5>
+	     						<input type="hidden" >
+	      						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+	    					</div>
+							<div class="modal-body">
+							<div class="card-box table-responsive">
+								<table id="datatable" class="table table-striped table-bordered" style="width:100%">
+									<thead>
+										<tr>
+											<th>변경날짜</th>
+											<th>변경사항</th>
+											<th>사유</th>
+											<th>구분</th>
+										</tr>
+									</thead>
+									<tbody>
+									<c:forEach items="${hist}" var="hist">
+										<tr class = "memberlistTr" >				
+											<td>${hist.change_date}</td>
+											<td>${hist.changes}</td>
+											<td>${hist.change_reason}</td>
+											<td>${hist.change_division}</td>
+										</tr>
+									</c:forEach>
+									</tbody>
+								</table>
+							</div>
+
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-primary" data-dismiss="modal">확인</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- /modal -->
 								</div>
 							</div>
 						</div>
@@ -296,7 +344,13 @@ if(msg != ""){
 }
 
 
-
+function hist(event){
+	console.log(document.getElementById("hist"));
+	empInputIdx = event.target.id;
+	console.log(empInputIdx);
+	
+	$('#hist').modal('show');
+}
 
  
 

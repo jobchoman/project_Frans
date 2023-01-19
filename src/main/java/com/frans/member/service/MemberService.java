@@ -40,6 +40,7 @@ public class MemberService {
 		String userIP = req.getRemoteAddr();
 		ArrayList<MemberDTO> fileList = memberDao.fileList(emp_id);
 		MemberDTO dto = memberDao.memberDetail(emp_id,model);
+		String log = dto.getEmp_id();
 		String emp_name = dto.getEmp_name();
 		int power = dto.getEmp_admin_auth();
 		String team = dto.getTeam_name();
@@ -47,7 +48,7 @@ public class MemberService {
 		
 		match = encoder.matches(emp_pw, enc_pw);
 		logger.info(emp_id+"/"+emp_pw);
-		if(match != false) {
+		if(match != false || !loginId.equals("")) {
 			page = "index";
 			msg = "안녕하세요. "+emp_id+" 님";
 			session.setAttribute("loginId", loginId);
@@ -56,8 +57,13 @@ public class MemberService {
 			session.setAttribute("power", power);
 			session.setAttribute("team", team);
 			session.setAttribute("userIP", userIP);
-			
 		}
+
+        if (log == null) {
+        	msg = "아이디와 비밀번호를 확인하세요";
+        	page = "redirect:/";
+            return page;
+        }
 		logger.info("match : "+match);
 		rAttr.addFlashAttribute("msg",msg);
 		
@@ -551,6 +557,11 @@ public class MemberService {
 		int success = memberDao.resetPw(emp_id,emp_pw);
 		
 		return success;
+	}
+
+
+	public ArrayList<MemberDTO> memberHisLog(String emp_id) {
+		return memberDao.memberHistLog(emp_id);
 	}
 
 
