@@ -18,7 +18,23 @@ public interface MessageDAO {
 
 	void msgBoxWriteDo(String msg_idx, String emp_id);
 
-	ArrayList<StockDTO> msgList(String loginId);
+	ArrayList<MessageDTO> msgList(String loginId);
+
+	ArrayList<MessageDTO> msgListBox(String loginId);
+
+	MessageDTO msgListDetail(String loginId, String msg_idx);
+
+	void msgDateUpdate(String msg_idx, String loginId);
+
+	ArrayList<MessageDTO> msgSendListBox(String loginId);
+
+	MessageDTO msgListSendDetail(String msg_idx, String loginId);
+
+	ArrayList<MessageDTO> msgListSendDetailMem(String msg_idx, String loginId);
+
+	int msgDelete(String msg_idx, String emp_id);
+
+//	ArrayList<MessageDTO> msgSendListBoxName(String loginId);
 
 	
 

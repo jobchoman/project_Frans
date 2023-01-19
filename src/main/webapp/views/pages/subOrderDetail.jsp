@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -37,6 +38,13 @@
 #cardBox{
 	overflow:hidden;
 }
+
+.dataTables_info{
+	display : none;
+}
+.row > .col-sm-6:first-child {
+      display: none;
+   }
 </style>
 </head>
 <body class="nav-md">
@@ -91,13 +99,14 @@
 																<td><input name="chk" type="checkbox"
 																	id="check" value="${list.shop_idx}"></td>	
 																<td>${list.stock_name}</td>
-																<td>${list.com_stock_amount}</td>
-																<td>${list.order_amount}</td>
+																<td><fmt:formatNumber value="${list.com_stock_amount}" pattern="#,###" /></td>
+																<td><fmt:formatNumber value="${list.order_amount}" pattern="#,###" /></td>
 																<td>${list.order_send}</td>
 																<td class="orderData">${list.shop_idx}</td>
 																<td class="orderData">${list.stock_idx}</td>
 																<td class="orderData">${list.order_amount}</td>
 																<td class="orderData">${list.order_date}</td>
+																
 															</tr>
 											
 														</c:forEach>

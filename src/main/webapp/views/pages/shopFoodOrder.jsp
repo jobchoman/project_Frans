@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -41,6 +42,10 @@
 .nav_menu {
      margin-bottom: 0;
 }
+#listButton{
+	float: left;
+	font-size: 9pt;
+}
 </style>
 </head>
 <body class="nav-md">
@@ -76,8 +81,12 @@
 										<tbody id="stockList">
 										</tbody>
 									</table>
+									<div>
 									<button type="submit" class="btn btn-round btn-info"
 										id="orderButton" value="신청">신청</button>
+									<button type="button" onclick = "location.href='/shopStock.go'" class="btn btn-round btn-secondary"
+										id="listButton" value="신청">목록</button>
+										</div>
 								</form>
 							</div>
 						</div>
@@ -101,13 +110,18 @@
 			if(data[i].shop_stock_amount == null){
 				data[i].shop_stock_amount = '0';
 			}
+			
+			let stock_price = data[i].stock_price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+			let shop_stock_amount = data[i].shop_stock_amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+			console.log(stock_price);
+			
 			console.log(data[i]);
 			content += '<tr>';
 		 	content += '<td class="tdNone"><input id="addAdd1" name = "stock_idx" type="text" value="' + data[i].stock_idx + '"</td>'; 
 		 	content += '<td class="tdNone"><input id="addAdd2" name = "shop_idx" type="text" value="' + data[i].shop_idx + '""</td>'; 
 			content += '<td>' + data[i].stock_name + '</td>';
-			content += '<td>' + data[i].shop_stock_amount + '</td>';
-			content += '<td>' + data[i].stock_price + '</td>';
+			content += '<td>' + shop_stock_amount + '</td>';
+			content += '<td>' + stock_price + '</td>';
 			content += '<td><input id="addAdd3" name="order_amount" type="number" placeholder="수량을 입력해주세요."/></td>';
 			content += '</tr>';
 		}
@@ -115,7 +129,8 @@
 		$('#stockList').append(content);
 
 	}
-
+	﻿
+		
 	function foodOrderListCall() {
 		$.ajax({
 			type : 'get',

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,6 +11,11 @@
 
 <jsp:include page="css.jsp" />
 <style>
+.x_panel{
+	width: 108%;
+	margin-left: 10px;
+}
+
 #tableUp {
 	float: inherit;
 }
@@ -80,6 +86,9 @@ p{
      margin-bottom: 0;
 }
 
+.dataTables_info{
+	display : none;
+}
 </style>
 </head>
 <body class="nav-md">
@@ -231,6 +240,7 @@ function foodListCall() {
 	var table = $('#datatable').DataTable({
 		destroy:true,
 		serverSide: false,
+		"dom": 'frtp',
 		ajax : {
             "url":"/stock/comStockList.do",
             "type":"get",
@@ -241,7 +251,9 @@ function foodListCall() {
         columns : [
         	{data : "stock_idx"},
         	{data : "stock_name"},
-            {data: "stock_price"},
+            {data: "stock_price"
+        			
+            },
             {data: "com_stock_amount"},
             {data: null, defaultContent: "<button id='updateBtn' onclick = 'updateView(event)' type='button' class='btn btn-round btn-secondary'>수정</button>"}
         ],
@@ -253,7 +265,11 @@ function foodListCall() {
 
   			visible: true
 
-        }]
+        },
+        { targets: 2 , render: $.fn.dataTable.render.number( ',' , '.' , 0 , '' , '원' ) },
+        { targets: 3 , render: $.fn.dataTable.render.number( ',' , '.' , 0 , '' , '개'  ) }
+        
+        ]
 
     });
 	
@@ -263,6 +279,7 @@ function foodListCall() {
 		var table = $('#datatable').DataTable({
 			destroy:true,
 			serverSide: false,
+			"dom": 'frtp',
 			ajax : {
 	            "url":"/stock/comStockList.do",
 	            "type":"get",
@@ -285,7 +302,10 @@ function foodListCall() {
 
 	  			visible: true
 
-	        }],
+	        },{ targets: 2 , render: $.fn.dataTable.render.number( ',' , '.' , 0 , '' , '원' ) },
+	        { targets: 3 , render: $.fn.dataTable.render.number( ',' , '.' , 0 , '' , '개'  ) }
+	        
+	        ],
 	        createdRow: function (row, data, dataIndex, full) {
 	            
 	     },

@@ -23,6 +23,22 @@ overflow:hidden;
 text-overflow:ellipsis; 
 white-space:nowrap; 
 }
+
+.table-bordered td, .table-bordered th{
+	border: none;
+}
+
+.table-bordered{
+	border: none;
+}
+
+#Drawcontent{
+	width: 650px;
+}
+
+#msgDetailModal > tr> th{
+	width: 15%;
+}
 </style>
 
 </head>
@@ -101,6 +117,30 @@ white-space:nowrap;
 			</ul>
 		</nav>
 	</div>
+	
+	
+	
+	<!-- 디테일 모달 -->
+				<div class="modal fade bs-example-modal-lg" id="detailMsg" tabindex="-1" role="dialog" aria-hidden="true">
+                  <div class="modal-dialog modal-lg">
+                       <div class="modal-content">
+
+                         <div class="modal-header">
+                              <h5 class="modal-title" id="myModalLabel2">쪽지 상세정보</h5>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                         </div>
+                         <div class="modal-body">
+                           <table  class="table table-bordered" style="width:100%">
+									<tbody id="msgDetailModal"></tbody>
+								</table>
+                        </div>
+                         <div class="modal-footer">
+                           <button id="delModalBtn" type="button" class="btn btn-primary" onclick="msgList()" data-dismiss="modal">확인</button>
+                         </div>
+                     </div>
+                  </div>
+               </div>
+               <!-- 디테일 모달 끝 -->
 </body>
 
 <script type="text/javascript">

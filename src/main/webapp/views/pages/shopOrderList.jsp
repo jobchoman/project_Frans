@@ -29,6 +29,10 @@ th {
 .nav_menu {
      margin-bottom: 0;
 }
+
+.dataTables_info{
+	display : none;
+}
 </style>
 </head>
 <body class="nav-md">
@@ -98,6 +102,7 @@ th {
 				{
 					destroy : true,
 					serverSide : false,
+					"dom": 'frtp',
 					ajax : {
 						"url" : "/order/shopOrderList.do",
 						"type" : "get",
@@ -159,6 +164,7 @@ th {
 				{
 					destroy : true,
 					serverSide : false,
+					"dom": 'frtp',
 					ajax : {
 						"url" : "/order/shopOrderListOk.do",
 						"type" : "get",
@@ -221,6 +227,7 @@ th {
 				{
 					destroy : true,
 					serverSide : false,
+					"dom": 'frtp',
 					ajax : {
 						"url" : "/order/shopOrderList.do",
 						"type" : "get",
@@ -282,6 +289,7 @@ th {
 				{
 					destroy : true,
 					serverSide : false,
+					"dom": 'frtp',
 					ajax : {
 						"url" : "/order/shopOrderListOk.do",
 						"type" : "get",

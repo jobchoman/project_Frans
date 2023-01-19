@@ -14,10 +14,26 @@ public class MessageDTO {
 	private String message_time;
 	private String emp_name;
 	private String msg_count;
+	private String msg_no;
+	private String msg_num;
 	
 	
 	
 	
+	
+	
+	public String getMsg_num() {
+		return msg_num;
+	}
+	public void setMsg_num(String msg_num) {
+		this.msg_num = msg_num;
+	}
+	public String getMsg_no() {
+		return msg_no;
+	}
+	public void setMsg_no(String msg_no) {
+		this.msg_no = msg_no;
+	}
 	public String getEmp_name() {
 		return emp_name;
 	}

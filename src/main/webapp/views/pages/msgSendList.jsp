@@ -143,7 +143,7 @@ align-items: center;
 								<div class="row">
 									<div class="col-sm-12">
 										<div id="cardBox" class="card-box table-responsive">
-											<form action="/noti/notiDelete.do" method="post">
+											
 												<table id="msgListBox"
 													class="table table-striped table-bordered bulk_action"
 													style="width: 100%" aria-describedby="datatable_info">
@@ -152,35 +152,35 @@ align-items: center;
 													<ul class="nav nav-tabs bar_tabs" id="myTab" role="tablist">
 													<button onclick = "$('#msgWrite').modal()" type="button" class="btn btn-round btn-info"
 										id="writeButton" value="">작성</button>
-														<li class="nav-item"><a href="/msgList.go" class="nav-link active"
-															id="home-tab"  
-															aria-selected="true" 
-															>수신함</a></li>
-														<li class="nav-item"><a href="/msgSendList.go" class="nav-link"
-															id="profile-tab" 
+														<li class="nav-item"><a href="/msgList.go" class="nav-link"
+															id="home-tab" 
 															aria-selected="false" 
-															>발신함</a></li>
+															value="식자재">수신함</a></li>
+														<li class="nav-item"><a href="/msgSendList.go" class="nav-link active"
+															id="profile-tab" 
+															aria-selected="true" 
+															value="부자재">발신함</a></li>
 													</ul>
 													</div>
 													<h4></h4>
 													<thead>
 														<tr>
-															<th><input type="checkbox" id="check-all"></th>														
-															<th id="hiddenIdx">noti_idx</th>
-															<th>보낸사람</th>
+															<!-- <th><input type="checkbox" id="check-all"></th>	 -->													
+															<th id="hiddenIdx">msg_idx</th>
+															<th>msg_num</th>
+															<th>받는 사람</th>
 															<th>알림 내용</th>
-															<th>받은시간</th>
-															<th>확인시간</th>			
+															<th>보낸 시간</th>
+															<th>안 읽은 사람 수</th>			
+															
 														</tr>
 													</thead>
 
 
 			
 												</table>
-												<div id="listBtn">
-												<button onclick = "$('#secondmodal').modal()" type="button" class="btn btn-round btn-secondary"
-										id="delButton" value="">삭제</button></div>
-											</form>
+												
+											
 											
 										</div>			
 									</div>
@@ -211,9 +211,9 @@ align-items: center;
 													<!-- <input type="text" class="empName1" name="empName1" id="empName1" placeholder="사원 검색" onclick="empSearch_popup(event)" readonly> -->
 													<input type="text" class="empName1" name="empName"
 														id="empName1" placeholder="사원 검색"
-														onclick="empSearch_popup(event)" readonly required="required"> <input
+														onclick="empSearch_popup(event)" readonly> <input
 														class="empIdx_input1" name="empIdx_input"
-														readonly="readonly" type="hidden" required="required"/>
+														readonly="readonly" type="hidden" />
 													<button type="button" id="addSignEmp" name="addSignEmp"
 														onclick="clickP()" class="btn btn-round btn-info">+</button>
 												</div>
@@ -222,7 +222,7 @@ align-items: center;
 									</tr>
 									<th>내용 <p id="contentSize">(최대 500자)</p></th>
 									<td>
-										<textarea id="content" name="msg_content" cols="50" rows="10" required="required"></textarea>
+										<textarea id="content" name="msg_content" cols="50" rows="10"></textarea>
 									</td>
 					
                        
@@ -232,7 +232,7 @@ align-items: center;
 
 							</div>
                      <div class="modal-footer">
-                        <input type="submit" class="btn btn-primary" value="작성"></input>
+                        <button type="submit" class="btn btn-primary">작성</button>
                      </div>
                      </form>
                   </div>
@@ -299,7 +299,7 @@ align-items: center;
                         </div>
                          <div class="modal-footer">
                            <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
-                           <button id="delMsgBtn" type="button" class="btn btn-primary">확인</button>
+                           <button id="delMsgSendBtn" type="button" class="btn btn-primary" >확인</button>
                          </div>
                      </div>
                   </div>
@@ -508,8 +508,8 @@ function memberSel(elem){
 }
 
 
-msgBoxListCall();
-function msgBoxListCall() {
+msgBoxSendListCall();
+function msgBoxSendListCall() {
 	
 		
 	var table = $('#msgListBox').DataTable(
@@ -520,7 +520,7 @@ function msgBoxListCall() {
 				aaSorting : [],
 				serverSide : false,
 				ajax : {
-					"url" : "/msg/msgListBox.ajax",
+					"url" : "/msg/msgSendListBox.ajax",
 					"type" : "get",
 					"data" : 
 					{
@@ -528,7 +528,7 @@ function msgBoxListCall() {
 					}
 				},
 				columns : [
-						{
+						/* {
 							data : "msg_idx",
 							"render" : function(data, type, row) {
 								if (type == 'display') {
@@ -538,7 +538,7 @@ function msgBoxListCall() {
 								}
 								return data;
 							}
-						},
+						}, */
 												
 						{
 							data : "msg_idx"
@@ -546,7 +546,26 @@ function msgBoxListCall() {
 							
 						},
 						{
-							data : "emp_name"
+							data : "msg_num"
+								
+							
+						},
+						{
+							data : "emp_name",
+							
+								"render" : function(data, type, row) {
+									if (type == 'display') {
+										if(row.msg_num>0){
+											data = row.emp_name+' 외 '+row.msg_num+' 명';
+											
+										}else{
+											data = row.emp_name
+										}
+													
+									}
+									return data;
+								}
+							
 						},
 						{
 							data : "msg_content",
@@ -565,19 +584,42 @@ function msgBoxListCall() {
 							data : "msg_date"
 						},
 						{
-							data : "message_time", "defaultContent": "읽지않음"
+							data : "msg_no",
+							"render" : function(data, type, row) {
+								if (type == 'display') {
+									if(data=='0'){
+										data = '전체읽음';
+									}else{
+										data = '<i style="margin-right:5px;" class="fa fa-user"></i>'+row.msg_no+'명';
+									}
+										
+												
+								}
+								return data;
+							}
 						}
 						
 					],
-					createdRow: function (row, data, dataIndex, full) {
-						$(row).children('td:nth-child(2)').css('display', 'none');
-				 },
+					
+					
 				columnDefs : [ 
+				/* {
+					targets : [ 0 ],
+
+					searchable : false,
+					orderable: false,
+					visible : true
+
+					
+				
+
+				}, */
 				{
 					targets : [ 0 ],
 
 					searchable : false,
-					orderable: false
+					orderable: false,
+					visible : false
 
 					
 				
@@ -588,16 +630,13 @@ function msgBoxListCall() {
 
 					searchable : false,
 					orderable: false,
-					visible : true
+					visible : false
 
-					
-				
-
-				},
+				}
 				
 				
+				],
 				
-				]
 
 			});
 
@@ -607,14 +646,15 @@ function msgDetail(data) {
 	console.log("작동 : "+data);
 	$.ajax({
 		type : 'get',
-		url : '/msg/msgListDetail.ajax',
+		url : '/msg/msgListSendDetail.ajax',
 		dataType : 'json',
 		data : {
 			"msg_idx" : data
 		},
 		success : function(data) {
 			console.log(data);
-			msgDetailDrawList(data) 
+			console.log(data.memList);
+			msgDetailDrawList(data.msgList,data.memList) 
 			
 		},
 		error : function(e) {
@@ -626,22 +666,41 @@ function msgDetail(data) {
 	
 }
 
-function msgDetailDrawList(list) {
+function msgDetailDrawList(list,mem) {
 	var content = '';
 	$('#detailMsg').modal('show');
-	console.log(list);
+	console.log("list : "+list);
+	console.log("mem : "+mem);
 		if(list.message_time == null){
 			list.message_time = "읽지않음";
 		}
 		content += '<tr>';
-		content += '<th>보낸사람</th><td colspan="3">' +list.emp_name+ '</td>';
+		content += '<th>받은사람</th>';
+		content += '<td>';
+		
+		for(var i=0; i<mem.length; i++){
+		content += mem[i].emp_name+" ";
+		}
+		
+		content += '</td>';
+			
 		content += '</tr>';
 		content += '<tr>';
-		content += '<th>받은시간</th><td>' +list.msg_date+ '</td>';
-		content += '<th>읽은시간</th><td>' +list.message_time+ '</td>';
+		content += '<th>읽은 시간</th>';
+		content += '<td>';
+		for(var j= 0; j<mem.length; j++){
+			if(mem[j].message_time == null){
+				mem[j].message_time = '읽지않음'
+			}
+			
+		content += '<span id="msg_time'+j+'">'+mem[j].message_time+'</span> ';
+			console.log("테스트3" + $("#msg_time1").text);
+		}
+		content += '</td>';
+		content += '<th>보낸시간</th><td>' +list.msg_date+ '</td>';
 		content += '</tr>';
 		content += '<tr>';
-		content += '<th>보낸사람</th><td colspan="3"><textarea readonly id="Drawcontent" name="msg_content"  cols="100" rows="10">' +list.msg_content+ '</textarea></td>';
+		content += '<th>내용</th><td colspan="3"><textarea readonly id="Drawcontent" name="msg_content"  cols="100" rows="10">' +list.msg_content+ '</textarea></td>';
 		content += '</tr>';
 			
 		
@@ -682,8 +741,8 @@ $(document).ready(function() {
 });
 
 
-$("#delMsgBtn").click(function(){ 
-	console.log("클릭했음");
+$("#delMsgSendBtn").click(function(){ 
+	
 	var rowData = new Array();
 	var tdArr = new Array();
 	var checkbox = $("input[name=chk]:checked");
@@ -705,18 +764,18 @@ $("#delMsgBtn").click(function(){
 		// 가져온 값을 배열에 담는다.
 		tdArr.push(msg_idx);
 		
-		console.log("noti_idx : " + msg_idx);
+		console.log("msg_idx : " + msg_idx);
 		
 		$.ajax({
 			type : 'get',
 			url : '/msg/msgDelete.ajax',
 			dataType : 'text',
-			data:{"msg_idx" : msg_idx},
+			data:{noti_idx : noti_idx},
 			success : function(data) {
 				/* window.location.href = "/orderList.go"; */
 				console.log(data);
 				if(data == '성공'){
-					window.location.href = "/msgList.go";
+					window.location.href = "/notiList.go";
 				}else{
 					alert('알림 삭제에 실패했습니다.');
 				}

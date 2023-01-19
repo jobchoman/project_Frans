@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,6 +18,14 @@
 .nav_menu {
      margin-bottom: 0;
 }
+
+.row > .col-sm-6(0){
+	display : none;
+}
+.dataTables_info{
+	display : none;
+}
+
 </style>
 </head>
 <body class="nav-md">
@@ -60,8 +69,10 @@
 														<c:forEach items="${data}" var="list">
 															<tr>	
 																<td>${list.stock_name}</td>
-																<td class="shopStock">${list.shop_stock_amount}</td>
-																<td>${list.order_amount}</td>
+																
+																<td class="shopStock"><fmt:formatNumber value="${list.shop_stock_amount}" pattern="#,###" /></td>
+																<td><fmt:formatNumber value="${list.order_amount}" pattern="#,###" /></td>
+																
 																<td>${list.order_send}</td>
 																
 															</tr>

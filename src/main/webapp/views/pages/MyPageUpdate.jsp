@@ -30,9 +30,11 @@
    background-color:#2A3F54;
     border-color:#2A3F54;
     font-size: 8pt;
+    float: right;
 }
 .ghl{
     font-size: 8pt;
+    float: right;
 }
 .addWrap {
       display: flex;

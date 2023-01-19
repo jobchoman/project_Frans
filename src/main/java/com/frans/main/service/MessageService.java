@@ -39,6 +39,13 @@ public class MessageService {
 		mav.addObject("memberlist",memberlist);
 		return mav;
 	}
+	
+	public ModelAndView msgSendListGo(String loginId) {
+		ModelAndView mav = new ModelAndView("msgSendList");
+		ArrayList<MemberDTO> memberSendlist = signdao.memberList();
+		mav.addObject("memberlist",memberSendlist);
+		return mav;
+	}
 
 	public void msgWriteDo(HashMap<String, String> params, String loginId, HttpServletRequest req) {
 		logger.info("쪽지 보내기 서비스 params : {}",params);
@@ -60,10 +67,59 @@ public class MessageService {
 	}
 	
 	//메인화면 메신저 리스트
-	public ArrayList<StockDTO> msgList(String loginId) {
+	public ArrayList<MessageDTO> msgList(String loginId) {
 		logger.info("메신저 리스트 아이디 : "+loginId);
 		return msgdao.msgList(loginId);
 	}
+
+	//메신저 수신함 리스트
+	public ArrayList<MessageDTO> msgListBox(String loginId) {
+		logger.info("메신저 수신함 아이디 : "+loginId);
+		return msgdao.msgListBox(loginId);
+	}
+
+	public MessageDTO msgListDetail(HashMap<String, String> params, String loginId) {
+		String msg_idx = params.get("msg_idx");
+		logger.info("메신저 디테일 idx : "+msg_idx);
+		logger.info("메신저 디테일 id : "+loginId);
+		return msgdao.msgListDetail(loginId,msg_idx);
+	}
+
+	public void msgDateUpdate(HashMap<String, String> params, String loginId) {
+		String msg_idx = params.get("msg_idx");
+		logger.info("메신저 읽음확인 idx : "+msg_idx);
+		logger.info("메신저 읽음확인 id : "+loginId);
+		msgdao.msgDateUpdate(msg_idx,loginId);
+		
+	}
+
+	public ArrayList<MessageDTO> msgSendListBox(String loginId) {
+		logger.info("메신저 발신함 아이디 : "+loginId);
+		return msgdao.msgSendListBox(loginId);
+	}
+
+	public MessageDTO msgListSendDetail(HashMap<String, String> params, String loginId) {
+		logger.info("메신저 발신함 아이디 : "+loginId);
+		String msg_idx = params.get("msg_idx");
+		return msgdao.msgListSendDetail(msg_idx,loginId);
+	}
+
+	public ArrayList<MessageDTO> msgListSendDetailMem(HashMap<String, String> params, String loginId) {
+		logger.info("메신저 발신함 아이디 : "+loginId);
+		String msg_idx = params.get("msg_idx");
+		return msgdao.msgListSendDetailMem(msg_idx,loginId);
+	}
+
+	public int msgDelete(String msg_idx, String emp_id) {
+		logger.info("메신저 삭제 서비스 param: {}",msg_idx);
+		return msgdao.msgDelete(msg_idx,emp_id);
+	}
+
+	/*
+	 * public ArrayList<MessageDTO> msgSendListBoxName(String loginId) {
+	 * logger.info("메신저 발신함 이름 아이디 : "+loginId); return
+	 * msgdao.msgSendListBoxName(loginId); }
+	 */
 	
 	
 	

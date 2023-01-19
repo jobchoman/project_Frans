@@ -21,8 +21,46 @@
 	<select id="msgList" resultType="MessageDTO">
 		SELECT mb.msg_idx,e.emp_name, m.msg_content, m.msg_date, (select count(msg_idx) from message_box mb2 
 where message_state='읽지않음' and mb2.emp_id=mb.emp_id) as msg_count from message m, message_box mb, employee e 
-where m.emp_id = e.emp_id and mb.msg_idx = m.msg_idx and mb.emp_id = #{param1}
+where m.emp_id = e.emp_id and mb.msg_idx = m.msg_idx and mb.emp_id = #{param1} and mb.message_state='읽지않음' order by m.msg_date desc
 	</select>
+	
+	
+	<select id="msgListBox" resultType="MessageDTO">
+		SELECT e.emp_name, m.msg_content, m.msg_date, mb.message_time,mb.msg_idx from message m, message_box mb, employee e 
+where m.emp_id = e.emp_id and mb.msg_idx = m.msg_idx and mb.emp_id = #{param1} ORDER by m.msg_date desc, mb.message_time
+	</select>
+	
+	<select id="msgListDetail" resultType="MessageDTO">
+		SELECT e.emp_name, m.msg_date, mb.message_time, m.msg_content from message_box mb, message m, employee e 
+where m.emp_id = e.emp_id and mb.msg_idx = m.msg_idx and mb.emp_id = #{param1} and mb.msg_idx =#{param2}
+	</select>
+	
+	<select id="msgListSendDetail" resultType="MessageDTO">
+		SELECT m.msg_date, mb.message_time, m.msg_content from message_box mb, message m, employee e 
+where mb.emp_id = e.emp_id and mb.msg_idx = m.msg_idx and m.emp_id = #{param2} and mb.msg_idx =#{param1} GROUP by m.msg_idx
+	</select>
+	
+	<select id="msgListSendDetailMem" resultType="MessageDTO">
+SELECT e.emp_name, m.msg_date, mb.message_time, m.msg_content,m.msg_idx,mb.message_state  from message_box mb, message m, employee e 
+where mb.emp_id = e.emp_id and mb.msg_idx = m.msg_idx and m.emp_id = #{param2} and mb.msg_idx = #{param1}
+	</select>
+	
+	<update id="msgDateUpdate">
+		UPDATE message_box set message_state = '읽음' 
+		where msg_idx = #{param1} and emp_id = #{param2} and message_state = '읽지않음';
+	</update>
+	
+	<select id="msgSendListBox" resultType="MessageDTO">
+		SELECT m.msg_idx,e.emp_name,(SELECT count(emp_id) from message_box mb4 WHERE msg_idx=m.msg_idx)-1 as 'msg_num', m.msg_content,m.msg_date, (SELECT count(emp_id) from message_box mb2 where m.msg_idx=msg_idx and message_state='읽지않음') as 'msg_no'
+from message m, message_box mb, employee e 
+where mb.emp_id = e.emp_id and mb.msg_idx = m.msg_idx and m.emp_id = #{param1} GROUP by m.msg_idx ORDER by msg_no desc,m.msg_date desc;
+	</select>
+	
+	<delete id="msgDelete">
+		delete from message_box where emp_id = #{param2} and msg_idx = #{param1}
+	</delete>
+	
+	
 	
 	
 	
