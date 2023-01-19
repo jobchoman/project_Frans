@@ -20,11 +20,202 @@
 	</select>
 	
 	<select id="subListCall1" resultType="hashmap">
-		SELECT sub_idx, sub_name from subscribe
+		SELECT sub_idx, sub_name from subscribe where sub_state = '진행중' or sub_state = '종료'
 	</select>
 	
 	<select id="subListCall2" resultType="hashmap">
-		SELECT sub_idx, sub_name from subscribe WHERE sub_sort_idx = #{param1}
+		SELECT sub_idx, sub_name from subscribe WHERE sub_sort_idx = #{param1} and sub_state != '준비중'
+	</select>
+	
+	<select id="subStatGender1" resultType="hashmap">
+		SELECT SUBSTR(su.sub_use_start,1,4) as 'year', count(su.client_id) as 'subJoinCount', 
+		s.province_idx, p.province_name 
+		from sub_use su 
+		left join shop s on su.shop_idx = s.shop_idx 
+		left join province p on s.province_idx = p.province_idx 
+		group by year,s.province_idx 
+		order by year
+	</select>
+	
+	<select id="subStatGender2" resultType="hashmap">
+		SELECT SUBSTR(su.sub_use_start,1,4) as 'year', count(su.client_id) as 'subJoinCount', 
+		s.province_idx, p.province_name 
+		from sub_use su 
+		left join shop s on su.shop_idx = s.shop_idx 
+		left join province p on s.province_idx = p.province_idx 
+		WHERE su.sub_idx = ${param1}
+		group by year,s.province_idx 
+		order by year
+	</select>
+	
+	<select id="subStatGender3" resultType="hashmap">
+		SELECT SUBSTR(su.sub_use_start,1,4) as 'year', count(su.client_id) as 'subJoinCount', 
+		s.province_idx, p.province_name 
+		from sub_use su 
+		left join shop s on su.shop_idx = s.shop_idx 
+		left join province p on s.province_idx = p.province_idx 
+		left join subscribe s2 on su.sub_idx = s2.sub_idx 
+		where s2.sub_sort_idx = #{param1}
+		group by year,s.province_idx 
+		order by year
+	</select>
+	
+	<select id="subStatGender4" resultType="hashmap">
+		SELECT SUBSTR(su.sub_use_start,1,4) as 'year', count(su.client_id) as 'subJoinCount', 
+		s.province_idx, p.province_name 
+		from sub_use su 
+		left join shop s on su.shop_idx = s.shop_idx 
+		left join province p on s.province_idx = p.province_idx 
+		left join subscribe s2 on su.sub_idx = s2.sub_idx 
+		where s2.sub_sort_idx = #{param1} and su.sub_idx = ${param2}
+		group by year,s.province_idx 
+		order by year
+	</select>
+	
+	<select id="subStatGender5" resultType="hashmap">
+		SELECT SUBSTR(su.sub_use_start,1,4) as 'year', count(su.client_id) as 'subJoinCount', 
+		s.province_idx, p.province_name 
+		from sub_use su 
+		left join shop s on su.shop_idx = s.shop_idx 
+		left join province p on s.province_idx = p.province_idx 
+		left join client c ON su.client_id = c.client_id 
+		where c.client_gender = #{param1}
+		group by year,s.province_idx 
+		order by year
+	</select>
+	<select id="subStatGender6" resultType="hashmap">
+		SELECT SUBSTR(su.sub_use_start,1,4) as 'year', count(su.client_id) as 'subJoinCount', 
+		s.province_idx, p.province_name 
+		from sub_use su 
+		left join shop s on su.shop_idx = s.shop_idx 
+		left join province p on s.province_idx = p.province_idx 
+		left join client c ON su.client_id = c.client_id 
+		where c.client_gender = #{param1} and su.sub_idx = ${param2}
+		group by year,s.province_idx 
+		order by year
+	</select>
+	
+	<select id="subStatGender7" resultType="hashmap">
+		SELECT SUBSTR(su.sub_use_start,1,4) as 'year', count(su.client_id) as 'subJoinCount', 
+		s.province_idx, p.province_name 
+		from sub_use su 
+		left join shop s on su.shop_idx = s.shop_idx 
+		left join province p on s.province_idx = p.province_idx 
+		left join client c ON su.client_id = c.client_id 
+		left join subscribe s2 on su.sub_idx = s2.sub_idx 
+		where c.client_gender = #{param1} and s2.sub_sort_idx = #{param2}
+		group by year,s.province_idx 
+		order by year
+	</select>
+	
+	<select id="subStatGender8" resultType="hashmap">
+		SELECT SUBSTR(su.sub_use_start,1,4) as 'year', count(su.client_id) as 'subJoinCount', 
+			s.province_idx, p.province_name 
+			from sub_use su 
+			left join shop s on su.shop_idx = s.shop_idx 
+			left join province p on s.province_idx = p.province_idx 
+			left join client c ON su.client_id = c.client_id 
+			left join subscribe s2 on su.sub_idx = s2.sub_idx 
+			where c.client_gender = #{param1} and s2.sub_sort_idx = #{param2} and su.sub_idx = ${param3}
+			group by year,s.province_idx 
+			order by year
+	</select>
+	
+	<select id="subStatGender9" resultType="hashmap">
+		SELECT SUBSTR(su.sub_use_start,1,7) as 'month', count(su.client_id) as 'subJoinCount', 
+			s.province_idx, p.province_name 
+			from sub_use su 
+			left join shop s on su.shop_idx = s.shop_idx 
+			left join province p on s.province_idx = p.province_idx 
+			where year(su.sub_use_start) = #{param1}
+			group by month,s.province_idx 
+			order by month
+	</select>
+	
+	<select id="subStatGender10" resultType="hashmap">
+		SELECT SUBSTR(su.sub_use_start,1,7) as 'month', count(su.client_id) as 'subJoinCount', 
+			s.province_idx, p.province_name 
+			from sub_use su 
+			left join shop s on su.shop_idx = s.shop_idx 
+			left join province p on s.province_idx = p.province_idx 
+			where year(su.sub_use_start) = #{param1} and su.sub_idx = ${param2}
+			group by month,s.province_idx 
+			order by month
+	</select>
+	
+	<select id="subStatGender11" resultType="hashmap">
+		SELECT SUBSTR(su.sub_use_start,1,7) as 'month', count(su.client_id) as 'subJoinCount', 
+			s.province_idx, p.province_name 
+			from sub_use su 
+			left join shop s on su.shop_idx = s.shop_idx 
+			left join province p on s.province_idx = p.province_idx 
+			left join subscribe s2 on su.sub_idx = s2.sub_idx 
+			where year(su.sub_use_start) = #{param1} and s2.sub_sort_idx = #{param2}
+			group by month,s.province_idx 
+			order by month
+	</select>
+	
+	<select id="subStatGender12" resultType="hashmap">
+		SELECT SUBSTR(su.sub_use_start,1,7) as 'month', count(su.client_id) as 'subJoinCount', 
+			s.province_idx, p.province_name 
+			from sub_use su 
+			left join shop s on su.shop_idx = s.shop_idx 
+			left join province p on s.province_idx = p.province_idx 
+			left join subscribe s2 on su.sub_idx = s2.sub_idx 
+			where year(su.sub_use_start) = #{param1} and s2.sub_sort_idx = #{param2} and su.sub_idx = ${param3}
+			group by month,s.province_idx 
+			order by month
+	</select>
+	
+	<select id="subStatGender13" resultType="hashmap">
+		SELECT SUBSTR(su.sub_use_start,1,7) as 'month', count(su.client_id) as 'subJoinCount', 
+			s.province_idx, p.province_name 
+			from sub_use su 
+			left join shop s on su.shop_idx = s.shop_idx 
+			left join province p on s.province_idx = p.province_idx 
+			left join client c ON su.client_id = c.client_id 
+			where year(su.sub_use_start) = #{param1} and c.client_gender = #{param2}
+			group by month,s.province_idx 
+			order by month
+	</select>
+	
+	<select id="subStatGender14" resultType="hashmap">
+		SELECT SUBSTR(su.sub_use_start,1,7) as 'month', count(su.client_id) as 'subJoinCount', 
+			s.province_idx, p.province_name 
+			from sub_use su 
+			left join shop s on su.shop_idx = s.shop_idx 
+			left join province p on s.province_idx = p.province_idx 
+			left join client c ON su.client_id = c.client_id 
+			where year(su.sub_use_start) = #{param1} and c.client_gender = #{param2} and su.sub_idx = ${param3}
+			group by month,s.province_idx 
+			order by month
+	</select>
+	
+	<select id="subStatGender15" resultType="hashmap">
+		SELECT SUBSTR(su.sub_use_start,1,7) as 'month', count(su.client_id) as 'subJoinCount', 
+			s.province_idx, p.province_name 
+			from sub_use su 
+			left join shop s on su.shop_idx = s.shop_idx 
+			left join province p on s.province_idx = p.province_idx 
+			left join client c ON su.client_id = c.client_id 
+			left join subscribe s2 on su.sub_idx = s2.sub_idx 
+			where year(su.sub_use_start) = #{param1} and c.client_gender = #{param2} and s2.sub_sort_idx = #{param3}
+			group by month,s.province_idx 
+			order by month
+	</select>
+	
+	<select id="subStatGender16" resultType="hashmap">
+		SELECT SUBSTR(su.sub_use_start,1,7) as 'month', count(su.client_id) as 'subJoinCount', 
+			s.province_idx, p.province_name 
+			from sub_use su 
+			left join shop s on su.shop_idx = s.shop_idx 
+			left join province p on s.province_idx = p.province_idx 
+			left join client c ON su.client_id = c.client_id 
+			left join subscribe s2 on su.sub_idx = s2.sub_idx 
+			where year(su.sub_use_start) = #{param1} and c.client_gender = #{param2} 
+				and s2.sub_sort_idx = #{param3} and su.sub_idx = ${param4}
+			group by month,s.province_idx 
+			order by month
 	</select>
 
 </mapper>

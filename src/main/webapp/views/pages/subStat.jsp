@@ -264,12 +264,12 @@
 			
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>Bar Chart Group <small>Sessions</small></h2>
+                    <h2>구독권 통계 <small>나이</small></h2>
 
                     <div class="clearfix"></div>
                   </div>
-                  <div class="x_content1">
-                    <div id="graph_bar_group" style="width:100%; height:280px;"></div>
+                  <div class="x_content1" id="graphZone" style="width:100%; height:280px;">
+                    <canvas id="mybarChart"></canvas>
                   </div>
                 </div>
               </div>
@@ -536,32 +536,163 @@ function subListDraw(obj) {
 	
 }
 
+
 // 버튼을 클릭하면 선택하거나 선택하지 않은 옵션의 값들을 가져와서 요청을 보낸다.
 // 요청을 보내기 전에 시도/시군구/매장의 선택 유무에 따라 요청을 달리 보내고 
 // 나머지 값들은 Controller 에서 분기한다.
 function makeChart() {
 	
 	var provinceIdx = $('input[name="province_idx"]').val();
-	console.log(provinceIdx);
 	var cityIdx = $('input[name="city_idx"]').val();
-	console.log(cityIdx);
 	var shopIdx = $('input[name="shop_idx"]').val();
-	console.log(shopIdx);
 	var year = $("select[name='year']").val();
-	console.log(year);
 	var month = $("select[name='month']").val();
-	console.log(month);
-	var subIdx = $("select[name='subSelect']").val();
-	console.log(subIdx);
-	
-	
 	var gender = $("input[name='optionsRadios']:checked").val();
-	console.log(gender);
 	var subType = $("input[name='iCheck']:checked").val();
-	console.log(subType);
+	var subIdx = $("select[name='subSelect']").val();
+
+	if(provinceIdx === undefined && cityIdx === undefined && shopIdx === undefined) {
+		
+		$.ajax({
+			type:'GET',
+			url:'/sub/subStat.do',
+			data:{'year':year, 'month':month, 'gender':gender, 'sub_sort_idx':subType, 'sub_idx':subIdx},
+			success:function(data) {
+
+				if(data.type == 1) {
+					drawBar(data);
+				}else {
+					drawDoubleBar(data)
+				}
+				
+// 				for(var i=0; i<data.list.length; i++) {
+// 					console.log(data.list[i].province_name);
+// 				}
+
+
+			},
+			error:function(e) {
+				console.log(e);
+			}
+		});
+	}else if(!provinceIdx === undefined && cityIdx === undefined && shopIdx === undefined) {
+		
+		$.ajax({
+			type:'GET',
+			url:'/sub/subStat.do',
+			data:{'province_idx':provinceIdx, 'year':year, 'month':month,
+				'gender':gender, 'sub_sort_idx':subType, 'sub_idx':subIdx},
+			success:function(data) {
+				console.log(data);
+			},
+			error:function(e) {
+				console.log(e);
+			}
+		});
+	}else if(!provinceIdx === undefined && !cityIdx === undefined && shopIdx === undefined) {
+		
+		$.ajax({
+			type:'GET',
+			url:'/sub/subStat.do',
+			data:{'province_idx':provinceIdx, 'city_idx':cityIdx, 'year':year, 'month':month,
+				'gender':gender, 'sub_sort_idx':subType, 'sub_idx':subIdx},
+			success:function(data) {
+				console.log(data);
+			},
+			error:function(e) {
+				console.log(e);
+			}
+		});
+	}else {
+
+		$.ajax({
+			type:'GET',
+			url:'/sub/subStat.do',
+			data:{'province_idx':provinceIdx, 'city_idx':cityIdx, 'shop_idx':shopIdx, 'year':year, 'month':month,
+				'gender':gender, 'sub_sort_idx':subType, 'sub_idx':subIdx},
+			success:function(data) {
+				console.log(data);
+			},
+			error:function(e) {
+				console.log(e);
+			}
+		});
+	}
 	
 }
 
+function drawDoubleBar(obj) {
+	$('#graphZone').empty();
+	$('#graphZone').append('<canvas id="mybarChart"></canvas>');
+	console.log(obj.labels);
+	var label1 = obj.label[0];
+	var label2 = obj.label[1];
+	console.log(label1);
+	console.log(label2);
+	console.log(obj.data1);
+	console.log(obj.data2);
+	
+		var chartArea = document.getElementById('mybarChart').getContext('2d');
+	
+// 		var myChart = new Chart(chartArea, {
+// 		    // ①차트의 종류(String)
+// 		    type: 'bar',
+// 		    // ②차트의 데이터(Object)
+// 		    data: {
+// 		        // ③x축에 들어갈 이름들(Array)
+// 		        labels: obj.labels,
+// 		        // ④실제 차트에 표시할 데이터들(Array), dataset객체들을 담고 있다.
+// 		        datasets: [{
+// 		            // ⑤dataset의 이름(String)
+// 		            label: '# of Votes',
+// 		            // ⑥dataset값(Array)
+// 		            data: [12, 19, 3, 5, 2, 3],	         
+// 		        }]
+// 		    },
+// 		    // ⑩차트의 설정(Object)
+// 		    options: {
+// 		        // ⑪축에 관한 설정(Object)
+// 		        scales: {
+// 		            // ⑫y축에 대한 설정(Object)
+// 		            y: {
+// 		                // ⑬시작을 0부터 하게끔 설정(최소값이 0보다 크더라도)(boolean)
+// 		                beginAtZero: true
+// 		            }
+// 		        }
+// 		    }
+// 		});
+		
+		var myChart = new Chart(chartArea, {
+	        type:'bar',
+	        data:{
+	            labels:obj.labels,
+	            datasets:[
+	                {
+	                    label:label1,
+	                    data:obj.data1,
+// 	                    backgroundColor:'rgba(203,206,145,.5)',
+// 	                    borderColor:'#CBCE91',
+// 	                    borderWidth:1
+	                },
+	                {
+	                    label:label2,
+	                    data:obj.data2,
+	                    backgroundColor:'rgba(203,206,145,.5)',
+	                    borderColor:'#CBCE91',
+	                    borderWidth:1
+	                },
+	                
+	            ]
+	        },
+	        options:{
+	                    maintainAspectRatio :false,//그래프의 비율 유지
+	                    
+	                    
+	                }
+	        });
+	
+	
+}
 
 
 
