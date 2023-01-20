@@ -59,6 +59,8 @@ function drawList(list) {
 				test = "참조 알림입니다.";
 			}else if(list.notiList[i].noti_type == '결재완료'){
 				test = "결재가 완료되었습니다.";			
+			}else if(list.notiList[i].noti_type == '반려'){
+				test = "결재가 반려되었습니다.";			
 			}else{
 				test = "알림";
 			}
@@ -130,6 +132,10 @@ function notiMove(idx,text) {
 		console.log("결재완료 디테일 이동");
 		var noti_type = '결재완료';
 		window.location.href="/signDetailTest.do?sign_idx="+idx;
+	}else if(text.includes("결재가 반려")){
+		console.log("반려 디테일 이동");
+		var noti_type = '반려';
+		window.location.href="/signDenyDetail.do?sign_idx="+idx;
 	}else{
 		console.log("기타이동");
 	}

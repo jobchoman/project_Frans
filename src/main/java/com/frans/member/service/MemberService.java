@@ -313,6 +313,10 @@ public class MemberService {
 		String plain_pw = params.get("emp_pw");
 		String enc_pw = encoder.encode(plain_pw);
 		params.put("emp_pw", enc_pw);
+		
+		String right_team[] = req.getParameterValues("right_team");
+		String right_auth_type[] = req.getParameterValues("auth_type");
+		
 		String emp_career_idx[] = req.getParameterValues("emp_career_idx");
 		String emp_school_name[] = req.getParameterValues("emp_school_name");
 		String emp_department[] = req.getParameterValues("emp_department");
@@ -325,8 +329,47 @@ public class MemberService {
 		String license_place[] = req.getParameterValues("license_place");
 		String license_result[] = req.getParameterValues("license_result");
 		logger.info("업데이트 서비스 params : {}",params);
-		int success = memberDao.memberUpdate(params);
+		
+		//히스토리 insert
+		
+				String pos_idx = params.get("pos_idx"); 
+				String duty_idx = params.get("duty_idx"); 
+				String team_idx = params.get("team_idx"); 
+				int empPosIdx = memberDao.empPosIdx(emp_id,pos_idx); 
+				if(empPosIdx < 1) { 
+					String type = "직급"; 
+					String reason = "승진"; 
+					String pos_name = memberDao.pos_name(pos_idx);
+					memberDao.historyUpdate(emp_id,type,reason,pos_name); 
+				} 
+				int empDutyIdx = memberDao.empDutyIdx(emp_id,duty_idx); 
+				if(empDutyIdx < 1) { 
+					String type = "직책"; 
+					String reason = "변경"; 
+					String duty_name = memberDao.duty_name(duty_idx);
+					memberDao.historyUpdate(emp_id,type,reason,duty_name); 
+				} 
+				int empTeamIdx = memberDao.empTeamIdx(emp_id,team_idx); 
+				if(empTeamIdx < 1) { 
+					String type = "팀"; 
+					String reason = "이동"; 
+					String team_name = memberDao.team_name(team_idx);
+					memberDao.historyUpdate(emp_id,type,reason,team_name); 
+				}
+		
+		
+		int success = memberDao.memberUpdate(params);				
 		if(success > 0) {
+			
+			if(params.get("right_team") != null && params.get("right_team") != "") {
+				for(int k=0; k<right_team.length; k++) {
+					logger.info("팀: {}, 권한 : {}",right_team[k],right_auth_type[k]);
+					memberDao.rightUpdate(emp_id,right_team[k],right_auth_type[k]);
+					
+				}
+				
+			}
+			
 			if(params.get("emp_career_idx") != null && params.get("emp_career_idx") != "") {
 				// 이력, 학력 업데이트
 				for(int i=0; i<emp_career_idx.length; i++) {
@@ -595,6 +638,11 @@ public class MemberService {
 
 		map.put("data", dto);
 		return map;
+	}
+	
+	public ArrayList<MemberDTO> rightTeam(String emp_id) {
+		logger.info("권한 리스트");
+		return memberDao.rightTeam(emp_id);
 	}
 
 

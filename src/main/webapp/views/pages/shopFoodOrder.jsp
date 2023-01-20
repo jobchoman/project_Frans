@@ -120,8 +120,8 @@
 		 	content += '<td class="tdNone"><input id="addAdd1" name = "stock_idx" type="text" value="' + data[i].stock_idx + '"</td>'; 
 		 	content += '<td class="tdNone"><input id="addAdd2" name = "shop_idx" type="text" value="' + data[i].shop_idx + '""</td>'; 
 			content += '<td>' + data[i].stock_name + '</td>';
-			content += '<td>' + shop_stock_amount + '</td>';
-			content += '<td>' + stock_price + '</td>';
+			content += '<td>' + shop_stock_amount + '개</td>';
+			content += '<td>' + stock_price + '원</td>';
 			content += '<td><input id="addAdd3" name="order_amount" type="number" placeholder="수량을 입력해주세요."/></td>';
 			content += '</tr>';
 		}
@@ -141,17 +141,8 @@
 			},
 			success : function(data) {
 				console.log(data);
-				drawList(data.data)
-				/* $('#paging').twbsPagination({
-					startPage : 1, // 시작 페이지
-					totalPages : data.total, // 총 페이지 수
-					visiblePages : 5, // 기본으로 보여줄 페이지 수
-					onPageClick : function(e, page) { // 클릭했을때 실행 내용
-						//console.log(e);
-						stockListCall(page);
-
-					}
-				}); */
+				drawList(data.data);
+				
 			},
 			error : function(e) {
 				console.log(e);

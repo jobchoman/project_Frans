@@ -27,6 +27,17 @@
  	text-align: right;
  	 margin-left:50%;
  }
+ 
+ #signlistdiv{
+      display: flex;
+      justify-content: center;
+         align-items: center;
+         flex-direction: column;
+         width: 80%;
+   }
+.col-md-6{
+	margin-top: 6px;
+}
 </style>
 </head>
 <body class="nav-md">
@@ -41,12 +52,12 @@
 
 			<!-- page content -->
 			<div class="right_col addWrap" role="main">
-				<div class="" style="width:100%">
+				<div id="signlistdiv" class="" style="width:80%">
 					<div class="page-title">
 
 					</div>
 					<div class="clearfix"></div>
-					<div class="row">
+					<div class="row" style="width:100%">
 						<div class="col-md-12 col-sm-12 ">
 							<div class="x_panel">
 								<div class="x_title">
@@ -220,7 +231,33 @@
 											<div class="col-md-6 col-sm-6 ">
 												${mem.team_name}
 											</div>
-										</div>										
+										</div>	
+										
+										<div class="item form-group">
+											<label class="col-form-label col-md-3 col-sm-3 label-align">보유 팀 권한
+											</label>
+											
+											<div class="col-md-6 col-sm-6 ">
+												
+													<div id="license">
+													<ul>
+													<c:if test="${rightTeam.size()>0}">
+														<c:forEach items="${rightTeam}" var="rightTeam">
+														<li>
+																${rightTeam.team_name}
+																<c:if test="${rightTeam.auth_type == 1}">기본권한</c:if>
+														<c:if test="${rightTeam.auth_type == 2}">전체권한</c:if>
+	 															
+														</li><br>
+														</c:forEach>
+													</c:if>
+													</ul>
+													</div>
+												</div>
+											
+										</div>
+										
+																			
 										<div class="item form-group">
 											<label class="col-form-label col-md-3 col-sm-3 label-align">직급
 											</label>

@@ -40,6 +40,10 @@
 .nav_menu {
      margin-bottom: 0;
 }
+
+#datatable-checkbox{
+	text-align: center;
+}
 </style>
 </head>
 <body class="nav-md">
@@ -92,8 +96,8 @@
 																<td><input name="chk" type="checkbox"
 																	id="check-all" value="${list.shop_idx}"></td>	
 																<td>${list.stock_name}</td>
-																<td><fmt:formatNumber value="${list.com_stock_amount}" pattern="#,###" /></td>
-																<td><fmt:formatNumber value="${list.order_amount}" pattern="#,###" /></td>
+																<td><fmt:formatNumber value="${list.com_stock_amount}" pattern="#,###" />개</td>
+																<td><fmt:formatNumber value="${list.order_amount}" pattern="#,###" />개</td>
 																
 																<td>${list.order_send}</td>
 																<td class="orderData">${list.shop_idx}</td>

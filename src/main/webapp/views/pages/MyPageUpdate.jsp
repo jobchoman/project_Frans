@@ -230,7 +230,29 @@
 													</c:forEach>
 											    </select>
 											</div>
-										</div>										
+										</div>
+										
+										<div class="item form-group">
+												<label class="col-form-label col-md-3 col-sm-3 label-align">보유 팀 권한
+												</label>
+												<div id="license" class="col-md-6 col-sm-6 " >
+													<div class="licen" >
+														<c:if test="${rightTeam.size()>0}">
+														<c:forEach items="${rightTeam}" var="rightTeam">
+																<input style="width: 150px; display: inline-block;" type="text" name="rightTeamName" value="${rightTeam.team_name}" class="form-control " disabled="disabled">
+														<c:if test="${rightTeam.auth_type == 1}">															
+																<input style="width: 150px; display: inline-block; margin-top: -5px;" id="team_auth" type="text" name="team_auth" value="기본권한" class="form-control " disabled="disabled">
+														</c:if>
+														<c:if test="${rightTeam.auth_type == 2}">															
+																<input style="width: 150px; display: inline-block; margin-top: -5px;" id="team_auth" type="text" name="team_auth" value="전체권한" class="form-control " disabled="disabled">
+														</c:if>
+																<br>
+														</c:forEach>
+														</c:if>
+													</div>
+												</div>
+											</div>
+																				
 										<div class="item form-group">
 											<label class="col-form-label col-md-3 col-sm-3 label-align">직급
 											</label>

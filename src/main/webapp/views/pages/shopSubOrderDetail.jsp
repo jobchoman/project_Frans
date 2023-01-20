@@ -21,6 +21,17 @@
 .dataTables_info{
 	display : none;
 }
+#listButton{
+	float: left;
+	font-size: 9pt;
+}
+.row > .col-sm-6:first-child {
+      display: none;
+   }
+   
+   #datatable-checkbox{
+	text-align: center;
+}
 </style>
 </head>
 <body class="nav-md">
@@ -64,15 +75,24 @@
 														<c:forEach items="${data}" var="list">
 															<tr>	
 																<td>${list.stock_name}</td>
-																<td class="shopStock"><fmt:formatNumber value="${list.shop_stock_amount}" pattern="#,###" /></td>
-																
-																<td><fmt:formatNumber value="${list.order_amount}" pattern="#,###" /></td>
+																<c:if test="${list.shop_stock_amount eq null}">
+																		<td class="shopStock">0개</td>
+																	</c:if>
+																	<c:if test="${list.shop_stock_amount > '0'}">
+																		<td class="shopStock"><fmt:formatNumber value="${list.shop_stock_amount}" pattern="#,###" />개</td>
+																	</c:if>	
+																<td><fmt:formatNumber value="${list.order_amount}" pattern="#,###" />개</td>
 																<td>${list.order_send}</td>
 																
 															</tr>
 														</c:forEach>
 													</tbody>
 												</table>
+												<div>
+						
+									<button type="button" onclick = "location.href='/shopOrderList.go'" class="btn btn-round btn-secondary"
+										id="listButton" value="신청">목록</button>
+										</div>
 											
 										</div>			
 									</div>

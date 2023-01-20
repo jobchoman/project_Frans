@@ -320,6 +320,46 @@
 		</if>
 			
 	</select>
+	
+	
+	<!-- 히스토리 테이블 관련 -->
+	<select id="pos_name" resultType="String">
+		SELECT pos_name from `position` p where pos_idx = #{param1}
+	</select>
+	
+	<select id="duty_name" resultType="String">
+		SELECT duty_name from duty d where duty_idx = #{param1}
+	</select>
+	
+	<select id="team_name" resultType="String">
+		SELECT team_name from team t where team_idx = #{param1}
+	</select>
+	
+	<select id="empPosIdx" resultType="int">
+		SELECT count(emp_id) from employee e where emp_id = #{param1} and pos_idx = #{param2}
+	</select>
+	
+	<select id="empDutyIdx" resultType="int">
+		SELECT count(emp_id) from employee e where emp_id = #{param1} and duty_idx = #{param2}
+	</select>
+	
+	<select id="empTeamIdx" resultType="int">
+		SELECT count(emp_id) from employee e where emp_id = #{param1} and team_idx = #{param2}
+	</select>
+	
+	<insert id="historyUpdate">
+		INSERT into `change` (emp_id, changes, change_reason, change_division) 
+			VALUES (#{param1}, #{param2}, #{param3}, #{param4})
+	</insert>
+	
+	<insert id="rightUpdate">
+		INSERT into `right` (team_idx, emp_id, auth_type) 
+			VALUES (#{param2},#{param1},#{param3})
+	</insert>
+	
+	<select id="rightTeam" resultType="com.frans.member.dto.MemberDTO">
+		SELECT * from `right` r, team t where emp_id = #{param1} and r.team_idx = t.team_idx;
+	</select>
 
 	
 </mapper>

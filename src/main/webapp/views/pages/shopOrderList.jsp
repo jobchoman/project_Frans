@@ -103,6 +103,7 @@ th {
 					destroy : true,
 					serverSide : false,
 					"dom": 'frtp',
+					bAutoWidth: false,
 					ajax : {
 						"url" : "/order/shopOrderList.do",
 						"type" : "get",
@@ -165,6 +166,7 @@ th {
 					destroy : true,
 					serverSide : false,
 					"dom": 'frtp',
+					bAutoWidth: false,
 					ajax : {
 						"url" : "/order/shopOrderListOk.do",
 						"type" : "get",
@@ -228,6 +230,7 @@ th {
 					destroy : true,
 					serverSide : false,
 					"dom": 'frtp',
+					bAutoWidth: false,
 					ajax : {
 						"url" : "/order/shopOrderList.do",
 						"type" : "get",
@@ -290,6 +293,7 @@ th {
 					destroy : true,
 					serverSide : false,
 					"dom": 'frtp',
+					bAutoWidth: false,
 					ajax : {
 						"url" : "/order/shopOrderListOk.do",
 						"type" : "get",

@@ -56,6 +56,18 @@ and n.noti_pk = #{param2} and n.noti_idx  = nb.noti_idx and n.noti_type ='결재
 and n.noti_pk = #{param2} and n.noti_idx  = nb.noti_idx and n.noti_type ='결재완료';
 	</select>
 	
+	<select id="notiSignMemDeny" resultType="String">
+		SELECT n.noti_idx from noti_box nb,notification n 
+		where nb.emp_id = (SELECT emp_id from sign_mem sm where emp_id = #{param1} and sign_idx = #{param2}) 
+and n.noti_pk = #{param2} and n.noti_idx  = nb.noti_idx and n.noti_type ='반려';
+	</select>
+	
+	<select id="notiRefMemDeny" resultType="String">
+		SELECT n.noti_idx from noti_box nb,notification n 
+		where nb.emp_id = (SELECT emp_id from reference r where emp_id = #{param1} and sign_idx = #{param2}) 
+and n.noti_pk = #{param2} and n.noti_idx  = nb.noti_idx and n.noti_type ='반려';
+	</select>
+	
 	<update id="notiBoxUpdate">
 		update noti_box set no_check = '읽음' 
 		where noti_idx = #{param1} and emp_id = #{param2} and no_check = '읽지않음';

@@ -11,10 +11,7 @@
 
 <jsp:include page="css.jsp" />
 <style>
-.x_panel{
-	width: 108%;
-	margin-left: 10px;
-}
+
 
 #tableUp {
 	float: inherit;
@@ -104,14 +101,14 @@ p{
 			<div class="right_col addWrap" role="main">
 				<div id="addMain">
 					<div class="col-md-6 col-sm-6 " id="tableUp">
-						<div class="x_panel">
+						<div class="x_panel" style="height:200px;">
 							<div class="x_title">
 								<h2>자재등록</h2>
 								<div class="clearfix"></div>
 							</div>
 							<div class="x_content">
 								<form action="/stock/add.do">
-									<table class="table">
+									<table class="table table-bordered bulk_action">
 										<thead>
 											<tr>
 												<th>자재분류</th>
@@ -122,10 +119,10 @@ p{
 										</thead>
 										<tbody>
 											<tr>
-												<td>식자재 : <input type="radio" class="flat"
+												<td> <input type="radio" class="flat"
 													name="stock_sort_idx" id="genderM" value="0" checked=""
-													required /> </br> 부자재 : <input type="radio" class="flat"
-													name="stock_sort_idx" " id="genderF" value="1" />
+													required /> 식자재</br> <input type="radio" class="flat"
+													name="stock_sort_idx" " id="genderF" value="1" /> 부자재
 												</td>
 												<td><div class="form-group row">
 														<div class="col-md-9 col-sm-9 ">
@@ -144,13 +141,14 @@ p{
 															<input type="number" class="form-control"
 																name="com_stock_amount" placeholder="재고량">
 														</div>
+																<input type="submit" class="btn btn-round btn-info"
+										id="addButton" value="등록"></input>
 													</div></td>
 											</tr>
 
 										</tbody>
 									</table>
-									<input type="submit" class="btn btn-round btn-info"
-										id="addButton" value="등록"></input>
+									
 								</form>
 							</div>
 						</div>
@@ -178,8 +176,7 @@ p{
 								<div class="x_content">
 
 									<table id="datatable"
-													class="table table-striped table-bordered dataTable no-footer"
-													style="width: 100%" aria-describedby="datatable_info">
+													class= "table table-striped table-bordered bulk_action" style="width: 100%" aria-describedby="datatable_info">
 										<thead>
 											<tr>
 												<th id="hiddenData">stock_idx</th>
@@ -240,6 +237,7 @@ function foodListCall() {
 	var table = $('#datatable').DataTable({
 		destroy:true,
 		serverSide: false,
+		bAutoWidth: false,
 		"dom": 'frtp',
 		ajax : {
             "url":"/stock/comStockList.do",
@@ -279,6 +277,7 @@ function foodListCall() {
 		var table = $('#datatable').DataTable({
 			destroy:true,
 			serverSide: false,
+			bAutoWidth: false,
 			"dom": 'frtp',
 			ajax : {
 	            "url":"/stock/comStockList.do",

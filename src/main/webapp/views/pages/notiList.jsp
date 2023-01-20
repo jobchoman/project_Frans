@@ -138,6 +138,7 @@ function notiListCall() {
 				"dom": 'frtp',
 				aaSorting : [],
 				serverSide : false,
+				bAutoWidth: false,
 				ajax : {
 					"url" : "/noti/notiListBox.ajax",
 					"type" : "get",
@@ -178,6 +179,8 @@ function notiListCall() {
 											row.noti_type = '참조 알림입니다.'
 										}else if(row.noti_type == '결재완료'){
 											row.noti_type = '결재가 완료되었습니다.'
+										}else if(row.noti_type == '반려'){
+											row.noti_type = '결재가 반려되었습니다.'
 										}else{
 											row.noti_type = '기타 알림입니다.'
 										}
@@ -244,6 +247,11 @@ function notiBoxMove(idx,text) {
 		console.log("결재완료 디테일 이동");
 		var noti_type = '결재완료';
 		window.location.href="/signDetailTest.do?sign_idx="+idx;
+	}
+	else if(text == "결재가 반려되었습니다."){
+		console.log("반려 디테일 이동");
+		var noti_type = '반려';
+		window.location.href="/signDenyDetail.do?sign_idx="+idx;
 	}else{
 		console.log("기타");
 	}

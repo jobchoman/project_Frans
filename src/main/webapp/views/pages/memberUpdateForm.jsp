@@ -13,6 +13,10 @@
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <jsp:include page="css.jsp" />
 <style type="text/css">
+.teamClass{
+	width: 150px;
+	
+}
 #resetBtn{
 	background-color:#2A3F54;
    border-color:#2A3F54;
@@ -39,6 +43,8 @@
  	text-align: right;
  	 margin-left:50%;
  }
+ 
+
 </style>
 </head>
 <body class="nav-md">
@@ -200,10 +206,10 @@
 											</div>
 										</div>
 										<c:if test="${sessionScope.power == '0'}">
-										<div class="item form-group">
+										<div  class="item form-group">
 											<label class="col-form-label col-md-3 col-sm-3 label-align">관리자 권한
 											</label>
-											<div class="col-md-6 col-sm-6 ">
+											<div  class="col-md-6 col-sm-6 ">
 												<select name="emp_admin_auth" class="form-control ">
 													<option value="2" ${mem.emp_admin_auth == "2" ? "selected" :""}>일반사원</option>
 													<option value="1" ${mem.emp_admin_auth == "1" ? "selected" :""}>관리자</option>
@@ -212,17 +218,80 @@
 											</div>
 										</div>	
 										</c:if>									
-										<div class="item form-group">
+										 <div class="item form-group">
 											<label class="col-form-label col-md-3 col-sm-3 label-align">팀
 											</label>
-											<div class="col-md-6 col-sm-6 ">
+											<div id="teamDiv" class="col-md-6 col-sm-6 ">
+												<div class="teamAdd">
 												<select id="team" name="team_idx" class="form-control ">
 													<c:forEach items="${teamMem}" var="teamMem">
 														<option value="${teamMem.team_idx}" ${mem.team_name == teamMem.team_name ? "selected" :""}>${teamMem.team_name}</option>
 													</c:forEach>
 											    </select>
+												
+											    </div>
 											</div>
-										</div>										
+										</div>
+										
+										
+										<div class="item form-group">
+												<label class="col-form-label col-md-3 col-sm-3 label-align">보유 팀 권한
+												</label>
+												<div id="license" class="col-md-6 col-sm-6 " >
+													<div class="licen" >
+														<c:if test="${rightTeam.size()>0}">
+														<c:forEach items="${rightTeam}" var="rightTeam">
+																<input style="width: 150px; display: inline-block;" type="text" name="rightTeamName" value="${rightTeam.team_name}" class="form-control " disabled="disabled">
+														<c:if test="${rightTeam.auth_type == 1}">															
+																<input style="width: 150px; display: inline-block; margin-top: -5px;" id="team_auth" type="text" name="team_auth" value="기본권한" class="form-control " disabled="disabled">
+														</c:if>
+														<c:if test="${rightTeam.auth_type == 2}">															
+																<input style="width: 150px; display: inline-block; margin-top: -5px;" id="team_auth" type="text" name="team_auth" value="전체권한" class="form-control " disabled="disabled">
+														</c:if>
+																<br>
+														</c:forEach>
+														</c:if>
+													</div>
+												</div>
+											</div>
+										
+											 
+																		
+										<div class="item form-group">
+											<label class="col-form-label col-md-3 col-sm-3 label-align">팀 권한 <span class="required"></span></label> 
+											<div class="col-md-6 col-sm-6 ">
+												<div class="col-md-9 col-sm-9 " style="max-width:none; margin-left:-10px; width: 100%">
+												<div class="teamClass" style="display: inline-block;">
+													<select id="selectbox" class="form-control"  onchange="chageLangSelect()">
+                                             			<option value="" selected="selected">선택하기</option>
+                                             			<c:forEach items="${teamMem}" var="teamMem">
+                                             			<option value="${teamMem.team_idx}" ${mem.team_name == teamMem.team_name ? "selected" :""}>${teamMem.team_name}</option>            
+                                             			</c:forEach>                          			
+                                          			</select>
+												
+													<div id="menuTags" style="border: 1px solid #D3D3D3;  min-height:100px;"></div>
+													</div>
+													
+													
+													<div class="teamClass" style="display: inline-block;">
+													<select id="selectRightbox" class="form-control"  onchange="chageRightSelect()">
+                                             			<option value="" selected="selected">선택하기</option>
+                                             			
+                                             			<option value="1">기본권한</option>            
+                                             			<option value="2">전체권한</option>            
+                                             			                        			
+                                          			</select>
+												
+													<div id="rightNum" style="border: 1px solid #D3D3D3;  min-height:100px;"></div>
+													</div>
+													
+													
+												</div>
+											</div>
+										</div>
+
+
+
 										<div class="item form-group">
 											<label class="col-form-label col-md-3 col-sm-3 label-align">직급
 											</label>
@@ -317,6 +386,50 @@
                </div>
                <!-- 비밀번호 초기화 모달 끝 -->
                
+               <!-- 사원 검색 modal -->
+				<div class="modal fade bs-example-modal-lg" id="searchEmp" tabindex="-1" role="dialog" aria-hidden="true">
+					<div class="modal-dialog modal-lg">
+	  					<div class="modal-content">
+	  						<div class="modal-header">
+	     						<h5 class="modal-title" id="searchEmpLabel">사원 검색</h5>
+	     						<input type="hidden" >
+	      						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+	    					</div>
+							<div class="modal-body">
+								
+							<div class="card-box table-responsive">
+								<table id="datatable" class="table table-striped table-bordered" style="width:100%">
+									<thead>
+										<tr>
+											<th>사번</th>
+											<th>이름</th>
+											<th>직급</th>
+											<th>팀</th>
+										</tr>
+									</thead>
+									<tbody>
+									<c:forEach items="${memberlist}" var="memberlist" varStatus="idx">
+										<tr class = "memberlistTr row_${idx.count}" value="${memberlist.emp_name}" onclick="memberSel(this)">
+											<td>${memberlist.emp_id}</td>
+											<td>${memberlist.emp_name}</td>
+											<td>${memberlist.pos_name}</td>
+											<td>${memberlist.team_name}</td>
+										</tr>
+									</c:forEach>
+									</tbody>
+								</table>
+							</div>
+
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-primary" data-dismiss="modal">확인</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- /사원 검색 modal 끝 -->
+				
+               
 			<!-- /page content -->
 
 		
@@ -326,11 +439,66 @@
 </body>
 
 <script>
+/* for(var i=0; i<3; i++){
+var tt = document.getElementsByName("team_auth")[i].value;
+if(tt == '1'){
+	$("#team_auth").val("기본권한");
+}else{
+	$("#team_auth").val("전체권한");
+}
+console.log("제발요 : "+tt);
+	
+} */
+
 var msg = "${msg}";
 
 if(msg != ""){
 	alert(msg);
 }
+function putTags(selectValue,selectText) {
+	
+	var content = '<div><span>'+selectText+'</span><a class="delete" href="javascript:void(0)"> x</a><input type="hidden" id="idx" name="right_team" value="'+selectValue+'"></div>';
+	
+	$('#menuTags').append(content);
+	
+}
+
+function putNum(selectValue,selectText) {
+	
+	var content = '<div><span>'+selectText+'</span><a class="delete" href="javascript:void(0)"> x</a><input type="hidden" id="idx" name="auth_type" value="'+selectValue+'"></div>';
+	
+	$('#rightNum').append(content);
+	
+}
+
+function chageLangSelect(){
+    var langSelect = document.getElementById("selectbox");
+     
+    // select element에서 선택된 option의 value가 저장된다.
+    var selectValue = langSelect.options[langSelect.selectedIndex].value;
+ 	
+    // select element에서 선택된 option의 text가 저장된다.
+    var selectText = langSelect.options[langSelect.selectedIndex].text;
+    
+    putTags(selectValue,selectText);
+}
+
+$(document).on("click", ".delete", function(){
+    $(this).closest("div").remove();
+});
+
+function chageRightSelect(){
+    var langSelect = document.getElementById("selectRightbox");
+     
+    // select element에서 선택된 option의 value가 저장된다.
+    var selectValue = langSelect.options[langSelect.selectedIndex].value;
+ 	
+    // select element에서 선택된 option의 text가 저장된다.
+    var selectText = langSelect.options[langSelect.selectedIndex].text;
+    
+    putNum(selectValue,selectText);
+}
+
 
 function resetPw(data) {
 	console.log(data);
@@ -459,6 +627,8 @@ $('#add2').on('click',function() {
 		}
 		
 });
+
+
 
 $(document).on("click",".del1",function(){
 	   $('.school1').remove();

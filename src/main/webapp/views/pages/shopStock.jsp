@@ -122,6 +122,7 @@ function foodStockListCall(){
 var table = $('#datatable').DataTable({
 	destroy : true,
 	serverSide: false,
+	bAutoWidth: false,
 	"dom": 'frtp',
 	ajax : {
         "url":"/stock/shopStockList.do",
@@ -133,7 +134,7 @@ var table = $('#datatable').DataTable({
     },
     columns : [	
     	{data : "stock_name"},
-        {data: "shop_stock_amount","defaultContent": "0"},	
+        {data: "shop_stock_amount","defaultContent": "0개"},	
         {data: "stock_price"}
     ],
     columnDefs: [{ targets: 1 , render: $.fn.dataTable.render.number( ',' , '.' , 0 , '' , '개' ) },
@@ -150,6 +151,7 @@ var table = $('#datatable').DataTable({
 		var table = $('#datatable').DataTable({
 			destroy : true,
 			serverSide: false,
+			bAutoWidth: false,
 			"dom": 'frtp',
 			ajax : {
 		        "url":"/stock/shopStockList.do",
@@ -161,7 +163,7 @@ var table = $('#datatable').DataTable({
 		    },
 		    columns : [	
 		    	{data : "stock_name"},
-		        {data: "shop_stock_amount","defaultContent": "0"},
+		        {data: "shop_stock_amount","defaultContent": "0개"},
 		        {data: "stock_price"}
 		    ],
 		    columnDefs: [{ targets: 1 , render: $.fn.dataTable.render.number( ',' , '.' , 0 , '' , '개' ) },

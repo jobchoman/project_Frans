@@ -122,8 +122,8 @@
 		 	content += '<td class="tdNone"><input id="addAdd1" name = "stock_idx" type="text" value="' + data[i].stock_idx + '"</td>'; 
 		 	content += '<td class="tdNone"><input id="addAdd2" name = "shop_idx" type="text" value="' + data[i].shop_idx + '""</td>'; 
 			content += '<td>' + data[i].stock_name + '</td>';
-			content += '<td>' + shop_stock_amount + '</td>';
-			content += '<td>' + stock_price + '</td>';
+			content += '<td>' + shop_stock_amount + '개</td>';
+			content += '<td>' + stock_price + '원</td>';
 			content += '<td><input id="addAdd3" name="order_amount" type="number" placeholder="수량을 입력해주세요."/></td>';
 			content += '</tr>';
 		}
