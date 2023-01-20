@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 
 import com.frans.member.dao.InfoDAO;
 import com.frans.member.dto.MemberDTO;
@@ -118,21 +119,33 @@ public class InfoService {
 	}
 
 
-	public void TeamDelete(String team_idx) {
-		infoDao.TeamDelete(team_idx);
-		
+	public MemberDTO dutyDetail(String duty_idx) {
+		return infoDao.dutyDetail(duty_idx);
 	}
 
 
-	public void DutyDelete(String duty_idx) {
-		infoDao.DutyDelete(duty_idx);
-		
+	public MemberDTO posDetail(String pos_idx) {
+		return infoDao.posDetail(pos_idx);
 	}
 
 
-	public void PosDelete(String pos_idx) {
-		infoDao.PosDelete(pos_idx);
-		
+	public MemberDTO teamDetail(String team_idx) {
+		return infoDao.teamDetail(team_idx);
+	}
+
+
+	public ArrayList<MemberDTO> per(String duty_idx) {
+		return infoDao.per(duty_idx);
+	}
+
+
+	public ArrayList<MemberDTO> perso(String team_idx) {
+		return infoDao.perso(team_idx);
+	}
+
+
+	public ArrayList<MemberDTO> pers(String pos_idx) {
+		return infoDao.pers(pos_idx);
 	}
 
 

@@ -44,11 +44,23 @@ public interface InfoDAO {
 
 	void posUpdate(HashMap<String, String> params);
 
-	void TeamDelete(String team_idx);
+	int TeamDelete(String team_idx);
 
 	void DutyDelete(String duty_idx);
 
 	void PosDelete(String pos_idx);
+
+	MemberDTO dutyDetail(String duty_idx);
+
+	MemberDTO posDetail(String pos_idx);
+
+	MemberDTO teamDetail(String team_idx);
+
+	ArrayList<MemberDTO> per(String duty_idx);
+
+	ArrayList<MemberDTO> perso(String team_idx);
+
+	ArrayList<MemberDTO> pers(String pos_idx);
 
 
 

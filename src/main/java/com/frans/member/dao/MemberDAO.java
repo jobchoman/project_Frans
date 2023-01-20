@@ -106,7 +106,18 @@ public interface MemberDAO {
 
 	ArrayList<MemberDTO> memberHistLog(String emp_id);
 
-//	int memberUpdateParam(HashMap<String, String> params);
+	int teamHis(String emp_id, String team_name);
+
+	int posHis(String emp_id, String pos_name);
+
+	int dutyHis(String emp_id, String duty_name);
+
+	String idCheck(String emp_id);
+
+	ArrayList<MemberDTO> chNotTeamList(String com, String emp_id);
+
+
+
 
 
 

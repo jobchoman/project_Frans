@@ -87,7 +87,7 @@
 											<label class="col-form-label col-md-3 col-sm-3 label-align">비밀번호
 											</label>
 											<div class="col-md-6 col-sm-6 ">
-												<input type="password" name="client_pw" id="pw2" class="form-control "/>
+												<input type="password" name="client_pw" id="pw2" class="form-control " readonly="readonly"/>
 											</div>
 										</div>
 										

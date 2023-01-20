@@ -80,7 +80,6 @@
 		delete from team where team_idx = #{team_idx}
 	</delete>
 	
-	
 	<delete id="DutyDelete" parameterType="String">
 		delete from duty where duty_idx = #{duty_idx}
 	</delete>
@@ -88,6 +87,28 @@
 	<delete id="PosDelete" parameterType="String">
 		delete from position where pos_idx = #{pos_idx}
 	</delete>
+	
+	<select id="dutyDetail" resultType="com.frans.member.dto.MemberDTO" parameterType="String">
+		select * from duty where duty_idx = #{duty_idx}
+	</select>
+	<select id="posDetail" resultType="com.frans.member.dto.MemberDTO" parameterType="String">
+		select * from position where pos_idx = #{pos_idx}
+	</select>
+	<select id="teamDetail" resultType="com.frans.member.dto.MemberDTO" parameterType="String">
+		select * from team where team_idx = #{team_idx}
+	</select>
+	
+	<select id="per" resultType="com.frans.member.dto.MemberDTO" parameterType="String">
+		select emp_id,duty_idx from employee where duty_idx = #{duty_idx}
+	</select>
+	
+	<select id="pers" resultType="com.frans.member.dto.MemberDTO" parameterType="String">
+		select emp_id,pos_idx from employee where pos_idx = #{pos_idx}
+	</select>
+	
+	<select id="perso" resultType="com.frans.member.dto.MemberDTO" parameterType="String">
+		select emp_id,team_idx from employee where team_idx = #{team_idx}
+	</select>
 
 
 	

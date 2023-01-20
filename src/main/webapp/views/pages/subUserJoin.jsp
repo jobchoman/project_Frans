@@ -31,6 +31,10 @@
  	text-align: right;
  	 margin-left:50%;
  }
+.row > .col-sm-6:first-child {
+      display: none;
+   }
+
 </style>
 </head>
 <body class="nav-md">

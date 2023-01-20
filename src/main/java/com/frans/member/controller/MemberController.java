@@ -51,9 +51,9 @@ public class MemberController {
 	
 	
 	@PostMapping(value="/memberLogin.do")
-		public String login(String emp_id, String emp_pw,RedirectAttributes rAttr, HttpSession session,Model model,HttpServletRequest req) {
-			return memberService.login(emp_id, emp_pw, rAttr, session, model, req);
-		}
+	public String login(String emp_id, String emp_pw,RedirectAttributes rAttr, HttpSession session,Model model,HttpServletRequest req) {
+		return memberService.login(emp_id, emp_pw, rAttr, session, model, req);
+	}
 	
 	@GetMapping(value="/memberJoin.go")
 	public String joinForm(Model model) {
@@ -313,6 +313,28 @@ public class MemberController {
 		
 		return msg;
 	}
+	
+	@ResponseBody
+	@GetMapping(value="/idCheck.ajax")
+	public HashMap<String, Object> idCheck(@RequestParam String emp_id) {
+		boolean idCheck = true;
+		idCheck = memberService.idCheck(emp_id);
+		logger.info("inCheck:{}",idCheck);
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("idCheck", idCheck);
+		return map;
+	}
+	
+	@ResponseBody
+	@GetMapping(value="/memberTeamList.ajax")
+	public HashMap<String, Object> teamList(@RequestParam String com,String emp_id){
+		logger.info("아작스전달");
+		return memberService.chTeamList(com,emp_id);
+	}
+	
+	
+	
 	
 	
 

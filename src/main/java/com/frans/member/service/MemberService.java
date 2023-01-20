@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -40,7 +41,6 @@ public class MemberService {
 		String userIP = req.getRemoteAddr();
 		ArrayList<MemberDTO> fileList = memberDao.fileList(emp_id);
 		MemberDTO dto = memberDao.memberDetail(emp_id,model);
-		String log = dto.getEmp_id();
 		String emp_name = dto.getEmp_name();
 		int power = dto.getEmp_admin_auth();
 		String team = dto.getTeam_name();
@@ -48,7 +48,7 @@ public class MemberService {
 		
 		match = encoder.matches(emp_pw, enc_pw);
 		logger.info(emp_id+"/"+emp_pw);
-		if(match != false || !loginId.equals("")) {
+		if(match != false) {
 			page = "index";
 			msg = "안녕하세요. "+emp_id+" 님";
 			session.setAttribute("loginId", loginId);
@@ -57,13 +57,8 @@ public class MemberService {
 			session.setAttribute("power", power);
 			session.setAttribute("team", team);
 			session.setAttribute("userIP", userIP);
+			
 		}
-
-        if (log == null) {
-        	msg = "아이디와 비밀번호를 확인하세요";
-        	page = "redirect:/";
-            return page;
-        }
 		logger.info("match : "+match);
 		rAttr.addFlashAttribute("msg",msg);
 		
@@ -130,6 +125,23 @@ public class MemberService {
 		if(success>0) {
 			Upload(file,emp_id);
 			Upload2(file2,emp_id);
+		}
+		
+		String team_name = params.get("team_name");
+		String team_idx= params.get("team_idx");
+		String pos_name = params.get("pos_name");
+		String duty_name = params.get("duty_name");
+		logger.info("team_name:{}",team_name);
+		logger.info("team_idx:{}",team_idx);
+		logger.info("duty_name:{}",duty_name);
+		if(team_name != "" && team_name != null) {
+			int teamhis = memberDao.teamHis(emp_id,team_name);
+		}
+		if(pos_name != "" && pos_name != null) {
+			int poshis = memberDao.posHis(emp_id,pos_name);
+		}
+		if(!duty_name.equals("없음") && duty_name != "" && duty_name != null) {
+			int dutyhis = memberDao.dutyHis(emp_id,duty_name);
 		}
 	}
 
@@ -562,6 +574,27 @@ public class MemberService {
 
 	public ArrayList<MemberDTO> memberHisLog(String emp_id) {
 		return memberDao.memberHistLog(emp_id);
+	}
+
+
+	public boolean idCheck(String emp_id) {
+		String idCheck = memberDao.idCheck(emp_id);
+		return idCheck == null ? false : true;
+	}
+
+
+	public HashMap<String, Object> chTeamList(String com,String emp_id) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		ArrayList<MemberDTO> dto = null;
+		dto = memberDao.chNotTeamList(com,emp_id);
+		logger.info("무엇일까요:{}",dto);
+//		if(com != null) {
+//			dto = memberDao.chTeamList(com,emp_id);
+//			logger.info("무엇일까요11:{}",dto);
+//		}
+
+		map.put("data", dto);
+		return map;
 	}
 
 

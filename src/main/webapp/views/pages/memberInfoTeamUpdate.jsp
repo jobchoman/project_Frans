@@ -79,6 +79,7 @@
 											</label>
 											
 											<!-- 테스트 박스 -->
+											<c:if test="${list.size()==0}">
 											<div class="radio">
 												<label>
 													<input type="radio" class="radioBtn555" value="1" id="on" name="team_state" >활성화
@@ -89,6 +90,8 @@
 													<input type="radio" class="radioBtn555" value="0" id="off" name="team_state">비활성화
 												</label>
 											</div>
+											</c:if>
+											<c:if test="${list.size()>0}">팀이 존재해 삭제가 불가합니다.</c:if>
 										</div>
 										<div class="ln_solid"></div>
 										<div class="item form-group">
