@@ -13,6 +13,7 @@
 	   background-color:#2A3F54;
 	   border-color:#2A3F54;
 	   font-size: 8pt;
+	   
 	}
 	.addWrap {
       display: flex;
@@ -23,6 +24,14 @@
  
  #mainDiv{
 	width: 80%;
+}
+
+.item{
+	align-items:center;
+}
+
+.item > label {
+	font-weight: bold;
 }
 </style>
 </head>
@@ -256,10 +265,10 @@
 										</div>									
 									
 										<div class="ln_solid"></div>
-										<div class="item form-group">
-											<div class="col-md-6 col-sm-6 offset-md-3">
+										<div class="item form-group" style="float: right;">
+											
 												<button type="button" class="btn btn-round btn-info" id="but" onclick="location.href='myPageUpdate.go?emp_id=${sessionScope.loginId}'" class="btn btn-success">수정하기</button>
-											</div>
+											
 										</div>
 
 								</div>

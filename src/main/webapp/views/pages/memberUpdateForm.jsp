@@ -43,7 +43,12 @@
  	text-align: right;
  	 margin-left:50%;
  }
- 
+
+.teamclassContainer{
+	display:flex;
+	justify-content: flex-start;
+	align-items: center;
+}
 
 </style>
 </head>
@@ -217,7 +222,22 @@
 												</select>
 											</div>
 										</div>	
-										</c:if>									
+										</c:if>
+																			
+										<c:if test="${sessionScope.power != '0'}">
+										<div  class="item form-group" style="display: none;">
+											<label class="col-form-label col-md-3 col-sm-3 label-align">관리자 권한
+											</label>
+											<div  class="col-md-6 col-sm-6 ">
+												<select name="emp_admin_auth" class="form-control ">
+													<option value="2" ${mem.emp_admin_auth == "2" ? "selected" :""}>일반사원</option>
+													<option value="1" ${mem.emp_admin_auth == "1" ? "selected" :""}>관리자</option>
+													<option value="0" ${mem.emp_admin_auth == "0" ? "selected" :""}>최고관리자</option>
+												</select>
+											</div>
+										</div>	
+										</c:if>	
+																		
 										 <div class="item form-group">
 											<label class="col-form-label col-md-3 col-sm-3 label-align">팀
 											</label>
@@ -260,8 +280,8 @@
 										<div class="item form-group">
 											<label class="col-form-label col-md-3 col-sm-3 label-align">팀 권한 <span class="required"></span></label> 
 											<div class="col-md-6 col-sm-6 ">
-												<div class="col-md-9 col-sm-9 " style="max-width:none; margin-left:-10px; width: 100%">
-												<div class="teamClass" style="display: inline-block;">
+												<div class="col-md-9 col-sm-9 teamclassContainer" style="max-width:none; margin-left:-10px; width: 100%">
+												<div class="teamClass" style="display: inline-block; margin-right:4px">
 													<select id="selectbox" class="form-control"  onchange="chageLangSelect()">
                                              			<option value="" selected="selected">선택하기</option>
                                              			<c:forEach items="${teamMem}" var="teamMem">

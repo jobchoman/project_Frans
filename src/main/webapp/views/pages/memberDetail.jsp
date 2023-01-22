@@ -38,6 +38,10 @@
 .col-md-6{
 	margin-top: 6px;
 }
+
+.item > label {
+	font-weight: bold;
+}
 </style>
 </head>
 <body class="nav-md">

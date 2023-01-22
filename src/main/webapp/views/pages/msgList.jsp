@@ -120,6 +120,12 @@ align-items: center;
 	display: none;
 }
 
+td > a{
+	display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 </style>
 </head>
 <body class="nav-md">

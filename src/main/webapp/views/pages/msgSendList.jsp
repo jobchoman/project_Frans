@@ -120,6 +120,12 @@ align-items: center;
 	display: none;
 }
 
+td > a{
+	display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 </style>
 </head>
 <body class="nav-md">
@@ -339,6 +345,10 @@ align-items: center;
 </body>
 <script>
 console.log("시작1");
+
+
+
+
 const detailReview = document.querySelector('textarea[name="msg_content"]');
 detailReview.addEventListener("keyup", e => {
   //console.log(detailReview.value.length);
@@ -679,7 +689,13 @@ function msgDetailDrawList(list,mem) {
 		content += '<td>';
 		
 		for(var i=0; i<mem.length; i++){
-		content += mem[i].emp_name+" ";
+		//content += mem[i].emp_name+" ";
+		//content += '<span id="msg_mem'+j+'">'+mem[i].emp_name+" "+'</span>';
+			if(mem[i].message_time == null){
+				content += '<span id="msg_mem'+i+'" style="font-weight:bold;">'+mem[i].emp_name+'</span> ';
+			} else {
+				content += '<span id="msg_mem'+i+'" style="color:grey;">'+mem[i].emp_name+'</span> ';				
+			}
 		}
 		
 		content += '</td>';
@@ -688,13 +704,14 @@ function msgDetailDrawList(list,mem) {
 		content += '<tr>';
 		content += '<th>읽은 시간</th>';
 		content += '<td>';
+		let idArray = [];
 		for(var j= 0; j<mem.length; j++){
 			if(mem[j].message_time == null){
-				mem[j].message_time = '읽지않음'
+				mem[j].message_time = '읽지않음';
+				content += '<span id="msg_time'+j+'" style="font-weight:bold;">'+mem[j].message_time+'</span> ';
+			} else {
+				content += '<span id="msg_time'+j+'" style="color:grey;">'+mem[j].message_time+'</span> ';				
 			}
-			
-		content += '<span id="msg_time'+j+'">'+mem[j].message_time+'</span> ';
-			console.log("테스트3" + $("#msg_time1").text);
 		}
 		content += '</td>';
 		content += '<th>보낸시간</th><td>' +list.msg_date+ '</td>';
