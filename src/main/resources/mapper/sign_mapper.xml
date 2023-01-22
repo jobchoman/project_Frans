@@ -7,8 +7,12 @@
 	<select id="signList" resultType="signDTO">
 		SELECT s.sign_idx , s.sign_title, e.emp_name, s.sign_date, ss.sign_state_type
 			FROM sign s, sign_state ss, employee e
-			WHERE s.emp_id = e.emp_id AND s.sign_state_idx = ss.sign_state_idx AND e.team_idx = #{param1} AND s.sign_date BETWEEN DATE_ADD(NOW(), INTERVAL -2 WEEK ) AND NOW()
-			ORDER BY sign_idx
+			WHERE s.emp_id = e.emp_id AND s.sign_state_idx = ss.sign_state_idx AND e.team_idx = #{param1}
+			<if test="auth_type.equals('1')">
+				AND sign_team_open = '공개'
+			</if>
+			AND s.sign_date BETWEEN DATE_ADD(NOW(), INTERVAL -2 WEEK ) AND NOW()
+			ORDER BY ss.sign_state_type DESC, sign_idx
 	</select>
 	
 	<select id="selTeam" resultType="com.frans.member.dto.MemberDTO">
@@ -18,7 +22,19 @@
 	<select id="dateSearch" resultType="signDTO">
 		SELECT s.sign_idx , s.sign_title, e.emp_name, s.sign_date, ss.sign_state_type
 			FROM sign s, sign_state ss, employee e
-			WHERE s.emp_id = e.emp_id AND s.sign_state_idx = ss.sign_state_idx AND e.team_idx = #{param3} AND s.sign_date BETWEEN #{param1} AND #{param2} ORDER BY sign_idx
+			WHERE s.emp_id = e.emp_id AND s.sign_state_idx = ss.sign_state_idx AND e.team_idx = #{param3}
+			<if test="auth_type.equals('1')">
+				AND sign_team_open = '공개'
+			</if>
+			AND s.sign_date BETWEEN #{param1} AND #{param2} ORDER BY ss.sign_state_type DESC, sign_idx
+	</select>
+	
+	<select id="auth_team" resultType="String">
+		SELECT team_idx FROM `right` r WHERE emp_id = #{param1}
+	</select>
+	
+	<select id="auth_type" resultType="String">
+		SELECT auth_type FROM `right` r WHERE emp_id = #{param2} AND team_idx = #{param1}
 	</select>
 	
 	<select id="signWriteGo" resultType="DocFormDTO">
@@ -149,6 +165,161 @@
 		SELECT emp_id FROM sign_mem sm
 			WHERE sign_mem_order = (SELECT max(sign_mem_order) FROM sign_mem sm3 WHERE sign_mem_state = 1 AND sign_idx = #{param1})+1 
 			AND sign_idx =#{param1};
-   </select>
+	</select>
+	
+	
+   <!-- 결재자 문서 리스트 -->
+	<select id="signList_signmem" resultType="signDTO">
+		SELECT s.sign_idx , s.sign_title, e.emp_name, s.sign_date, ss.sign_state_type, sm.sign_mem_state 
+			FROM sign s, sign_state ss, employee e, sign_mem sm 
+			WHERE s.emp_id = e.emp_id AND s.sign_state_idx = ss.sign_state_idx AND sm.sign_idx = s.sign_idx AND sm.emp_id = #{param1} AND sm.sign_mem_state = 0
+			AND s.sign_date BETWEEN DATE_ADD(NOW(), INTERVAL -2 WEEK ) AND NOW()
+			ORDER BY ss.sign_state_idx, sign_idx
+	</select>
 
+	<select id="dateSearch_signmem" resultType="signDTO">
+		SELECT s.sign_idx , s.sign_title, e.emp_name, s.sign_date, ss.sign_state_type, sm.sign_mem_state 
+			FROM sign s, sign_state ss, employee e, sign_mem sm 
+			WHERE s.emp_id = e.emp_id AND s.sign_state_idx = ss.sign_state_idx AND sm.sign_idx = s.sign_idx AND sm.emp_id = #{param1} AND sm.sign_mem_state = 0
+			AND s.sign_date BETWEEN #{param2} AND #{param3}
+			ORDER BY ss.sign_state_idx,sign_idx
+	</select>
+	
+	<select id="signList_endsignmem" resultType="signDTO">
+		SELECT s.sign_idx , s.sign_title, e.emp_name, s.sign_date, ss.sign_state_type, sm.sign_mem_state 
+			FROM sign s, sign_state ss, employee e, sign_mem sm 
+			WHERE s.emp_id = e.emp_id AND s.sign_state_idx = ss.sign_state_idx AND sm.sign_idx = s.sign_idx AND sm.emp_id = #{param1} AND sm.sign_mem_state = 1
+			AND s.sign_date BETWEEN DATE_ADD(NOW(), INTERVAL -2 WEEK ) AND NOW()
+			ORDER BY ss.sign_state_idx, sign_idx
+	</select>
+
+	<select id="dateSearch_endsignmem" resultType="signDTO">
+		SELECT s.sign_idx , s.sign_title, e.emp_name, s.sign_date, ss.sign_state_type, sm.sign_mem_state 
+			FROM sign s, sign_state ss, employee e, sign_mem sm 
+			WHERE s.emp_id = e.emp_id AND s.sign_state_idx = ss.sign_state_idx AND sm.sign_idx = s.sign_idx AND sm.emp_id = #{param1} AND sm.sign_mem_state = 1
+			AND s.sign_date BETWEEN #{param2} AND #{param3}
+			ORDER BY ss.sign_state_idx,sign_idx
+	</select>
+	
+	<select id="signList_returnsignmem" resultType="signDTO">
+		SELECT s.sign_idx , s.sign_title, e.emp_name, s.sign_date, ss.sign_state_type, sm.sign_mem_state 
+			FROM sign s, sign_state ss, employee e, sign_mem sm 
+			WHERE s.emp_id = e.emp_id AND s.sign_state_idx = ss.sign_state_idx AND sm.sign_idx = s.sign_idx AND sm.emp_id = #{param1} AND sm.sign_mem_state = 2
+			AND s.sign_date BETWEEN DATE_ADD(NOW(), INTERVAL -2 WEEK ) AND NOW()
+			ORDER BY ss.sign_state_idx, sign_idx
+	</select>
+
+	<select id="dateSearch_returnsignmem" resultType="signDTO">
+		SELECT s.sign_idx , s.sign_title, e.emp_name, s.sign_date, ss.sign_state_type, sm.sign_mem_state 
+			FROM sign s, sign_state ss, employee e, sign_mem sm 
+			WHERE s.emp_id = e.emp_id AND s.sign_state_idx = ss.sign_state_idx AND sm.sign_idx = s.sign_idx AND sm.emp_id = #{param1} AND sm.sign_mem_state = 2
+			AND s.sign_date BETWEEN #{param2} AND #{param3}
+			ORDER BY ss.sign_state_idx,sign_idx
+	</select>
+	<!-- /결재자 문서 리스트 -->
+	
+	
+	<!-- 참조자 문서 리스트 -->
+	<select id="signList_refermem" resultType="signDTO">
+		SELECT s.sign_idx , s.sign_title, e.emp_name, s.sign_date, ss.sign_state_type
+			FROM sign s, sign_state ss, employee e, reference r 
+			WHERE s.emp_id = e.emp_id AND s.sign_state_idx = ss.sign_state_idx AND r.sign_idx = s.sign_idx AND r.emp_id = #{param1} AND (ss.sign_state_type = '결재전' OR ss.sign_state_type = '결재중')
+			AND s.sign_date BETWEEN DATE_ADD(NOW(), INTERVAL -2 WEEK ) AND NOW()
+			ORDER BY ss.sign_state_idx, sign_idx
+	</select>
+	
+	<select id="dateSearch_refermem" resultType="signDTO">
+		SELECT s.sign_idx , s.sign_title, e.emp_name, s.sign_date, ss.sign_state_type
+			FROM sign s, sign_state ss, employee e, reference r 
+			WHERE s.emp_id = e.emp_id AND s.sign_state_idx = ss.sign_state_idx AND r.sign_idx = s.sign_idx AND r.emp_id = #{param1} AND (ss.sign_state_type = '결재전' OR ss.sign_state_type = '결재중')
+			AND s.sign_date BETWEEN #{param2} AND #{param3}
+			ORDER BY ss.sign_state_idx,sign_idx
+	</select>
+	
+	<select id="signList_endrefermem" resultType="signDTO">
+		SELECT s.sign_idx , s.sign_title, e.emp_name, s.sign_date, ss.sign_state_type
+			FROM sign s, sign_state ss, employee e, reference r 
+			WHERE s.emp_id = e.emp_id AND s.sign_state_idx = ss.sign_state_idx AND r.sign_idx = s.sign_idx AND r.emp_id = #{param1} AND ss.sign_state_type = '결재완료'
+			AND s.sign_date BETWEEN DATE_ADD(NOW(), INTERVAL -2 WEEK ) AND NOW()
+			ORDER BY ss.sign_state_idx, sign_idx
+	</select>
+	
+	<select id="dateSearch_endrefermem" resultType="signDTO">
+		SELECT s.sign_idx , s.sign_title, e.emp_name, s.sign_date, ss.sign_state_type
+			FROM sign s, sign_state ss, employee e, reference r 
+			WHERE s.emp_id = e.emp_id AND s.sign_state_idx = ss.sign_state_idx AND r.sign_idx = s.sign_idx AND r.emp_id = #{param1} AND ss.sign_state_type = '결재완료'
+			AND s.sign_date BETWEEN #{param2} AND #{param3}
+			ORDER BY ss.sign_state_idx,sign_idx
+	</select>
+	
+	<select id="signList_returnrefermem" resultType="signDTO">
+		SELECT s.sign_idx , s.sign_title, e.emp_name, s.sign_date, ss.sign_state_type
+			FROM sign s, sign_state ss, employee e, reference r 
+			WHERE s.emp_id = e.emp_id AND s.sign_state_idx = ss.sign_state_idx AND r.sign_idx = s.sign_idx AND r.emp_id = #{param1} AND ss.sign_state_type = '반려'
+			AND s.sign_date BETWEEN DATE_ADD(NOW(), INTERVAL -2 WEEK ) AND NOW()
+			ORDER BY ss.sign_state_idx, sign_idx
+	</select>
+	
+	<select id="dateSearch_returnrefermem" resultType="signDTO">
+		SELECT s.sign_idx , s.sign_title, e.emp_name, s.sign_date, ss.sign_state_type
+			FROM sign s, sign_state ss, employee e, reference r 
+			WHERE s.emp_id = e.emp_id AND s.sign_state_idx = ss.sign_state_idx AND r.sign_idx = s.sign_idx AND r.emp_id = #{param1} AND ss.sign_state_type = '반려'
+			AND s.sign_date BETWEEN #{param2} AND #{param3}
+			ORDER BY ss.sign_state_idx,sign_idx
+	</select>
+	
+	<!-- /참조자 문서 리스트 -->
+	
+	<select id="signEndList" resultType="signDTO">
+		SELECT s.sign_idx , s.sign_title, e.emp_name, s.sign_date, ss.sign_state_type
+			FROM sign s, sign_state ss, employee e
+			WHERE s.emp_id = e.emp_id AND s.sign_state_idx = ss.sign_state_idx AND e.team_idx = #{param1} AND ss.sign_state_type = '결재완료'
+			<if test="auth_type.equals('1')">
+				AND sign_team_open = '공개'
+			</if>
+			AND s.sign_date BETWEEN DATE_ADD(NOW(), INTERVAL -2 WEEK ) AND NOW()
+			ORDER BY sign_idx
+	</select>
+	
+	<select id="dateSearch_endList" resultType="signDTO">
+		SELECT s.sign_idx , s.sign_title, e.emp_name, s.sign_date, ss.sign_state_type
+			FROM sign s, sign_state ss, employee e
+			WHERE s.emp_id = e.emp_id AND s.sign_state_idx = ss.sign_state_idx AND e.team_idx = #{param3} AND ss.sign_state_type = '결재완료'
+			<if test="auth_type.equals('1')">
+				AND sign_team_open = '공개'
+			</if>
+			AND s.sign_date BETWEEN #{param1} AND #{param2} ORDER BY sign_idx
+	</select>
+	
+	<select id="signUserWriteList" resultType="signDTO">
+		SELECT s.sign_idx , s.sign_title, e.emp_name, s.sign_date, ss.sign_state_type
+			FROM sign s, sign_state ss, employee e
+			WHERE s.emp_id = e.emp_id AND s.sign_state_idx = ss.sign_state_idx AND e.team_idx = #{param1} AND s.emp_id = #{param3}
+			AND s.sign_date BETWEEN DATE_ADD(NOW(), INTERVAL -2 WEEK ) AND NOW()
+			ORDER BY ss.sign_state_idx, sign_idx;
+	</select>
+	
+	<select id="dateSearch_userList" resultType="signDTO">
+		SELECT s.sign_idx , s.sign_title, e.emp_name, s.sign_date, ss.sign_state_type
+			FROM sign s, sign_state ss, employee e
+			WHERE s.emp_id = e.emp_id AND s.sign_state_idx = ss.sign_state_idx AND e.team_idx = #{param3} AND s.emp_id = #{param5}
+			AND s.sign_date BETWEEN #{param1} AND #{param2} ORDER BY ss.sign_state_idx, sign_idx;
+	</select>
+	
+	<select id="signEmp" resultType="String">
+      SELECT emp_id from sign where sign_idx = #{param1}
+   </select>
+   
+   <select id="signMemCount" resultType="int">
+      SELECT count(emp_id) as emp_id from sign_mem sm WHERE sign_idx = #{param1}
+   </select>
+   
+   <select id="denyMemList" resultType="String">
+      SELECT emp_id from sign_mem sm WHERE sign_idx = #{param1} and sign_mem_order <![CDATA[ < ]]> (SELECT sign_mem_order from sign_mem sm4 where sm4.sign_idx = sm.sign_idx and emp_id = #{param2})
+   </select>
+   
+   <select id="denyRefMemList" resultType="String">
+         SELECT emp_id from reference WHERE sign_idx = #{param1}
+   </select>
+	
 </mapper>

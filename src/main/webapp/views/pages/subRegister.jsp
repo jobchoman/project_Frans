@@ -9,6 +9,57 @@
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <jsp:include page="css.jsp" />
 </head>
+<style>
+	.addWrap, .x_content {
+	   display: flex;
+	   flex-direction: column;
+	   justify-content: flex-start;
+	   align-items: center;
+	}
+	#subregistdiv {
+/*		display: flex;*/
+		justify-content: center;
+   		align-items: center;
+   		flex-direction: column;
+   		width: 80%;
+	}
+	label {
+		font-weight: bold;
+		width: 20%;
+	}
+	form {
+		width: 100%;
+	}
+	div.radio {
+		white-space: nowrap;
+	}
+	.col-md-6 col-sm-6 {
+		width: 50%;
+	}
+	.form-control {
+		width: 65%;
+	}
+	#reset {
+		font-size: 8pt;
+		float: right;
+	}
+	#subRigist {
+		background-color:#2A3F54;
+		border-color:#2A3F54;
+		font-size: 8pt;
+		float: right;
+	}
+	
+	#reset:hover {
+		background-color:orange;
+		border-color:orange;
+	}
+	
+	#golist {
+		font-size: 8pt;
+		float: left;
+	}
+</style>
 <body class="nav-md">
 	<div class="container body">
 		<div class="main_container">
@@ -19,11 +70,12 @@
 			<!-- /top navigation -->
 
 			<!-- page content -->
-			<div class="right_col" role="main">
-			
+			<div class="right_col addWrap" role="main">
+				<div id="subregistdiv">
 					<div class="row">
 						<div class="col-md-12 col-sm-12 ">
 							<div class="x_panel">
+							<div style="width:100%"><h3 style="float:left">구독권 등록</h3></div>
 <!-- 								<div class="x_title"> -->
 <!-- 									<h2>Form Design <small>different form elements</small></h2> -->
 <!-- 									<ul class="nav navbar-right panel_toolbox"> -->
@@ -82,7 +134,7 @@
 										<div class="item form-group">
 											<label class="col-form-label col-md-3 col-sm-3 label-align">메뉴 <span class="required">*</span></label> 
 											<div class="col-md-6 col-sm-6 ">
-												<div class="col-md-9 col-sm-9 ">
+												<!-- <div class="col-md-9 col-sm-9 "> -->
 												
 													<select id="selectbox" class="form-control" style="width: 300px;" onchange="chageLangSelect()">
                                              			<option value="" selected="selected">선택하기</option>
@@ -91,8 +143,8 @@
                                              			</c:forEach>                          			
                                           			</select>
 												
-													<div id="menuTags" style="border: 1px solid #D3D3D3; width: 300px; min-height:100px;"></div>
-												</div>
+													<div id="menuTags" style="border: 1px solid #D3D3D3; width: 300px; min-height:100px; padding-left: 3%; padding-top: 2%;"></div>
+												<!-- </div> -->
 											</div>
 										</div>
 										<div class="item form-group">
@@ -160,23 +212,24 @@
 										</div>
 
 										<div class="ln_solid"></div>
-										<div class="item form-group">
-											<div class="col-md-6 col-sm-6 offset-md-3">
-												
-												<button class="btn btn-primary" type="reset">초기화</button>
-												<button type="submit" class="btn btn-success" id="subRigist">등록하기</button>
+										<div style="width:100%">
+										<div class="item form-group" style="width:100%">
+											<div class="col-md-6 col-sm-6 offset-md-3" style="float:left; width:50%; margin-left:0%">
+												<button class="btn btn-round btn-secondary" type="button" id="golist" onclick="location.href='/subList'">목록</button>
+											</div>
+											<div class="col-md-6 col-sm-6 offset-md-3" style="float:right; width:50%; margin-left:0%">
+												<button type="submit" class="btn btn-round btn-info" id="subRigist">등록</button>
+												<button class="btn btn-round btn-secondary" id="reset" type="reset">초기화</button>
 											</div>
 										</div>
-
-									</form>
-									<div class="col-md-6 col-sm-6 offset-md-3">
-									<button class="btn btn-primary" type="button" onclick="location.href='/menuList'">리스트</button>
 									</div>
+									</form>
+									
 								</div>
 							</div>
 						</div>
 					</div>
-			
+				</div>
 			</div>
 			<!-- /page content -->
 

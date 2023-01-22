@@ -39,6 +39,10 @@ white-space:nowrap;
 #msgDetailModal > tr> th{
 	width: 15%;
 }
+
+.nav_menu{
+	margin-bottom: 0;
+}
 </style>
 
 </head>

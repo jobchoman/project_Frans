@@ -14,15 +14,34 @@
 }
 
 #goToList {
-   background-color:#2A3F54;
-   border-color:#2A3F54;
-   font-size: 8pt;
+	font-size: 8pt;
 }
 
 #updateMenu {
-   font-size: 8pt;
+	background-color: #2A3F54;
+	border-color: #2A3F54;
+	font-size: 8pt;
 }
 
+.addWrap {
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: center;
+}
+
+#th {
+	font-weight: bold;
+	width: 15%;
+}
+
+#subdetaildiv{
+		display: flex;
+		justify-content: center;
+   		align-items: center;
+   		flex-direction: column;
+   		width: 80%;
+}
 </style>
 </head>
 <body class="nav-md">
@@ -35,59 +54,70 @@
 			<!-- /top navigation -->
 
 			<!-- page content -->
-			<div class="right_col" role="main">
-			
-				<table id="datatable" class="table table-striped table-bordered dataTable no-footer"
-					style="width: 100%" aria-describedby="datatable_info">
+			<div class="right_col addWrap" role="main">
+				<div id="subdetaildiv">
+				<div style="width:100%"><h3 style="float:left">구독권 정보</h3></div>
+				<br/><br/>
+				
+				<div class="table-responsive">
+				<table id="datatable" class="table table-striped table-bordered dataTable no-footer" aria-describedby="datatable_info">
 					<thead>
 						<tr>
-							<th>구독권 이름</th>
+							<td id="th">구독권 이름</td>
 							<td colspan="2">${detail.sub_name}</td>
 						</tr>
 						<c:if test="${detail.sub_sort_type eq '요일권'}">
 						<tr>
-							<th>횟수</th>
+							<td id="th">횟수</td>
 							<td colspan="2">주${detail.sub_num}회</td>
 						</tr>
 						</c:if>
 						<c:if test="${detail.sub_sort_type eq '횟수권'}">
 						<tr>
-							<th>횟수</th>
+							<td id="th">횟수</td>
 							<td colspan="2">${detail.sub_num}회권</td>
 						</tr>
 						</c:if>
 						<tr>
-							<th>구독권 가격</th>
+							<td id="th">구독권 가격</td>
 							<td colspan="2">${detail.sub_price}</td>
 						</tr>
 						<tr>
-							<th>구독권 상태</th>
+							<td id="th">구독권 상태</td>
 							<td colspan="2">${detail.sub_state}</td>
 						</tr>
 						<tr>
-							<th>구독권 기간</th>
-							<td>${detail.sub_period}개월</td>
-							<td>${detail.sub_sort_type}</td>
+							<td id="th">구독권 기간</td>
+							<td style="width:10%">${detail.sub_period}개월</td>
+							<c:if test="${detail.sub_sort_type eq '요일권'}">
+							<td style="color:#7D78FF; font-weight:bold">* ${detail.sub_sort_type}</td>
+							</c:if>
+							<c:if test="${detail.sub_sort_type eq '횟수권'}">
+							<td style="color:#8DB72A; font-weight:bold">* ${detail.sub_sort_type}</td>
+							</c:if>
 						</tr>
 						<tr>
-							<th>구독권 메뉴</th>
+							<td id="th">구독권 메뉴</td>
 							<td colspan="2">${detail.sub_menu}</td>
 						</tr>
 						<tr>
-							<th>출시일</th>
+							<td id="th">출시일</td>
 							<td colspan="2">${detail.sub_start}</td>
 						</tr>
 						<tr>
-							<th>종료일</th>
+							<td id="th">종료일</td>
 							<td colspan="2">${detail.sub_end}</td>
 						</tr>
 					</thead>
 				</table>
-			<button type="button" class="btn btn-round btn-info" id="goToList" onclick="location.href='/subList'">리스트</button>
-			<button type="button" class="btn btn-round btn-secondary" id="updateMenu" onclick="location.href='/subUpdate?sub_idx=${detail.sub_idx}'">수정하기</button>
+				</div>
+				<div id="buttons" style="width:100%">
+				<button type="button" class="btn btn-round btn-secondary" id="updateMenu" style="float:right;" onclick="location.href='/subUpdate?sub_idx=${detail.sub_idx}'">수정</button>
+				<button type="button" class="btn btn-round btn-secondary" id="goToList" style="float:right;" onclick="location.href='/subList'">리스트</button>
+				</div>
 			</div>
 			<!-- /page content -->
-
+			</div>
 		</div>
 	</div>
 	<jsp:include page="script.jsp" />

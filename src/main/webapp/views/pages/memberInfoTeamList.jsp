@@ -9,23 +9,41 @@
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <jsp:include page="css.jsp" />
 <style type="text/css">
-.btn{
-	background-color:#2A3F54;
-    border-color:#2A3F54;
-    font-size: 8pt;
+.btn {
+	background-color: #2A3F54;
+	border-color: #2A3F54;
+	font-size: 8pt;
 }
+
 .addWrap {
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-start;
-      align-items: center;
- }
-.row > .col-sm-6:first-child {
-      display: none;
-   }
- td,th{
- 	text-align: center;
- }
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: center;
+}
+
+.row>.col-sm-6:first-child {
+	display: none;
+}
+
+td, th {
+	text-align: center;
+}
+
+#datatable_info {
+	display: none;
+}
+
+#teamAddbutton {
+	background-color: #2A3F54;
+	border-color: #2A3F54;
+	font-size: 8pt;
+	display: flex;
+	float: right;
+	margin-bottom: -100%;
+	margin-right: 2%;
+	white-space: nowrap;
+}
 </style>
 </head>
 <body class="nav-md">

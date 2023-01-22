@@ -49,7 +49,7 @@ public class MemberService {
 		match = encoder.matches(emp_pw, enc_pw);
 		logger.info(emp_id+"/"+emp_pw);
 		if(match != false) {
-			page = "index";
+			page = "redirect:/main.go";
 			msg = "안녕하세요. "+emp_id+" 님";
 			session.setAttribute("loginId", loginId);
 			session.setAttribute("emp_name", emp_name);

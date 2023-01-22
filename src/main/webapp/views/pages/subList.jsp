@@ -10,8 +10,35 @@
 <jsp:include page="css.jsp" />
 <style>
 	#subRegister {
-   font-size: 8pt;
-}
+		background-color:#2A3F54;
+		border-color:#2A3F54;
+		font-size: 8pt;
+		display: flex;
+		float: right;
+	    white-space: nowrap;
+	}
+	
+	.addWrap {
+	   display: flex;
+	   flex-direction: column;
+	   justify-content: flex-start;
+	   align-items: center;
+	}
+	
+	#sublistdiv{
+		display: flex;
+		justify-content: center;
+   		align-items: center;
+   		flex-direction: column;
+   		width: 80%;
+	}
+	
+	
+	#datatable {
+		text-align: center;
+	}
+
+	
 </style>
 
 </head>
@@ -25,18 +52,22 @@
 			<!-- /top navigation -->
 
 			<!-- page content -->
-			<div class="right_col" role="main">
-				<div class="title_left">
-					<h2>메뉴 리스트</h2>
+			<div class="right_col addWrap" role="main">
+			<div id="sublistdiv">
+				<div class="title_left" style="width:100%">
+					<h2 style="float:left">구독권 리스트</h2>
 				</div>
-				<div class="row">
-				<button type="button" class="btn btn-round btn-secondary" id="ongoing" onclick="ongoingList();">진행중인 구독권</button>
-				<button type="button" class="btn btn-round btn-secondary" id="ready" onclick="readyList();">준비중인 구독권</button>
-				<button type="button" class="btn btn-round btn-secondary" id="end" onclick="endList();">종료된 구독권</button>
-				
-<!-- 					<button type="button" class="btn btn-secondary" onclick="orgChartAddEmpPopup()">직원 추가</button> -->
-					<table id="datatable" class="table table-striped table-bordered dataTable no-footer"
-						style="width: 100%" aria-describedby="datatable_info">
+				<br/>
+				<div class="row" style="width:100%">
+
+					<ul class="nav nav-tabs bar_tabs" id="myTab" role="tablist">
+						<li class="nav-item"><a class="nav-link active" id="ongoing" data-toggle="tab" role="tab" aria-selected="true" onclick="ongoingList()">진행중</a></li>
+						<li class="nav-item"><a class="nav-link" id="ready" data-toggle="tab" role="tab" aria-selected="false" onclick="readyList()">준비중</a></li>
+						<li class="nav-item"><a class="nav-link" id="end" data-toggle="tab" role="tab" aria-selected="false" onclick="endList()">종료</a></li>
+					</ul>
+				<div style="width:100%"><button type="button" class="btn btn-round btn-secondary" id="subRegister" onclick="location.href='/subRegister'">등록</button></div>
+					<!-- 					<button type="button" class="btn btn-secondary" onclick="orgChartAddEmpPopup()">직원 추가</button> -->
+					<table id="datatable" class="table table-striped table-bordered dataTable no-footer" style="width: 100%" aria-describedby="datatable_info">
 						<thead>
 							<tr>
 								<th></th>
@@ -48,8 +79,8 @@
 							</tr>
 						</thead>
 					</table>
-					<button type="button" class="btn btn-round btn-secondary" id="subRegister" onclick="location.href='/subRegister'">등록하기</button>
-
+					
+					</div>
 				</div>
 			</div>
 			<!-- /page content -->
@@ -66,6 +97,8 @@ function ongoingList() {
 	console.log(state);
 	   var table = $('#datatable').DataTable({
 	      destroy:true,
+	      "dom": 'frtp',
+	      bAutoWidth: false,
 	      serverSide: false,
 	      ajax : {
 	            "url":"/subList.do",
@@ -102,10 +135,27 @@ function ongoingList() {
 
 	            searchable: false,
 
-	            visible: true
+	            visible: false,
 
-	         }]
-
+	        },
+	        {
+	        	targets: [1],
+	            width: "18%"
+	        },
+	        {
+	        	targets: [2] , 
+	        	width: "10%",
+	        	render: $.fn.dataTable.render.number( ',' , '.' , 0 , '' , '원' )
+	        },
+	        {
+	        	targets: [4],
+	            width: "12%"
+	        },
+	        {
+	        	targets: [5],
+	            width: "12%"
+	        }
+			]
 	    });
 	   
 }   
@@ -115,6 +165,8 @@ function readyList() {
 	console.log(state);
 	   var table = $('#datatable').DataTable({
 	      destroy:true,
+	      "dom": 'frtp',
+	      bAutoWidth: false,
 	      serverSide: false,
 	      ajax : {
 	            "url":"/subList.do",
@@ -151,9 +203,28 @@ function readyList() {
 
 	            searchable: false,
 
-	            visible: true
+	            visible: false
 
-	         }]
+	         },
+	         {
+		        	targets: [1],
+		            width: "18%"
+		     },
+		     {
+		        	targets: [2] , 
+		        	width: "10%",
+		        	render: $.fn.dataTable.render.number( ',' , '.' , 0 , '' , '원' )
+		     },
+		     {
+		        	targets: [4],
+		            width: "12%"
+		     },
+		     {
+		        	targets: [5],
+		            width: "12%"
+		     }
+	         
+	        ]
 
 	    });
 	   
@@ -164,6 +235,8 @@ function endList() {
 	console.log(state);
 	   var table = $('#datatable').DataTable({
 	      destroy:true,
+	      "dom": 'frtp',
+	      bAutoWidth: false,
 	      serverSide: false,
 	      ajax : {
 	            "url":"/subList.do",
@@ -200,10 +273,27 @@ function endList() {
 
 	            searchable: false,
 
-	            visible: true
+	            visible: false
 
-	         }]
-
+	         },
+	         {
+		        	targets: [1],
+		            width: "18%"
+		     },
+		     {
+		        	targets: [2] , 
+		        	width: "10%",
+		        	render: $.fn.dataTable.render.number( ',' , '.' , 0 , '' , '원' )
+		     },
+		     {
+		        	targets: [4],
+		            width: "12%"
+		     },
+		     {
+		        	targets: [5],
+		            width: "12%"
+		     }
+		     ]
 	    });
 	   
 }

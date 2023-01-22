@@ -15,9 +15,9 @@ import com.frans.sign.dto.signMemDTO;
 @Mapper
 public interface SignDAO {
 
-	ArrayList<signDTO> signList(String team_value);
+	ArrayList<signDTO> signList(String team_value, String auth_type);
 
-	ArrayList<signDTO> dateSearch(String startdate, String enddate, String team_value);
+	ArrayList<signDTO> dateSearch(String startdate, String enddate, String team_value, String auth_type);
 
 	DocFormDTO signWriteGo(String doc_form_idx);
 
@@ -77,6 +77,50 @@ public interface SignDAO {
 	ArrayList<fileDTO> signImgUpdate(String loginId);
 
 	ArrayList<MemberDTO> selTeam(String loginId);
+
+	ArrayList<signDTO> signList_signmem(String loginId);
+
+	ArrayList<signDTO> dateSearch_signmem(String loginId, String startdate, String enddate);
+
+	ArrayList<String> auth_team(String loginId);
+
+	String auth_type(String string, String loginId);
+
+	ArrayList<signDTO> signList_refermem(String loginId);
+
+	ArrayList<signDTO> dateSearch_refermem(String loginId, String startdate, String enddate);
+
+	ArrayList<signDTO> signEndList(String team_value, String auth_type);
+
+	ArrayList<signDTO> dateSearch_endList(String startdate, String enddate, String team_value, String auth_type);
+
+	ArrayList<signDTO> signUserWriteList(String team_value, String auth_type, String loginId);
+
+	ArrayList<signDTO> dateSearch_userList(String startdate, String enddate, String team_value, String auth_type, String loginId);
+
+	ArrayList<signDTO> signList_endsignmem(String loginId);
+
+	ArrayList<signDTO> dateSearch_endsignmem(String loginId, String startdate, String enddate);
+
+	ArrayList<signDTO> signList_returnsignmem(String loginId);
+
+	ArrayList<signDTO> dateSearch_returnsignmem(String loginId, String startdate, String enddate);
+
+	String signEmp(String sign_idx);
+
+	int signMemCount(String sign_idx);
+
+	ArrayList<String> denyMemList(String sign_idx, String loginId);
+
+	ArrayList<String> denyRefMemList(String sign_idx);
+
+	ArrayList<signDTO> dateSearch_endrefermem(String loginId, String startdate, String enddate);
+
+	ArrayList<signDTO> signList_endrefermem(String loginId);
+
+	ArrayList<signDTO> signList_returnrefermem(String loginId);
+
+	ArrayList<signDTO> dateSearch_returnrefermem(String loginId, String startdate, String enddate);
 
 
 }

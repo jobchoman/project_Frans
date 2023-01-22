@@ -95,8 +95,7 @@
 								<div>
 									<table id="sign_img" style="float:right; border:1px solid lightgray">
 										<tr id="signImg_th">
-											<th rowspan="2"
-												style="writing-mode: vertical-rl; text-align: center">결재</th>
+											<th rowspan="2" style="writing-mode: vertical-rl; text-align: center">결재</th>
 											<c:forEach items="${signDoMemCnt}" var="cnt">
 												<th>${cnt.emp_name}</th>
 											</c:forEach>
@@ -139,7 +138,12 @@
 									<th scope="row">결재경로</th>
 									<td>
 										<c:forEach items="${signmemlist}" var="sign">
-											${sign.emp_name}
+											<c:if test="${fn:length(signmemlist) eq 1 || sign.sign_mem_order == fn:length(signmemlist)}">
+													${sign.emp_name}
+											</c:if>
+											<c:if test="${sign.sign_mem_order lt fn:length(signmemlist)}">
+													${sign.emp_name} - 
+											</c:if>
 										</c:forEach>
 									<td>
 								</tr>
@@ -147,7 +151,12 @@
 									<th scope="row">참조자</th>
 									<td>
 										<c:forEach items="${referlist}" var="refer">
-											${refer.emp_name}
+										<c:if test="${fn:length(referlist) eq 1}">
+													${refer.emp_name}
+											</c:if>
+											<c:if test="${fn:length(referlist) gt 1}">
+													${refer.emp_name}, 
+											</c:if>
 										</c:forEach>
 									</td>
 								</tr>

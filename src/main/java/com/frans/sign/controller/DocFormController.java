@@ -58,13 +58,15 @@ public class DocFormController {
 	
 	
 	@PostMapping(value="/docForm/write.do")
-	public String docFormWrite(DocFormDTO DocFormDTO, RedirectAttributes rAttr) {
+	public String docFormWrite(DocFormDTO DocFormDTO, RedirectAttributes rAttr, HttpServletRequest req) {
 		logger.info("서식 작성 컨트롤러");
 		logger.info("서식 이름: "+DocFormDTO.getDoc_form_name());
 		logger.info("문서 종류: "+DocFormDTO.getDoc_type_idx());
+		HttpSession session = req.getSession();
+		String loginId = (String) session.getAttribute("loginId");
 //		logger.info("작성자: "+DocFormDTO.getEmp_name());
 		
-		return docformservice.docFormWrite(DocFormDTO, rAttr);
+		return docformservice.docFormWrite(DocFormDTO, rAttr, loginId);
 	}
 	
 	@GetMapping(value="/docFormDetail.go")

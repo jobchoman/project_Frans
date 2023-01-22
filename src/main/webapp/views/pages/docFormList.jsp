@@ -32,9 +32,7 @@
 	}
 	
 	#docFormDelBtn {
-		background-color:#2A3F54;
-		border-color:#2A3F54;
-		font-size: 9pt;
+		font-size: 8pt;
 	}
 	
 	#docFormSearchBtn {
@@ -68,6 +66,20 @@
 		width: 100%;
 	}
 	
+	#docform {
+		width:100%;
+		white-space: nowrap;
+		text-align: center;
+		border: none;
+	}
+	
+	#lineup, #doc_type {
+		float: right;
+	    width: auto;
+	    font-size: 9pt;
+	    margin-right: 1%;
+	}
+	
 </style>
 </head>
 <body class="nav-md">
@@ -81,38 +93,42 @@
 
 			<!-- page content -->
 			<div class="right_col addWrap" role="main">
-			<div id="docformdiv">
+			<div id="docformdiv" style="white-space: nowrap">
 			<div class="table-responsive">
 				<div style="width:100%"><h3 style="float:left">결재 문서 양식</h3></div>
+				<br/><br/>
 				<input type="hidden" value="${auth_type}" id="auth_type"/>
- 				<div style="width:100%">
-				
-				<select id="lineup" style="float: right" onchange="listCall(doc_type,lineup)">
-					<option value="최신순" selected="selected">최신순</option>
-					<option value="조회수">조회수</option>
-					<option value="사용수">사용수</option>
-				</select>
-				
-				<select id="doc_type" name="doc_type" style="float: right" onchange="listCall(doc_type,lineup)">
-					<option value="all" selected="selected">전체</option>
-					<option value="DT001">품의서</option>
-					<option value="DT002">지출결의서</option>
-					<option value="DT003">세금계산서</option>
-					<option value="DT004">전표</option>
-					<option value="DT005">기안서</option>
-					<option value="DT006">제안서</option>
-					<option value="DT007">보고서</option>
-				</select>
-				
-				<button type="button" onclick="location.href='/docFormWrite.go'" class="btn btn-round btn-info" id="docformbtn" style="float:right">양식작성</button>
-				</div> 
-				
-					<table id="docform" class="table table-striped table-bordered bulk_action" style="width:100%">
+						<div>
+						
+							<div class="container">
+								<div class="form-group">
+									<select id="lineup" class="form-control" style="float: right" onchange="listCall(doc_type,lineup)">
+										<option value="최신순" selected="selected">최신순</option>
+										<option value="조회수">조회수</option>
+										<option value="사용수">사용수</option>
+									</select>
+									<select id="doc_type" class="form-control" name="doc_type" style="float: right" onchange="listCall(doc_type,lineup)">
+										<option value="all" selected="selected">전체</option>
+										<option value="DT001">품의서</option>
+										<option value="DT002">지출결의서</option>
+										<option value="DT003">세금계산서</option>
+										<option value="DT004">전표</option>
+										<option value="DT005">기안서</option>
+										<option value="DT006">제안서</option>
+										<option value="DT007">보고서</option>
+									</select>
+
+									<button type="button" onclick="location.href='/docFormWrite.go'" class="btn btn-round btn-info" id="docformbtn" style="float: right;margin-top: auto">양식작성</button>
+								</div>
+							</div>
+						</div>
+
+						<table id="docform" class="table table-striped table-bordered bulk_action" style="width:100%">
 						
 						<thead>
 						<tr class="headings">
 						<%-- <c:if test="${auth_type ne '2'}"> --%>
-							<th><input type="checkbox" id="check-all" class="flat"></th>
+							<th style="width:5%"]><input type="checkbox" id="check-all" class="flat"></th>
 						<%-- </c:if> --%>
 							<th>양식 종류</th>
 							<th>제목</th>
@@ -127,8 +143,9 @@
 						</tbody> -->
 					</table>
 					<!-- <button type="button" onclick="docFormDelete()" class="btn btn-round btn-info" id="docFormDelBtn" style="float:left">삭제</button> -->
-					 
-					<button type="button" class="btn btn-round btn-info" data-toggle="modal" data-target=".bs-example-modal-sm" id="docFormDelBtn" style="float:left">삭제</button>
+					<c:if test="${auth_type ne '2'}">
+					<button type="button" class="btn btn-round btn-secondary" data-toggle="modal" data-target=".bs-example-modal-sm" id="docFormDelBtn" style="float:left">삭제</button>
+					</c:if>
 					<div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-hidden="true">
 						<div class="modal-dialog modal-sm">
   							<div class="modal-content">
@@ -275,7 +292,7 @@ function listCall(doc_type,lineup) {
 
 					searchable : false,
 
-					visible : true,
+					visible : true
 					
 /* 					render : function(data, type, row) {
 						if(auth_type != '2'){

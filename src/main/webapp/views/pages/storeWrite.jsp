@@ -38,7 +38,8 @@
 	  background-position: 10px 10px;
 	  background-repeat: no-repeat;
 	  width: 100%;
-	  font-size: 16px;
+	  height: 20%;
+	  font-size: 12px;
 	  padding: 12px 20px 12px 40px;
 	  border: 1px solid #ddd;
 	  margin-bottom: 12px;
@@ -48,11 +49,11 @@
 	  border-collapse: collapse;
 	  width: 100%;
 	  border: none;
-	  font-size: 11px;
+	  font-size: 12px;
 	}
 	
 	#myTable th, #myTable td {
-	  text-align: left;
+	  text-align: center;
 	  padding: 12px;
 	}
 	
@@ -68,6 +69,10 @@
 		background-color:#2A3F54;
 		border-color:#2A3F54;
 		font-size: 8pt;
+	}
+	
+	#shopRegist{
+		width: 65%;
 	}
 
 </style>
@@ -119,8 +124,8 @@
 												<input type="text" class="form-control" id="address" onclick="shopAddr()" placeholder="주소"><br>
 												
 												<div style="display:inline; float:left; width:50%"><input type="text" class="form-control" name="detailAddress" id="detailAddress" placeholder="상세주소"></div>
-												
-												<div style="float:right; width:50%"><input type="text" class="form-control" id="extraAddress" placeholder="참고항목"></div>
+												<div style="float:right; width:48%"><input type="text" class="form-control" id="extraAddress" placeholder="참고항목"></div>
+												<br/><br/>
 												<input type="hidden" id="sido" name="sido"/>
 												<input type="hidden" id="sigungu" name="sigungu"/>
 												<input type="hidden" id="roadname" name="roadname"/>
@@ -128,7 +133,8 @@
 												<input type="hidden" id="lat" name="lat"/>
 												<input type="hidden" id="lon" name="lon"/>
 												<input type="hidden" id="fullAddr" name="fullAddr"/>
-												<div id="map" style="width:300px;height:300px;margin-top:10px"></div>
+												
+												<div id="map" style="width:500px;height:300px;margin-top:10px"></div>
 												<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=871ee99d1a335f5263332d5425015004&libraries=services,clusterer,drawing"></script>
 											</div>
 											</td>
@@ -142,7 +148,7 @@
 											<td><input type="number" class="form-control" name="shop_space" id="shop_space" /></td>
 										</tr>
 										<tr><th colspan="2">
-											<button type="submit" class="btn btn-round btn-info" id="shop_regist" style="float:right">등록</button>
+											<button type="button" onclick="submitConfirm()" class="btn btn-round btn-info" id="shop_regist" style="float:right">등록</button>
 										</th></tr>
 									</table>
 
@@ -152,18 +158,20 @@
 					</form>
 				</div>
 			</div>
-			
-			
+
+
 			<!-- modal -->
-				<div class="modal fade bs-example-modal-sm" id="searchManager" tabindex="-1" role="dialog" aria-hidden="true">
-					<div class="modal-dialog modal-sm">
-	  					<div class="modal-content">
-	  						<div class="modal-header">
-	     						<h5 class="modal-title" id="searchManagerLabel">점장 검색</h5>
-	     						<input type="hidden" >
-	      						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-	    					</div>
-							<div class="modal-body">
+			<div class="modal fade bs-example-modal-sm" id="searchManager" tabindex="-1" role="dialog" aria-hidden="true">
+				<div class="modal-dialog modal-sm">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="searchManagerLabel">점장 검색</h5>
+							<input type="hidden">
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">×</span>
+							</button>
+						</div>
+						<div class="modal-body">
 							<div>
 								<input type="text" id="myInput" onkeyup="myFunction()" placeholder="이름을 입력하세요" title="Type in a name">
 
@@ -181,14 +189,36 @@
 								</table>
 							</div>
 						</div>
+					</div>
+				</div>
+			</div>
+			<!-- /modal -->
+			<!-- modal -->
+			<div class="modal fade bs-example-modal-sm" id="storeSubmit" tabindex="-1" role="dialog" aria-hidden="true">
+				<div class="modal-dialog modal-sm">
+					<div class="modal-content">
+						<div class="modal-header">
+
+							<input type="hidden">
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">×</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							<h6>등록하시겠습니까?</h6>
+						</div>
+						<div class="modal-footer">
+							<button type="button" onclick = "modalClose()" class="btn btn-secondary" data-dismiss="modal" style="font-size:9pt">취소</button>
+							<button type="submit" class="btn btn-primary" data-dismiss="modal" style="font-size:9pt">확인</button>
+						</div>
 						</div>
 					</div>
 				</div>
-				<!-- /modal -->
+			</div>
+			<!-- /modal -->
 			<!-- /page content -->
 
 		</div>
-	</div>
 	<jsp:include page="script.jsp" />
 </body>
 <script>
@@ -350,6 +380,13 @@ function managerSel(mgr){
 	
 } 
 
+function submitConfirm(){
+	$('#storeSubmit').modal('show');
+}
+
+function modalClose(){
+	$('#storeSubmit').modal('hide');
+}
 
 </script>
 </html>

@@ -21,7 +21,8 @@
 	   align-items: center;
 	}
 	
-	#formWritediv{
+	#formWritediv {
+		display: flex;
 		justify-content: center;
    		align-items: center;
    		flex-direction: column;
@@ -32,6 +33,7 @@
 	th {
 		display: inline-block;
 		white-space: nowrap;
+		vertical-align: middle;
 	}
 	
 	#savebtn {
@@ -75,7 +77,8 @@
 								<tr>
 									<th scope="row">문서 종류</th>
 									<td>
-									<select id="doc_type" name="doc_type_idx">
+									<div class="form-group">
+									<select id="doc_type" class="form-control" name="doc_type_idx" style="width:15%">
 										<option value="select" selected="selected" hidden="" disabled="disabled">선택</option>
 										<option value="DT001">품의서</option>
 										<option value="DT002">지출결의서</option>
@@ -85,6 +88,7 @@
 										<option value="DT006">제안서</option>
 										<option value="DT007">보고서</option>
 									</select>
+									</div>
 									</td>
 								</tr>
 <!-- 								<tr>

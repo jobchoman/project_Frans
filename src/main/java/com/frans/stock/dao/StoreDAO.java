@@ -1,6 +1,7 @@
 package com.frans.stock.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.web.servlet.ModelAndView;
@@ -29,6 +30,12 @@ public interface StoreDAO {
 
 	int storeUpdateDo(String sign_idx, String emp_id, String shop_name, String shop_space, String shop_emp_num,
 			String shop_contact, String shop_location, String shop_lat, String shop_lon, int province_id, int city_id);
+
+	ArrayList<StoreDTO> storeFilter(String idx);
+
+	ArrayList<HashMap<String, Object>> provinceListCall();
+
+	ArrayList<HashMap<String, Object>> cityListCall(int idx);
 
 
 }

@@ -77,6 +77,12 @@
 		display: none;
 	}
 	
+	.form-control{
+		width: 20%;
+		font-size: 9pt;
+		display: inline;
+	}
+	
 </style>
 </head>
 <body class="nav-md">
@@ -111,11 +117,13 @@
 								<tr>
 									<th scope="row">공개 여부</th>
 									<td>
-									<select id="team_open" name="sign_team_open">
+									<div class="form-group">
+									<select id="team_open" class="form-control" name="sign_team_open" style="width:10%">
 										<option value="select" selected="selected" hidden="" disabled="disabled">선택</option>
 										<option value="공개">공개</option>
 										<option value="비공개">비공개</option>
 									</select>
+									</div>
 									</td>
 								</tr>
 								<tr>
@@ -132,7 +140,7 @@
 									      <div id="sign">
 									         <div id="emp1">
 									         	<!-- <input type="text" class="empName1" name="empName1" id="empName1" placeholder="사원 검색" onclick="empSearch_popup(event)" readonly> -->
-									            <input type="text" class="empName1" name="empName" id="empName1" placeholder="사원 검색" onclick="empSearch_popup(event)" readonly>
+									            <input type="text" class="empName1 form-control" name="empName" id="empName1" placeholder="사원 검색" onclick="empSearch_popup(event)" readonly>
 									            <input class="empIdx_input1" name="empIdx_input" readonly="readonly" type="hidden" />
 									            <button type="button" id="addSignEmp" name="addSignEmp" onclick="clickP()" class="btn btn-round btn-info">+</button>
 									         </div>
@@ -145,7 +153,7 @@
 										<div id="ref">
 									         <div id="ref_emp1">
 									         	<!-- <input type="text" class="empName1" name="empName1" id="empName1" placeholder="사원 검색" onclick="empSearch_popup(event)" readonly> -->
-									            <input type="text" class="ref_empName1" name="ref_empName" id="ref_empName1" placeholder="사원 검색" onclick="empSearch_popup(event)" readonly>
+									            <input type="text" class="ref_empName1 form-control" name="ref_empName" id="ref_empName1" placeholder="사원 검색" onclick="empSearch_popup(event)" readonly>
 									            <input class="ref_empIdx_input1" name="ref_empIdx_input" value="없음" readonly="readonly" type="hidden" />
 									            <button type="button" id="addRefEmp" name="addRefEmp" onclick="addRef()" class="btn btn-round btn-info">+</button>
 									         </div>
@@ -154,7 +162,7 @@
 								</tr>
 								<tr>
 									<th scope="row">제목</th>
-									<td><input type="text" name="sign_title" placeholder="제목을 입력하세요." style="width:50%"></td>
+									<td><input type="text" name="sign_title" class="form-control" placeholder="제목을 입력하세요." style="width:50%"></td>
 								</tr>
 								<tr>
 									<th scope="row">내용</th>
@@ -260,7 +268,7 @@ function clickP(){
 	console.log(cnt);
 	if (cnt<5){
 		addSign += '<div class="emp'+(cnt+1)+'">';
-		addSign += '<input type="text" class="empName'+(cnt+1)+'" name="empName" id="empName'+(cnt+1)+'" placeholder="사원 검색" onclick="empSearch_popup(event);" readonly>';
+		addSign += '<input type="text" class="empName'+(cnt+1)+' form-control" name="empName" id="empName'+(cnt+1)+'" placeholder="사원 검색" onclick="empSearch_popup(event);" readonly>';
 		addSign += '<input class="empIdx_input'+(cnt+1)+'" name="empIdx_input" readonly="readonly" type="hidden" />';
 		addSign += '<button type="button" id="delEmp'+(cnt+1)+'" class="btn btn-round btn-secondary">-</button>';
 		addSign += '</div>';
@@ -276,7 +284,7 @@ function addRef(){
 	console.log(cnt);
 	if (cnt<5){
 		addInput += '<div class="ref_emp'+(cnt+1)+'">';
-		addInput += '<input type="text" class="ref_empName'+(cnt+1)+'" name="ref_empName" id="ref_empName'+(cnt+1)+'" placeholder="사원 검색" onclick="empSearch_popup(event);" readonly>';
+		addInput += '<input type="text" class="ref_empName'+(cnt+1)+' form-control" name="ref_empName" id="ref_empName'+(cnt+1)+'" placeholder="사원 검색" onclick="empSearch_popup(event);" readonly>';
 		addInput += '<input class="ref_empIdx_input'+(cnt+1)+'" name="ref_empIdx_input" readonly="readonly" type="hidden" />';
 		addInput += '<button type="button" id="delRef'+(cnt+1)+'" class="btn btn-round btn-secondary">-</button>';
 		addInput += '</div>';
@@ -418,7 +426,7 @@ $(document).on("click","#delEmp2",function(){
    
 	for(var i=0; i<3; i++){
 		$(".emp"+(i+3)).attr("class","emp"+(i+2));
-		$(".empName"+(i+3)).attr("class","empName"+(i+2));
+		$(".empName"+(i+3)).attr("class","empName"+(i+2)+" form-control");
 		$("#empName"+(i+3)).attr("id","empName"+(i+2));
 		$(".empIdx_input"+(i+3)).attr("class","empIdx_input"+(i+2));
 		$("#delEmp"+(i+3)).attr("id","delEmp"+(i+2));
@@ -430,7 +438,7 @@ $(document).on("click","#delEmp3",function(){
 	   
 	for(var i=0; i<2; i++){
 		$(".emp"+(i+4)).attr("class","emp"+(i+3));
-		$(".empName"+(i+4)).attr("class","empName"+(i+3));
+		$(".empName"+(i+4)).attr("class","empName"+(i+3)+" form-control");
 		$("#empName"+(i+4)).attr("id","empName"+(i+3));
 		$(".empIdx_input"+(i+4)).attr("class","empIdx_input"+(i+3));
 		$("#delEmp"+(i+4)).attr("id","delEmp"+(i+3));
@@ -441,7 +449,7 @@ $(document).on("click","#delEmp4",function(){
 	$('.emp4').remove();
 	var i = 0;	   
 		$(".emp"+(i+5)).attr("class","emp"+(i+4));
-		$(".empName"+(i+5)).attr("class","empName"+(i+4));
+		$(".empName"+(i+5)).attr("class","empName"+(i+4)+" form-control");
 		$("#empName"+(i+5)).attr("id","empName"+(i+4));
 		$(".empIdx_input"+(i+5)).attr("class","empIdx_input"+(i+4));
 		$("#delEmp"+(i+5)).attr("id","delEmp"+(i+4));
@@ -460,7 +468,7 @@ $(document).on("click","#delRef2",function(){
    
 	for(var i=0; i<3; i++){
 		$(".ref_emp"+(i+3)).attr("class","ref_emp"+(i+2));
-		$(".ref_empName"+(i+3)).attr("class","ref_empName"+(i+2));
+		$(".ref_empName"+(i+3)).attr("class","ref_empName"+(i+2)+" form-control");
 		$("#ref_empName"+(i+3)).attr("id","ref_empName"+(i+2));
 		$(".ref_empIdx_input"+(i+3)).attr("class","ref_empIdx_input"+(i+2));
 		$("#delRef"+(i+3)).attr("id","delRef"+(i+2));
@@ -472,7 +480,7 @@ $(document).on("click","#delRef3",function(){
 	   
 	for(var i=0; i<2; i++){
 		$(".ref_emp"+(i+4)).attr("class","ref_emp"+(i+3));
-		$(".ref_empName"+(i+4)).attr("class","ref_empName"+(i+3));
+		$(".ref_empName"+(i+4)).attr("class","ref_empName"+(i+3)+" form-control");
 		$("#ref_empName"+(i+4)).attr("id","ref_empName"+(i+3));
 		$(".ref_empIdx_input"+(i+4)).attr("class","ref_empIdx_input"+(i+3));
 		$("#delRef"+(i+4)).attr("id","delRef"+(i+3));
@@ -483,7 +491,7 @@ $(document).on("click","#delRef4",function(){
 	$('.ref_emp4').remove();
 	var i = 0;	   
 		$(".ref_emp"+(i+5)).attr("class","ref_emp"+(i+4));
-		$(".ref_empName"+(i+5)).attr("class","ref_empName"+(i+4));
+		$(".ref_empName"+(i+5)).attr("class","ref_empName"+(i+4)+" form-control");
 		$("#ref_empName"+(i+5)).attr("id","ref_empName"+(i+4));
 		$(".ref_empIdx_input"+(i+5)).attr("class","ref_empIdx_input"+(i+4));
 		$("#delRef"+(i+5)).attr("id","delRef"+(i+4));

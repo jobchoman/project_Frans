@@ -11,7 +11,6 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.apache.ibatis.binding.MapperMethod.ParamMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,27 +40,63 @@ public class SignController {
 	
 	
 	/* 결재 문서 리스트 */
+
 	@GetMapping(value="/signList.go")
 	public HashMap<String, Object> signListGo(HttpServletRequest req){
 		HttpSession session = req.getSession();
 		String loginId = (String) session.getAttribute("loginId");
-		
 		return signservice.signListGo(loginId);
 	}
 	
+	// 전체
 	@ResponseBody
 	@GetMapping(value="/sign/list.do")
-	public HashMap<String, Object> signList(@RequestParam HashMap<String, String> params){
+	public HashMap<String, Object> signList(@RequestParam HashMap<String, String> params, HttpServletRequest req){
 		logger.info("결재 문서 리스트 컨트롤러");
+		HttpSession session = req.getSession();
+		String loginId = (String) session.getAttribute("loginId");
 		String date1 = params.get("date1");
 		String date2 = params.get("date2");
 		String team_value = params.get("team_value");
 		logger.info("시작일: "+date1+"종료일"+date2);
 		logger.info("팀 이름: "+team_value);
 
-		return signservice.signList(date1,date2,team_value);
+		return signservice.signList(date1,date2,team_value,loginId);
 	}
 	
+	// 결재완료
+	@ResponseBody
+	@GetMapping(value="/sign/endList.do")
+	public HashMap<String, Object> signEndList(@RequestParam HashMap<String, String> params, HttpServletRequest req){
+		logger.info("결재완료 문서 리스트 컨트롤러");
+		HttpSession session = req.getSession();
+		String loginId = (String) session.getAttribute("loginId");
+		String date1 = params.get("date1");
+		String date2 = params.get("date2");
+		String team_value = params.get("team_value");
+		logger.info("시작일: "+date1+"종료일"+date2);
+		logger.info("팀 이름: "+team_value);
+
+		return signservice.signEndList(date1,date2,team_value,loginId);
+	}
+	
+	// 내가 작성한 문서
+	@ResponseBody
+	@GetMapping(value="/sign/userWriteList.do")
+	public HashMap<String, Object> signUserWriteList(@RequestParam HashMap<String, String> params, HttpServletRequest req){
+		logger.info("내 결재 문서 리스트 컨트롤러");
+		HttpSession session = req.getSession();
+		String loginId = (String) session.getAttribute("loginId");
+		String date1 = params.get("date1");
+		String date2 = params.get("date2");
+		String team_value = params.get("team_value");
+		logger.info("시작일: "+date1+"종료일"+date2);
+		logger.info("팀 이름: "+team_value);
+
+		return signservice.signUserWriteList(date1,date2,team_value,loginId);
+	}
+	
+	/*
 	@ResponseBody
 	@GetMapping(value="/sign/dateSearch.do")
 	public HashMap<String, Object> dateSearch(@RequestParam HashMap<String, String> params){
@@ -74,6 +109,7 @@ public class SignController {
 		
 		return signservice.dateSearch(date1,date2,team_value);
 	}
+	*/
 	
 	@GetMapping(value="/signWrite.go")
 	public ModelAndView signWriteGo(@RequestParam String doc_form_idx, HttpServletRequest req){
@@ -113,17 +149,29 @@ public class SignController {
 		return signservice.signDetailGo(sign_idx, loginId, admin_type);
 	}
 	
-	   @GetMapping(value="/signDetailTest.do")
-	   public String signDetailTest(String sign_idx, HttpServletRequest req) {
-	      HttpSession session = req.getSession();
-	      String loginId = (String) session.getAttribute("loginId");
-	      logger.info("결재 문서 상세페이지 컨트롤러");
-	      logger.info("글 idx: "+sign_idx);
-	      
-	      signservice.signDetailTest(sign_idx, loginId);
-	      
-	      return "redirect:/signDetail.go?sign_idx="+sign_idx;
-	   }
+	@GetMapping(value = "/signDetailTest.do")
+	public String signDetailTest(String sign_idx, HttpServletRequest req) {
+		HttpSession session = req.getSession();
+		String loginId = (String) session.getAttribute("loginId");
+		logger.info("결재 문서 상세페이지 컨트롤러");
+		logger.info("글 idx: " + sign_idx);
+
+		signservice.signDetailTest(sign_idx, loginId);
+
+		return "redirect:/signDetail.go?sign_idx=" + sign_idx;
+	}
+
+	@GetMapping(value = "/signDenyDetail.do")
+	public String signDenyDetail(String sign_idx, HttpServletRequest req) {
+		HttpSession session = req.getSession();
+		String loginId = (String) session.getAttribute("loginId");
+		logger.info("반려 문서 상세페이지 컨트롤러");
+		logger.info("글 idx: " + sign_idx);
+
+		signservice.signDenyDetail(sign_idx, loginId);
+
+		return "redirect:/signDetail.go?sign_idx=" + sign_idx;
+	}
 	
 	@ResponseBody
 	@GetMapping(value="/sign.do")
@@ -194,6 +242,87 @@ public class SignController {
 		
 		return new ResponseEntity<Resource>(resource,header,HttpStatus.OK); // (body, header, 서버에서 잘 받음)
 	}
+	
+	
+	
+	/* 결재자 문서 리스트 */
+	
+	// 결재전
+	@ResponseBody
+	@GetMapping(value="/sign/list_signmem.do")
+	public HashMap<String, Object> dateSearch_signmem(HttpServletRequest req, @RequestParam HashMap<String, String> params){
+		HttpSession session = req.getSession();
+		String loginId = (String) session.getAttribute("loginId");
+		logger.info("결재자 문서 컨트롤러");
+		String date1 = params.get("date1");
+		String date2 = params.get("date2");
+		logger.info("시작일: "+date1+"종료일"+date2);
+
+		return signservice.dateSearch_signmem(loginId,date1,date2);
+	}
+	
+	// 결재완료
+	@ResponseBody
+	@GetMapping(value="/sign/list_endsignmem.do")
+	public HashMap<String, Object> dateSearch_endsignmem(HttpServletRequest req, @RequestParam HashMap<String, String> params){
+		HttpSession session = req.getSession();
+		String loginId = (String) session.getAttribute("loginId");
+		logger.info("결재자 문서 컨트롤러");
+		String date1 = params.get("date1");
+		String date2 = params.get("date2");
+		logger.info("시작일: "+date1+"종료일"+date2);
+
+		return signservice.dateSearch_endsignmem(loginId,date1,date2);
+	}
+	// 반려
+	@ResponseBody
+	@GetMapping(value="/sign/list_returnsignmem.do")
+	public HashMap<String, Object> dateSearch_returnsignmem(HttpServletRequest req, @RequestParam HashMap<String, String> params){
+		HttpSession session = req.getSession();
+		String loginId = (String) session.getAttribute("loginId");
+		logger.info("결재자 문서 컨트롤러");
+		String date1 = params.get("date1");
+		String date2 = params.get("date2");
+		logger.info("시작일: "+date1+"종료일"+date2);
+
+		return signservice.dateSearch_returnsignmem(loginId,date1,date2);
+	}
+	
+	/* 참조자 문서 리스트 */
+	
+	@ResponseBody
+	@GetMapping(value="/sign/list_refermem.do")
+	public HashMap<String, Object> dateSearch_refermem(HttpServletRequest req, @RequestParam HashMap<String, String> params){
+		HttpSession session = req.getSession();
+		String loginId = (String) session.getAttribute("loginId");
+		logger.info("참조자 문서 컨트롤러");
+		String date1 = params.get("date1");
+		String date2 = params.get("date2");
+		logger.info("시작일: "+date1+"종료일"+date2);
+
+		return signservice.dateSearch_refermem(loginId,date1,date2);
+	}
+	
+	@ResponseBody
+	@GetMapping(value="/sign/endlist_refermem.do")
+	public HashMap<String, Object> dateSearch_endrefermem(HttpServletRequest req, @RequestParam HashMap<String, String> params){
+		HttpSession session = req.getSession();
+		String loginId = (String) session.getAttribute("loginId");
+		String date1 = params.get("date1");
+		String date2 = params.get("date2");
+		return signservice.dateSearch_endrefermem(loginId,date1,date2);
+	}
+	
+	@ResponseBody
+	@GetMapping(value="/sign/returnlist_refermem.do")
+	public HashMap<String, Object> dateSearch_returnrefermem(HttpServletRequest req, @RequestParam HashMap<String, String> params){
+		HttpSession session = req.getSession();
+		String loginId = (String) session.getAttribute("loginId");
+		String date1 = params.get("date1");
+		String date2 = params.get("date2");
+		return signservice.dateSearch_returnrefermem(loginId,date1,date2);
+	}
+	
 }
 
 

@@ -95,13 +95,10 @@
     }
 	#makeChart {
    		font-size: 8pt;
-   		margin-left: 20px;
+   		margin-left: 5%;
+   		background-color:#2A3F54;
+		border-color:#2A3F54;
    	}
-   		
-   		
-   		
-   		
-   		
    	.statoption2 {
 		float:left;
 		text-align: center;
@@ -161,7 +158,9 @@
     }
 	#makeChart2 {
    		font-size: 8pt;
-   		margin-left: 20px;	
+   		margin-left: 5%;
+   		background-color:#2A3F54;
+		border-color:#2A3F54;	
 }  
    	.statoption3 {
 		float:left;
@@ -222,8 +221,20 @@
     }
 	#makeChart3 {
    		font-size: 8pt;
-   		margin-left: 20px;	
+   		margin-left: 5%;
+   		background-color:#2A3F54;
+		border-color:#2A3F54;
 	}  
+	.addWrap {
+	   display: flex;
+	   flex-direction: column;
+	   justify-content: flex-start;
+	   align-items: center;
+	}
+	#month, #month2, #month3 {
+		justify-content: left;
+   		display: flex;
+	}
 </style>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@3.8.0/dist/chart.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
@@ -238,7 +249,7 @@
 			<!-- /top navigation -->
 
 			<!-- page content -->
-			<div class="right_col" id="sizeControll" role="main">
+			<div class="right_col addWrap" id="sizeControll" role="main">
 
 			
 
@@ -303,7 +314,7 @@
 				
 				
 				<div class="col-md-9 col-sm-9 ">
-					<div class="item form-group">
+					<div class="item form-group" style="white-space: nowrap; width:100%">
 					<div class="statoption" id="province" data-toggle="modal" data-target=".provinceModal" style="min-height: 30px; cursor: pointer;" >
 						<span id="provinceTitle">시도</span>
 					</div>
@@ -316,18 +327,18 @@
 						<span id="shopTitle">매장</span>
 					</div>
 					<div id="sh_idx"></div>
-					<div class="statoption" id="year">
+					<div class="statoption" id="year" style="width:25%">
 						<div style="float:right;">
-				          <select name="year">
+				          <select name="year" class="form-control" style="white-space: nowrap; font-size:9pt">
 				            <option value="noYear">년도</option>
 				            <option value="2022">2022</option>
 				            <option value="2023">2023</option>
 				          </select>
 				        </div>
 				     </div>
-				     <div class="statoption" id="month">
+				     <div class="statoption" id="month" style="width:15%">
 						<div style="float:right;">
-				          <select name="month">
+				          <select name="month" class="form-control" style="white-space: nowrap; font-size:9pt">
 				            <option value="noMonth">월</option>
 				            <option value="01">1월</option>
 				            <option value="02">2월</option>
@@ -344,53 +355,62 @@
 				          </select>
 				        </div>
 					</div>
-					<div class="statoption" style="min-height: 30px;">
+					<div class="statoption" style="min-height: 30px; width:10%; margin-left:3%">
 						<div class="radio" style="float:left;">
 							<label>
-								<input type="radio" checked="" value="genderAll" id="genderRadio1" name="optionsRadios"> 전체
+								<input type="radio" class="flat" checked="" value="genderAll" id="genderRadio1" name="optionsRadios"> 전체
 								&nbsp; 
 							</label>
 						</div>
 						<div class="radio" style="float:left;">
 							<label>
-								<input type="radio" value="man" id="genderRadio2" name="optionsRadios"> 남자
+								<input type="radio" class="flat" value="man" id="genderRadio2" name="optionsRadios"> 남자
 								&nbsp;
 							</label>
 						</div>
 						<div class="radio" style="float:left;">
 							<label>
-								<input type="radio" value="woman" id="genderRadio3" name="optionsRadios"> 여자
+								<input type="radio" class="flat" value="woman" id="genderRadio3" name="optionsRadios"> 여자
 								&nbsp; 
 							</label>
 						</div>
 					</div>
 					<div class="statoption" style="min-height: 30px;">
+					
+					<div style="width:10%">
 						<div class="radio" style="float:left;">
 							<label>
-								<input type="radio" checked="" value="subAll" id="subRadio1" name="iCheck"> 전체
+								<input type="radio" class="flat" checked="" value="subAll" id="subRadio1" name="iCheck"> 전체
 								&nbsp; 
 							</label>
 						</div>
 						<div class="radio" style="float:left;">
 							<label>
-								<input type="radio" value="0" id="subRadio2" name="iCheck"> 횟수권
+								<input type="radio" class="flat" value="0" id="subRadio2" name="iCheck"> 횟수권
 								&nbsp;
 							</label>
 						</div>
 						<div class="radio" style="float:left;">
 							<label>
-								<input type="radio" value="1" id="subRadio3" name="iCheck"> 요일권
+								<input type="radio" class="flat" value="1" id="subRadio3" name="iCheck"> 요일권
 								&nbsp; 
 							</label>
+							</div>
+							</div>
 						</div>
-						<div class="select_box" style="float:left;">
-					    	<select id="subList" name="subSelect">
-					            
-					    	</select>
+						
+						<div class="statoption" style="min-height: 30px; margin-right: 10%">
+							<div style=" float:left">
+							<div class="select_box" style="float:left;">
+						    	<select id="subList" name="subSelect" class="form-control" style="white-space: nowrap; font-size:9pt; width:100%">
+						            
+						    	</select>
 						</div>
-						<button type="button"  onclick="makeChart();" class="btn btn-round btn-secondary" id="makeChart">차트 만들기</button>
+						<button type="button"  onclick="makeChart();" class="btn btn-round btn-secondary" id="makeChart">차트 생성</button>
+						</div>
 					</div>
-				</div>	
+				</div>
+					
 
 			
                 <div class="x_panel">
@@ -526,7 +546,7 @@
 				
 				
 				<div class="col-md-9 col-sm-9 ">
-					<div class="item form-group">
+					<div class="item form-group" style="white-space: nowrap; width:100%">
 					<div class="statoption2" id="province2" data-toggle="modal" data-target=".provinceModal2" style="min-height: 30px; cursor: pointer;" >
 						<span id="provinceTitle2">시도</span>
 					</div>
@@ -539,17 +559,17 @@
 						<span id="shopTitle2">매장</span>
 					</div>
 					<div id="sh_idx2"></div>
-					<div class="statoption2" id="year2">
+					<div class="statoption2" id="year2" style="width:25%"> 
 						<div style="float:right;">
-				          <select name="year2">
+				          <select name="year2" class="form-control" style="white-space: nowrap; font-size:9pt">
 				            <option value="2022">2022</option>
 				            <option value="2023">2023</option>
 				          </select>
 				        </div>
 				     </div>
-				     <div class="statoption2" id="month2">
+				     <div class="statoption2" id="month2" style="width:15%">
 						<div style="float:right;">
-				          <select name="month2">
+				          <select name="month2" class="form-control" style="white-space: nowrap; font-size:9pt">
 				            <option value="noMonth">월</option>
 				            <option value="01">1월</option>
 				            <option value="02">2월</option>
@@ -567,34 +587,38 @@
 				        </div>
 					</div>
 					
-					<div class="statoption2" style="min-height: 30px;">
+					<div class="statoption2" style="min-height: 30px; width:10%; margin-left:3%">
 						<div class="radio" style="float:left;">
 							<label>
-								<input type="radio" checked="" value="subAll" id="subRadio4" name="iCheck2"> 전체
+								<input type="radio" class="flat" checked="" value="subAll" id="subRadio4" name="iCheck2"> 전체
 								&nbsp; 
 							</label>
 						</div>
 						<div class="radio" style="float:left;">
 							<label>
-								<input type="radio" value="0" id="subRadio5" name="iCheck2"> 횟수권
+								<input type="radio" class="flat" value="0" id="subRadio5" name="iCheck2"> 횟수권
 								&nbsp;
 							</label>
 						</div>
 						<div class="radio" style="float:left;">
 							<label>
-								<input type="radio" value="1" id="subRadio6" name="iCheck2"> 요일권
+								<input type="radio" class="flat" value="1" id="subRadio6" name="iCheck2"> 요일권
 								&nbsp; 
 							</label>
 						</div>
+						</div>
+					
+					<div class="statoption" style="min-height: 30px; margin-right: 10%">
+						<div style=" float:left">
 						<div class="select_box" style="float:left;">
-					    	<select id="subList2" name="subSelect2">
+					    	<select id="subList2" name="subSelect2" class="form-control" style="white-space: nowrap; font-size:9pt">
 					            
 					    	</select>
 						</div>
-						<button type="button"  onclick="makeChart2();" class="btn btn-round btn-secondary" id="makeChart2">차트 만들기</button>
+						<button type="button"  onclick="makeChart2();" class="btn btn-round btn-secondary" id="makeChart2">차트 생성</button>
 					</div>
+				</div>
 				</div>	
-
 			
                 <div class="x_panel">
                   <div class="x_title">
@@ -692,7 +716,7 @@
 				
 				
 				<div class="col-md-9 col-sm-9 ">
-					<div class="item form-group">
+					<div class="item form-group" style="white-space: nowrap; width:100%">
 					<div class="statoption3" id="province3" data-toggle="modal" data-target=".provinceModal3" style="min-height: 30px; cursor: pointer;" >
 						<span id="provinceTitle3">시도</span>
 					</div>
@@ -705,17 +729,17 @@
 						<span id="shopTitle3">매장</span>
 					</div>
 					<div id="sh_idx3"></div>
-					<div class="statoption3" id="year3">
+					<div class="statoption3" id="year3" style="width:25%">
 						<div style="float:right;">
-				          <select name="year3">
+				          <select name="year3" class="form-control" style="white-space: nowrap; font-size:9pt">
 				            <option value="2022">2022</option>
 				            <option value="2023">2023</option>
 				          </select>
 				        </div>
 				     </div>
-				     <div class="statoption3" id="month3">
+				     <div class="statoption3" id="month3" style="width:15%">
 						<div style="float:right;">
-				          <select name="month3">
+				          <select name="month3" class="form-control" style="white-space: nowrap; font-size:9pt">
 				            <option value="noMonth">월</option>
 				            <option value="01">1월</option>
 				            <option value="02">2월</option>
@@ -733,8 +757,8 @@
 				        </div>
 					</div>
 					
-					<div class="statoption3" style="min-height: 30px;">
-						<button type="button"  onclick="makeChart3();" class="btn btn-round btn-secondary" id="makeChart3">차트 만들기</button>
+					<div class="statoption3" style="min-height: 30px; margin-right: 10%">
+						<button type="button"  onclick="makeChart3();" class="btn btn-round btn-secondary" id="makeChart3">차트 셍성</button>
 					</div>
 				</div>	
 

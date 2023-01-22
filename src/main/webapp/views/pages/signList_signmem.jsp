@@ -67,8 +67,8 @@
 				<br/>
 				<div class="calDiv" style="width:100%">
 					<div class="input-group" style="float: left">
-						<h6 style="font-weight: bold">기간</h6>
-						&nbsp;&nbsp;&nbsp;
+						<!-- <h6 style="font-weight: bold">기간</h6>
+						&nbsp;&nbsp;&nbsp; -->
 						<p>시작일</p>
 						&nbsp;&nbsp;
 						<fieldset>
@@ -97,22 +97,20 @@
                           </div>
                         </fieldset>
 						<span class="input-group-btn">
-							<button type="button" class="btn btn-primary" id="dateSearch" onclick="listCall(single_cal1,single_cal2)">검색</button>
+							<button type="button" class="btn btn-primary" id="dateSearch" onclick="seldate(single_cal1,single_cal2)">검색</button>
 						</span> 
                       </div>
                         
 				</div>
-				<!-- 
+
 				<div class="container">
-				<div class="form-group">
-					<select id="selTeam" class="form-control" style="float: right" onchange="listCall(single_cal1,single_cal2,selTeam)">
-						<c:forEach var="member" items="${memberdto}" varStatus="i">
-	         				<option value="${member.team_idx}">${member.team_name}</option>
-	      				</c:forEach>
-					</select>
+				<ul class="nav nav-tabs bar_tabs" id="myTab" role="tablist">
+					<li class="nav-item"><a class="nav-link active" id="allList" data-toggle="tab" role="tab" aria-selected="true" onclick="listCall(single_cal1,single_cal2)">결재전</a></li>
+					<li class="nav-item"><a class="nav-link" id="signEnd" data-toggle="tab" role="tab" aria-selected="false" onclick="endList(single_cal1,single_cal2)">결재완료</a></li>
+					<li class="nav-item"><a class="nav-link" id="signReturn" data-toggle="tab" role="tab" aria-selected="false" onclick="returnList(single_cal1,single_cal2)">반려</a></li>
+				</ul>
 				</div>
-				</div>
-				 -->
+
 				<div class="table-responsive">
 					<table id="signlist" class="table table-striped table-bordered bulk_action">
 						<thead>
@@ -173,7 +171,7 @@ function listCall(single_cal1, single_cal2) {
 				destroy : true,
 				aaSorting : [],
 				"dom": 'frtp',
-//				pageLength : 15,
+				bAutoWidth: false,
 				serverSide : false,
 				ajax : {
 					"url" : "sign/list_signmem.do",
@@ -241,11 +239,222 @@ function listCall(single_cal1, single_cal2) {
 						
 					],
 				
-				columnDefs : []
+				columnDefs : [
+					{
+						target : [5],
+						
+						searchable : false,
+	
+						visible : false
+					}
+				]
 
 			});
 
 }
+
+function endList(single_cal1,single_cal2){
+	
+	var date1 = single_cal1.value;
+	var date2 = single_cal2.value;
+
+	
+	var table = $('#signlist').DataTable(
+			{
+				destroy : true,
+				aaSorting : [],
+				"dom": 'frtp',
+				bAutoWidth: false,
+				serverSide : false,
+				ajax : {
+					"url" : "sign/list_endsignmem.do",
+					"type" : "get",
+					"data" : {
+						"date1" : date1,
+						"date2" : date2
+					}
+				},
+				columns : [
+						{
+							data : "sign_idx",
+						},
+						{
+							data : "sign_title",
+							"render" : function(data, type, row) {
+								if (type == 'display') {
+									
+										data = '<a href="/signDetail.go?sign_idx='+row.sign_idx+'">'+row.sign_title+'</a>';
+								}
+								return data;
+							}
+						},
+						{
+							data : "emp_name"
+						},
+						{
+							data : "sign_date"
+
+						},
+						{
+							data : "sign_state_type",
+							"render" : function(data, type, row) {
+								if (type == 'display') {
+									if (row.sign_state_type == '결재완료'){
+										data = '<span style="font-weight:bold;color:red">'+row.sign_state_type+'</span>';
+									}else if (row.sign_state_type == '반려'){
+										data = '<span style="font-weight:bold;color:orange">'+row.sign_state_type+'</span>';
+									}else if (row.sign_state_type == '결재전'){
+										data = '<span>'+row.sign_state_type+'</span>';
+									}
+									
+							}
+							return data;
+						}
+
+						},
+						{
+							data : "sign_mem_state",
+							"render" : function(data, type, row) {
+								if (type == 'display') {
+									if (row.sign_mem_state == '0'){
+										data = '<span>결재전</span>';
+									}else if (row.sign_mem_state == '1'){
+										data = '<span style="font-weight:bold;color:#6B66FF">결재완료</span>';
+									}else if (row.sign_mem_state == '2'){
+										data = '<span>반려</span>';
+									}
+									
+							}
+							return data;
+						}
+
+						}
+						
+					],
+				
+				columnDefs : [
+					{
+						target : [5],
+						
+						searchable : false,
+	
+						visible : false
+					}
+				]
+
+			});
+
+}
+
+
+function returnList(single_cal1,single_cal2){
+	
+	var date1 = single_cal1.value;
+	var date2 = single_cal2.value;
+
+	
+	var table = $('#signlist').DataTable(
+			{
+				destroy : true,
+				aaSorting : [],
+				"dom": 'frtp',
+				bAutoWidth: false,
+				serverSide : false,
+				ajax : {
+					"url" : "sign/list_returnsignmem.do",
+					"type" : "get",
+					"data" : {
+						"date1" : date1,
+						"date2" : date2
+					}
+				},
+				columns : [
+						{
+							data : "sign_idx",
+						},
+						{
+							data : "sign_title",
+							"render" : function(data, type, row) {
+								if (type == 'display') {
+									
+										data = '<a href="/signDetail.go?sign_idx='+row.sign_idx+'">'+row.sign_title+'</a>';
+								}
+								return data;
+							}
+						},
+						{
+							data : "emp_name"
+						},
+						{
+							data : "sign_date"
+
+						},
+						{
+							data : "sign_state_type",
+							"render" : function(data, type, row) {
+								if (type == 'display') {
+									if (row.sign_state_type == '결재완료'){
+										data = '<span style="font-weight:bold;color:red">'+row.sign_state_type+'</span>';
+									}else if (row.sign_state_type == '반려'){
+										data = '<span style="font-weight:bold;color:orange">'+row.sign_state_type+'</span>';
+									}else if (row.sign_state_type == '결재전'){
+										data = '<span>'+row.sign_state_type+'</span>';
+									}
+									
+							}
+							return data;
+						}
+
+						},
+						{
+							data : "sign_mem_state",
+							"render" : function(data, type, row) {
+								if (type == 'display') {
+									if (row.sign_mem_state == '0'){
+										data = '<span>결재전</span>';
+									}else if (row.sign_mem_state == '1'){
+										data = '<span style="font-weight:bold;color:#6B66FF">결재완료</span>';
+									}else if (row.sign_mem_state == '2'){
+										data = '<span>반려</span>';
+									}
+									
+							}
+							return data;
+						}
+
+						}
+						
+					],
+				
+				columnDefs : [
+					{
+						target : [5],
+						
+						searchable : false,
+	
+						visible : false
+					}
+				]
+
+			});
+
+}
+
+function seldate(single_cal1,single_cal2){
+	
+	if($('#allList').attr('aria-selected') == 'true'){
+		console.log($('#allList').attr('aria-selected'));
+		console.log(single_cal1.value);
+		listCall(single_cal1,single_cal2);
+		
+	}else if($('#signEnd').attr('aria-selected') == 'true'){
+		endList(single_cal1,single_cal2);
+			
+	}else if($('#signReturn').attr('aria-selected') == 'true'){
+		returnList(single_cal1,single_cal2);				
+	}
+}
+
 
 
 

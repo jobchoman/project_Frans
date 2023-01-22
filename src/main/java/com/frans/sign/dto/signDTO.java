@@ -23,8 +23,15 @@ public class signDTO {
 	private String team_idx;
 	private String sign_state_type;
 	private String team_name;
+	private String sign_mem_state;
 	
 	
+	public String getSign_mem_state() {
+		return sign_mem_state;
+	}
+	public void setSign_mem_state(String sign_mem_state) {
+		this.sign_mem_state = sign_mem_state;
+	}
 	public String getSign_mem_ip() {
 		return sign_mem_ip;
 	}

@@ -5,6 +5,14 @@
 
 <mapper namespace="com.frans.stock.dao.StoreDAO">
 
+	<select id="provinceListCall" resultType="hashmap">
+		SELECT province_idx, province_name FROM province
+	</select>
+	
+	<select id="cityListCall" resultType="hashmap">
+		SELECT city_idx, city_name FROM city WHERE province_idx = #{param1}
+	</select>
+
 	<select id="storeList" resultType="StoreDTO">
 		SELECT s.shop_idx, s.emp_id, e.emp_name, s.shop_name, s.shop_contact FROM shop s, employee e WHERE s.emp_id = e.emp_id
 	</select>
@@ -49,5 +57,9 @@
 			shop_lon = #{param9}
 		WHERE shop_idx = #{param1}
 	</update>
+	
+	<select id="storeFilter" resultType="StoreDTO">
+		SELECT s.shop_idx, s.emp_id, e.emp_name, s.shop_name, s.shop_contact FROM shop s, employee e, city c WHERE s.emp_id = e.emp_id AND c.city_idx = s.city_idx AND s.city_idx = #{param1}
+	</select>
 
 </mapper>

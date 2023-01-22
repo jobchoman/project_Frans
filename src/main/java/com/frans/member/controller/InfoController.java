@@ -124,24 +124,19 @@ public class InfoController {
 		return "redirect:/memberInfoPosList.go";
 	}
 	
-	@RequestMapping(value="/memberInfoTeamDelete.do")
-	public String teamDelete(String team_idx) {
-		infoService.TeamDelete(team_idx);
-		return "redirect:/memberInfoList.go";
-	}
-	
-	@RequestMapping(value="/memberInfoDutyDelete.do")
-	public String dutyDelete(String duty_idx) {
-		infoService.DutyDelete(duty_idx);
-		return "redirect:/memberInfoDutyList.go";
-	}
-	
-	@RequestMapping(value="/memberInfoPosDelete.do")
-	public String posDelete(String pos_idx) {
-		infoService.PosDelete(pos_idx);
-		return "redirect:/memberInfoPosList.go";
-	}
-	
+	/*
+	 * @RequestMapping(value="/memberInfoTeamDelete.do") public String
+	 * teamDelete(String team_idx) { infoService.TeamDelete(team_idx); return
+	 * "redirect:/memberInfoList.go"; }
+	 * 
+	 * @RequestMapping(value="/memberInfoDutyDelete.do") public String
+	 * dutyDelete(String duty_idx) { infoService.DutyDelete(duty_idx); return
+	 * "redirect:/memberInfoDutyList.go"; }
+	 * 
+	 * @RequestMapping(value="/memberInfoPosDelete.do") public String
+	 * posDelete(String pos_idx) { infoService.PosDelete(pos_idx); return
+	 * "redirect:/memberInfoPosList.go"; }
+	 */
 	
 	
 	

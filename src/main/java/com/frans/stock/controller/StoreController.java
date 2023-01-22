@@ -9,9 +9,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.frans.stock.dao.StoreDAO;
 import com.frans.stock.dto.StoreDTO;
 import com.frans.stock.service.StoreService;
 
@@ -23,8 +25,9 @@ public class StoreController {
 	Logger logger = LoggerFactory.getLogger(getClass());
 
 	/* 매장 리스트 */
-	@GetMapping(value="/storeList.go")
-	public ModelAndView storeList() {
+	@ResponseBody
+	@GetMapping(value="/store/list.do")
+	public HashMap<String, Object> storeList() {
 		logger.info("매장 리스트 컨트롤러");
 		return storeservice.storeList();
 	}
@@ -70,5 +73,29 @@ public class StoreController {
 		// sido=경기, sigungu=성남시 분당구, roadname=구미로, addressNum=115, detailAddress=101호, lat=127.12064428249, lon=37.3399103881443}
 		return storeservice.storeUpdateDo(params);
 	}
+	
+	/* 시/도/시군구 선택 */
+	
+	@ResponseBody
+	@GetMapping(value="/store/provinceList.do")
+	public HashMap<String, Object> provinceListCall() {
+		
+		return storeservice.provinceListCall();
+	}
+	
+	@ResponseBody
+	@GetMapping(value="/store/cityList.do")
+	public HashMap<String, Object> cityListCall(@RequestParam int idx) {
+		logger.info("proinceIdx = "+idx);
+		return storeservice.cityListCall(idx);
+	}
+	
+	@ResponseBody
+	@GetMapping(value="/store/filter.do")
+	public HashMap<String, Object> storeFilter(String idx){
+		logger.info("city idx: "+idx);
+		return storeservice.storeFilter(idx);
+	}
+	
 	
 }

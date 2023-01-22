@@ -53,6 +53,18 @@ history.replaceState({}, null, location.pathname);
 		color: gray;
 	}
 	
+	.col-sm-6 {
+		max-width: 100%;
+	    display: flex;
+	    justify-content: center;
+	    align-content: center;
+	}
+	
+	#th {
+		font-weight: bold;
+		width: 15%;
+	}
+	
 </style>
 </head>
 <body class="nav-md">
@@ -79,22 +91,22 @@ history.replaceState({}, null, location.pathname);
 							<table class="table">
 								<tr>
 								<!-- 양식 종류, 작성자, 팀, 조회수, 사용수, 양식 이름, 내용 -->
-									<th scope="row">문서 종류</th>
+									<td scope="row" id="th">문서 종류</td>
 									<td colspan="3">${docformdto.doc_type_name}</td>
 								</tr>
 								<tr>
-									<th scope="row">작성자</th>
+									<td scope="row" id="th">작성자</td>
 									<td>${docformdto.emp_name}</td>
-									<th scope="row">팀</th>
+									<td scope="row" id="th">팀</td>
 									<td>${docformdto.team_name}</td>
 								</tr>
 								<tr>
-									<th scope="row">이름</th>
-									<td>${docformdto.doc_form_name}</td>
+									<td scope="row" id="th">이름</td>
+									<td colspan="3">${docformdto.doc_form_name}</td>
 								</tr>
 								<tr>
-									<th scope="row">서식</th>
-									<td>
+									<td scope="row" id="th">서식</td>
+									<td colspan="3">
 										<div id="div_editor"></div>
 										<%-- <div id="doc_form_content" name="doc_form_content" style="display:none">${docformdto.doc_form_content}</div> --%>
 									</td>

@@ -23,12 +23,12 @@ public class StoreService {
 	Logger logger = LoggerFactory.getLogger(getClass());
 
 	/* 매장 리스트 */
-	public ModelAndView storeList() {
+	public HashMap<String, Object> storeList() {
 		logger.info("매장 리스트 서비스");
-		ModelAndView mav = new ModelAndView("storeList");
+		HashMap<String, Object> map = new HashMap<String, Object>();
 		ArrayList<StoreDTO> storedto = storedao.storeList();
-		mav.addObject("storelist",storedto);
-		return mav;
+		map.put("data", storedto);
+		return map;
 	}
 
 	public ModelAndView managerList() {
@@ -141,7 +141,26 @@ public class StoreService {
 		return mav;
 	}
 
+	public HashMap<String, Object> storeFilter(String idx) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		ArrayList<StoreDTO> storelist = storedao.storeFilter(idx);
+		map.put("data", storelist);
+		return map;
+	}
+
+	public HashMap<String, Object> provinceListCall() {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("list", storedao.provinceListCall());
+		
+		return map;
+	}
 	
+	public HashMap<String, Object> cityListCall(int idx) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("list", storedao.cityListCall(idx));
+		
+		return map;
+	}
 
 	
 	

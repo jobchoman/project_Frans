@@ -33,7 +33,7 @@
 			keyProperty="doc_form_idx"
 			parameterType="DocFormDTO">
 		INSERT INTO doc_form(emp_id, doc_type_idx, doc_form_content, doc_form_name)
-			VALUES('20102010',#{doc_type_idx},#{doc_form_content},#{doc_form_name})
+			VALUES(#{emp_id},#{doc_type_idx},#{doc_form_content},#{doc_form_name})
 	</insert>
 	
 	<select id="docFormDetail" resultType="DocFormDTO">

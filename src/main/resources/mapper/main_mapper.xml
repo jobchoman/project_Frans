@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC   "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd"
+>
+<mapper namespace="com.frans.main.dao.MainDAO">
+
+	<select id="main_subListNum" resultType="SubDTO">
+		SELECT sub_idx, sub_name, sub_price, sub_start FROM subscribe WHERE sub_sort_idx = 0 AND sub_state NOT IN ('종료') LIMIT 3
+	</select>
+	
+	<select id="main_subListDay" resultType="SubDTO">
+		SELECT sub_idx, sub_name, sub_price, sub_start FROM subscribe WHERE sub_sort_idx = 1 AND sub_state NOT IN ('종료') LIMIT 3
+	</select>
+	
+	<select id="menuList" resultType="MenuDTO">
+		SELECT menu_idx, menu_name, menu_price, menu_start, menu_photo FROM menu WHERE menu_state NOT IN ('비활성화') AND menu_idx NOT IN ('ME022') ORDER BY menu_idx desc LIMIT 3
+	</select>
+	
+	<select id="msgListBox" resultType="MessageDTO">
+		SELECT e.emp_name, m.msg_content, m.msg_date, mb.message_time, mb.msg_idx FROM message m, message_box mb, employee e 
+			WHERE m.emp_id = e.emp_id AND mb.msg_idx = m.msg_idx AND mb.emp_id = #{param1} ORDER BY m.msg_date desc, mb.message_time;
+	</select>
+
+</mapper>

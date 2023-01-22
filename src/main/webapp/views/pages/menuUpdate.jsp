@@ -9,6 +9,50 @@
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <jsp:include page="css.jsp" />
 </head>
+<style>
+	.addWrap {
+	   display: flex;
+	   flex-direction: column;
+	   justify-content: flex-start;
+	   align-items: center;
+	}
+	#menuupdatediv{
+		display: flex;
+		justify-content: center;
+   		align-items: center;
+   		flex-direction: column;
+   		width: 80%;
+	}
+	.row {
+		width: 100%;
+		text-align: center;
+	}
+	
+	textarea {
+		resize: none;
+	}
+	#reset {
+		font-size: 8pt;
+		float: right;
+	}
+	#menuUpdate {
+		background-color:#2A3F54;
+		border-color:#2A3F54;
+		font-size: 8pt;
+		float: right;
+	}
+	
+	#reset:hover {
+		background-color:orange;
+		border-color:orange;
+	}
+	
+	#golist {
+		font-size: 8pt;
+		float: left;
+	}
+	
+</style>
 <body class="nav-md">
 	<div class="container body">
 		<div class="main_container">
@@ -19,11 +63,15 @@
 			<!-- /top navigation -->
 
 			<!-- page content -->
-			<div class="right_col" role="main">
-			
+			<div class="right_col addWrap" role="main">
+				<div id="menuupdatediv" style="white-space: nowrap">
 					<div class="row">
 						<div class="col-md-12 col-sm-12 ">
 							<div class="x_panel">
+								<div class="x_title">
+									<h2>메뉴 수정</h2>
+									<div class="clearfix"></div>
+								</div>
 <!-- 								<div class="x_title"> -->
 <!-- 									<h2>Form Design <small>different form elements</small></h2> -->
 <!-- 									<ul class="nav navbar-right panel_toolbox"> -->
@@ -46,11 +94,12 @@
 								<div class="x_content">
 									<br />
 									<form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" action="menuUpdate.do" method="POST" enctype="multipart/form-data">
-														
-										<div class="item form-group">
+										
+										<img width="300" src="/photo/${detail.menu_photo}"/>	
+										<div class="item form-group" style="justify-content: center">
 											<label class="col-form-label col-md-3 col-sm-3 label-align">
 												<input type="file" name="uploadFile"/>
-												<img width="300" src="/photo/${detail.menu_photo}"/>
+												<%-- <img width="300" src="/photo/${detail.menu_photo}"/> --%>
 											</label>
 											
 										</div>
@@ -122,22 +171,23 @@
 
 										<div class="ln_solid"></div>
 										<div class="item form-group">
-											<div class="col-md-6 col-sm-6 offset-md-3">
+											<div class="col-md-6 col-sm-6 offset-md-3"  style="width:100%; margin-left: 0; max-width: 100%; flex:0%;">
 												
-												<button class="btn btn-primary" type="reset">초기화</button>
-												<button type="submit" class="btn btn-success" id="menuUpdate">수정완료</button>
+												<button type="submit" class="btn btn-round btn-info" id="menuUpdate" style="float:right;">수정완료</button>
+												<button class="btn btn-round btn-secondary" type="reset" id="reset" style="float:right;">초기화</button>
+												<button class="btn btn-round btn-secondary" type="button" id="golist" style="float:left" onclick="location.href='/menuList'">리스트</button>
 											</div>
 										</div>
-
+<!-- 
+										<div class="col-md-6 col-sm-6 offset-md-3" style="width:100%; margin-left: 0; float: left; max-width: 100%">
+											
+										</div> -->
 									</form>
-									<div class="col-md-6 col-sm-6 offset-md-3">
-									<button class="btn btn-primary" type="button" onclick="location.href='/menuList'">리스트</button>
-									</div>
 								</div>
 							</div>
 						</div>
 					</div>
-			
+				</div>
 			</div>
 			<!-- /page content -->
 

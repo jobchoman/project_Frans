@@ -47,7 +47,7 @@ public class DocFormService {
 		return map;
 	}
 
-	public String docFormWrite(DocFormDTO docFormDTO, RedirectAttributes rAttr) {
+	public String docFormWrite(DocFormDTO docFormDTO, RedirectAttributes rAttr, String loginId) {
 		logger.info("서식 작성 서비스");
 		
 		String page = "redirect:/docFormList.go";
@@ -55,6 +55,7 @@ public class DocFormService {
 		
 		
 		if(docFormDTO.getDoc_form_content() != null) {
+			docFormDTO.setEmp_id(loginId);
 			int success = docformdao.docFormWrite(docFormDTO);
 			logger.info("insert: "+success);
 			logger.info("doc_form_idx: "+docFormDTO.getDoc_form_idx());

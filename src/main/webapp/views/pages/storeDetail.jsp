@@ -44,9 +44,6 @@
 
 			<!-- top navigation -->
 			<div class="top_nav"><jsp:include page="top_nav.jsp" />
-			
-			
-			
 			</div>
 			<!-- /top navigation -->
 
@@ -81,11 +78,11 @@
 									</tr>
 									<tr>
 										<th>직원 수</th>
-										<td>${storedto.shop_emp_num}</td>
+										<td>${storedto.shop_emp_num} 명</td>
 									</tr>
 									<tr>
 										<th>평 수</th>
-										<td>${storedto.shop_space}</td>
+										<td>${storedto.shop_space} 평</td>
 									</tr>
 									<tr>
 										<th colspan="2">
@@ -95,7 +92,7 @@
 										</th>
 									</tr>
 									<tr>
-										<th colspan="2">
+										<th colspan="2" style="padding:2%">
 											<button type="button" class="btn btn-round btn-info" id="update" onclick="location.href='/store/update.go?shop_idx=${storedto.shop_idx}'">수정</button>
 											<button type="button" onclick="location.href='/storeList.go'" class="btn btn-round btn-secondary" id="goList">목록</button>
 										</th>

@@ -17,17 +17,37 @@
 </script>
 <jsp:include page="css.jsp" />
 <style>
-div#datatable_filter {
-	float:right;
-}
 
-#ready, #selling, #end {
-   font-size: 8pt;
-}
+	.addWrap {
+	   display: flex;
+	   flex-direction: column;
+	   justify-content: flex-start;
+	   align-items: center;
+	}
 
-
-
-
+	#menulistdiv{
+		display: flex;
+		justify-content: center;
+   		align-items: center;
+   		flex-direction: column;
+   		width: 80%;
+	}
+	
+	#menuRegister {
+		background-color:#2A3F54;
+		border-color:#2A3F54;
+		font-size: 8pt;
+		display: flex;
+		float: right;
+	   /*  margin-bottom: -100%; */
+	    margin-right: 2%;
+	    white-space: nowrap;
+	}
+	
+	#datatable {
+		text-align: center;
+	}
+	
 </style>
 </head>
 <body class="nav-md">
@@ -40,18 +60,22 @@ div#datatable_filter {
 			<!-- /top navigation -->
 
 			<!-- page content -->
-			<div class="right_col" role="main">
-				<div class="title_left">
-					<h2>메뉴 리스트</h2>
+			<div class="right_col addWrap" role="main">
+			<div id="menulistdiv">
+				<div class="title_left" style="width:100%">
+					<h2 style="float:left">메뉴 리스트</h2>
 				</div>
+				<br/>
 				<div class="row">
-				<button type="button" class="btn btn-round btn-secondary" id="selling" onclick="sellList();">판매중</button>
-				<button type="button" class="btn btn-round btn-secondary" id="ready" onclick="readyList();">준비중</button>
-				<button type="button" class="btn btn-round btn-secondary" id="end" onclick="endList();">판매 종료</button>
 				
+				<ul class="nav nav-tabs bar_tabs" id="myTab" role="tablist">
+					<li class="nav-item"><a class="nav-link active" id="selling" data-toggle="tab" role="tab" aria-selected="true" onclick="sellList()">판매중</a></li>
+					<li class="nav-item"><a class="nav-link" id="ready" data-toggle="tab" role="tab" aria-selected="false" onclick="readyList()">준비중</a></li>
+					<li class="nav-item"><a class="nav-link" id="end" data-toggle="tab" role="tab" aria-selected="false" onclick="endList()">판매종료</a></li>
+				</ul>
+				<div style="width:100%"><button type="button" class="btn btn-round btn-secondary" id="menuRegister" onclick="location.href='/menuRegister.go'">등록</button></div>
 <!-- 					<button type="button" class="btn btn-secondary" onclick="orgChartAddEmpPopup()">직원 추가</button> -->
-					<table id="datatable" class="table table-striped table-bordered dataTable no-footer"
-						style="width: 100%" aria-describedby="datatable_info">
+					<table id="datatable" class="table table-striped table-bordered dataTable no-footer" style="width: 100%" aria-describedby="datatable_info">
 						<thead>
 							<tr>
 								<th>메뉴 번호</th>
@@ -65,6 +89,7 @@ div#datatable_filter {
 				
 			</div>
 			<!-- /page content -->
+			</div>
 		</div>
 	</div>
 	<jsp:include page="script.jsp" />
@@ -77,6 +102,7 @@ function sellList() {
 	console.log(state);
 	   var table = $('#datatable').DataTable({
 	      destroy:true,
+	      "dom": 'frtp',
 	      serverSide: false,
 	      ajax : {
 	            "url":"/menuList.do",
@@ -114,7 +140,14 @@ function sellList() {
 
 	            visible: true
 
-	         }]
+	         },
+	         {
+	        	 targets: [3] ,
+	        	 
+	        	 render: $.fn.dataTable.render.number( ',' , '.' , 0 , '' , '원' )
+	         }
+	        
+	        ]
 
 	    });
 	   
@@ -125,6 +158,7 @@ function readyList() {
 	console.log(state);
 	   var table = $('#datatable').DataTable({
 	      destroy:true,
+	      "dom": 'frtp',
 	      serverSide: false,
 	      ajax : {
 	            "url":"/menuList.do",
@@ -162,6 +196,11 @@ function readyList() {
 
 	            visible: true
 
+	         },
+	         {
+	        	 targets: [3] ,
+	        	 
+	        	 render: $.fn.dataTable.render.number( ',' , '.' , 0 , '' , '원' )
 	         }]
 
 	    });
@@ -173,6 +212,7 @@ function endList() {
 	console.log(state);
 	   var table = $('#datatable').DataTable({
 	      destroy:true,
+	      "dom": 'frtp',
 	      serverSide: false,
 	      ajax : {
 	            "url":"/menuList.do",
@@ -210,6 +250,11 @@ function endList() {
 
 	            visible: true
 
+	         },
+	         {
+	        	 targets: [3] ,
+	        	 
+	        	 render: $.fn.dataTable.render.number( ',' , '.' , 0 , '' , '원' )
 	         }]
 
 	    });

@@ -91,7 +91,8 @@
 							<div class="x_panel" style="display: inline-table">
 								<div class="x_title">
 									<h2>매장 수정</h2>
-									<input type="hidden" name="shop_idx" value="${storedto.shop_idx}"/>
+									<input type="hidden" name="shop_idx"
+										value="${storedto.shop_idx}" />
 									<div class="clearfix"></div>
 								</div>
 								<div class="x_content">
@@ -99,55 +100,86 @@
 									<table id="shopUpdate" style="border: none">
 										<tr>
 											<th>매장 이름</th>
-											<td><input type="text" class="form-control" name="shop_name" id="shop_name" value="${storedto.shop_name}"/></td>
+											<td><input type="text" class="form-control"
+												name="shop_name" id="shop_name"
+												value="${storedto.shop_name}" /></td>
 										</tr>
 										<tr>
 											<th>점장</th>
-											<td>
-												<input type="text" class="form-control" id="shop_manager" name="shop_manager" value="${storedto.emp_name}" onclick="managerSearch(event)" readonly />
-												<input type="hidden" id="shop_managerId" name="shop_managerId" value="${storedto.emp_id}"/>
-											</td>
+											<td><input type="text" class="form-control"
+												id="shop_manager" name="shop_manager"
+												value="${storedto.emp_name}" onclick="managerSearch(event)"
+												readonly /> <input type="hidden" id="shop_managerId"
+												name="shop_managerId" value="${storedto.emp_id}" /></td>
 										</tr>
 										<tr>
 											<th>매장 연락처</th>
-											<td><input type="text" class="form-control" id="shop_contact" name="shop_contact" value="${storedto.shop_contact}"></td>
+											<td><input type="text" class="form-control"
+												id="shop_contact" name="shop_contact"
+												value="${storedto.shop_contact}"></td>
 										</tr>
 										<tr>
 											<th>주소</th>
 											<td>
-											<div class="form-group">
-												<input type="text" class="form-control" id="address" onclick="shopAddr()" placeholder="주소" value="${storedto.shop_location}"><br>
-												
-												<div style="display:inline; float:left; width:50%">
-													<input type="text" class="form-control" name="detailAddress" id="detailAddress" placeholder="상세주소">
+												<div class="form-group">
+													<input type="text" class="form-control" id="address" onclick="shopAddr()" placeholder="주소" value="${storedto.shop_location}"><br>
+
+													<div style="display: inline; float: left; width: 50%">
+														<input type="text" class="form-control" name="detailAddress" id="detailAddress" placeholder="상세주소">
+													</div>
+
+													<div style="float: right; width: 50%">
+														<input type="text" class="form-control" id="extraAddress" placeholder="참고항목">
+													</div>
+													<input type="hidden" id="sido" name="sido" />
+													<input type="hidden" id="sigungu" name="sigungu" />
+													<input type="hidden" id="roadname" name="roadname" />
+													<input type="hidden" id="addressNum" name="addressNum" />
+													<input type="hidden" id="lat" name="lat" />
+													<input type="hidden" id="lon" name="lon" />
+													<input type="hidden" id="fullAddr" name="fullAddr" />
+													<br/><br/>
+													<div id="map" style="width: 500px; height: 300px; margin-top: 10px; display: none"></div>
+													<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=871ee99d1a335f5263332d5425015004&libraries=services,clusterer,drawing"></script>
 												</div>
-												
-												<div style="float:right; width:50%"><input type="text" class="form-control" id="extraAddress" placeholder="참고항목"></div>
-												<input type="hidden" id="sido" name="sido"/>
-												<input type="hidden" id="sigungu" name="sigungu"/>
-												<input type="hidden" id="roadname" name="roadname"/>
-												<input type="hidden" id="addressNum" name="addressNum"/>
-												<input type="hidden" id="lat" name="lat"/>
-												<input type="hidden" id="lon" name="lon"/>
-												<input type="hidden" id="fullAddr" name="fullAddr"/>
-												<div id="map" style="width:300px;height:300px;margin-top:10px;display:none"></div>
-												<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=871ee99d1a335f5263332d5425015004&libraries=services,clusterer,drawing"></script>
-											</div>
 											</td>
 										</tr>
 										<tr>
 											<th>직원 수</th>
-											<td><input type="number" class="form-control" name="shop_empNum" id="shop_empNum" value="${storedto.shop_emp_num}"/></td>
+											<td><input type="number" class="form-control" name="shop_empNum" id="shop_empNum" value="${storedto.shop_emp_num}" /></td>
 										</tr>
 										<tr>
 											<th>평 수</th>
 											<td><input type="number" class="form-control" name="shop_space" id="shop_space" value="${storedto.shop_space}" /></td>
 										</tr>
-										<tr><th colspan="2">
-											<button type="submit" class="btn btn-round btn-info" id="shop_update" style="float:right">수정</button>
-										</th></tr>
+										<tr>
+											<th colspan="2">
+												<button type="button" onclick="updateModal()" class="btn btn-round btn-info" id="shop_update" style="float: right">수정</button>
+											</th>
+										</tr>
 									</table>
+									<!-- modal -->
+									<div class="modal fade bs-example-modal-sm" id="storeUpdatemodal" tabindex="-1" role="dialog" aria-hidden="true">
+										<div class="modal-dialog modal-sm">
+											<div class="modal-content">
+												<div class="modal-header">
 
+													<input type="hidden">
+													<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+														<span aria-hidden="true">×</span>
+													</button>
+												</div>
+												<div class="modal-body">
+													<h6>수정하시겠습니까?</h6>
+												</div>
+												<div class="modal-footer">
+													<button type="button" onclick="modalClose()" class="btn btn-secondary" data-dismiss="modal" style="font-size: 9pt">취소</button>
+													<button type="button" onclick="modalSubmit()" class="btn btn-primary" data-dismiss="modal" style="font-size: 9pt">확인</button>
+												</div>
+											</div>
+										</div>
+									</div>
+									<!-- /modal -->
 								</div>
 							</div>
 						</div>
@@ -187,6 +219,7 @@
 					</div>
 				</div>
 				<!-- /modal -->
+
 			<!-- /page content -->
 
 		</div>
@@ -350,6 +383,18 @@ function managerSel(mgr){
 	$('#searchManager').modal('hide');
 	
 } 
+
+function updateModal(){
+	$('#storeUpdatemodal').modal('show');
+}
+
+function modalClose(){
+	$('#storeUpdatemodal').modal('hide');
+}
+
+function modalSubmit(){
+	$('form').submit();
+}
 
 
 </script>
