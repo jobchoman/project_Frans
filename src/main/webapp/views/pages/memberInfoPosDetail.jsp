@@ -53,53 +53,49 @@
 						<div class="col-md-12 col-sm-12 ">
 							<div class="x_panel">
 								<div class="x_title">
-									<h2>직책 등록</h2>
+									<h2>직급 등록</h2>
 
 									<div class="clearfix"></div>
 								</div>
 								<div class="x_content">
 									<br />
-									<form action="memberInfoDutyUpdate.do" id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" method="post" enctype="multipart/form-data">
 										<div class="item form-group">
-											<label class="col-form-label col-md-3 col-sm-3 label-align">직책 코드
+											<label class="col-form-label col-md-3 col-sm-3 label-align">직급 코드
 											</label>
 											<div class="col-md-6 col-sm-6 ">
-												<input type="text" name="duty_idx" class="form-control " value="${mem.duty_idx}">
+												<input type="text" name="pos_idx" class="form-control " value="${mem.pos_idx}">
 											</div>
 										</div>
 										<div class="item form-group">
-											<label class="col-form-label col-md-3 col-sm-3 label-align">직책 명
+											<label class="col-form-label col-md-3 col-sm-3 label-align">직급 명
 											</label>
 											<div class="col-md-6 col-sm-6 ">
-												<input type="text" name="duty_name" class="form-control " value="${mem.duty_name}">
+												<input type="text" name="pos_name" class="form-control " value="${mem.pos_name}">
+											</div>
+										</div>
+										<div class="item form-group">
+											<label class="col-form-label col-md-3 col-sm-3 label-align">직급 레벨
+											</label>
+											<div class="col-md-6 col-sm-6 ">
+												<input type="text" name="pos_level" class="form-control " value="${mem.pos_level}">
 											</div>
 										</div>
 
-										<div>
+										<div class="item form-group">
 											<label class="col-form-label col-md-3 col-sm-3 label-align">상태
 											</label>
-											<c:if test="${list.size()==0}">
-											<div class="radio">
-												<label>
-													<input type="radio" value="1" id="duty_state" name="duty_state" >활성화
-												</label>
+											<div class="col-md-6 col-sm-6 ">
+												<c:if test="${mem.pos_state=='1'}">사용</c:if>
+												<c:if test="${mem.pos_state=='0'}">미사용</c:if>
 											</div>
-											<div class="radio">
-												<label>
-													<input type="radio" value="0" id="duty_state" name="duty_state">비활성화
-												</label>
-											</div>
-											</c:if>
-											<c:if test="${list.size()>0}">직책이 존재해 삭제가 불가합니다.</c:if>
 										</div>
 										<div class="ln_solid"></div>
 										<div class="item form-group">
 											<div class="col-md-6 col-sm-6 offset-md-3">
-												<button class="btn btn-round btn-secondary ghl" onclick="location.href='memberInfoDutyList.go'" type="reset">리스트</button>
-												<button type="submit" id="maker" class="btn btn-round btn-info nam">등록</button>
+												<button class="btn btn-round btn-secondary ghl" onclick="location.href='memberInfoPosList.go'" type="reset">리스트</button>
+												<button type="button" class="btn btn-round btn-info nam" onclick="location.href='memberInfoPosUpdate.go?pos_idx=${mem.pos_idx}'">수정</button>
 											</div>
 										</div>	
-									</form>
 								</div>
 							</div>
 						</div>
@@ -118,15 +114,15 @@
 
 <script>
 var msg = "${msg}";
+
 if(msg != ""){
 	alert(msg);
 }
 
 window.onload = function(){
-	$('input:radio[name="duty_state"]:radio[value="'+${mem.duty_state}+'"]').prop('checked',true);
+	$('input:radio[name="pos_state"]:radio[value="'+${mem.pos_state}+'"]').prop('checked',true);
 }
-	$('input:radio[name="duty_state"]:radio').prop('checked',false);
-
+	$('input:radio[name="pos_state"]:radio').prop('checked',false);
 
 
 </script>

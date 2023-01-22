@@ -30,6 +30,14 @@ th {
      margin-bottom: 0;
 }
 
+/*    #signlistdiv{
+      display: flex;
+      justify-content: center;
+         align-items: center;
+         flex-direction: column;
+         width: 80%;
+   } */
+
 </style>
 </head>
 <body class="nav-md">
@@ -43,7 +51,7 @@ th {
 
 			<!-- page content -->
 			<div class="right_col addWrap" role="main">
-
+				<div id="signlistdiv">
 				<div class="x_content">
 
 					<ul class="nav nav-tabs bar_tabs" id="myTab" role="tablist">
@@ -60,7 +68,7 @@ th {
 						<div class="col-sm-12">
 							<div class="card-box table-responsive">
 									<table id="comOrderList"
-									class="table table-striped table-bordered dataTable no-footer"
+									class="table table-striped table-bordered dataTable bulk_action"
 									style="width: 100%" aria-describedby="datatable_info">
 										<h3>발주리스트</h3>
 									
@@ -86,6 +94,7 @@ th {
 				</div>
 			</div>
 		</div>
+		</div>
 	</div>
 	<!-- /page content -->
 
@@ -100,6 +109,7 @@ th {
 					destroy : true,
 					"dom": 'frtp',
 					serverSide : false,
+					bAutoWidth: false,
 					ajax : {
 						"url" : "/order/comOrderList.do",
 						"type" : "get",
@@ -152,6 +162,7 @@ th {
 					destroy : true,
 					"dom": 'frtp',
 					serverSide : false,
+					bAutoWidth: false,
 					ajax : {
 						"url" : "/order/comOrderListOk.do",
 						"type" : "get",
@@ -205,6 +216,7 @@ th {
 					destroy : true,
 					"dom": 'frtp',
 					serverSide : false,
+					bAutoWidth: false,
 					ajax : {
 						"url" : "/order/comOrderList.do",
 						"type" : "get",
@@ -257,6 +269,7 @@ th {
 					destroy : true,
 					"dom": 'frtp',
 					serverSide : false,
+					bAutoWidth: false,
 					ajax : {
 						"url" : "/order/comOrderListOk.do",
 						"type" : "get",

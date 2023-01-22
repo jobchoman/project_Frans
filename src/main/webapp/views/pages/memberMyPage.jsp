@@ -20,6 +20,10 @@
       justify-content: flex-start;
       align-items: center;
  }
+ 
+ #mainDiv{
+	width: 80%;
+}
 </style>
 </head>
 <body class="nav-md">
@@ -34,7 +38,7 @@
 
 			<!-- page content -->
 			<div class="right_col addWrap" role="main">
-				<div class="">
+				<div class="" id="mainDiv">
 					<div class="page-title">
 
 					</div>
@@ -192,7 +196,32 @@
 											<div class="col-md-6 col-sm-6 ">
 												${mem.team_name}
 											</div>
-										</div>										
+										</div>	
+										
+										<div class="item form-group">
+											<label class="col-form-label col-md-3 col-sm-3 label-align">보유 팀 권한
+											</label>
+											
+											<div class="col-md-6 col-sm-6 ">
+												
+													<div id="license">
+													<ul>
+													<c:if test="${rightTeam.size()>0}">
+														<c:forEach items="${rightTeam}" var="rightTeam">
+														<li>
+																${rightTeam.team_name}
+																<c:if test="${rightTeam.auth_type == 1}">기본권한</c:if>
+														<c:if test="${rightTeam.auth_type == 2}">전체권한</c:if>
+	 															
+														</li><br>
+														</c:forEach>
+													</c:if>
+													</ul>
+													</div>
+												</div>
+											
+										</div>	
+																			
 										<div class="item form-group">
 											<label class="col-form-label col-md-3 col-sm-3 label-align">직급
 											</label>

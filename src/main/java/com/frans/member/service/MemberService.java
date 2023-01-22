@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -40,7 +41,6 @@ public class MemberService {
 		String userIP = req.getRemoteAddr();
 		ArrayList<MemberDTO> fileList = memberDao.fileList(emp_id);
 		MemberDTO dto = memberDao.memberDetail(emp_id,model);
-		String log = dto.getEmp_id();
 		String emp_name = dto.getEmp_name();
 		int power = dto.getEmp_admin_auth();
 		String team = dto.getTeam_name();
@@ -48,7 +48,7 @@ public class MemberService {
 		
 		match = encoder.matches(emp_pw, enc_pw);
 		logger.info(emp_id+"/"+emp_pw);
-		if(match != false || !loginId.equals("")) {
+		if(match != false) {
 			page = "index";
 			msg = "안녕하세요. "+emp_id+" 님";
 			session.setAttribute("loginId", loginId);
@@ -57,13 +57,8 @@ public class MemberService {
 			session.setAttribute("power", power);
 			session.setAttribute("team", team);
 			session.setAttribute("userIP", userIP);
+			
 		}
-
-        if (log == null) {
-        	msg = "아이디와 비밀번호를 확인하세요";
-        	page = "redirect:/";
-            return page;
-        }
 		logger.info("match : "+match);
 		rAttr.addFlashAttribute("msg",msg);
 		
@@ -130,6 +125,23 @@ public class MemberService {
 		if(success>0) {
 			Upload(file,emp_id);
 			Upload2(file2,emp_id);
+		}
+		
+		String team_name = params.get("team_name");
+		String team_idx= params.get("team_idx");
+		String pos_name = params.get("pos_name");
+		String duty_name = params.get("duty_name");
+		logger.info("team_name:{}",team_name);
+		logger.info("team_idx:{}",team_idx);
+		logger.info("duty_name:{}",duty_name);
+		if(team_name != "" && team_name != null) {
+			int teamhis = memberDao.teamHis(emp_id,team_name);
+		}
+		if(pos_name != "" && pos_name != null) {
+			int poshis = memberDao.posHis(emp_id,pos_name);
+		}
+		if(!duty_name.equals("없음") && duty_name != "" && duty_name != null) {
+			int dutyhis = memberDao.dutyHis(emp_id,duty_name);
 		}
 	}
 
@@ -301,6 +313,10 @@ public class MemberService {
 		String plain_pw = params.get("emp_pw");
 		String enc_pw = encoder.encode(plain_pw);
 		params.put("emp_pw", enc_pw);
+		
+		String right_team[] = req.getParameterValues("right_team");
+		String right_auth_type[] = req.getParameterValues("auth_type");
+		
 		String emp_career_idx[] = req.getParameterValues("emp_career_idx");
 		String emp_school_name[] = req.getParameterValues("emp_school_name");
 		String emp_department[] = req.getParameterValues("emp_department");
@@ -313,8 +329,47 @@ public class MemberService {
 		String license_place[] = req.getParameterValues("license_place");
 		String license_result[] = req.getParameterValues("license_result");
 		logger.info("업데이트 서비스 params : {}",params);
-		int success = memberDao.memberUpdate(params);
+		
+		//히스토리 insert
+		
+				String pos_idx = params.get("pos_idx"); 
+				String duty_idx = params.get("duty_idx"); 
+				String team_idx = params.get("team_idx"); 
+				int empPosIdx = memberDao.empPosIdx(emp_id,pos_idx); 
+				if(empPosIdx < 1) { 
+					String type = "직급"; 
+					String reason = "승진"; 
+					String pos_name = memberDao.pos_name(pos_idx);
+					memberDao.historyUpdate(emp_id,type,reason,pos_name); 
+				} 
+				int empDutyIdx = memberDao.empDutyIdx(emp_id,duty_idx); 
+				if(empDutyIdx < 1) { 
+					String type = "직책"; 
+					String reason = "변경"; 
+					String duty_name = memberDao.duty_name(duty_idx);
+					memberDao.historyUpdate(emp_id,type,reason,duty_name); 
+				} 
+				int empTeamIdx = memberDao.empTeamIdx(emp_id,team_idx); 
+				if(empTeamIdx < 1) { 
+					String type = "팀"; 
+					String reason = "이동"; 
+					String team_name = memberDao.team_name(team_idx);
+					memberDao.historyUpdate(emp_id,type,reason,team_name); 
+				}
+		
+		
+		int success = memberDao.memberUpdate(params);				
 		if(success > 0) {
+			
+			if(params.get("right_team") != null && params.get("right_team") != "") {
+				for(int k=0; k<right_team.length; k++) {
+					logger.info("팀: {}, 권한 : {}",right_team[k],right_auth_type[k]);
+					memberDao.rightUpdate(emp_id,right_team[k],right_auth_type[k]);
+					
+				}
+				
+			}
+			
 			if(params.get("emp_career_idx") != null && params.get("emp_career_idx") != "") {
 				// 이력, 학력 업데이트
 				for(int i=0; i<emp_career_idx.length; i++) {
@@ -562,6 +617,32 @@ public class MemberService {
 
 	public ArrayList<MemberDTO> memberHisLog(String emp_id) {
 		return memberDao.memberHistLog(emp_id);
+	}
+
+
+	public boolean idCheck(String emp_id) {
+		String idCheck = memberDao.idCheck(emp_id);
+		return idCheck == null ? false : true;
+	}
+
+
+	public HashMap<String, Object> chTeamList(String com,String emp_id) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		ArrayList<MemberDTO> dto = null;
+		dto = memberDao.chNotTeamList(com,emp_id);
+		logger.info("무엇일까요:{}",dto);
+//		if(com != null) {
+//			dto = memberDao.chTeamList(com,emp_id);
+//			logger.info("무엇일까요11:{}",dto);
+//		}
+
+		map.put("data", dto);
+		return map;
+	}
+	
+	public ArrayList<MemberDTO> rightTeam(String emp_id) {
+		logger.info("권한 리스트");
+		return memberDao.rightTeam(emp_id);
 	}
 
 

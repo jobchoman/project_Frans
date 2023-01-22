@@ -24,6 +24,8 @@
 			<if test="emp_career_idx.equals('대학원')">#{emp_career_idx},#{emp_school_name},#{emp_career_start},#{emp_career_end},#{emp_department},#{emp_degree},#{emp_career_etc})</if>
 			
 	</insert>
+
+
 	
 <!-- 	<insert id="join3" parameterType="hashmap">
 		insert into career (emp_id,emp_career_idx,emp_school_name,emp_career_start,emp_career_end,emp_department,emp_degree,emp_career_etc) 
@@ -88,16 +90,16 @@
 	</insert>
 	
  	<select id="teamList" resultType="com.frans.member.dto.MemberDTO">
-		select team_idx, team_name from team
+		select * from team
 	</select>
 	<select id="posList" resultType="com.frans.member.dto.MemberDTO">
-		select pos_idx, pos_name from position
+		select * from position
 	</select>
 	<select id="dutyList" resultType="com.frans.member.dto.MemberDTO">
-		select duty_idx, duty_name from duty 
+		select * from duty 
 	</select>
 	<select id="stateList" resultType="com.frans.member.dto.MemberDTO">
-		select emp_state_idx, emp_state_name from emp_state
+		select * from emp_state
 	</select> 
 	
 	<select id="memberList" resultType="com.frans.member.dto.MemberDTO">
@@ -290,6 +292,75 @@
 	<select id="memberHistLog" resultType="com.frans.member.dto.MemberDTO" parameterType="String">
 		select * from `change` where emp_id = #{emp_id} order by change_date desc
 	</select>
+	
+	<insert id="teamHis">
+		insert into `change`(emp_id,changes,change_reason,change_division) values(#{param1},'입사','입사',#{param2})
+	</insert>
+	<insert id="posHis">
+		insert into `change`(emp_id,changes,change_reason,change_division) values(#{param1},'입사','입사',#{param2})
+	</insert>
+	<insert id="dutyHis">
+		insert into `change`(emp_id,changes,change_reason,change_division) values(#{param1},'입사','입사',#{param2})
+	</insert>
+	
+	<select id="idCheck" resultType="String">
+		select emp_id from employee where emp_id = #{emp_id}
+	</select>
+	
+	<select id="chTeamList" resultType="com.frans.member.dto.MemberDTO" parameterType="String">
+			select * from `change` where changes = #{com} and emp_id = #{emp_id}
+	</select>
+	
+	<select id="chNotTeamList" resultType="com.frans.member.dto.MemberDTO" parameterType="String">
+		<if test='com.equals("전체")'>
+			select * from `change` where emp_id = #{emp_id}
+		</if>
+		<if test='!com.equals("전체")'>
+			select * from `change` where changes = #{com} and emp_id = #{emp_id}
+		</if>
+			
+	</select>
+	
+	
+	<!-- 히스토리 테이블 관련 -->
+	<select id="pos_name" resultType="String">
+		SELECT pos_name from `position` p where pos_idx = #{param1}
+	</select>
+	
+	<select id="duty_name" resultType="String">
+		SELECT duty_name from duty d where duty_idx = #{param1}
+	</select>
+	
+	<select id="team_name" resultType="String">
+		SELECT team_name from team t where team_idx = #{param1}
+	</select>
+	
+	<select id="empPosIdx" resultType="int">
+		SELECT count(emp_id) from employee e where emp_id = #{param1} and pos_idx = #{param2}
+	</select>
+	
+	<select id="empDutyIdx" resultType="int">
+		SELECT count(emp_id) from employee e where emp_id = #{param1} and duty_idx = #{param2}
+	</select>
+	
+	<select id="empTeamIdx" resultType="int">
+		SELECT count(emp_id) from employee e where emp_id = #{param1} and team_idx = #{param2}
+	</select>
+	
+	<insert id="historyUpdate">
+		INSERT into `change` (emp_id, changes, change_reason, change_division) 
+			VALUES (#{param1}, #{param2}, #{param3}, #{param4})
+	</insert>
+	
+	<insert id="rightUpdate">
+		INSERT into `right` (team_idx, emp_id, auth_type) 
+			VALUES (#{param2},#{param1},#{param3})
+	</insert>
+	
+	<select id="rightTeam" resultType="com.frans.member.dto.MemberDTO">
+		SELECT * from `right` r, team t where emp_id = #{param1} and r.team_idx = t.team_idx;
+	</select>
+
 	
 </mapper>
 

@@ -27,6 +27,17 @@
  	text-align: right;
  	 margin-left:50%;
  }
+ 
+ #signlistdiv{
+      display: flex;
+      justify-content: center;
+         align-items: center;
+         flex-direction: column;
+         width: 80%;
+   }
+.col-md-6{
+	margin-top: 6px;
+}
 </style>
 </head>
 <body class="nav-md">
@@ -41,7 +52,7 @@
 
 			<!-- page content -->
 			<div class="right_col addWrap" role="main">
-				<div class="" style="width:100%">
+				<div id="signlistdiv" class="" style="width:80%">
 					<div class="page-title">
 
 					</div>
@@ -73,7 +84,7 @@
 											<label class="col-form-label col-md-3 col-sm-3 label-align">아이디
 											</label>
 											<div class="col-md-6 col-sm-6 ">
-												${mem.emp_id}
+												<input type="text" id="id" name="emp_id" required="required" value="${mem.emp_id}" class="form-control " readonly="readonly">
 											</div>
 										</div>
 										<div class="item form-group">
@@ -87,49 +98,49 @@
 											<label class="col-form-label col-md-3 col-sm-3 label-align">이름
 											</label>
 											<div class="col-md-6 col-sm-6 ">
-												${mem.emp_name}
+												<input type="text" name="emp_name" required="required" value="${mem.emp_name}" class="form-control " readonly="readonly">
 											</div>
 										</div>
 										<div class="item form-group">
 											<label class="col-form-label col-md-3 col-sm-3 label-align">생년월일
 											</label>
 											<div class="col-md-6 col-sm-6 ">
-												${mem.emp_birth}
+												<input type="text" name="emp_birth" required="required" value="${mem.emp_birth}" class="form-control " readonly="readonly">
 											</div>
 										</div>
 										<div class="item form-group">
 											<label class="col-form-label col-md-3 col-sm-3 label-align">성별
 											</label>
 											<div class="col-md-6 col-sm-6 ">
-												${mem.emp_gender}
+												<input type="text" name="emp_gender" required="required" value="${mem.emp_gender}" class="form-control " readonly="readonly">
 											</div>
 										</div>
 										<div class="item form-group">
 											<label class="col-form-label col-md-3 col-sm-3 label-align">연락처
 											</label>
 											<div class="col-md-6 col-sm-6 ">
-												${mem.emp_phone}
+												<input type="text" name="emp_phone" required="required" value="${mem.emp_phone}" class="form-control " readonly="readonly">
 											</div>
 										</div>
 										<div class="item form-group">
 											<label class="col-form-label col-md-3 col-sm-3 label-align">이메일
 											</label>
 											<div class="col-md-6 col-sm-6 ">
-												${mem.emp_email}
+												<input type="text" name="emp_email" required="required" value="${mem.emp_email}" class="form-control " readonly="readonly">
 											</div>
 										</div>
 										<div class="item form-group">
 											<label class="col-form-label col-md-3 col-sm-3 label-align">주소
 											</label>
 											<div class="col-md-6 col-sm-6 ">
-												${mem.emp_address}
+												<input type="text" name="emp_address" required="required" value="${mem.emp_address}" class="form-control " readonly="readonly">
 											</div>
 										</div>
 										<div class="item form-group">
 											<label class="col-form-label col-md-3 col-sm-3 label-align">입사일
 											</label>
 											<div class="col-md-6 col-sm-6 ">
-												${mem.emp_hire_date}
+												<input type="text" name="emp_hire_date" required="required" value="${mem.emp_hire_date}" class="form-control " readonly="readonly">
 											</div>
 										</div>
 										<div>
@@ -220,7 +231,33 @@
 											<div class="col-md-6 col-sm-6 ">
 												${mem.team_name}
 											</div>
-										</div>										
+										</div>	
+										
+										<div class="item form-group">
+											<label class="col-form-label col-md-3 col-sm-3 label-align">보유 팀 권한
+											</label>
+											
+											<div class="col-md-6 col-sm-6 ">
+												
+													<div id="license">
+													<ul>
+													<c:if test="${rightTeam.size()>0}">
+														<c:forEach items="${rightTeam}" var="rightTeam">
+														<li>
+																${rightTeam.team_name}
+																<c:if test="${rightTeam.auth_type == 1}">기본권한</c:if>
+														<c:if test="${rightTeam.auth_type == 2}">전체권한</c:if>
+	 															
+														</li><br>
+														</c:forEach>
+													</c:if>
+													</ul>
+													</div>
+												</div>
+											
+										</div>
+										
+																			
 										<div class="item form-group">
 											<label class="col-form-label col-md-3 col-sm-3 label-align">직급
 											</label>
@@ -288,6 +325,12 @@
 	    					</div>
 							<div class="modal-body">
 							<div class="card-box table-responsive">
+								<select id="sel" name="sel" onchange="changeSel(this)">
+									<option value="전체">전체</option>
+									<option value="팀">팀</option>
+									<option value="직급">직급</option>
+									<option value="직책">직책</option>
+								</select>
 								<table id="datatable" class="table table-striped table-bordered" style="width:100%">
 									<thead>
 										<tr>
@@ -297,16 +340,16 @@
 											<th>구분</th>
 										</tr>
 									</thead>
-									<tbody>
-									<c:forEach items="${hist}" var="hist">
-										<tr class = "memberlistTr" >				
-											<td>${hist.change_date}</td>
-											<td>${hist.changes}</td>
-											<td>${hist.change_reason}</td>
-											<td>${hist.change_division}</td>
-										</tr>
-									</c:forEach>
-									</tbody>
+<!-- 									<tbody id="list"> -->
+<%-- 									<c:forEach items="${hist}" var="hist"> --%>
+<!-- 										<tr class = "memberlistTr" >				 -->
+<%-- 											<td>${hist.change_date}</td> --%>
+<%-- 											<td>${hist.changes}</td> --%>
+<%-- 											<td>${hist.change_reason}</td> --%>
+<%-- 											<td>${hist.change_division}</td> --%>
+<!-- 										</tr> -->
+<%-- 									</c:forEach> --%>
+<!-- 									</tbody> -->
 								</table>
 							</div>
 
@@ -350,7 +393,44 @@ function hist(event){
 	console.log(empInputIdx);
 	
 	$('#hist').modal('show');
+	
 }
+changeSel(sel);
+function changeSel(sel){
+	var com = $("#sel").val();
+	var id = $("#id").val();
+	console.log(id);
+	console.log(com);
+	var table = $("#datatable").DataTable({
+			destroy:true,
+			serverSide:false,
+			"dom": 'frtp',
+			ajax:{
+				"url":"/memberTeamList.ajax",
+				"type":"get",
+				"data":{"com":com,"emp_id":id}
+			},
+			columns:[
+				{data:"change_date"},
+				{data:"changes"},
+				{data:"change_reason"},
+				{data:"change_division"}
+			],
+	        columnDefs: [{
+	        	
+			targets : [ 0 ],
+
+			searchable : true,
+
+			visible : true     
+
+	        }]
+
+		});
+	
+};
+
+
 
  
 

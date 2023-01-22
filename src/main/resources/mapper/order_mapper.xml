@@ -20,9 +20,8 @@
 	
 	
 	<select id="foodList" resultType="StockDTO">
-		SELECT * FROM stock s left  JOIN shop_stock ss ON s.stock_idx = ss.stock_idx left  join shop s2 ON ss.shop_idx = s2.shop_idx
-where s.stock_sort_idx = #{param1} and (ss.shop_idx is null or ss.shop_idx = (SELECT s.shop_idx from shop s
-where s.emp_id = (SELECT emp_id from employee e where emp_id = #{param2})))
+		SELECT DISTINCT s.stock_idx,s.stock_name ,s.stock_price ,(SELECT shop_idx from shop where emp_id= #{param2}) as shop_idx ,(SELECT shop_stock_amount from shop_stock ss2 where ss2.stock_idx = s.stock_idx and ss2.shop_idx=(SELECT s2.shop_idx from shop s2 where s2.emp_id = #{param2})) as shop_stock_amount
+from stock s left JOIN shop_stock ss ON s.stock_idx = ss.stock_idx where s.stock_sort_idx = #{param1}
 	</select>
 	
 <!-- 	<select id="subList" resultType="StockDTO">
@@ -91,15 +90,28 @@ and o2.shop_idx = o.shop_idx and o2.order_date = o.order_date) as order_state fr
 		SELECT o.shop_idx, o.stock_idx , o.order_date , sum(o.order_amount) as order_amount ,o.order_send,s.stock_name ,cs.com_stock_amount,s2.shop_name  
 		from `order` o,stock s,com_stock cs,shop s2 
 		where s2.shop_idx = o.shop_idx and s.stock_sort_idx = 0 and o.stock_idx = s.stock_idx and o.shop_idx = #{shop_idx} 
-		and o.order_date = #{order_date} and cs.stock_idx = s.stock_idx GROUP by o.stock_idx order by order_send desc; 
+		and o.order_date = #{order_date} and cs.stock_idx = s.stock_idx GROUP by o.stock_idx order by o.order_send desc; 
+		
+		
 	</select> 
 	
 	<select id="subOrderDetail" resultType="StockDTO">
-		SELECT o.shop_idx, o.stock_idx , o.order_date , sum(o.order_amount) as order_amount ,o.order_send,s.stock_name ,cs.com_stock_amount,s2.shop_name  
-		from `order` o,stock s,com_stock cs,shop s2 
-		where s2.shop_idx = o.shop_idx and s.stock_sort_idx = 1 and o.stock_idx = s.stock_idx and o.shop_idx = #{shop_idx} 
-		and o.order_date = #{order_date} and cs.stock_idx = s.stock_idx GROUP by o.stock_idx order by order_send desc; 
+		
+		SELECT o.shop_idx, o.stock_idx , o.order_date , sum(o.order_amount) as order_amount ,o.order_send,s.stock_name 
+,cs.com_stock_amount,s2.shop_name from `order` o,stock s,com_stock cs,shop s2 where s2.shop_idx 
+= o.shop_idx and s.stock_sort_idx = 1 and o.stock_idx = s.stock_idx and o.shop_idx = #{shop_idx} 
+and o.order_date = #{order_date} and cs.stock_idx = s.stock_idx GROUP by o.stock_idx order by 
+o.order_send desc
 	</select>
+	
+	<!-- 원본 <select id="subOrderDetail" resultType="StockDTO">
+		
+		SELECT o.shop_idx, o.stock_idx , o.order_date , sum(o.order_amount) as order_amount ,o.order_send,s.stock_name 
+,cs.com_stock_amount,s2.shop_name from `order` o,stock s,com_stock cs,shop s2 where s2.shop_idx 
+= o.shop_idx and s.stock_sort_idx = 1 and o.stock_idx = s.stock_idx and o.shop_idx = 'SH001' 
+and o.order_date = '2023-01-20' and cs.stock_idx = s.stock_idx GROUP by o.stock_idx order by 
+order_send desc;
+	</select> -->
 	
 	<update id="orderChk">
 		UPDATE shop_stock set shop_stock_amount =  shop_stock_amount + #{order_amount} 
@@ -137,14 +149,14 @@ and o2.shop_idx = o.shop_idx and o2.order_date = o.order_date) as order_state fr
 
 SELECT s.stock_name,(SELECT ss2.shop_stock_amount from shop_stock ss2 ,stock s3  WHERE s3.stock_sort_idx = 0 and ss2.shop_idx = #{shop_idx} and s3.stock_idx = ss2.stock_idx and ss2.shop_idx = o.shop_idx and s3.stock_idx= s.stock_idx) as shop_stock_amount,(SELECT sum(order_amount) from `order`  where shop_idx = #{shop_idx} and order_date = #{order_date} and stock_idx = s.stock_idx and  shop_idx = s2.shop_idx group by o.stock_idx ORDER by s.stock_name) as order_amount,o.order_send 
 FROM `order` o left JOIN shop_stock ss ON o.stock_idx = ss.stock_idx LEFT join stock s on s.stock_idx = o.stock_idx left join shop s2 ON o.shop_idx = s2.shop_idx  
-where s.stock_sort_idx = 0 and o.shop_idx = #{shop_idx} and o.order_date = #{order_date} GROUP by o.stock_idx;
+where s.stock_sort_idx = 0 and o.shop_idx = #{shop_idx} and o.order_date = #{order_date} GROUP by o.stock_idx order by order_send desc;
 	</select> 
 	
 	<select id="shopSubOrderDetail" resultType="StockDTO">
 
 SELECT s.stock_name,(SELECT ss2.shop_stock_amount from shop_stock ss2 ,stock s3  WHERE s3.stock_sort_idx = 1 and ss2.shop_idx = #{shop_idx} and s3.stock_idx = ss2.stock_idx and ss2.shop_idx = o.shop_idx and s3.stock_idx= s.stock_idx) as shop_stock_amount,(SELECT sum(order_amount) from `order`  where shop_idx = #{shop_idx} and order_date = #{order_date} and stock_idx = s.stock_idx and  shop_idx = s2.shop_idx group by o.stock_idx ORDER by s.stock_name) as order_amount,o.order_send 
 FROM `order` o left JOIN shop_stock ss ON o.stock_idx = ss.stock_idx LEFT join stock s on s.stock_idx = o.stock_idx left join shop s2 ON o.shop_idx = s2.shop_idx  
-where s.stock_sort_idx = 1 and o.shop_idx = #{shop_idx} and o.order_date = #{order_date} GROUP by o.stock_idx;
+where s.stock_sort_idx = 1 and o.shop_idx = #{shop_idx} and o.order_date = #{order_date} GROUP by o.stock_idx order by order_send desc;
 	</select> 
 	
 	<select id="shopSubOrderListCall" resultType="StockDTO">

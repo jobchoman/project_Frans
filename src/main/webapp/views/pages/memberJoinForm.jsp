@@ -65,42 +65,44 @@
 											<label class="col-form-label col-md-3 col-sm-3 label-align">사진<span class="required">*</span>
 											</label>
 											<div class="col-md-6 col-sm-6 ">
-												<input type="file" name="file" id="file1" required="required" class="form-control "/>
+												<input type="file" name="file" id="file1" class="form-control "/>
 											</div>
 										</div>
 										<div class="item form-group">
 											<label class="col-form-label col-md-3 col-sm-3 label-align">아이디<span class="required">*</span>
 											</label>
 											<div class="col-md-6 col-sm-6 ">
-												<input type="text" name="emp_id" id="id" required="required" class="form-control "/>
+												<input type="text" name="emp_id" id="id" placeholder="아이디 숫자8자리 입력해주세요." class="form-control "/>
+												<input type="button" id="id_check" value="중복확인" class="btn btn-round btn-info nam">
+												
 											</div>
 										</div>
 										<div class="item form-group">
 											<label class="col-form-label col-md-3 col-sm-3 label-align">비밀번호<span class="required">*</span>
 											</label>
 											<div class="col-md-6 col-sm-6 ">
-												<input type="password" id="pw" required="required" class="form-control "/>
+												<input type="password" id="pw" placeholder="비밀번호를 입력해주세요." class="form-control "/>
 											</div>
 										</div>
 										<div class="item form-group">
 											<label class="col-form-label col-md-3 col-sm-3 label-align">비밀번호 확인<span class="required">*</span>
 											</label>
 											<div class="col-md-6 col-sm-6 ">
-												<input type="password" name="emp_pw" id="pw_chk" required="required" class="form-control "/>
+												<input type="password" name="emp_pw" id="pw_chk" placeholder="비밀번호를 확인해주세요." class="form-control "/>
 											</div>
 										</div>
 										<div class="item form-group">
 											<label class="col-form-label col-md-3 col-sm-3 label-align">이름<span class="required">*</span>
 											</label>
 											<div class="col-md-6 col-sm-6 ">
-												<input type="text" name="emp_name" id="name" required="required" class="form-control "/>
+												<input type="text" name="emp_name" id="name" placeholder="이름을 입력해주세요." class="form-control "/>
 											</div>
 										</div>
 										<div class="item form-group">
 											<label class="col-form-label col-md-3 col-sm-3 label-align">생년월일<span class="required">*</span>
 											</label>
 											<div class="col-md-6 col-sm-6 ">
-												<input type="date" name="emp_birth" value="yyyy-mm-dd" required="required" class="form-control "/>
+												<input type="date" name="emp_birth" id="birth" value="yyyy-mm-dd" class="form-control "/>
 											</div>
 										</div>
 										<div>
@@ -121,22 +123,22 @@
 											<label class="col-form-label col-md-3 col-sm-3 label-align">연락처<span class="required">*</span>
 											</label>
 											<div class="col-md-6 col-sm-6 ">
-												<input type="text" name="emp_phone" id="phone" required="required" class="form-control ">
+												<input type="text" name="emp_phone" id="phone" placeholder="010-1234-1234" class="form-control ">
 											</div>
 										</div>
 										<div class="item form-group">
 											<label class="col-form-label col-md-3 col-sm-3 label-align">이메일<span class="required">*</span>
 											</label>
 											<div class="col-md-6 col-sm-6 ">
-												<input type="text" name="emp_email" id="email" required="required" class="form-control ">
+												<input type="text" name="emp_email" id="email" placeholder="이메일을 입력해주세요." class="form-control ">
 											</div>
 										</div>
 										<div class="item form-group">
 											<label class="col-form-label col-md-3 col-sm-3 label-align">주소<span class="required">*</span>
 											</label>
 											<div class="col-md-6 col-sm-6 ">
-												<input type="text" id="emp_address" onclick="addr()" name="emp_address" class="form-control "/>
-												<input type="text" id="address_detail" placeholder="상세주소" name="address_detail" required="required" class="form-control ">
+												<input type="text" id="emp_address" onclick="addr()" name="emp_address" placeholder="주소를 입력해주세요." class="form-control "/>
+												<input type="text" id="address_detail" placeholder="상세주소" name="address_detail" class="form-control ">
 											</div>
 										</div>
 
@@ -144,7 +146,7 @@
 											<label class="col-form-label col-md-3 col-sm-3 label-align">입사일<span class="required">*</span>
 											</label>
 											<div class="col-md-6 col-sm-6 ">
-												<input type="date" name="emp_hire_date" placeholder="yyyy-mm-dd" required="required" class="form-control ">
+												<input type="date" name="emp_hire_date" id="hireDate" class="form-control ">
 											</div>
 										</div>
 										<div>
@@ -210,7 +212,7 @@
 											<label class="col-form-label col-md-3 col-sm-3 label-align">관리자 권한<span class="required">*</span>
 											</label>
 											<div class="col-md-6 col-sm-6 ">
-												<select name="emp_admin_auth" class="form-control " required="required">
+												<select name="emp_admin_auth" class="form-control " >
 													<option value="2" selected="selected">일반사원</option>
 													<option value="1">관리자</option>
 													<option value="2">최고관리자</option>
@@ -221,9 +223,13 @@
 											<label class="col-form-label col-md-3 col-sm-3 label-align">팀<span class="required">*</span>
 											</label>
 											<div class="col-md-6 col-sm-6 ">
-												<select name="team_idx" class="form-control " required="required">
+												<input id="teamIns" type="hidden" name="team_name">
+												<select name="team_idx" id="teamSel" class="form-control " onchange="team(teamSel)">
+													<option>-----선택------</option>
 													<c:forEach items="${teamMem}" var="teamMem">
+														<c:if test="${teamMem.team_state == '1'}">
 														<option value="${teamMem.team_idx}">${teamMem.team_name}</option>
+														</c:if>
 													</c:forEach>
 											    </select>
 											</div>
@@ -232,9 +238,13 @@
 											<label class="col-form-label col-md-3 col-sm-3 label-align">직급<span class="required">*</span>
 											</label>
 											<div class="col-md-6 col-sm-6 ">
-												<select name="pos_idx" class="form-control " required="required">
+												<input id="posIns" type="hidden" name="pos_name">
+												<select name="pos_idx" id="posSel" class="form-control " onchange="pos(posSel)">
+													<option>-----선택------</option>
 													<c:forEach items="${posMem}" var="posMem">
+													<c:if test="${posMem.pos_state == '1'}">
 													<option value="${posMem.pos_idx}">${posMem.pos_name}</option>
+													</c:if>
 													</c:forEach>
 											    </select>
 											</div>
@@ -243,9 +253,13 @@
 											<label class="col-form-label col-md-3 col-sm-3 label-align">직책<span class="required">*</span>
 											</label>
 											<div class="col-md-6 col-sm-6 ">
-												<select name="duty_idx" class="form-control " required="required">
+												<input id="dutyIns" type="hidden" name="duty_name">
+												<select id="dutySel" name="duty_idx" class="form-control " onchange="duty(dutySel)">
+													<option>-----선택------</option>
 													<c:forEach items="${dutyMem}" var="dutyMem">
+													<c:if test="${dutyMem.duty_state == '1'}">
 													<option value="${dutyMem.duty_idx}">${dutyMem.duty_name}</option>
+													</c:if>
 													</c:forEach>
 											    </select>
 											</div>
@@ -254,7 +268,8 @@
 											<label class="col-form-label col-md-3 col-sm-3 label-align">상태<span class="required">*</span>
 											</label>
 											<div class="col-md-6 col-sm-6 ">
-												<select name="emp_state_idx" class="form-control " required="required">
+												<select id="stateSel" name="emp_state_idx" class="form-control ">
+													<option>-----선택------</option>
 													<c:forEach items="${stateMem}" var="stateMem">
 													<option value="${stateMem.emp_state_idx}">${stateMem.emp_state_name}</option>
 													</c:forEach>
@@ -265,7 +280,7 @@
 											<label class="col-form-label col-md-3 col-sm-3 label-align">팀등급<span class="required">*</span>
 											</label>
 											<div class="col-md-6 col-sm-6 ">
-												<select name="auth_type" class="form-control " required="required">
+												<select name="auth_type" class="form-control ">
 												  <option value="1" selected="selected">공개문서 열람</option>
 												  <option value="2">전체 열람</option>
 											    </select>
@@ -275,9 +290,9 @@
 											<label class="col-form-label col-md-3 col-sm-3 label-align">서명 이미지<span class="required">*</span>
 											</label>
 											<div class="col-md-6 col-sm-6 ">
-												<input type="file" name="file2" id="file2" required="required" class="form-control ">
+												<input type="file" name="file2" id="file2" class="form-control ">
 											</div>
-										</div>									
+										</div>								
 										<div class="ln_solid"></div>
 										<div class="item form-group">
 											<div class="col-md-6 col-sm-6 offset-md-3">
@@ -488,6 +503,13 @@ function checks(){
     var buf = new Array(13); //주민등록번호 배열
     var phone = RegExp(/^\d{3}-\d{3,4}-\d{4}$/);
     
+    //프로필 사진 공백 검사
+    if($("#file1").val() == ""){
+      alert("프로필사진을 첨부해주세요");
+      $("#file1").focus();
+      return false;
+    }
+    
     //아이디 공백 확인
     if($("#id").val() == ""){
       alert("아이디를 입력해주세요.");
@@ -534,21 +556,7 @@ function checks(){
         $("#pw").focus();
         return false;
     }
-        
-    //이메일 공백 확인
-    if($("#email").val() == ""){
-      alert("이메일을 입력해주세요");
-      $("#email").focus();
-      return false;
-    }
-         
-    //이메일 유효성 검사
-    if(!getMail.test($("#email").val())){
-      alert("이메일형식에 맞게 입력해주세요")
-      $("#email").val("");
-      $("#email").focus();
-      return false;
-    }
+
          
     //이름 공백 검사
     if($("#name").val() == ""){
@@ -565,6 +573,17 @@ function checks(){
       return false;
     }
     
+    if($("#birth").val() == ""){
+        alert("생일을 입력해주세요");
+        $("#birth").focus();
+        return false;
+      }
+    
+    if(($("#optionsRadios1").val() == "") && ($("#optionsRadios2").val() == "")){
+        alert("성별을 입력해주세요");
+        return false;
+      }
+    
     //전화번호 공백 검사
     if($("#phone").val() == ""){
       alert("전화번호를 입력해주세요");
@@ -580,22 +599,145 @@ function checks(){
       return false;
     }
     
-    //프로필 사진 공백 검사
-    if($("#file1").val() == ""){
-      alert("프로필사진을 첨부해주세요");
-      $("#file1").focus();
+    //이메일 공백 확인
+    if($("#email").val() == ""){
+      alert("이메일을 입력해주세요");
+      $("#email").focus();
+      return false;
+    }
+         
+    //이메일 유효성 검사
+    if(!getMail.test($("#email").val())){
+      alert("이메일형식에 맞게 입력해주세요")
+      $("#email").val("");
+      $("#email").focus();
       return false;
     }
     
+    if($("#emp_adress").val() == ""){
+        alert("주소를 입력해주세요");
+        $("#emp_adress").focus();
+        return false;
+      }
+    
+    if($("#address_detail").val() == ""){
+        alert("주소를 입력해주세요");
+        $("#address_detail").focus();
+        return false;
+      }
+    
+    if($("#hireDate").val() == ""){
+        alert("입사일을 입력해주세요");
+        $("#hireDate").focus();
+        return false;
+      }
+    
+    if($("#teamSel").val() == "-----선택------"){
+        alert("팀을 선택해주세요");
+        $("#teamSel").focus();
+        return false;
+    }
+    
+    if($("#posSel").val() == "-----선택------"){
+        alert("직급을 선택해주세요");
+        $("#posSel").focus();
+        return false;
+    }
+    
+    if($("#dutySel").val() == "-----선택------"){
+        alert("직책을 선택해주세요");
+        $("#dutySel").focus();
+        return false;
+    }
+    
+    if($("#stateSel").val() == "-----선택------"){
+        alert("상태를 선택해주세요");
+        $("#stateSel").focus();
+        return false;
+    }
+
     //서명이미지 공백 검사
     if($("#file2").val() == ""){
       alert("서명이미지를 첨부해주세요");
       $("#file2").focus();
       return false;
     }
+    
+
+    
+    
+    
+    
 
 }
 
+function duty(dutySel){
+	//값(value)가져오기
+	var duty_value = dutySel.value;
+
+	//텍스트 가져오기
+	var duty_value2 = dutySel.options[dutySel.selectedIndex].text;
+	console.log(duty_value);  //코드 출력
+	console.log(duty_value2);  //이름 출력
+	$("#dutyIns").val(duty_value2);  //input에 value 값 넣어주기
+}
+function pos(posSel){
+	//값(value)가져오기
+	var pos_value = posSel.value;
+
+	//텍스트 가져오기
+	var pos_value2 = posSel.options[posSel.selectedIndex].text;
+	console.log(pos_value);  //코드 출력
+	console.log(pos_value2);  //이름 출력
+	$("#posIns").val(pos_value2);  //input에 value 값 넣어주기
+}
+function team(teamSel){
+	//값(value)가져오기
+	var team_value = teamSel.value;
+
+	//텍스트 가져오기
+	var team_value2 = teamSel.options[teamSel.selectedIndex].text;
+	console.log(team_value);  //코드 출력
+	console.log(team_value2);  //이름 출력
+	$("#teamIns").val(team_value2);  //input에 value 값 넣어주기
+}
+
+
+
+$("#id_check").click(function(){
+	var getId = RegExp(/^[0-9]{8}$/);
+	var id = $("#id").val();
+	
+	if(id==''){
+		alert("아이디를 입력해 주세요");
+		$("#id").focus();
+	}else if(!getId.test($("#id").val())){
+		alert("아이디는 8자 숫자만 입력해 주세요(입사년/입사월/0000)");
+		id.focus();
+	}else{
+		$.ajax({
+			type:'GET',
+			url:'idCheck.ajax',
+			data:{'emp_id':id},//id값 전송
+			dataType:'JSON',
+			success:function(data){
+				console.log(data);
+				console.log(data.idCheck);
+				if(data.idCheck){ //true
+					alert('이미 사용 중인 아이디 입니다.');
+					$('#id').focus();
+				}else{//없는 아이디라면
+					idCheck=true;
+					alert('사용 가능한 아이디 입니다.');
+					$('#id').focus();
+				}
+			},
+			error:function(e){
+				console.log(e);
+			}
+		});	
+	}
+});
 
 </script>
 </html>

@@ -86,19 +86,15 @@
 							<th>직책코드</th>
 							<th>직책명</th>
 							<th>상태</th>
-							<th>수정</th>
-							<th>삭제</th>	
 						</tr>
 					  </thead>
 					  <tbody>
 						<c:forEach items="${list}" var="list">
 							<tr>						
-								<td>${list.duty_idx}</td>
-								<td>${list.duty_name}</td>
+								<td><a href="memberInfoDutyDetail.do?duty_idx=${list.duty_idx}">${list.duty_idx}</a></td>
+								<td><a href="memberInfoDutyDetail.do?duty_idx=${list.duty_idx}">${list.duty_name}</a></td>
 								<c:if test="${list.duty_state == '1'}"><td>사용</td></c:if>
 								<c:if test="${list.duty_state == '0'}"><td>미사용</td></c:if>								
-								<td><button type="button" class="btn btn-round btn-info" onclick="location.href='memberInfoDutyUpdate.go?duty_idx=${list.duty_idx}'">수정</button></td>
-								<td><button type="button" class="btn btn-round btn-info" onclick="location.href='memberInfoDutyDelete.do?duty_idx=${list.duty_idx}'">삭제</button></td>
 							</tr>
 						</c:forEach>
 					  </tbody>

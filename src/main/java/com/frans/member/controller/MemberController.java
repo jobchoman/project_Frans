@@ -51,9 +51,9 @@ public class MemberController {
 	
 	
 	@PostMapping(value="/memberLogin.do")
-		public String login(String emp_id, String emp_pw,RedirectAttributes rAttr, HttpSession session,Model model,HttpServletRequest req) {
-			return memberService.login(emp_id, emp_pw, rAttr, session, model, req);
-		}
+	public String login(String emp_id, String emp_pw,RedirectAttributes rAttr, HttpSession session,Model model,HttpServletRequest req) {
+		return memberService.login(emp_id, emp_pw, rAttr, session, model, req);
+	}
 	
 	@GetMapping(value="/memberJoin.go")
 	public String joinForm(Model model) {
@@ -102,6 +102,7 @@ public class MemberController {
 		ArrayList<MemberDTO> LicenseDTO =  memberService.memberDetailLicense(emp_id,model); 
 		ArrayList<MemberDTO> rightDTO = memberService.memberDetailRight(emp_id);
 		ArrayList<MemberDTO> hisLog = memberService.memberHisLog(emp_id);
+		ArrayList<MemberDTO> rightTeam = memberService.rightTeam(emp_id);
 		model.addAttribute("hist",hisLog);
 		model.addAttribute("rgh",rightDTO);
 		model.addAttribute("memSchool",SchoolDTO);
@@ -117,6 +118,7 @@ public class MemberController {
 		logger.info("fileList"+fileList);
 		model.addAttribute("fileList",fileList);
 		model.addAttribute("fileList1",fileList1);
+		model.addAttribute("rightTeam",rightTeam);
 		return "memberDetail";
 	}
 	
@@ -197,6 +199,7 @@ public class MemberController {
 		ArrayList<MemberDTO> posDto = memberService.posList();
 		ArrayList<MemberDTO> dutyDto = memberService.dutyList();
 		ArrayList<MemberDTO> stateDto = memberService.stateList();
+		ArrayList<MemberDTO> rightTeam = memberService.rightTeam(emp_id);
 		model.addAttribute("rgh",rightDTO);
 		model.addAttribute("memSchool",SchoolDTO);
 		model.addAttribute("memLicense",LicenseDTO);
@@ -207,6 +210,7 @@ public class MemberController {
 		model.addAttribute("fileList",fileList);
 		model.addAttribute("fileList1",fileList1);
 		model.addAttribute("mem", dto);
+		model.addAttribute("rightTeam", rightTeam);
 		return "memberUpdateForm";
 	}
 	
@@ -248,6 +252,7 @@ public class MemberController {
 		ArrayList<MemberDTO> stateDto = memberService.stateList();
 		ArrayList<MemberDTO> fileList = memberService.fileList(emp_id);
 		ArrayList<MemberDTO> fileList1 = memberService.fileList1(emp_id);
+		ArrayList<MemberDTO> rightTeam = memberService.rightTeam(emp_id);
 		model.addAttribute("rgh",rightDTO);
 		model.addAttribute("memSchool",SchoolDTO);
 		model.addAttribute("memLicense",LicenseDTO);
@@ -258,6 +263,7 @@ public class MemberController {
 		model.addAttribute("fileList",fileList);
 		model.addAttribute("fileList1",fileList1);
 		model.addAttribute("mem",dto);
+		model.addAttribute("rightTeam", rightTeam);
 		return "memberMyPage";
 	}
 	
@@ -274,6 +280,7 @@ public class MemberController {
 		ArrayList<MemberDTO> posDto = memberService.posList();
 		ArrayList<MemberDTO> dutyDto = memberService.dutyList();
 		ArrayList<MemberDTO> stateDto = memberService.stateList();
+		ArrayList<MemberDTO> rightTeam = memberService.rightTeam(emp_id);
 		model.addAttribute("rgh",rightDTO);
 		model.addAttribute("memSchool",SchoolDTO);
 		model.addAttribute("memLicense",LicenseDTO);
@@ -284,6 +291,7 @@ public class MemberController {
 		model.addAttribute("fileList",fileList);
 		model.addAttribute("fileList1",fileList1);
 		model.addAttribute("mem", dto);
+		model.addAttribute("rightTeam", rightTeam);
 		return "MyPageUpdate";
 	}
 	
@@ -313,6 +321,28 @@ public class MemberController {
 		
 		return msg;
 	}
+	
+	@ResponseBody
+	@GetMapping(value="/idCheck.ajax")
+	public HashMap<String, Object> idCheck(@RequestParam String emp_id) {
+		boolean idCheck = true;
+		idCheck = memberService.idCheck(emp_id);
+		logger.info("inCheck:{}",idCheck);
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("idCheck", idCheck);
+		return map;
+	}
+	
+	@ResponseBody
+	@GetMapping(value="/memberTeamList.ajax")
+	public HashMap<String, Object> teamList(@RequestParam String com,String emp_id){
+		logger.info("아작스전달");
+		return memberService.chTeamList(com,emp_id);
+	}
+	
+	
+	
 	
 	
 

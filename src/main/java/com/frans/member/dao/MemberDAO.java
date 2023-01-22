@@ -106,7 +106,37 @@ public interface MemberDAO {
 
 	ArrayList<MemberDTO> memberHistLog(String emp_id);
 
-//	int memberUpdateParam(HashMap<String, String> params);
+	int teamHis(String emp_id, String team_name);
+
+	int posHis(String emp_id, String pos_name);
+
+	int dutyHis(String emp_id, String duty_name);
+
+	String idCheck(String emp_id);
+
+	ArrayList<MemberDTO> chNotTeamList(String com, String emp_id);
+	
+	//히스토리 업데이트 관련
+	String pos_name(String pos_idx);
+
+	String duty_name(String duty_idx);
+
+	String team_name(String team_idx);
+
+	int empPosIdx(String emp_id, String pos_idx);
+
+	int empDutyIdx(String emp_id, String duty_idx);
+
+	int empTeamIdx(String emp_id, String team_idx);
+
+	void historyUpdate(String emp_id, String type, String reason, String pos_name);
+
+	void rightUpdate(String emp_id, String right_team, String right_auth_type);
+
+	ArrayList<MemberDTO> rightTeam(String emp_id);
+
+
+
 
 
 

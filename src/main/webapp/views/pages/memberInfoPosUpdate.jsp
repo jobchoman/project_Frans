@@ -85,6 +85,7 @@
 										<div>
 											<label class="col-form-label col-md-3 col-sm-3 label-align">상태
 											</label>
+											<c:if test="${list.size()==0}">
 											<div class="radio">
 												<label>
 													<input type="radio" value="1" id="pos_state" name="pos_state" >활성화
@@ -95,6 +96,8 @@
 													<input type="radio" value="0" id="pos_state" name="pos_state">비활성화
 												</label>
 											</div>
+											</c:if>
+											<c:if test="${list.size()>0}">직급이 존재해 삭제가 불가합니다.</c:if>
 										</div>
 										<div class="ln_solid"></div>
 										<div class="item form-group">

@@ -47,6 +47,12 @@ public interface NotiDAO {
 
 	String notiRefMemOk(String emp_id, String sign_idx);
 
+	void notiDenyAllInsert(String string, String noti_idx);
+
+	String notiSignMemDeny(String emp_id, String sign_idx);
+
+	String notiRefMemDeny(String emp_id, String sign_idx);
+
 
 
 }

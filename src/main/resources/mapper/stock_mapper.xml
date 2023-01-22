@@ -33,9 +33,8 @@
 	
 	<!-- 매장 자재 리스트 -->
 	<select id="shopStockList" resultType="StockDTO">				
-		SELECT * FROM stock s left  JOIN shop_stock ss ON s.stock_idx = ss.stock_idx left  join shop s2 ON ss.shop_idx = s2.shop_idx
-where s.stock_sort_idx = #{param1} and (ss.shop_idx is null or ss.shop_idx = (SELECT s.shop_idx from shop s
-where s.emp_id = (SELECT emp_id from employee e where emp_id = #{param2}))) 
+		SELECT DISTINCT s.stock_idx,s.stock_name ,s.stock_price ,(SELECT shop_idx from shop where emp_id= #{param2}) as shop_idx ,(SELECT shop_stock_amount from shop_stock ss2 where ss2.stock_idx = s.stock_idx and ss2.shop_idx=(SELECT s2.shop_idx from shop s2 where s2.emp_id = #{param2})) as shop_stock_amount
+from stock s left JOIN shop_stock ss ON s.stock_idx = ss.stock_idx where s.stock_sort_idx = #{param1};
 	</select>
 	
 	<!-- 재고 수정 모달 -->
