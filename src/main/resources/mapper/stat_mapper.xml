@@ -217,5 +217,1605 @@
 			group by month,s.province_idx 
 			order by month
 	</select>
+	
+	<select id="subStatGender17" resultType="hashmap">
+		SELECT su.sub_use_start as 'day', count(su.client_id) as 'subJoinCount',
+			p.province_name
+			from sub_use su 
+			left join shop s on su.shop_idx = s.shop_idx 
+			left join province p on s.province_idx = p.province_idx 
+			where year(su.sub_use_start) = #{param1} and month(su.sub_use_start) = #{param2}
+			group by day,s.province_idx 
+			order by day
+	</select>
+	
+	<select id="subStatGenderDays" resultType="String">
+		select * from 
+		(select adddate('2000-01-01',t4.i*10000 + t3.i*1000 + t2.i*100 + t1.i*10 + t0.i) days from
+		 (select 0 i union select 1 union select 2 union select 3 union select 4 union select 5 union select 6 union select 7 union select 8 union select 9) t0,
+		 (select 0 i union select 1 union select 2 union select 3 union select 4 union select 5 union select 6 union select 7 union select 8 union select 9) t1,
+		 (select 0 i union select 1 union select 2 union select 3 union select 4 union select 5 union select 6 union select 7 union select 8 union select 9) t2,
+		 (select 0 i union select 1 union select 2 union select 3 union select 4 union select 5 union select 6 union select 7 union select 8 union select 9) t3,
+		 (select 0 i union select 1 union select 2 union select 3 union select 4 union select 5 union select 6 union select 7 union select 8 union select 9) t4) v
+		where days 
+		between #{param1} and LAST_DAY(#{param1})
+	</select>
+	
+	<select id="subStatGender18" resultType="hashmap">
+		SELECT su.sub_use_start as 'day', count(su.client_id) as 'subJoinCount',
+			p.province_name
+			from sub_use su 
+			left join shop s on su.shop_idx = s.shop_idx 
+			left join province p on s.province_idx = p.province_idx 
+			where year(su.sub_use_start) = #{param1} and month(su.sub_use_start) = #{param2} and su.sub_idx = ${param3}
+			group by day,s.province_idx 
+			order by day
+	</select>
+	
+	<select id="subStatGender19" resultType="hashmap">
+		SELECT su.sub_use_start as 'day', count(su.client_id) as 'subJoinCount',
+			p.province_name
+			from sub_use su 
+			left join shop s on su.shop_idx = s.shop_idx 
+			left join province p on s.province_idx = p.province_idx 
+			left join subscribe s2 on su.sub_idx = s2.sub_idx
+			where year(su.sub_use_start) = #{param1} and month(su.sub_use_start) = #{param2} and s2.sub_sort_idx = #{param3}
+			group by day,s.province_idx 
+			order by day
+	</select>
+	
+	<select id="subStatGender20" resultType="hashmap">
+		SELECT su.sub_use_start as 'day', count(su.client_id) as 'subJoinCount',
+			p.province_name
+			from sub_use su 
+			left join shop s on su.shop_idx = s.shop_idx 
+			left join province p on s.province_idx = p.province_idx 
+			left join subscribe s2 on su.sub_idx = s2.sub_idx
+			where year(su.sub_use_start) = #{param1} and month(su.sub_use_start) = #{param2} 
+			and s2.sub_sort_idx = #{param3} and su.sub_idx = ${param4}
+			group by day,s.province_idx 
+			order by day
+	</select>
+	
+	<select id="subStatGender21" resultType="hashmap">
+		SELECT su.sub_use_start as 'day', count(su.client_id) as 'subJoinCount',
+			p.province_name
+			from sub_use su 
+			left join shop s on su.shop_idx = s.shop_idx 
+			left join province p on s.province_idx = p.province_idx 
+			left join client c ON su.client_id = c.client_id 
+			where year(su.sub_use_start) = #{param1} and month(su.sub_use_start) = #{param2} 
+			and c.client_gender = #{param3}
+			group by day,s.province_idx 
+			order by day
+	</select>
+	
+	<select id="subStatGender22" resultType="hashmap">
+		SELECT su.sub_use_start as 'day', count(su.client_id) as 'subJoinCount',
+			p.province_name
+			from sub_use su 
+			left join shop s on su.shop_idx = s.shop_idx 
+			left join province p on s.province_idx = p.province_idx 
+			left join client c ON su.client_id = c.client_id 
+			where year(su.sub_use_start) = #{param1} and month(su.sub_use_start) = #{param2} 
+			and c.client_gender = #{param3} and su.sub_idx = ${param4}
+			group by day,s.province_idx 
+			order by day
+	</select>
+	
+	<select id="subStatGender23" resultType="hashmap">
+		SELECT su.sub_use_start as 'day', count(su.client_id) as 'subJoinCount',
+			p.province_name
+			from sub_use su 
+			left join shop s on su.shop_idx = s.shop_idx 
+			left join province p on s.province_idx = p.province_idx 
+			left join client c ON su.client_id = c.client_id
+			left join subscribe s2 on su.sub_idx = s2.sub_idx 
+			where year(su.sub_use_start) = #{param1} and month(su.sub_use_start) = #{param2} 
+			and c.client_gender = #{param3} and s2.sub_sort_idx = #{param4}
+			group by day,s.province_idx 
+			order by day
+	</select>
+	
+	<select id="subStatGender24" resultType="hashmap">
+		SELECT su.sub_use_start as 'day', count(su.client_id) as 'subJoinCount',
+			p.province_name
+			from sub_use su 
+			left join shop s on su.shop_idx = s.shop_idx 
+			left join province p on s.province_idx = p.province_idx 
+			left join client c ON su.client_id = c.client_id
+			left join subscribe s2 on su.sub_idx = s2.sub_idx 
+			where year(su.sub_use_start) = #{param1} and month(su.sub_use_start) = #{param2} 
+			and c.client_gender = #{param3} and s2.sub_sort_idx = #{param4} and su.sub_idx = ${param5}
+			group by day,s.province_idx 
+			order by day
+	</select>
+	
+	<select id="subStatGender25" resultType="hashmap">
+		SELECT SUBSTR(su.sub_use_start,1,4) as 'year', count(su.client_id) as 'subJoinCount', 
+			p.province_name 
+			from sub_use su 
+			left join shop s on su.shop_idx = s.shop_idx 
+			left join province p on s.province_idx = p.province_idx 
+			where s.province_idx = #{param1}
+			group by year
+			order by year
+	</select>
+	
+	<select id="subStatGender26" resultType="hashmap">
+		SELECT SUBSTR(su.sub_use_start,1,4) as 'year', count(su.client_id) as 'subJoinCount', 
+			p.province_name 
+			from sub_use su 
+			left join shop s on su.shop_idx = s.shop_idx 
+			left join province p on s.province_idx = p.province_idx 
+			where s.province_idx = #{param1} and su.sub_idx = ${param2}
+			group by year
+			order by year
+	</select>
+	
+	<select id="subStatGender27" resultType="hashmap">
+		SELECT SUBSTR(su.sub_use_start,1,4) as 'year', count(su.client_id) as 'subJoinCount', 
+			p.province_name 
+			from sub_use su 
+			left join shop s on su.shop_idx = s.shop_idx 
+			left join province p on s.province_idx = p.province_idx
+			left join subscribe s2 on su.sub_idx = s2.sub_idx  
+			where s.province_idx = #{param1} and s2.sub_sort_idx = #{param2}
+			group by year
+			order by year
+	</select>
+	
+	<select id="subStatGender28" resultType="hashmap">
+		SELECT SUBSTR(su.sub_use_start,1,4) as 'year', count(su.client_id) as 'subJoinCount', 
+			p.province_name 
+			from sub_use su 
+			left join shop s on su.shop_idx = s.shop_idx 
+			left join province p on s.province_idx = p.province_idx
+			left join subscribe s2 on su.sub_idx = s2.sub_idx  
+			where s.province_idx = #{param1} and s2.sub_sort_idx = #{param2} and su.sub_idx = ${param3}
+			group by year
+			order by year
+	</select>
+	
+	<select id="subStatGender29" resultType="hashmap">
+		SELECT SUBSTR(su.sub_use_start,1,4) as 'year', count(su.client_id) as 'subJoinCount', 
+			p.province_name 
+			from sub_use su 
+			left join shop s on su.shop_idx = s.shop_idx 
+			left join province p on s.province_idx = p.province_idx
+			left join client c ON su.client_id = c.client_id 
+			where s.province_idx = #{param1} and c.client_gender = #{param2} 
+			group by year
+			order by year
+	</select>
+	
+	<select id="subStatGender30" resultType="hashmap">
+		SELECT SUBSTR(su.sub_use_start,1,4) as 'year', count(su.client_id) as 'subJoinCount', 
+			p.province_name 
+			from sub_use su 
+			left join shop s on su.shop_idx = s.shop_idx 
+			left join province p on s.province_idx = p.province_idx
+			left join client c on su.client_id = c.client_id 
+			where s.province_idx = #{param1} and c.client_gender = #{param2} and su.sub_idx = ${param3}
+			group by year
+			order by year
+	</select>
+	
+	<select id="subStatGender31" resultType="hashmap">
+		SELECT SUBSTR(su.sub_use_start,1,4) as 'year', count(su.client_id) as 'subJoinCount', 
+			p.province_name 
+			from sub_use su 
+			left join shop s on su.shop_idx = s.shop_idx 
+			left join province p on s.province_idx = p.province_idx
+			left join client c on su.client_id = c.client_id 
+			left join subscribe s2 on su.sub_idx = s2.sub_idx 
+			where s.province_idx = #{param1} and c.client_gender = #{param2} and s2.sub_sort_idx = #{param3}
+			group by year
+			order by year
+	</select>
+	
+	<select id="subStatGender32" resultType="hashmap">
+		SELECT SUBSTR(su.sub_use_start,1,4) as 'year', count(su.client_id) as 'subJoinCount', 
+			p.province_name 
+			from sub_use su 
+			left join shop s on su.shop_idx = s.shop_idx 
+			left join province p on s.province_idx = p.province_idx
+			left join client c on su.client_id = c.client_id 
+			left join subscribe s2 on su.sub_idx = s2.sub_idx 
+			where s.province_idx = #{param1} and c.client_gender = #{param2} 
+			and s2.sub_sort_idx = #{param3} and su.sub_idx = ${param4}
+			group by year
+			order by year
+	</select>
+	
+	<select id="subStatGender33" resultType="hashmap">
+		SELECT SUBSTR(su.sub_use_start,1,7) as 'month', count(su.client_id) as 'subJoinCount', 
+			p.province_name 
+			from sub_use su 
+			left join shop s on su.shop_idx = s.shop_idx 
+			left join province p on s.province_idx = p.province_idx 
+			where p.province_idx = #{param1} and year(su.sub_use_start) = #{param2}
+			group by month
+			order by month
+	</select>
+	
+	<select id="subStatGender34" resultType="hashmap">
+		SELECT SUBSTR(su.sub_use_start,1,7) as 'month', count(su.client_id) as 'subJoinCount', 
+			p.province_name 
+			from sub_use su 
+			left join shop s on su.shop_idx = s.shop_idx 
+			left join province p on s.province_idx = p.province_idx 
+			where p.province_idx = #{param1} and year(su.sub_use_start) = #{param2}
+			and su.sub_idx = ${param3}
+			group by month
+			order by month
+	</select>
+	
+	<select id="subStatGender35" resultType="hashmap">
+		SELECT SUBSTR(su.sub_use_start,1,7) as 'month', count(su.client_id) as 'subJoinCount', 
+			p.province_name 
+			from sub_use su 
+			left join shop s on su.shop_idx = s.shop_idx 
+			left join province p on s.province_idx = p.province_idx
+			left join subscribe s2 on su.sub_idx = s2.sub_idx 
+			where p.province_idx = #{param1} and year(su.sub_use_start) = #{param2}
+			and s2.sub_sort_idx = #{param3}
+			group by month
+			order by month
+	</select>
+	
+	<select id="subStatGender36" resultType="hashmap">
+		SELECT SUBSTR(su.sub_use_start,1,7) as 'month', count(su.client_id) as 'subJoinCount', 
+			p.province_name 
+			from sub_use su 
+			left join shop s on su.shop_idx = s.shop_idx 
+			left join province p on s.province_idx = p.province_idx
+			left join subscribe s2 on su.sub_idx = s2.sub_idx 
+			where p.province_idx = #{param1} and year(su.sub_use_start) = #{param2}
+			and s2.sub_sort_idx = #{param3} and su.sub_idx = ${param4}
+			group by month
+			order by month
+	</select>
+	
+	<select id="subStatGender37" resultType="hashmap">
+		SELECT SUBSTR(su.sub_use_start,1,7) as 'month', count(su.client_id) as 'subJoinCount', 
+			p.province_name 
+			from sub_use su 
+			left join shop s on su.shop_idx = s.shop_idx 
+			left join province p on s.province_idx = p.province_idx
+			left join client c on su.client_id = c.client_id
+			where p.province_idx = #{param1} and year(su.sub_use_start) = #{param2}
+			and c.client_gender = #{param3}
+			group by month
+			order by month
+	</select>
+	
+	<select id="subStatGender38" resultType="hashmap">
+		SELECT SUBSTR(su.sub_use_start,1,7) as 'month', count(su.client_id) as 'subJoinCount', 
+			p.province_name 
+			from sub_use su 
+			left join shop s on su.shop_idx = s.shop_idx 
+			left join province p on s.province_idx = p.province_idx
+			left join client c on su.client_id = c.client_id
+			where p.province_idx = #{param1} and year(su.sub_use_start) = #{param2}
+			and c.client_gender = #{param3} and su.sub_idx = ${param4}
+			group by month
+			order by month
+	</select>
+	
+	<select id="subStatGender39" resultType="hashmap">
+		SELECT SUBSTR(su.sub_use_start,1,7) as 'month', count(su.client_id) as 'subJoinCount', 
+			p.province_name 
+			from sub_use su 
+			left join shop s on su.shop_idx = s.shop_idx 
+			left join province p on s.province_idx = p.province_idx
+			left join client c on su.client_id = c.client_id
+			left join subscribe s2 on su.sub_idx = s2.sub_idx 
+			where p.province_idx = #{param1} and year(su.sub_use_start) = #{param2}
+			and c.client_gender = #{param3} and s2.sub_sort_idx = #{param4}
+			group by month
+			order by month
+	</select>
+	
+	<select id="subStatGender40" resultType="hashmap">
+		SELECT SUBSTR(su.sub_use_start,1,7) as 'month', count(su.client_id) as 'subJoinCount', 
+			p.province_name 
+			from sub_use su 
+			left join shop s on su.shop_idx = s.shop_idx 
+			left join province p on s.province_idx = p.province_idx
+			left join client c on su.client_id = c.client_id
+			left join subscribe s2 on su.sub_idx = s2.sub_idx 
+			where p.province_idx = #{param1} and year(su.sub_use_start) = #{param2}
+			and c.client_gender = #{param3} and s2.sub_sort_idx = #{param4} and su.sub_idx = ${param5}
+			group by month
+			order by month
+	</select>
+	
+	<select id="subStatGender41" resultType="hashmap">
+		SELECT su.sub_use_start as 'day', count(su.client_id) as 'subJoinCount',
+			p.province_name
+			from sub_use su 
+			left join shop s on su.shop_idx = s.shop_idx 
+			left join province p on s.province_idx = p.province_idx 
+			where p.province_idx = #{param1} and year(su.sub_use_start) = #{param2} and month(su.sub_use_start) = #{param3}
+			group by day
+			order by day
+	</select>
+	
+	<select id="subStatGender42" resultType="hashmap">
+		SELECT su.sub_use_start as 'day', count(su.client_id) as 'subJoinCount',
+			p.province_name
+			from sub_use su 
+			left join shop s on su.shop_idx = s.shop_idx 
+			left join province p on s.province_idx = p.province_idx 
+			where p.province_idx = #{param1} and year(su.sub_use_start) = #{param2} 
+			and month(su.sub_use_start) = #{param3} and su.sub_idx = ${param4}
+			group by day
+			order by day
+	</select>
+	
+	<select id="subStatGender43" resultType="hashmap">
+		SELECT su.sub_use_start as 'day', count(su.client_id) as 'subJoinCount',
+			p.province_name
+			from sub_use su 
+			left join shop s on su.shop_idx = s.shop_idx 
+			left join province p on s.province_idx = p.province_idx
+			left join subscribe s2 on su.sub_idx = s2.sub_idx 
+			where p.province_idx = #{param1} and year(su.sub_use_start) = #{param2} 
+			and month(su.sub_use_start) = #{param3} and s2.sub_sort_idx = #{param4}
+			group by day
+			order by day
+	</select>
+	
+	<select id="subStatGender44" resultType="hashmap">
+		SELECT su.sub_use_start as 'day', count(su.client_id) as 'subJoinCount',
+			p.province_name
+			from sub_use su 
+			left join shop s on su.shop_idx = s.shop_idx 
+			left join province p on s.province_idx = p.province_idx
+			left join subscribe s2 on su.sub_idx = s2.sub_idx 
+			where p.province_idx = #{param1} and year(su.sub_use_start) = #{param2} 
+			and month(su.sub_use_start) = #{param3} and s2.sub_sort_idx = #{param4}
+			and su.sub_idx =${param5}
+			group by day
+			order by day
+	</select>
+	
+	<select id="subStatGender45" resultType="hashmap">
+		SELECT su.sub_use_start as 'day', count(su.client_id) as 'subJoinCount',
+			p.province_name
+			from sub_use su 
+			left join shop s on su.shop_idx = s.shop_idx 
+			left join province p on s.province_idx = p.province_idx
+			left join client c on su.client_id = c.client_id 
+			where p.province_idx = #{param1} and year(su.sub_use_start) = #{param2} 
+			and month(su.sub_use_start) = #{param3} and c.client_gender = #{param4}
+			group by day
+			order by day
+	</select>
+	
+	<select id="subStatGender46" resultType="hashmap">
+		SELECT su.sub_use_start as 'day', count(su.client_id) as 'subJoinCount',
+			p.province_name
+			from sub_use su 
+			left join shop s on su.shop_idx = s.shop_idx 
+			left join province p on s.province_idx = p.province_idx
+			left join client c on su.client_id = c.client_id 
+			where p.province_idx = #{param1} and year(su.sub_use_start) = #{param2} 
+			and month(su.sub_use_start) = #{param3} and c.client_gender = #{param4}
+			and su.sub_idx = ${param5}
+			group by day
+			order by day
+	</select>
+	
+	<select id="subStatGender47" resultType="hashmap">
+		SELECT su.sub_use_start as 'day', count(su.client_id) as 'subJoinCount',
+			p.province_name
+			from sub_use su 
+			left join shop s on su.shop_idx = s.shop_idx 
+			left join province p on s.province_idx = p.province_idx
+			left join client c on su.client_id = c.client_id
+			left join subscribe s2 on su.sub_idx = s2.sub_idx 
+			where p.province_idx = #{param1} and year(su.sub_use_start) = #{param2} 
+			and month(su.sub_use_start) = #{param3} and c.client_gender = #{param4}
+			and s2.sub_sort_idx = #{param5}
+			group by day
+			order by day
+	</select>
+	
+	<select id="subStatGender48" resultType="hashmap">
+		SELECT su.sub_use_start as 'day', count(su.client_id) as 'subJoinCount',
+			p.province_name
+			from sub_use su 
+			left join shop s on su.shop_idx = s.shop_idx 
+			left join province p on s.province_idx = p.province_idx
+			left join client c on su.client_id = c.client_id
+			left join subscribe s2 on su.sub_idx = s2.sub_idx 
+			where p.province_idx = #{param1} and year(su.sub_use_start) = #{param2} 
+			and month(su.sub_use_start) = #{param3} and c.client_gender = #{param4}
+			and s2.sub_sort_idx = #{param5} and su.sub_idx = ${param6}
+			group by day
+			order by day
+	</select>
+	
+	<select id="subStatGender49" resultType="hashmap">
+		SELECT SUBSTR(su.sub_use_start,1,4) as 'year', count(su.client_id) as 'subJoinCount', 
+			c.city_name 
+			from sub_use su 
+			left join shop s on su.shop_idx = s.shop_idx 
+			left join city c on s.city_idx = c.city_idx
+			where s.city_idx = #{param1}
+			group by year
+			order by year
+	</select>
+	
+	<select id="subStatGender50" resultType="hashmap">
+		SELECT SUBSTR(su.sub_use_start,1,4) as 'year', count(su.client_id) as 'subJoinCount', 
+			c.city_name  
+			from sub_use su 
+			left join shop s on su.shop_idx = s.shop_idx 
+			left join city c on s.city_idx = c.city_idx 
+			where s.city_idx = #{param1} and su.sub_idx = ${param2}
+			group by year
+			order by year
+	</select>
+	
+	<select id="subStatGender51" resultType="hashmap">
+		SELECT SUBSTR(su.sub_use_start,1,4) as 'year', count(su.client_id) as 'subJoinCount', 
+			c.city_name  
+			from sub_use su 
+			left join shop s on su.shop_idx = s.shop_idx 
+			left join city c on s.city_idx = c.city_idx
+			left join subscribe s2 on su.sub_idx = s2.sub_idx  
+			where s.city_idx = #{param1} and s2.sub_sort_idx = #{param2}
+			group by year
+			order by year
+	</select>
+	
+	<select id="subStatGender52" resultType="hashmap">
+		SELECT SUBSTR(su.sub_use_start,1,4) as 'year', count(su.client_id) as 'subJoinCount', 
+			c.city_name  
+			from sub_use su 
+			left join shop s on su.shop_idx = s.shop_idx 
+			left join city c on s.city_idx = c.city_idx
+			left join subscribe s2 on su.sub_idx = s2.sub_idx  
+			where s.city_idx = #{param1} and s2.sub_sort_idx = #{param2} and su.sub_idx = ${param3}
+			group by year
+			order by year
+	</select>
+	
+	<select id="subStatGender53" resultType="hashmap">
+		SELECT SUBSTR(su.sub_use_start,1,4) as 'year', count(su.client_id) as 'subJoinCount', 
+			c.city_name  
+			from sub_use su 
+			left join shop s on su.shop_idx = s.shop_idx 
+			left join city c on s.city_idx = c.city_idx
+			left join client cl on su.client_id = cl.client_id
+			where s.city_idx = #{param1} and cl.client_gender = #{param2} 
+			group by year
+			order by year
+	</select>
+	
+	<select id="subStatGender54" resultType="hashmap">
+		SELECT SUBSTR(su.sub_use_start,1,4) as 'year', count(su.client_id) as 'subJoinCount', 
+			c.city_name  
+			from sub_use su 
+			left join shop s on su.shop_idx = s.shop_idx 
+			left join city c on s.city_idx = c.city_idx	
+			left join client cl on su.client_id = cl.client_id
+			where s.city_idx = #{param1} and cl.client_gender = #{param2} and su.sub_idx = ${param3}
+			group by year
+			order by year
+	</select>
+	
+	<select id="subStatGender55" resultType="hashmap">
+		SELECT SUBSTR(su.sub_use_start,1,4) as 'year', count(su.client_id) as 'subJoinCount', 
+			c.city_name  
+			from sub_use su 
+			left join shop s on su.shop_idx = s.shop_idx 
+			left join city c on s.city_idx = c.city_idx
+			left join client cl on su.client_id = cl.client_id
+			left join subscribe s2 on su.sub_idx = s2.sub_idx 
+			where s.city_idx = #{param1} and cl.client_gender = #{param2} and s2.sub_sort_idx = #{param3}
+			group by year
+			order by year
+	</select>
+	
+	<select id="subStatGender56" resultType="hashmap">
+		SELECT SUBSTR(su.sub_use_start,1,4) as 'year', count(su.client_id) as 'subJoinCount', 
+			c.city_name  
+			from sub_use su 
+			left join shop s on su.shop_idx = s.shop_idx 
+			left join city c on s.city_idx = c.city_idx
+			left join client cl on su.client_id = cl.client_id
+			left join subscribe s2 on su.sub_idx = s2.sub_idx 
+			where s.city_idx = #{param1} and cl.client_gender = #{param2} 
+			and s2.sub_sort_idx = #{param3} and su.sub_idx = ${param4}
+			group by year
+			order by year
+	</select>
+	
+	<select id="subStatGender57" resultType="hashmap">
+		SELECT SUBSTR(su.sub_use_start,1,7) as 'month', count(su.client_id) as 'subJoinCount', 
+			c.city_name  
+			from sub_use su 
+			left join shop s on su.shop_idx = s.shop_idx 
+			left join city c on s.city_idx = c.city_idx 
+			where s.city_idx = #{param1} and year(su.sub_use_start) = #{param2}
+			group by month
+			order by month
+	</select>
+	
+	<select id="subStatGender58" resultType="hashmap">
+		SELECT SUBSTR(su.sub_use_start,1,7) as 'month', count(su.client_id) as 'subJoinCount', 
+			c.city_name  
+			from sub_use su 
+			left join shop s on su.shop_idx = s.shop_idx 
+			left join city c on s.city_idx = c.city_idx 
+			where s.city_idx = #{param1} and year(su.sub_use_start) = #{param2}
+			and su.sub_idx = ${param3}
+			group by month
+			order by month
+	</select>
+	
+	<select id="subStatGender59" resultType="hashmap">
+		SELECT SUBSTR(su.sub_use_start,1,7) as 'month', count(su.client_id) as 'subJoinCount', 
+			c.city_name 
+			from sub_use su 
+			left join shop s on su.shop_idx = s.shop_idx 
+			left join city c on s.city_idx = c.city_idx
+			left join subscribe s2 on su.sub_idx = s2.sub_idx 
+			where s.city_idx = #{param1} and year(su.sub_use_start) = #{param2}
+			and s2.sub_sort_idx = #{param3}
+			group by month
+			order by month
+	</select>
+	
+	<select id="subStatGender60" resultType="hashmap">
+		SELECT SUBSTR(su.sub_use_start,1,7) as 'month', count(su.client_id) as 'subJoinCount', 
+			c.city_name  
+			from sub_use su 
+			left join shop s on su.shop_idx = s.shop_idx 
+			left join city c on s.city_idx = c.city_idx
+			left join subscribe s2 on su.sub_idx = s2.sub_idx 
+			where s.city_idx = #{param1} and year(su.sub_use_start) = #{param2}
+			and s2.sub_sort_idx = #{param3} and su.sub_idx = ${param4}
+			group by month
+			order by month
+	</select>
+	
+	<select id="subStatGender61" resultType="hashmap">
+		SELECT SUBSTR(su.sub_use_start,1,7) as 'month', count(su.client_id) as 'subJoinCount', 
+			c.city_name  
+			from sub_use su 
+			left join shop s on su.shop_idx = s.shop_idx 
+			left join city c on s.city_idx = c.city_idx
+			left join client cl on su.client_id = cl.client_id
+			where s.city_idx = #{param1} and year(su.sub_use_start) = #{param2}
+			and cl.client_gender = #{param3}
+			group by month
+			order by month
+	</select>
+	
+	<select id="subStatGender62" resultType="hashmap">
+		SELECT SUBSTR(su.sub_use_start,1,7) as 'month', count(su.client_id) as 'subJoinCount', 
+			c.city_name 
+			from sub_use su 
+			left join shop s on su.shop_idx = s.shop_idx 
+			left join city c on s.city_idx = c.city_idx
+			left join client cl on su.client_id = cl.client_id
+			where s.city_idx = #{param1} and year(su.sub_use_start) = #{param2}
+			and cl.client_gender = #{param3} and su.sub_idx = ${param4}
+			group by month
+			order by month
+	</select>
+	
+	<select id="subStatGender63" resultType="hashmap">
+		SELECT SUBSTR(su.sub_use_start,1,7) as 'month', count(su.client_id) as 'subJoinCount', 
+			c.city_name 
+			from sub_use su 
+			left join shop s on su.shop_idx = s.shop_idx 
+			left join city c on s.city_idx = c.city_idx
+			left join client cl on su.client_id = cl.client_id
+			left join subscribe s2 on su.sub_idx = s2.sub_idx 
+			where s.city_idx = #{param1} and year(su.sub_use_start) = #{param2}
+			and cl.client_gender = #{param3} and s2.sub_sort_idx = #{param4}
+			group by month
+			order by month
+	</select>
+	
+	<select id="subStatGender64" resultType="hashmap">
+		SELECT SUBSTR(su.sub_use_start,1,7) as 'month', count(su.client_id) as 'subJoinCount', 
+			c.city_name  
+			from sub_use su 
+			left join shop s on su.shop_idx = s.shop_idx 
+			left join city c on s.city_idx = c.city_idx
+			left join client cl on su.client_id = cl.client_id
+			left join subscribe s2 on su.sub_idx = s2.sub_idx 
+			where s.city_idx = #{param1} and year(su.sub_use_start) = #{param2}
+			and cl.client_gender = #{param3} and s2.sub_sort_idx = #{param4} and su.sub_idx = ${param5}
+			group by month
+			order by month
+	</select>
+	
+	<select id="subStatGender65" resultType="hashmap">
+		SELECT su.sub_use_start as 'day', count(su.client_id) as 'subJoinCount',
+			c.city_name 
+			from sub_use su 
+			left join shop s on su.shop_idx = s.shop_idx 
+			left join city c on s.city_idx = c.city_idx 
+			where s.city_idx = #{param1} and year(su.sub_use_start) = #{param2} and month(su.sub_use_start) = #{param3}
+			group by day
+			order by day
+	</select>
+	
+	<select id="subStatGender66" resultType="hashmap">
+		SELECT su.sub_use_start as 'day', count(su.client_id) as 'subJoinCount',
+			c.city_name 
+			from sub_use su 
+			left join shop s on su.shop_idx = s.shop_idx 
+			left join city c on s.city_idx = c.city_idx 
+			where s.city_idx = #{param1} and year(su.sub_use_start) = #{param2} 
+			and month(su.sub_use_start) = #{param3} and su.sub_idx = ${param4}
+			group by day
+			order by day
+	</select>
+	
+	<select id="subStatGender67" resultType="hashmap">
+		SELECT su.sub_use_start as 'day', count(su.client_id) as 'subJoinCount',
+			c.city_name 
+			from sub_use su 
+			left join shop s on su.shop_idx = s.shop_idx 
+			left join city c on s.city_idx = c.city_idx
+			left join subscribe s2 on su.sub_idx = s2.sub_idx 
+			where s.city_idx = #{param1} and year(su.sub_use_start) = #{param2} 
+			and month(su.sub_use_start) = #{param3} and s2.sub_sort_idx = #{param4}
+			group by day
+			order by day
+	</select>
+	
+	<select id="subStatGender68" resultType="hashmap">
+		SELECT su.sub_use_start as 'day', count(su.client_id) as 'subJoinCount',
+			c.city_name 
+			from sub_use su 
+			left join shop s on su.shop_idx = s.shop_idx 
+			left join city c on s.city_idx = c.city_idx
+			left join subscribe s2 on su.sub_idx = s2.sub_idx 
+			where s.city_idx = #{param1} and year(su.sub_use_start) = #{param2} 
+			and month(su.sub_use_start) = #{param3} and s2.sub_sort_idx = #{param4}
+			and su.sub_idx =${param5}
+			group by day
+			order by day
+	</select>
+	
+	<select id="subStatGender69" resultType="hashmap">
+		SELECT su.sub_use_start as 'day', count(su.client_id) as 'subJoinCount',
+			c.city_name 
+			from sub_use su 
+			left join shop s on su.shop_idx = s.shop_idx 
+			left join city c on s.city_idx = c.city_idx
+			left join client cl on su.client_id = cl.client_id 
+			where s.city_idx = #{param1} and year(su.sub_use_start) = #{param2} 
+			and month(su.sub_use_start) = #{param3} and cl.client_gender = #{param4}
+			group by day
+			order by day
+	</select>
+	
+	<select id="subStatGender70" resultType="hashmap">
+		SELECT su.sub_use_start as 'day', count(su.client_id) as 'subJoinCount',
+			c.city_name 
+			from sub_use su 
+			left join shop s on su.shop_idx = s.shop_idx 
+			left join city c on s.city_idx = c.city_idx
+			left join client cl on su.client_id = cl.client_id 
+			where s.city_idx = #{param1} and year(su.sub_use_start) = #{param2} 
+			and month(su.sub_use_start) = #{param3} and cl.client_gender = #{param4}
+			and su.sub_idx = ${param5}
+			group by day
+			order by day
+	</select>
+	
+	<select id="subStatGender71" resultType="hashmap">
+		SELECT su.sub_use_start as 'day', count(su.client_id) as 'subJoinCount',
+			c.city_name 
+			from sub_use su 
+			left join shop s on su.shop_idx = s.shop_idx 
+			left join city c on s.city_idx = c.city_idx
+			left join client cl on su.client_id = cl.client_id
+			left join subscribe s2 on su.sub_idx = s2.sub_idx 
+			where s.city_idx = #{param1} and year(su.sub_use_start) = #{param2} 
+			and month(su.sub_use_start) = #{param3} and cl.client_gender = #{param4}
+			and s2.sub_sort_idx = #{param5}
+			group by day
+			order by day
+	</select>
+	
+	<select id="subStatGender72" resultType="hashmap">
+		SELECT su.sub_use_start as 'day', count(su.client_id) as 'subJoinCount',
+			c.city_name 
+			from sub_use su 
+			left join shop s on su.shop_idx = s.shop_idx 
+			left join city c on s.city_idx = c.city_idx
+			left join client cl on su.client_id = cl.client_id
+			left join subscribe s2 on su.sub_idx = s2.sub_idx 
+			where s.city_idx = #{param1} and year(su.sub_use_start) = #{param2} 
+			and month(su.sub_use_start) = #{param3} and cl.client_gender = #{param4}
+			and s2.sub_sort_idx = #{param5} and su.sub_idx = ${param6}
+			group by day
+			order by day
+	</select>	
+
+	<select id="subStatGender73" resultType="hashmap">
+		SELECT SUBSTR(su.sub_use_start,1,4) as 'year', count(su.client_id) as 'subJoinCount', 
+			s.shop_name 
+			from sub_use su 
+			left join shop s on su.shop_idx = s.shop_idx 
+			where su.shop_idx = #{param1}
+			group by year
+			order by year
+	</select>
+	
+	<select id="subStatGender74" resultType="hashmap">
+		SELECT SUBSTR(su.sub_use_start,1,4) as 'year', count(su.client_id) as 'subJoinCount', 
+			s.shop_name   
+			from sub_use su 
+			left join shop s on su.shop_idx = s.shop_idx 
+			where su.shop_idx = #{param1} and su.sub_idx = ${param2}
+			group by year
+			order by year
+	</select>
+	
+	<select id="subStatGender75" resultType="hashmap">
+		SELECT SUBSTR(su.sub_use_start,1,4) as 'year', count(su.client_id) as 'subJoinCount', 
+			s.shop_name   
+			from sub_use su 
+			left join shop s on su.shop_idx = s.shop_idx 
+			left join subscribe s2 on su.sub_idx = s2.sub_idx  
+			where su.shop_idx = #{param1} and s2.sub_sort_idx = #{param2}
+			group by year
+			order by year
+	</select>
+	
+	<select id="subStatGender76" resultType="hashmap">
+		SELECT SUBSTR(su.sub_use_start,1,4) as 'year', count(su.client_id) as 'subJoinCount', 
+			s.shop_name   
+			from sub_use su 
+			left join shop s on su.shop_idx = s.shop_idx 
+			left join subscribe s2 on su.sub_idx = s2.sub_idx  
+			where su.shop_idx = #{param1} and s2.sub_sort_idx = #{param2} and su.sub_idx = ${param3}
+			group by year
+			order by year
+	</select>
+	
+	<select id="subStatGender77" resultType="hashmap">
+		SELECT SUBSTR(su.sub_use_start,1,4) as 'year', count(su.client_id) as 'subJoinCount', 
+			s.shop_name   
+			from sub_use su 
+			left join shop s on su.shop_idx = s.shop_idx 
+			left join client cl on su.client_id = cl.client_id
+			where su.shop_idx = #{param1} and cl.client_gender = #{param2} 
+			group by year
+			order by year
+	</select>
+	
+	<select id="subStatGender78" resultType="hashmap">
+		SELECT SUBSTR(su.sub_use_start,1,4) as 'year', count(su.client_id) as 'subJoinCount', 
+			s.shop_name   
+			from sub_use su 
+			left join shop s on su.shop_idx = s.shop_idx 
+			left join client cl on su.client_id = cl.client_id
+			where su.shop_idx = #{param1} and cl.client_gender = #{param2} and su.sub_idx = ${param3}
+			group by year
+			order by year
+	</select>
+	
+	<select id="subStatGender79" resultType="hashmap">
+		SELECT SUBSTR(su.sub_use_start,1,4) as 'year', count(su.client_id) as 'subJoinCount', 
+			s.shop_name   
+			from sub_use su 
+			left join shop s on su.shop_idx = s.shop_idx 
+			left join client cl on su.client_id = cl.client_id
+			left join subscribe s2 on su.sub_idx = s2.sub_idx 
+			where su.shop_idx = #{param1} and cl.client_gender = #{param2} and s2.sub_sort_idx = #{param3}
+			group by year
+			order by year
+	</select>
+	
+	<select id="subStatGender80" resultType="hashmap">
+		SELECT SUBSTR(su.sub_use_start,1,4) as 'year', count(su.client_id) as 'subJoinCount', 
+			s.shop_name   
+			from sub_use su 
+			left join shop s on su.shop_idx = s.shop_idx 
+			left join client cl on su.client_id = cl.client_id
+			left join subscribe s2 on su.sub_idx = s2.sub_idx 
+			where su.shop_idx = #{param1} and cl.client_gender = #{param2} 
+			and s2.sub_sort_idx = #{param3} and su.sub_idx = ${param4}
+			group by year
+			order by year
+	</select>
+	
+	<select id="subStatGender81" resultType="hashmap">
+		SELECT SUBSTR(su.sub_use_start,1,7) as 'month', count(su.client_id) as 'subJoinCount', 
+			s.shop_name   
+			from sub_use su 
+			left join shop s on su.shop_idx = s.shop_idx  
+			where su.shop_idx = #{param1} and year(su.sub_use_start) = #{param2}
+			group by month
+			order by month
+	</select>
+	
+	<select id="subStatGender82" resultType="hashmap">
+		SELECT SUBSTR(su.sub_use_start,1,7) as 'month', count(su.client_id) as 'subJoinCount', 
+			s.shop_name   
+			from sub_use su 
+			left join shop s on su.shop_idx = s.shop_idx  
+			where su.shop_idx = #{param1} and year(su.sub_use_start) = #{param2}
+			and su.sub_idx = ${param3}
+			group by month
+			order by month
+	</select>
+	
+	<select id="subStatGender83" resultType="hashmap">
+		SELECT SUBSTR(su.sub_use_start,1,7) as 'month', count(su.client_id) as 'subJoinCount', 
+			s.shop_name  
+			from sub_use su 
+			left join shop s on su.shop_idx = s.shop_idx 
+			left join subscribe s2 on su.sub_idx = s2.sub_idx 
+			where su.shop_idx = #{param1} and year(su.sub_use_start) = #{param2}
+			and s2.sub_sort_idx = #{param3}
+			group by month
+			order by month
+	</select>
+	
+	<select id="subStatGender84" resultType="hashmap">
+		SELECT SUBSTR(su.sub_use_start,1,7) as 'month', count(su.client_id) as 'subJoinCount', 
+			s.shop_name   
+			from sub_use su 
+			left join shop s on su.shop_idx = s.shop_idx 
+			left join subscribe s2 on su.sub_idx = s2.sub_idx 
+			where su.shop_idx = #{param1} and year(su.sub_use_start) = #{param2}
+			and s2.sub_sort_idx = #{param3} and su.sub_idx = ${param4}
+			group by month
+			order by month
+	</select>
+	
+	<select id="subStatGender85" resultType="hashmap">
+		SELECT SUBSTR(su.sub_use_start,1,7) as 'month', count(su.client_id) as 'subJoinCount', 
+			s.shop_name   
+			from sub_use su 
+			left join shop s on su.shop_idx = s.shop_idx 
+			left join client cl on su.client_id = cl.client_id
+			where su.shop_idx = #{param1} and year(su.sub_use_start) = #{param2}
+			and cl.client_gender = #{param3}
+			group by month
+			order by month
+	</select>
+	
+	<select id="subStatGender86" resultType="hashmap">
+		SELECT SUBSTR(su.sub_use_start,1,7) as 'month', count(su.client_id) as 'subJoinCount', 
+			s.shop_name  
+			from sub_use su 
+			left join shop s on su.shop_idx = s.shop_idx 
+			left join client cl on su.client_id = cl.client_id
+			where su.shop_idx = #{param1} and year(su.sub_use_start) = #{param2}
+			and cl.client_gender = #{param3} and su.sub_idx = ${param4}
+			group by month
+			order by month
+	</select>
+	
+	<select id="subStatGender87" resultType="hashmap">
+		SELECT SUBSTR(su.sub_use_start,1,7) as 'month', count(su.client_id) as 'subJoinCount', 
+			s.shop_name  
+			from sub_use su 
+			left join shop s on su.shop_idx = s.shop_idx 
+			left join client cl on su.client_id = cl.client_id
+			left join subscribe s2 on su.sub_idx = s2.sub_idx 
+			where su.shop_idx = #{param1} and year(su.sub_use_start) = #{param2}
+			and cl.client_gender = #{param3} and s2.sub_sort_idx = #{param4}
+			group by month
+			order by month
+	</select>
+	
+	<select id="subStatGender88" resultType="hashmap">
+		SELECT SUBSTR(su.sub_use_start,1,7) as 'month', count(su.client_id) as 'subJoinCount', 
+			s.shop_name   
+			from sub_use su 
+			left join shop s on su.shop_idx = s.shop_idx 
+			left join client cl on su.client_id = cl.client_id
+			left join subscribe s2 on su.sub_idx = s2.sub_idx 
+			where su.shop_idx = #{param1} and year(su.sub_use_start) = #{param2}
+			and cl.client_gender = #{param3} and s2.sub_sort_idx = #{param4} and su.sub_idx = ${param5}
+			group by month
+			order by month
+	</select>
+	
+	<select id="subStatGender89" resultType="hashmap">
+		SELECT su.sub_use_start as 'day', count(su.client_id) as 'subJoinCount',
+			s.shop_name  
+			from sub_use su 
+			left join shop s on su.shop_idx = s.shop_idx  
+			where su.shop_idx = #{param1} and year(su.sub_use_start) = #{param2} and month(su.sub_use_start) = #{param3}
+			group by day
+			order by day
+	</select>
+	
+	<select id="subStatGender90" resultType="hashmap">
+		SELECT su.sub_use_start as 'day', count(su.client_id) as 'subJoinCount',
+			s.shop_name  
+			from sub_use su 
+			left join shop s on su.shop_idx = s.shop_idx  
+			where su.shop_idx = #{param1} and year(su.sub_use_start) = #{param2} 
+			and month(su.sub_use_start) = #{param3} and su.sub_idx = ${param4}
+			group by day
+			order by day
+	</select>
+	
+	<select id="subStatGender91" resultType="hashmap">
+		SELECT su.sub_use_start as 'day', count(su.client_id) as 'subJoinCount',
+			s.shop_name  
+			from sub_use su 
+			left join shop s on su.shop_idx = s.shop_idx 
+			left join subscribe s2 on su.sub_idx = s2.sub_idx 
+			where su.shop_idx = #{param1} and year(su.sub_use_start) = #{param2} 
+			and month(su.sub_use_start) = #{param3} and s2.sub_sort_idx = #{param4}
+			group by day
+			order by day
+	</select>
+	
+	<select id="subStatGender92" resultType="hashmap">
+		SELECT su.sub_use_start as 'day', count(su.client_id) as 'subJoinCount',
+			s.shop_name  
+			from sub_use su 
+			left join shop s on su.shop_idx = s.shop_idx 
+			left join subscribe s2 on su.sub_idx = s2.sub_idx 
+			where su.shop_idx = #{param1} and year(su.sub_use_start) = #{param2} 
+			and month(su.sub_use_start) = #{param3} and s2.sub_sort_idx = #{param4}
+			and su.sub_idx =${param5}
+			group by day
+			order by day
+	</select>
+	
+	<select id="subStatGender93" resultType="hashmap">
+		SELECT su.sub_use_start as 'day', count(su.client_id) as 'subJoinCount',
+			s.shop_name  
+			from sub_use su 
+			left join shop s on su.shop_idx = s.shop_idx 
+			left join client cl on su.client_id = cl.client_id 
+			where su.shop_idx = #{param1} and year(su.sub_use_start) = #{param2} 
+			and month(su.sub_use_start) = #{param3} and cl.client_gender = #{param4}
+			group by day
+			order by day
+	</select>
+	
+	<select id="subStatGender94" resultType="hashmap">
+		SELECT su.sub_use_start as 'day', count(su.client_id) as 'subJoinCount',
+			s.shop_name  
+			from sub_use su 
+			left join shop s on su.shop_idx = s.shop_idx 
+			left join client cl on su.client_id = cl.client_id 
+			where su.shop_idx = #{param1} and year(su.sub_use_start) = #{param2} 
+			and month(su.sub_use_start) = #{param3} and cl.client_gender = #{param4}
+			and su.sub_idx = ${param5}
+			group by day
+			order by day
+	</select>
+	
+	<select id="subStatGender95" resultType="hashmap">
+		SELECT su.sub_use_start as 'day', count(su.client_id) as 'subJoinCount',
+			s.shop_name  
+			from sub_use su 
+			left join shop s on su.shop_idx = s.shop_idx 
+			left join client cl on su.client_id = cl.client_id
+			left join subscribe s2 on su.sub_idx = s2.sub_idx 
+			where su.shop_idx = #{param1} and year(su.sub_use_start) = #{param2} 
+			and month(su.sub_use_start) = #{param3} and cl.client_gender = #{param4}
+			and s2.sub_sort_idx = #{param5}
+			group by day
+			order by day
+	</select>
+	
+	<select id="subStatGender96" resultType="hashmap">
+		SELECT su.sub_use_start as 'day', count(su.client_id) as 'subJoinCount',
+			s.shop_name  
+			from sub_use su 
+			left join shop s on su.shop_idx = s.shop_idx 
+			left join client cl on su.client_id = cl.client_id
+			left join subscribe s2 on su.sub_idx = s2.sub_idx 
+			where su.shop_idx = #{param1} and year(su.sub_use_start) = #{param2} 
+			and month(su.sub_use_start) = #{param3} and cl.client_gender = #{param4}
+			and s2.sub_sort_idx = #{param5} and su.sub_idx = ${param6}
+			group by day
+			order by day
+	</select>
+	
+	
+	<select id="subStatAge1" resultType="hashmap">
+		SELECT
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 10 and 19 , 1, 0)) as 10s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 20 and 29 , 1, 0)) as 20s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 30 and 39 , 1, 0)) as 30s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 40 and 49 , 1, 0)) as 40s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 50 and 59 , 1, 0)) as 50s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 60 and 69 , 1, 0)) as 60s,
+		p.province_name
+		FROM sub_use su 
+		left join client cl on su.client_id = cl.client_id
+		left join shop s on su.shop_idx = s.shop_idx 
+		left join province p on s.province_idx = p.province_idx  
+		where year(su.sub_use_start) = #{param1}
+		group by s.province_idx
+	</select>
+	<select id="subStatAge2" resultType="hashmap">
+		SELECT
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 10 and 19 , 1, 0)) as 10s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 20 and 29 , 1, 0)) as 20s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 30 and 39 , 1, 0)) as 30s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 40 and 49 , 1, 0)) as 40s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 50 and 59 , 1, 0)) as 50s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 60 and 69 , 1, 0)) as 60s,
+		p.province_name
+		FROM sub_use su 
+		left join client cl on su.client_id = cl.client_id
+		left join shop s on su.shop_idx = s.shop_idx 
+		left join province p on s.province_idx = p.province_idx  
+		where year(su.sub_use_start) = #{param1} and su.sub_idx= ${param2}
+		group by s.province_idx
+	</select>
+	<select id="subStatAge3" resultType="hashmap">
+		SELECT
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 10 and 19 , 1, 0)) as 10s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 20 and 29 , 1, 0)) as 20s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 30 and 39 , 1, 0)) as 30s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 40 and 49 , 1, 0)) as 40s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 50 and 59 , 1, 0)) as 50s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 60 and 69 , 1, 0)) as 60s,
+		p.province_name
+		FROM sub_use su 
+		left join client cl on su.client_id = cl.client_id
+		left join shop s on su.shop_idx = s.shop_idx 
+		left join province p on s.province_idx = p.province_idx 
+		left join subscribe s2 on su.sub_idx = s2.sub_idx 
+		where year(su.sub_use_start) = #{param1} and s2.sub_sort_idx= #{param2}
+		group by s.province_idx
+	</select>
+	<select id="subStatAge4" resultType="hashmap">
+		SELECT
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 10 and 19 , 1, 0)) as 10s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 20 and 29 , 1, 0)) as 20s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 30 and 39 , 1, 0)) as 30s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 40 and 49 , 1, 0)) as 40s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 50 and 59 , 1, 0)) as 50s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 60 and 69 , 1, 0)) as 60s,
+		p.province_name
+		FROM sub_use su 
+		left join client cl on su.client_id = cl.client_id
+		left join shop s on su.shop_idx = s.shop_idx 
+		left join province p on s.province_idx = p.province_idx 
+		left join subscribe s2 on su.sub_idx = s2.sub_idx 
+		where year(su.sub_use_start) = #{param1} and s2.sub_sort_idx= #{param2} and su.sub_idx = ${param3}
+		group by s.province_idx
+	</select>
+	<select id="subStatAge5" resultType="hashmap">
+		SELECT
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 10 and 19 , 1, 0)) as 10s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 20 and 29 , 1, 0)) as 20s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 30 and 39 , 1, 0)) as 30s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 40 and 49 , 1, 0)) as 40s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 50 and 59 , 1, 0)) as 50s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 60 and 69 , 1, 0)) as 60s,
+		p.province_name
+		FROM sub_use su 
+		left join client cl on su.client_id = cl.client_id
+		left join shop s on su.shop_idx = s.shop_idx 
+		left join province p on s.province_idx = p.province_idx  
+		where year(su.sub_use_start) = #{param1} and month(su.sub_use_start) = #{param2}
+		group by s.province_idx
+	</select>
+	<select id="subStatAge6" resultType="hashmap">
+		SELECT
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 10 and 19 , 1, 0)) as 10s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 20 and 29 , 1, 0)) as 20s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 30 and 39 , 1, 0)) as 30s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 40 and 49 , 1, 0)) as 40s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 50 and 59 , 1, 0)) as 50s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 60 and 69 , 1, 0)) as 60s,
+		p.province_name
+		FROM sub_use su 
+		left join client cl on su.client_id = cl.client_id
+		left join shop s on su.shop_idx = s.shop_idx 
+		left join province p on s.province_idx = p.province_idx  
+		where year(su.sub_use_start) = #{param1} and month(su.sub_use_start) = #{param2} 
+		and su.sub_idx= ${param3}
+		group by s.province_idx
+	</select>
+	<select id="subStatAge7" resultType="hashmap">
+		SELECT
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 10 and 19 , 1, 0)) as 10s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 20 and 29 , 1, 0)) as 20s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 30 and 39 , 1, 0)) as 30s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 40 and 49 , 1, 0)) as 40s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 50 and 59 , 1, 0)) as 50s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 60 and 69 , 1, 0)) as 60s,
+		p.province_name
+		FROM sub_use su 
+		left join client cl on su.client_id = cl.client_id
+		left join shop s on su.shop_idx = s.shop_idx 
+		left join province p on s.province_idx = p.province_idx 
+		left join subscribe s2 on su.sub_idx = s2.sub_idx 
+		where year(su.sub_use_start) = #{param1} and month(su.sub_use_start) = #{param2} 
+		and s2.sub_sort_idx= #{param3}
+		group by s.province_idx
+	</select>
+	<select id="subStatAge8" resultType="hashmap">
+		SELECT
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 10 and 19 , 1, 0)) as 10s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 20 and 29 , 1, 0)) as 20s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 30 and 39 , 1, 0)) as 30s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 40 and 49 , 1, 0)) as 40s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 50 and 59 , 1, 0)) as 50s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 60 and 69 , 1, 0)) as 60s,
+		p.province_name
+		FROM sub_use su 
+		left join client cl on su.client_id = cl.client_id
+		left join shop s on su.shop_idx = s.shop_idx 
+		left join province p on s.province_idx = p.province_idx 
+		left join subscribe s2 on su.sub_idx = s2.sub_idx 
+		where year(su.sub_use_start) = #{param1} and month(su.sub_use_start) = #{param2}
+		and s2.sub_sort_idx= #{param3} and su.sub_idx = ${param4}
+		group by s.province_idx
+	</select>
+	<select id="subStatAge9" resultType="hashmap">
+		SELECT
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 10 and 19 , 1, 0)) as 10s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 20 and 29 , 1, 0)) as 20s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 30 and 39 , 1, 0)) as 30s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 40 and 49 , 1, 0)) as 40s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 50 and 59 , 1, 0)) as 50s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 60 and 69 , 1, 0)) as 60s,
+		p.province_name
+		FROM sub_use su 
+		left join client cl on su.client_id = cl.client_id
+		left join shop s on su.shop_idx = s.shop_idx 
+		left join province p on s.province_idx = p.province_idx  
+		where year(su.sub_use_start) = #{param1} and s.province_idx = #{param2}
+	</select>
+	<select id="subStatAge10" resultType="hashmap">
+		SELECT
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 10 and 19 , 1, 0)) as 10s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 20 and 29 , 1, 0)) as 20s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 30 and 39 , 1, 0)) as 30s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 40 and 49 , 1, 0)) as 40s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 50 and 59 , 1, 0)) as 50s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 60 and 69 , 1, 0)) as 60s,
+		p.province_name
+		FROM sub_use su 
+		left join client cl on su.client_id = cl.client_id
+		left join shop s on su.shop_idx = s.shop_idx 
+		left join province p on s.province_idx = p.province_idx  
+		where year(su.sub_use_start) = #{param1} and s.province_idx = #{param2} and su.sub_idx= ${param3}
+	</select>
+	<select id="subStatAge11" resultType="hashmap">
+		SELECT
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 10 and 19 , 1, 0)) as 10s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 20 and 29 , 1, 0)) as 20s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 30 and 39 , 1, 0)) as 30s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 40 and 49 , 1, 0)) as 40s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 50 and 59 , 1, 0)) as 50s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 60 and 69 , 1, 0)) as 60s,
+		p.province_name
+		FROM sub_use su 
+		left join client cl on su.client_id = cl.client_id
+		left join shop s on su.shop_idx = s.shop_idx 
+		left join province p on s.province_idx = p.province_idx 
+		left join subscribe s2 on su.sub_idx = s2.sub_idx 
+		where year(su.sub_use_start) = #{param1} and s.province_idx = #{param2} and s2.sub_sort_idx= #{param3}
+	</select>
+	<select id="subStatAge12" resultType="hashmap">
+		SELECT
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 10 and 19 , 1, 0)) as 10s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 20 and 29 , 1, 0)) as 20s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 30 and 39 , 1, 0)) as 30s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 40 and 49 , 1, 0)) as 40s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 50 and 59 , 1, 0)) as 50s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 60 and 69 , 1, 0)) as 60s,
+		p.province_name
+		FROM sub_use su 
+		left join client cl on su.client_id = cl.client_id
+		left join shop s on su.shop_idx = s.shop_idx 
+		left join province p on s.province_idx = p.province_idx 
+		left join subscribe s2 on su.sub_idx = s2.sub_idx 
+		where year(su.sub_use_start) = #{param1} and s.province_idx = #{param2}
+		and s2.sub_sort_idx= #{param3} and su.sub_idx = ${param4}
+	</select>
+	<select id="subStatAge13" resultType="hashmap">
+		SELECT
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 10 and 19 , 1, 0)) as 10s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 20 and 29 , 1, 0)) as 20s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 30 and 39 , 1, 0)) as 30s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 40 and 49 , 1, 0)) as 40s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 50 and 59 , 1, 0)) as 50s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 60 and 69 , 1, 0)) as 60s,
+		p.province_name
+		FROM sub_use su 
+		left join client cl on su.client_id = cl.client_id
+		left join shop s on su.shop_idx = s.shop_idx 
+		left join province p on s.province_idx = p.province_idx  
+		where year(su.sub_use_start) = #{param1} and month(su.sub_use_start) = #{param2}
+		and s.province_idx = #{param3}
+	</select>
+	<select id="subStatAge14" resultType="hashmap">
+		SELECT
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 10 and 19 , 1, 0)) as 10s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 20 and 29 , 1, 0)) as 20s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 30 and 39 , 1, 0)) as 30s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 40 and 49 , 1, 0)) as 40s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 50 and 59 , 1, 0)) as 50s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 60 and 69 , 1, 0)) as 60s,
+		p.province_name
+		FROM sub_use su 
+		left join client cl on su.client_id = cl.client_id
+		left join shop s on su.shop_idx = s.shop_idx 
+		left join province p on s.province_idx = p.province_idx  
+		where year(su.sub_use_start) = #{param1} and month(su.sub_use_start) = #{param2} 
+		and s.province_idx = #{param3} and su.sub_idx= ${param4}
+	</select>
+	<select id="subStatAge15" resultType="hashmap">
+		SELECT
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 10 and 19 , 1, 0)) as 10s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 20 and 29 , 1, 0)) as 20s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 30 and 39 , 1, 0)) as 30s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 40 and 49 , 1, 0)) as 40s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 50 and 59 , 1, 0)) as 50s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 60 and 69 , 1, 0)) as 60s,
+		p.province_name
+		FROM sub_use su 
+		left join client cl on su.client_id = cl.client_id
+		left join shop s on su.shop_idx = s.shop_idx 
+		left join province p on s.province_idx = p.province_idx 
+		left join subscribe s2 on su.sub_idx = s2.sub_idx 
+		where year(su.sub_use_start) = #{param1} and month(su.sub_use_start) = #{param2} 
+		and s.province_idx = #{param3} and s2.sub_sort_idx= #{param4}
+	</select>
+	<select id="subStatAge16" resultType="hashmap">
+		SELECT
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 10 and 19 , 1, 0)) as 10s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 20 and 29 , 1, 0)) as 20s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 30 and 39 , 1, 0)) as 30s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 40 and 49 , 1, 0)) as 40s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 50 and 59 , 1, 0)) as 50s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 60 and 69 , 1, 0)) as 60s,
+		p.province_name
+		FROM sub_use su 
+		left join client cl on su.client_id = cl.client_id
+		left join shop s on su.shop_idx = s.shop_idx 
+		left join province p on s.province_idx = p.province_idx 
+		left join subscribe s2 on su.sub_idx = s2.sub_idx 
+		where year(su.sub_use_start) = #{param1} and month(su.sub_use_start) = #{param2}
+		and s.province_idx = #{param3} and s2.sub_sort_idx= #{param4} and su.sub_idx = ${param5}
+	</select>
+	<select id="subStatAge17" resultType="hashmap">
+		SELECT
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 10 and 19 , 1, 0)) as 10s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 20 and 29 , 1, 0)) as 20s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 30 and 39 , 1, 0)) as 30s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 40 and 49 , 1, 0)) as 40s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 50 and 59 , 1, 0)) as 50s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 60 and 69 , 1, 0)) as 60s,
+		c.city_name
+		FROM sub_use su 
+		left join client cl on su.client_id = cl.client_id
+		left join shop s on su.shop_idx = s.shop_idx
+		left join city c on s.city_idx = c.city_idx 
+		where year(su.sub_use_start) = #{param1} and c.city_idx = #{param2}
+	</select>
+	<select id="subStatAge18" resultType="hashmap">
+		SELECT
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 10 and 19 , 1, 0)) as 10s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 20 and 29 , 1, 0)) as 20s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 30 and 39 , 1, 0)) as 30s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 40 and 49 , 1, 0)) as 40s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 50 and 59 , 1, 0)) as 50s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 60 and 69 , 1, 0)) as 60s,
+		c.city_name
+		FROM sub_use su 
+		left join client cl on su.client_id = cl.client_id
+		left join shop s on su.shop_idx = s.shop_idx 
+		left join city c on s.city_idx = c.city_idx
+		where year(su.sub_use_start) = #{param1} and c.city_idx = #{param2} and su.sub_idx= ${param3}
+	</select>
+	<select id="subStatAge19" resultType="hashmap">
+		SELECT
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 10 and 19 , 1, 0)) as 10s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 20 and 29 , 1, 0)) as 20s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 30 and 39 , 1, 0)) as 30s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 40 and 49 , 1, 0)) as 40s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 50 and 59 , 1, 0)) as 50s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 60 and 69 , 1, 0)) as 60s,
+		c.city_name
+		FROM sub_use su 
+		left join client cl on su.client_id = cl.client_id
+		left join shop s on su.shop_idx = s.shop_idx 
+		left join city c on s.city_idx = c.city_idx
+		left join subscribe s2 on su.sub_idx = s2.sub_idx 
+		where year(su.sub_use_start) = #{param1} and c.city_idx = #{param2} and s2.sub_sort_idx= #{param3}
+	</select>
+	<select id="subStatAge20" resultType="hashmap">
+		SELECT
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 10 and 19 , 1, 0)) as 10s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 20 and 29 , 1, 0)) as 20s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 30 and 39 , 1, 0)) as 30s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 40 and 49 , 1, 0)) as 40s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 50 and 59 , 1, 0)) as 50s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 60 and 69 , 1, 0)) as 60s,
+		c.city_name
+		FROM sub_use su 
+		left join client cl on su.client_id = cl.client_id
+		left join shop s on su.shop_idx = s.shop_idx 
+		left join city c on s.city_idx = c.city_idx 
+		left join subscribe s2 on su.sub_idx = s2.sub_idx 
+		where year(su.sub_use_start) = #{param1} and c.city_idx = #{param2}
+		and s2.sub_sort_idx= #{param3} and su.sub_idx = ${param4}
+	</select>
+	<select id="subStatAge21" resultType="hashmap">
+		SELECT
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 10 and 19 , 1, 0)) as 10s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 20 and 29 , 1, 0)) as 20s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 30 and 39 , 1, 0)) as 30s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 40 and 49 , 1, 0)) as 40s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 50 and 59 , 1, 0)) as 50s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 60 and 69 , 1, 0)) as 60s,
+		c.city_name
+		FROM sub_use su 
+		left join client cl on su.client_id = cl.client_id
+		left join shop s on su.shop_idx = s.shop_idx 
+		left join city c on s.city_idx = c.city_idx  
+		where year(su.sub_use_start) = #{param1} and month(su.sub_use_start) = #{param2}
+		and c.city_idx = #{param3}
+	</select>
+	<select id="subStatAge22" resultType="hashmap">
+		SELECT
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 10 and 19 , 1, 0)) as 10s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 20 and 29 , 1, 0)) as 20s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 30 and 39 , 1, 0)) as 30s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 40 and 49 , 1, 0)) as 40s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 50 and 59 , 1, 0)) as 50s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 60 and 69 , 1, 0)) as 60s,
+		c.city_name
+		FROM sub_use su 
+		left join client cl on su.client_id = cl.client_id
+		left join shop s on su.shop_idx = s.shop_idx 
+		left join city c on s.city_idx = c.city_idx  
+		where year(su.sub_use_start) = #{param1} and month(su.sub_use_start) = #{param2} 
+		and c.city_idx = #{param3} and su.sub_idx= ${param4}
+	</select>
+	<select id="subStatAge23" resultType="hashmap">
+		SELECT
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 10 and 19 , 1, 0)) as 10s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 20 and 29 , 1, 0)) as 20s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 30 and 39 , 1, 0)) as 30s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 40 and 49 , 1, 0)) as 40s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 50 and 59 , 1, 0)) as 50s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 60 and 69 , 1, 0)) as 60s,
+		c.city_name
+		FROM sub_use su 
+		left join client cl on su.client_id = cl.client_id
+		left join shop s on su.shop_idx = s.shop_idx 
+		left join city c on s.city_idx = c.city_idx 
+		left join subscribe s2 on su.sub_idx = s2.sub_idx 
+		where year(su.sub_use_start) = #{param1} and month(su.sub_use_start) = #{param2} 
+		and c.city_idx = #{param3} and s2.sub_sort_idx= #{param4}
+	</select>
+	<select id="subStatAge24" resultType="hashmap">
+		SELECT
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 10 and 19 , 1, 0)) as 10s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 20 and 29 , 1, 0)) as 20s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 30 and 39 , 1, 0)) as 30s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 40 and 49 , 1, 0)) as 40s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 50 and 59 , 1, 0)) as 50s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 60 and 69 , 1, 0)) as 60s,
+		c.city_name
+		FROM sub_use su 
+		left join client cl on su.client_id = cl.client_id
+		left join shop s on su.shop_idx = s.shop_idx 
+		left join city c on s.city_idx = c.city_idx 
+		left join subscribe s2 on su.sub_idx = s2.sub_idx 
+		where year(su.sub_use_start) = #{param1} and month(su.sub_use_start) = #{param2}
+		and c.city_idx = #{param3} and s2.sub_sort_idx= #{param4} and su.sub_idx = ${param5}
+	</select>
+
+	
+	<select id="subStatAge25" resultType="hashmap">
+		SELECT
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 10 and 19 , 1, 0)) as 10s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 20 and 29 , 1, 0)) as 20s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 30 and 39 , 1, 0)) as 30s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 40 and 49 , 1, 0)) as 40s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 50 and 59 , 1, 0)) as 50s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 60 and 69 , 1, 0)) as 60s,
+		s.shop_name
+		FROM sub_use su 
+		left join client cl on su.client_id = cl.client_id
+		left join shop s on su.shop_idx = s.shop_idx 
+		where year(su.sub_use_start) = #{param1} and su.shop_idx = #{param2}
+	</select>
+	<select id="subStatAge26" resultType="hashmap">
+		SELECT
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 10 and 19 , 1, 0)) as 10s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 20 and 29 , 1, 0)) as 20s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 30 and 39 , 1, 0)) as 30s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 40 and 49 , 1, 0)) as 40s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 50 and 59 , 1, 0)) as 50s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 60 and 69 , 1, 0)) as 60s,
+		s.shop_name
+		FROM sub_use su 
+		left join client cl on su.client_id = cl.client_id
+		left join shop s on su.shop_idx = s.shop_idx 
+		where year(su.sub_use_start) = #{param1} and su.shop_idx = #{param2} and su.sub_idx= ${param3}
+	</select>
+	<select id="subStatAge27" resultType="hashmap">
+		SELECT
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 10 and 19 , 1, 0)) as 10s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 20 and 29 , 1, 0)) as 20s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 30 and 39 , 1, 0)) as 30s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 40 and 49 , 1, 0)) as 40s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 50 and 59 , 1, 0)) as 50s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 60 and 69 , 1, 0)) as 60s,
+		s.shop_name
+		FROM sub_use su 
+		left join client cl on su.client_id = cl.client_id
+		left join shop s on su.shop_idx = s.shop_idx 
+		left join subscribe s2 on su.sub_idx = s2.sub_idx 
+		where year(su.sub_use_start) = #{param1} and su.shop_idx = #{param2} and s2.sub_sort_idx= #{param3}
+	</select>
+	<select id="subStatAge28" resultType="hashmap">
+		SELECT
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 10 and 19 , 1, 0)) as 10s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 20 and 29 , 1, 0)) as 20s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 30 and 39 , 1, 0)) as 30s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 40 and 49 , 1, 0)) as 40s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 50 and 59 , 1, 0)) as 50s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 60 and 69 , 1, 0)) as 60s,
+		s.shop_name
+		FROM sub_use su 
+		left join client cl on su.client_id = cl.client_id
+		left join shop s on su.shop_idx = s.shop_idx  
+		left join subscribe s2 on su.sub_idx = s2.sub_idx 
+		where year(su.sub_use_start) = #{param1} and su.shop_idx = #{param2}
+		and s2.sub_sort_idx= #{param3} and su.sub_idx = ${param4}
+	</select>
+	<select id="subStatAge29" resultType="hashmap">
+		SELECT
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 10 and 19 , 1, 0)) as 10s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 20 and 29 , 1, 0)) as 20s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 30 and 39 , 1, 0)) as 30s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 40 and 49 , 1, 0)) as 40s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 50 and 59 , 1, 0)) as 50s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 60 and 69 , 1, 0)) as 60s,
+		s.shop_name
+		FROM sub_use su 
+		left join client cl on su.client_id = cl.client_id
+		left join shop s on su.shop_idx = s.shop_idx   
+		where year(su.sub_use_start) = #{param1} and month(su.sub_use_start) = #{param2}
+		and su.shop_idx = #{param3}
+	</select>
+	<select id="subStatAge30" resultType="hashmap">
+		SELECT
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 10 and 19 , 1, 0)) as 10s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 20 and 29 , 1, 0)) as 20s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 30 and 39 , 1, 0)) as 30s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 40 and 49 , 1, 0)) as 40s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 50 and 59 , 1, 0)) as 50s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 60 and 69 , 1, 0)) as 60s,
+		s.shop_name
+		FROM sub_use su 
+		left join client cl on su.client_id = cl.client_id
+		left join shop s on su.shop_idx = s.shop_idx   
+		where year(su.sub_use_start) = #{param1} and month(su.sub_use_start) = #{param2} 
+		and su.shop_idx = #{param3} and su.sub_idx= ${param4}
+	</select>
+	<select id="subStatAge31" resultType="hashmap">
+		SELECT
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 10 and 19 , 1, 0)) as 10s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 20 and 29 , 1, 0)) as 20s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 30 and 39 , 1, 0)) as 30s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 40 and 49 , 1, 0)) as 40s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 50 and 59 , 1, 0)) as 50s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 60 and 69 , 1, 0)) as 60s,
+		s.shop_name
+		FROM sub_use su 
+		left join client cl on su.client_id = cl.client_id
+		left join shop s on su.shop_idx = s.shop_idx  
+		left join subscribe s2 on su.sub_idx = s2.sub_idx 
+		where year(su.sub_use_start) = #{param1} and month(su.sub_use_start) = #{param2} 
+		and su.shop_idx = #{param3} and s2.sub_sort_idx= #{param4}
+	</select>
+	<select id="subStatAge32" resultType="hashmap">
+		SELECT
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 10 and 19 , 1, 0)) as 10s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 20 and 29 , 1, 0)) as 20s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 30 and 39 , 1, 0)) as 30s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 40 and 49 , 1, 0)) as 40s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 50 and 59 , 1, 0)) as 50s,
+		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 60 and 69 , 1, 0)) as 60s,
+		s.shop_name
+		FROM sub_use su 
+		left join client cl on su.client_id = cl.client_id
+		left join shop s on su.shop_idx = s.shop_idx  
+		left join subscribe s2 on su.sub_idx = s2.sub_idx 
+		where year(su.sub_use_start) = #{param1} and month(su.sub_use_start) = #{param2}
+		and su.shop_idx = #{param3} and s2.sub_sort_idx= #{param4} and su.sub_idx = ${param5}
+	</select>
+	
+	<select id="subStatPreference1" resultType="hashmap">
+		SELECT 
+			s2.sub_name, count(su.client_id) as 'subJoinCount'
+			FROM sub_use su  
+			JOIN subscribe s2 ON su.sub_idx = s2.sub_idx 
+			WHERE year(su.sub_use_start) = #{param1}
+			GROUP BY su.sub_idx
+	</select>
+	<select id="subStatPreference2" resultType="hashmap">
+		SELECT 
+			s2.sub_name, count(su.client_id) as 'subJoinCount'
+			FROM sub_use su  
+			JOIN subscribe s2 ON su.sub_idx = s2.sub_idx 
+			WHERE year(su.sub_use_start) = #{param1} and month(su.sub_use_start) = #{param2}
+			GROUP BY su.sub_idx
+	</select>
+	<select id="subStatPreference3" resultType="hashmap">
+		SELECT 
+			s2.sub_name, count(su.client_id) as 'subJoinCount'
+			FROM sub_use su
+			JOIN shop s on su.shop_idx = s.shop_idx
+			JOIN subscribe s2 ON su.sub_idx = s2.sub_idx  
+			WHERE s.province_idx = #{param1} and year(su.sub_use_start) = #{param2} 
+			GROUP BY su.sub_idx
+	</select>
+	<select id="subStatPreference4" resultType="hashmap">
+		SELECT 
+			s2.sub_name, count(su.client_id) as 'subJoinCount'
+			FROM sub_use su
+			JOIN shop s on su.shop_idx = s.shop_idx
+			JOIN subscribe s2 ON su.sub_idx = s2.sub_idx 
+			WHERE s.province_idx = #{param1} and year(su.sub_use_start) = #{param2} and month(su.sub_use_start) = #{param3}
+			GROUP BY su.sub_idx
+	</select>
+	<select id="subStatPreference5" resultType="hashmap">
+		SELECT 
+			s2.sub_name, count(su.client_id) as 'subJoinCount'
+			FROM sub_use su
+			JOIN shop s on su.shop_idx = s.shop_idx
+			JOIN subscribe s2 ON su.sub_idx = s2.sub_idx  
+			WHERE s.city_idx = #{param1} and year(su.sub_use_start) = #{param2}
+			GROUP BY su.sub_idx
+	</select>
+	<select id="subStatPreference6" resultType="hashmap">
+		SELECT 
+			s2.sub_name, count(su.client_id) as 'subJoinCount'
+			FROM sub_use su
+			JOIN shop s on su.shop_idx = s.shop_idx
+			JOIN subscribe s2 ON su.sub_idx = s2.sub_idx 
+			WHERE s.city_idx = #{param1} and year(su.sub_use_start) = #{param2} and month(su.sub_use_start) = #{param3}
+			GROUP BY su.sub_idx
+	</select>
+	<select id="subStatPreference7" resultType="hashmap">
+		SELECT 
+			s2.sub_name, count(su.client_id) as 'subJoinCount'
+			FROM sub_use su
+			JOIN shop s on su.shop_idx = s.shop_idx
+			JOIN subscribe s2 ON su.sub_idx = s2.sub_idx  
+			WHERE s.shop_idx = #{param1} and year(su.sub_use_start) = #{param2}
+			GROUP BY su.sub_idx
+	</select>
+	<select id="subStatPreference8" resultType="hashmap">
+		SELECT 
+			s2.sub_name, count(su.client_id) as 'subJoinCount'
+			FROM sub_use su
+			JOIN shop s on su.shop_idx = s.shop_idx
+			JOIN subscribe s2 ON su.sub_idx = s2.sub_idx 
+			WHERE s.shop_idx = #{param1} and year(su.sub_use_start) = #{param2} and month(su.sub_use_start) = #{param3}
+			GROUP BY su.sub_idx
+	</select>
+	
 
 </mapper>
