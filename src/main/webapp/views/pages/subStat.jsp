@@ -958,7 +958,7 @@ $(document).on('click','.shops', function(){
 // radio 버튼의 checked가 변경될 때 마다 변경된 radio 버튼의 value 값을 고려하여 요청을 보낸다.
 // 요청 data의 값들이 3가지로 다 다르다. 그래서 응답받는 데이터도 다름.
 // 각 응답받은 데이터는 구독권 선택 select box 의 option으로 들어간다.
-$("input[name='iCheck']").change(function() {
+$("input[name='iCheck']").on("ifChanged", function() {
 	if($("input[name='iCheck']:checked").val() == "subAll") {
 		console.log("구독권 전체");
 		$.ajax({
@@ -974,7 +974,8 @@ $("input[name='iCheck']").change(function() {
 				console.log(e);
 			}
 		});
-	}else if($("input[name='iCheck']:checked").val() == "0") {
+	}
+	if($("input[name='iCheck']:checked").val() == "0") {
 		console.log("횟수권");
 		$.ajax({
 			type:'GET',
@@ -988,7 +989,8 @@ $("input[name='iCheck']").change(function() {
 				console.log(e);
 			}
 		});
-	}else {
+	}
+	if($("input[name='iCheck']:checked").val() == "1") {
 		console.log("요일권");
 		$.ajax({
 			type:'GET',
@@ -1619,7 +1621,7 @@ $(document).on('click','.shops2', function(){
 // radio 버튼의 checked가 변경될 때 마다 변경된 radio 버튼의 value 값을 고려하여 요청을 보낸다.
 // 요청 data의 값들이 3가지로 다 다르다. 그래서 응답받는 데이터도 다름.
 // 각 응답받은 데이터는 구독권 선택 select box 의 option으로 들어간다.
-$("input[name='iCheck2']").change(function() {
+$("input[name='iCheck2']").on("ifChanged", function() {
 	if($("input[name='iCheck2']:checked").val() == "subAll") {
 		console.log("구독권 전체");
 		$.ajax({
@@ -1635,7 +1637,8 @@ $("input[name='iCheck2']").change(function() {
 				console.log(e);
 			}
 		});
-	}else if($("input[name='iCheck2']:checked").val() == "0") {
+	}
+	if($("input[name='iCheck2']:checked").val() == "0") {
 		console.log("횟수권");
 		$.ajax({
 			type:'GET',
@@ -1649,7 +1652,8 @@ $("input[name='iCheck2']").change(function() {
 				console.log(e);
 			}
 		});
-	}else {
+	}
+	if($("input[name='iCheck2']:checked").val() == "1") {
 		console.log("요일권");
 		$.ajax({
 			type:'GET',
