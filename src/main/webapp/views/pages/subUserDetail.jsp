@@ -76,7 +76,7 @@
 											<label class="col-form-label col-md-3 col-sm-3 label-align">아이디
 											</label>
 											<div class="col-md-6 col-sm-6 ">
-												<input type="text" name="client_id" id="client_id" class="client_id" value="${dtl.client_id}" class="form-control "/>
+												<input type="text" name="client_id" id="client_id" class="client_id" value="${dtl.client_id}" class="form-control " readonly="readonly"/>
 											</div>
 										</div>
 										<div class="item form-group">

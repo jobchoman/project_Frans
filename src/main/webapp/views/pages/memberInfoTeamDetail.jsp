@@ -62,14 +62,14 @@
 											<label class="col-form-label col-md-3 col-sm-3 label-align">팀 코드
 											</label>
 											<div class="col-md-6 col-sm-6 ">
-												<input type="text" name="team_idx" class="form-control " readonly="readonly" value="${mem.team_idx}"/>
+												<input type="text" name="team_idx" class="form-control " readonly="readonly" value="${mem.team_idx}" readonly="readonly"/>
 											</div>
 										</div>
 										<div class="item form-group">
 											<label class="col-form-label col-md-3 col-sm-3 label-align">팀 명
 											</label>
 											<div class="col-md-6 col-sm-6 ">
-												<input type="text" name="team_name" class="form-control " readonly="readonly" value="${mem.team_name}"/>
+												<input type="text" name="team_name" class="form-control " readonly="readonly" value="${mem.team_name}" readonly="readonly"/>
 											</div>
 										</div>
 

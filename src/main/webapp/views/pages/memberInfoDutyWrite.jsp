@@ -93,7 +93,7 @@
 										<div class="item form-group">
 											<div class="col-md-6 col-sm-6 offset-md-3">
 												<button class="btn btn-round btn-secondary ghl" onclick="location.href='memberInfoDutyList.go'" type="reset">리스트</button>
-												<button type="submit" id="maker" class="btn btn-round btn-info nam">등록</button>
+												<button type="submit" id="maker" class="btn btn-round btn-info nam save">등록</button>
 											</div>
 										</div>	
 									</form>
@@ -120,6 +120,12 @@ if(msg != ""){
 	alert(msg);
 }
 
+$(".save").click(function(){
+	if(confirm('등록하시겠습니까?'))  
+		return true;
+	else  
+		return false;
+});
 
 
 </script>

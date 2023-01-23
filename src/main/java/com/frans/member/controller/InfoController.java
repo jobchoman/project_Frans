@@ -88,6 +88,9 @@ public class InfoController {
 	@GetMapping(value="/memberInfoTeamUpdate.go")
 	public String infoTeamUpdate(Model model, String team_idx) {
 		MemberDTO dto = infoService.teamUpdateForm(team_idx);
+		ArrayList<MemberDTO> dto1 = infoService.perso(team_idx);
+		logger.info("dto1:{}",dto1);
+		model.addAttribute("list",dto1);
 		model.addAttribute("mem",dto);
 		return "memberInfoTeamUpdate";
 	}
@@ -101,12 +104,15 @@ public class InfoController {
 	@GetMapping(value="/memberInfoDutyUpdate.go")
 	public String infoDutyUpdate(Model model, String duty_idx) {
 		MemberDTO dto = infoService.dutyUpdateForm(duty_idx);
+		ArrayList<MemberDTO> dto1 = infoService.per(duty_idx);
+		logger.info("dto1:{}",dto1);
+		model.addAttribute("list",dto1);
 		model.addAttribute("mem",dto);
 		return "memberInfoDutyUpdate";
 	}
 	
 	@PostMapping(value="/memberInfoDutyUpdate.do")
-	public String dutyUpdate(@RequestParam HashMap<String, String> params) {
+	public String dutyUpdate(@RequestParam HashMap<String, String> params, Model model) {
 		infoService.dutyUpdate(params);
 		return "redirect:/memberInfoDutyList.go";
 	}
@@ -114,14 +120,38 @@ public class InfoController {
 	@GetMapping(value="/memberInfoPosUpdate.go")
 	public String infoPosUpdate(Model model, String pos_idx) {
 		MemberDTO dto = infoService.posUpdateForm(pos_idx);
+		ArrayList<MemberDTO> dto1 = infoService.pers(pos_idx);
+		logger.info("dto1:{}",dto1);
+		model.addAttribute("list",dto1);
 		model.addAttribute("mem",dto);
 		return "memberInfoPosUpdate";
 	}
 	
-	@GetMapping(value="/memberInfoPosUpdate.do")
+	@PostMapping(value="/memberInfoPosUpdate.do")
 	public String posUpdate(@RequestParam HashMap<String, String> params) {
 		infoService.posUpdate(params);
 		return "redirect:/memberInfoPosList.go";
+	}
+	
+	@RequestMapping(value="/memberInfoDutyDetail.do")
+	public String dutyDetail(@RequestParam String duty_idx, Model model) {
+		MemberDTO dto = infoService.dutyDetail(duty_idx);
+		model.addAttribute("mem",dto);
+		return "memberInfoDutyDetail";
+	}
+	
+	@RequestMapping(value="/memberInfoPosDetail.do")
+	public String posDetail(@RequestParam String pos_idx, Model model) {
+		MemberDTO dto = infoService.posDetail(pos_idx);
+		model.addAttribute("mem",dto);
+		return "memberInfoPosDetail";
+	}
+	
+	@RequestMapping(value="/memberInfoTeamDetail.do")
+	public String teamDetail(@RequestParam String team_idx, Model model) {
+		MemberDTO dto = infoService.teamDetail(team_idx);
+		model.addAttribute("mem",dto);
+		return "memberInfoTeamDetail";
 	}
 	
 	/*

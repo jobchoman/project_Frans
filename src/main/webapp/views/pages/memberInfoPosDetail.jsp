@@ -63,21 +63,21 @@
 											<label class="col-form-label col-md-3 col-sm-3 label-align">직급 코드
 											</label>
 											<div class="col-md-6 col-sm-6 ">
-												<input type="text" name="pos_idx" class="form-control " value="${mem.pos_idx}">
+												<input type="text" name="pos_idx" class="form-control " value="${mem.pos_idx}" readonly="readonly">
 											</div>
 										</div>
 										<div class="item form-group">
 											<label class="col-form-label col-md-3 col-sm-3 label-align">직급 명
 											</label>
 											<div class="col-md-6 col-sm-6 ">
-												<input type="text" name="pos_name" class="form-control " value="${mem.pos_name}">
+												<input type="text" name="pos_name" class="form-control " value="${mem.pos_name}" readonly="readonly">
 											</div>
 										</div>
 										<div class="item form-group">
 											<label class="col-form-label col-md-3 col-sm-3 label-align">직급 레벨
 											</label>
 											<div class="col-md-6 col-sm-6 ">
-												<input type="text" name="pos_level" class="form-control " value="${mem.pos_level}">
+												<input type="text" name="pos_level" class="form-control " value="${mem.pos_level}" readonly="readonly">
 											</div>
 										</div>
 

@@ -200,7 +200,7 @@
 
 							</div>
 							<div class="modal-footer">
-								<button type="button" class="btn btn-primary" data-dismiss="modal">확인</button>
+								<button type="button" class="btn btn-primary save" data-dismiss="modal">확인</button>
 							</div>
 						</div>
 					</div>
@@ -324,6 +324,13 @@ function cliSel(elem){
 
 		$('#clientSearch').modal('hide');
 }
+
+$(".save").click(function(){
+	if(confirm('등록하시겠습니까?'))  
+		return true;
+	else  
+		return false;
+});
 
 
 
