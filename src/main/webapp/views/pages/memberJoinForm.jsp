@@ -81,14 +81,7 @@
 											<label class="col-form-label col-md-3 col-sm-3 label-align">비밀번호<span class="required">*</span>
 											</label>
 											<div class="col-md-6 col-sm-6 ">
-												<input type="password" id="pw" placeholder="비밀번호를 입력해주세요." class="form-control "/>
-											</div>
-										</div>
-										<div class="item form-group">
-											<label class="col-form-label col-md-3 col-sm-3 label-align">비밀번호 확인<span class="required">*</span>
-											</label>
-											<div class="col-md-6 col-sm-6 ">
-												<input type="password" name="emp_pw" id="pw_chk" placeholder="비밀번호를 확인해주세요." class="form-control "/>
+												<input type="password" name="emp_pw" id="pw" value="0000" readonly="readonly" class="form-control "/>
 											</div>
 										</div>
 										<div class="item form-group">
@@ -431,12 +424,12 @@ $('#add1').on('click',function() {
 		sel1 += '<select name="emp_career_idx" class="form-control ">'
 		sel1 += '<option value="없음" selected="selected">없음</option>'
 		sel1 += '<option value="경력">경력</option></select>'	
-		sel1 += '<input type="text" name="emp_school_name1" placeholder="회사명" class="form-control "/>'	  
-		sel1 += '<input type="text" name="emp_department1" placeholder="부서" class="form-control "/>'	  
-		sel1 += '<input type="text" name="emp_degree1" placeholder="직급" class="form-control "/>'	  
-		sel1 += '입학일<input type="date" name="emp_career_start1" value="yyyy-mm-dd" class="form-control "/>'	  
-		sel1 += '졸업일<input type="date" name="emp_career_end1" value="yyyy-mm-dd" class="form-control "/>'	  
-		sel1 += '<input type="text" name="emp_career_etc1" placeholder="맡은업무" class="form-control "/>'	  
+		sel1 += '<input type="text" name="emp_school_name" placeholder="회사명" class="form-control "/>'	  
+		sel1 += '<input type="text" name="emp_department" placeholder="부서" class="form-control "/>'	  
+		sel1 += '<input type="text" name="emp_degree" placeholder="직급" class="form-control "/>'	  
+		sel1 += '입사일<input type="date" name="emp_career_start" value="yyyy-mm-dd" class="form-control "/>'	  
+		sel1 += '퇴사일<input type="date" name="emp_career_end" value="yyyy-mm-dd" class="form-control "/>'	  
+		sel1 += '<input type="text" name="emp_career_etc" placeholder="맡은업무" class="form-control "/>'	  
 		sel1 += '<input type="button" name="delete" value="삭제" class="del2"/>'	  
 		sel1 += '</div>'
 		$('#career2').append(sel1);
@@ -492,12 +485,7 @@ $(document).on("click",".del3",function(){
 
 });
 
-$(".save").click(function(){
-	if(confirm('등록하시겠습니까?'))  
-		return true;
-	else  
-		return false;
-});
+
 
   
 function checks(){
@@ -532,37 +520,37 @@ function checks(){
       return false;
     }
 
-    //비밀번호 공백 확인
-    if($("#pw").val() == ""){
-      alert("패스워드를 입력해주세요.");
-      $("#pw").focus();
-      return false;
-    }
+//     //비밀번호 공백 확인
+//     if($("#pw").val() == ""){
+//       alert("패스워드를 입력해주세요.");
+//       $("#pw").focus();
+//       return false;
+//     }
          
     
-    //비밀번호 유효성검사
-    if(!getCheck.test($("#pw").val())){
-      alert("4자리 이상 12자리 이하로 입력해주세요.");
-      $("#pw").val("");
-      $("#pw").focus();
-      return false;
-    }
+//     //비밀번호 유효성검사
+//     if(!getCheck.test($("#pw").val())){
+//       alert("4자리 이상 12자리 이하로 입력해주세요.");
+//       $("#pw").val("");
+//       $("#pw").focus();
+//       return false;
+//     }
          
-    //비밀번호 확인란 공백 확인
-    if($("#pw_chk").val() == ""){
-      alert("패스워드 확인란을 입력해주세요");
-      $("#pw_chk").focus();
-      return false;
-    }
+//     //비밀번호 확인란 공백 확인
+//     if($("#pw_chk").val() == ""){
+//       alert("패스워드 확인란을 입력해주세요");
+//       $("#pw_chk").focus();
+//       return false;
+//     }
          
-    //비밀번호 서로확인
-    if($("#pw").val() != $("#pw_chk").val()){
-        alert("비밀번호가 상이합니다");
-        $("#pw").val("");
-        $("#pw_chk").val("");
-        $("#pw").focus();
-        return false;
-    }
+//     //비밀번호 서로확인
+//     if($("#pw").val() != $("#pw_chk").val()){
+//         alert("비밀번호가 상이합니다");
+//         $("#pw").val("");
+//         $("#pw_chk").val("");
+//         $("#pw").focus();
+//         return false;
+//     }
 
          
     //이름 공백 검사
@@ -670,6 +658,12 @@ function checks(){
       return false;
     }
 
+    $(".save").click(function(){
+    	if(confirm('등록하시겠습니까?'))  
+    		return true;
+    	else  
+    		return false;
+    });
 
 }
 
