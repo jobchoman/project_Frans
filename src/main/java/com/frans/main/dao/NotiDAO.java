@@ -53,6 +53,8 @@ public interface NotiDAO {
 
 	String notiRefMemDeny(String emp_id, String sign_idx);
 
+	String notiSignLastIdx(String emp_id, String sign_idx);
+
 
 
 }
