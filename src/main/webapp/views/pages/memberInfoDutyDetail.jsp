@@ -61,14 +61,14 @@
 											<label class="col-form-label col-md-3 col-sm-3 label-align">직책 코드
 											</label>
 											<div class="col-md-6 col-sm-6 ">
-												<input type="text" name="duty_idx" class="form-control " value="${mem.duty_idx}">
+												<input type="text" name="duty_idx" class="form-control " value="${mem.duty_idx}" readonly="readonly">
 											</div>
 										</div>
 										<div class="item form-group">
 											<label class="col-form-label col-md-3 col-sm-3 label-align">직책 명
 											</label>
 											<div class="col-md-6 col-sm-6 ">
-												<input type="text" name="duty_name" class="form-control " value="${mem.duty_name}">
+												<input type="text" name="duty_name" class="form-control " value="${mem.duty_name}" readonly="readonly">
 											</div>
 										</div>
 										<div class="item form-group">

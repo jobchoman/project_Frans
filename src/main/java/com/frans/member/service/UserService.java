@@ -53,13 +53,13 @@ public class UserService {
 		
 	}
 
-	public ArrayList<UserDTO> subUserList() {
-		return userDao.subUserList();
+	public ArrayList<UserDTO> subUserList(String emp_id) {
+		return userDao.subUserList(emp_id);
 	}
 
-	public HashMap<String, Object> subList() {
+	public HashMap<String, Object> subList(String emp_id) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		ArrayList<UserDTO> subList = userDao.subList();
+		ArrayList<UserDTO> subList = userDao.subList(emp_id);
 		map.put("data", subList);
 		return map;
 	}
@@ -79,11 +79,14 @@ public class UserService {
 		return userDao.clientSearchList();
 	}
 
-	public void subUserJoin(HashMap<String, String> params) {
+	public void subUserJoin(HashMap<String, String> params,UserDTO client_idx, String shop_idx) {
 		UserDTO dto = new UserDTO();
 		dto.setClient_id("client_name");
 		dto.setSub_idx("sub_name");
 		userDao.subUser(params);
+		userDao.userState(client_idx);
+		userDao.userShop(shop_idx);
+		
 	}
 
 	public UserDTO subUserDetail(String client_id) {

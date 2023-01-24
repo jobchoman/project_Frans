@@ -135,7 +135,7 @@
 										<div class="item form-group">
 											<div class="col-md-6 col-sm-6 offset-md-3">
 												<button class="btn btn-round btn-secondary ghl" onclick="location.href='subUserList.go'" type="reset">구독이용리스트</button>
-												<button type="submit" id="maker" class="btn btn-round btn-info nam save">등록</button>
+												<button type="submit" id="maker" class="btn btn-round btn-info nam save">수정</button>
 											</div>
 										</div>
 

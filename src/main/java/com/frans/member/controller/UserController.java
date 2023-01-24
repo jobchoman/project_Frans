@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,6 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.frans.member.dao.UserDAO;
 import com.frans.member.dto.MemberDTO;
 import com.frans.member.dto.UserDTO;
+import com.frans.member.service.MemberService;
 import com.frans.member.service.UserService;
 
 @Controller
@@ -28,6 +30,7 @@ public class UserController {
 	Logger logger = LoggerFactory.getLogger(getClass());
 	
 	@Autowired UserService userService;
+	@Autowired MemberService memberService;
 	@Autowired PasswordEncoder encoder;
 	
 	
@@ -81,16 +84,19 @@ public class UserController {
 	}
 	
 	@GetMapping(value="/subUserList.go")
-	public String subUserList(Model model) {
-		ArrayList<UserDTO> dto = userService.subUserList();
+	public String subUserList(Model model, HttpSession session) {
+		String emp_id = (String) session.getAttribute("loginId");
+		logger.info("emp_id:{}",emp_id);
+		ArrayList<UserDTO> dto = userService.subUserList(emp_id);
 		model.addAttribute("list",dto);
 		return "subUserList";
 	}
 	
 	@ResponseBody
 	@GetMapping(value="/subUserList.ajax")
-	public HashMap<String, Object> subList() {
-		return userService.subList();
+	public HashMap<String, Object> subList(HttpSession session) {
+		String emp_id = (String) session.getAttribute("loginId");
+		return userService.subList(emp_id);
 	}
 	
 	@GetMapping(value="/subUserJoin.go")
@@ -103,9 +109,10 @@ public class UserController {
 	}
 	
 	@PostMapping(value="/subUserJoin.do")
-	public String subJoin(@RequestParam HashMap<String, String> params) {
+	public String subJoin(@RequestParam HashMap<String, String> params, String client_id,String shop_idx) {
 		logger.info("params : {}",params);
-		userService.subUserJoin(params);
+		UserDTO client_idx = userService.subUserDetail(client_id);
+		userService.subUserJoin(params, client_idx,shop_idx);
 		return "redirect:/subUserList.go";
 	}
 	

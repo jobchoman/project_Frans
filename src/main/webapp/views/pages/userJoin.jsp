@@ -133,7 +133,7 @@
 										<div class="ln_solid"></div>
 										<div class="item form-group">
 											<div class="col-md-6 col-sm-6 offset-md-3">
-												<button class="btn btn-round btn-secondary ghl" onclick="location.href='userList.go'" type="reset">직원리스트</button>
+												<button class="btn btn-round btn-secondary ghl" onclick="location.href='userList.go'" type="reset">회원리스트</button>
 												<button type="submit" id="maker" class="btn btn-round btn-info nam save">등록</button>
 											</div>
 										</div>

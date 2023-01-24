@@ -340,7 +340,7 @@
                         </div>
                          <div class="modal-footer">
                            <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
-                           <button id="delModalBtn" type="submit" class="btn btn-primary">변경</button>
+                           <button id="delModalBtn" type="submit" class="btn btn-primary save">변경</button>
                          </div>
                          </form>
                      </div>
@@ -508,6 +508,12 @@ $(document).on("click",".del3",function(){
 //         $('input#mem.team_name').val(teamCode);
 //     };
 
+$(".save").click(function(){
+		if(confirm('수정하시겠습니까?'))  
+			return true;
+		else  
+			return false;
+});
 
 
 </script>

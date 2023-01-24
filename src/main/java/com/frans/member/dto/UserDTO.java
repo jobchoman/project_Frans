@@ -4,6 +4,7 @@ import java.sql.Date;
 
 public class UserDTO {
 	
+	private String emp_id;
 	private String client_id;
 	private String client_pw;
 	private String client_name;
@@ -23,6 +24,14 @@ public class UserDTO {
 	private String sub_state;
 	private String shop_name;
 	
+	
+	
+	public String getEmp_id() {
+		return emp_id;
+	}
+	public void setEmp_id(String emp_id) {
+		this.emp_id = emp_id;
+	}
 	public String getShop_name() {
 		return shop_name;
 	}

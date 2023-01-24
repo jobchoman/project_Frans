@@ -24,9 +24,9 @@ public interface UserDAO {
 
 	UserDTO userClient_id(String client_id);
 
-	ArrayList<UserDTO> subUserList();
+	ArrayList<UserDTO> subUserList(String emp_id);
 
-	ArrayList<UserDTO> subList();
+	ArrayList<UserDTO> subList(String emp_id);
 
 	ArrayList<UserDTO> searchList();
 
@@ -34,13 +34,17 @@ public interface UserDAO {
 
 	ArrayList<UserDTO> clientSearchList();
 
-	void subUser(HashMap<String, String> params);
+	int subUser(HashMap<String, String> params);
 
 	UserDTO subUserDetail(String client_id);
 
 	ArrayList<UserDTO> rec(String client_id);
 
 	void cliUpdate(UserDTO dto);
+
+	void userState(UserDTO client_idx);
+
+	void userShop(String shop_idx);
 
 //	void subscribe(HashMap<String, String> params);
 //

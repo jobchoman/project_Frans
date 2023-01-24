@@ -492,6 +492,13 @@ $(document).on("click",".del3",function(){
 
 });
 
+$(".save").click(function(){
+	if(confirm('등록하시겠습니까?'))  
+		return true;
+	else  
+		return false;
+});
+
   
 function checks(){
     var hobbyCheck = false;
@@ -662,12 +669,7 @@ function checks(){
       $("#file2").focus();
       return false;
     }
-    
 
-    
-    
-    
-    
 
 }
 
@@ -739,12 +741,7 @@ $("#id_check").click(function(){
 	}
 });
 
-$(".save").click(function(){
-	if(confirm('등록하시겠습니까?'))  
-		return true;
-	else  
-		return false;
-});
+
 
 </script>
 </html>

@@ -35,14 +35,14 @@
 	
 	<select id="subUserList" resultType="com.frans.member.dto.UserDTO" parameterType="String">
 		select s.sub_name, su.sub_use_start, su.sub_use_end, c.client_phone, c.client_name ,c.client_id , c.client_state
-		from sub_use su, client c,subscribe s
-		where s.sub_idx = su.sub_idx and su.client_id = c.client_id
+		from sub_use su, client c,subscribe s,shop sh, employee e
+		where s.sub_idx = su.sub_idx and su.client_id = c.client_id and sh.emp_id = e.emp_id and sh.shop_idx = su.shop_idx and su.client_id = c.client_id and e.emp_id = #{emp_id}
 	</select>
 	
 	<select id="subList" resultType="com.frans.member.dto.UserDTO" parameterType="String">
-		select s.sub_name, su.sub_use_start, su.sub_use_end, c.client_phone, c.client_name,c.client_id 
-		from sub_use su, client c,subscribe s
-		where s.sub_idx = su.sub_idx and su.client_id = c.client_id
+		select s.sub_name, su.sub_use_start, su.sub_use_end, c.client_phone, c.client_name ,c.client_id , c.client_state
+		from sub_use su, client c,subscribe s,shop sh, employee e
+		where s.sub_idx = su.sub_idx and su.client_id = c.client_id and sh.emp_id = e.emp_id and sh.shop_idx = su.shop_idx and su.client_id = c.client_id and e.emp_id = #{emp_id}
 		group by c.client_id
 	</select>
 	
@@ -78,6 +78,16 @@
 		client_phone = #{client_phone}
 		where client_id = #{client_id}
 	</update>
+	
+	<update id="userState" parameterType="com.frans.member.dto.UserDTO">
+		update client set client_state = 1 where client_id = #{client_id} 
+	</update>
+	
+	<select id="userShop" parameterType="com.frans.member.dto.UserDTO" resultType="String">
+		select s.shop_idx,s.shop_name 
+		from shop s, employee e
+		where s.emp_id = e.emp_id and e.emp_id = #{emp_id}
+	</select>
 	
 	
 

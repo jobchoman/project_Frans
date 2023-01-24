@@ -34,6 +34,9 @@
  .row > .col-sm-6:first-child {
       display: none;
    }
+ .dataTables_info{
+ 	display: none;
+ }
 </style>
 </head>
 <body class="nav-md">
@@ -170,7 +173,8 @@
 											<td>${list.sub_name}</td>
 											<td>${list.sub_use_start}</td>
 											<td>${list.sub_use_end}</td>
-											<td>${list.sub_use_state}</td>
+											<c:if test="${list.sub_use_state == 1}"><td>진행중</td></c:if>
+											<c:if test="${list.sub_use_state == 0}"><td>종료</td></c:if>
 											<td>${list.sub_use_condition}</td>
 										</tr>
 									</c:forEach>

@@ -59,23 +59,7 @@
                       <div class="row">
                           <div class="col-sm-12">
                             <div class="card-box table-responsive">
-                            
 
-		
-<!-- 							<select name="sel" id="sel" onchange="suListCall()"> -->
-<%-- 								<c:forEach items="${stateMem}" var="stateMem"> --%>
-<%-- 								<option value="상태">${stateMem.emp_state_name}</option> --%>
-<%-- 								</c:forEach> --%>
-<%-- 								<c:forEach items="${dutyMem}" var="dutyMem"> --%>
-<%-- 								<option value="직책">${dutyMem.duty_name}</option> --%>
-<%-- 								</c:forEach> --%>
-<%-- 								<c:forEach items="${posMem}" var="posMem"> --%>
-<%-- 								<option value="직급">${posMem.pos_name}</option> --%>
-<%-- 								</c:forEach> --%>
-<%-- 								<c:forEach items="${teamMem}" var="teamMem"> --%>
-<%-- 								<option value="팀" class="team">${teamMem.team_name}</option> --%>
-<%-- 								</c:forEach> --%>
-<!-- 							</select> -->
                     <button type="button" class="btn btn-round btn-info nam" onclick="location.href='/subUserJoin.go'" style="margin-left: 90%">구독 회원등록</button>        
                     <table id="datatable" class="table table-striped table-bordered dataTable no-footer"
 													style="width: 100%" aria-describedby="datatable_info">

@@ -114,7 +114,7 @@
 										<div class="item form-group">
 											<div class="col-md-6 col-sm-6 offset-md-3">
 												<button class="btn btn-round btn-secondary ghl" onclick="location.href='subUserList.go'" type="reset">직원리스트</button>
-												<button type="submit" id="maker" class="btn btn-round btn-info nam">등록</button>
+												<button type="submit" id="maker" class="btn btn-round btn-info nam save">등록</button>
 											</div>
 										</div>
 									</form>
@@ -200,7 +200,7 @@
 
 							</div>
 							<div class="modal-footer">
-								<button type="button" class="btn btn-primary save" data-dismiss="modal">확인</button>
+								<button type="button" class="btn btn-primary" data-dismiss="modal">확인</button>
 							</div>
 						</div>
 					</div>
