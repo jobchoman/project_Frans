@@ -113,7 +113,9 @@
 				</table>
 				</div>
 				<div id="buttons" style="width:100%">
+				<c:if test="${sessionScope.team != '점장'}">
 				<button type="button" class="btn btn-round btn-secondary" id="updateMenu" style="float:right;" onclick="location.href='/subUpdate?sub_idx=${detail.sub_idx}'">수정</button>
+				</c:if>
 				<button type="button" class="btn btn-round btn-secondary" id="goToList" style="float:right;" onclick="location.href='/subList'">리스트</button>
 				</div>
 			</div>

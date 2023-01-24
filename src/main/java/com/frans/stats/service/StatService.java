@@ -975,5 +975,27 @@ public class StatService {
 	public ArrayList<HashMap<String, Object>> subStatPreference8(String shop_idx, String year, String month) {
 		return statdao.subStatPreference8(shop_idx,year,month);
 	}
+
+	public String subSortType(String sub_sort_idx) {
+		return statdao.subSortType(sub_sort_idx);
+		
+	}
+
+	public String subName(String sub_idx) {
+		return statdao.subName(sub_idx);
+		
+	}
+
+	public String getProName(String province_idx) {
+		return statdao.getProName(province_idx);
+	}
+
+	public String getCityName(String city_idx) {
+		return statdao.getCityName(city_idx);
+	}
+
+	public String getShopName(String shop_idx) {
+		return statdao.getShopName(shop_idx);
+	}
 	
 }

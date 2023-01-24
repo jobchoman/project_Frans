@@ -1804,17 +1804,36 @@
 			FROM sub_use su
 			JOIN shop s on su.shop_idx = s.shop_idx
 			JOIN subscribe s2 ON su.sub_idx = s2.sub_idx  
-			WHERE s.shop_idx = #{param1} and year(su.sub_use_start) = #{param2}
+			WHERE s.shop_idx = #{param1} 
+			and year(su.sub_use_start) = #{param2}
 			GROUP BY su.sub_idx
 	</select>
 	<select id="subStatPreference8" resultType="hashmap">
 		SELECT 
-			s2.sub_name, count(su.client_id) as 'subJoinCount'
-			FROM sub_use su
-			JOIN shop s on su.shop_idx = s.shop_idx
-			JOIN subscribe s2 ON su.sub_idx = s2.sub_idx 
-			WHERE s.shop_idx = #{param1} and year(su.sub_use_start) = #{param2} and month(su.sub_use_start) = #{param3}
-			GROUP BY su.sub_idx
+		s2.sub_name, count(su.client_id) as 'subJoinCount'
+		FROM sub_use su
+		JOIN shop s on su.shop_idx = s.shop_idx
+		JOIN subscribe s2 ON su.sub_idx = s2.sub_idx 
+		WHERE s.shop_idx = #{param1}
+		and year(su.sub_use_start) = #{param2}
+		and month(su.sub_use_start) = #{param3}
+		GROUP BY su.sub_idx
+	</select>
+	
+	<select id="subSortType" resultType="String">
+		SELECT sub_sort_type FROM sub_sort WHERE sub_sort_idx = #{param1}
+	</select>
+	<select id="subName" resultType="String">
+		SELECT sub_name FROM subscribe WHERE sub_idx = ${param1}
+	</select>
+	<select id="getProName" resultType="String">
+		SELECT province_name FROM province WHERE province_idx = #{param1}
+	</select>
+	<select id="getCityName" resultType="String">
+		SELECT city_name FROM city WHERE city_idx = #{param1}
+	</select>
+	<select id="getShopName" resultType="String">
+		SELECT shop_name FROM shop WHERE shop_idx = #{param1}
 	</select>
 	
 

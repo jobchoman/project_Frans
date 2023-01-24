@@ -65,7 +65,11 @@
 						<li class="nav-item"><a class="nav-link" id="ready" data-toggle="tab" role="tab" aria-selected="false" onclick="readyList()">준비중</a></li>
 						<li class="nav-item"><a class="nav-link" id="end" data-toggle="tab" role="tab" aria-selected="false" onclick="endList()">종료</a></li>
 					</ul>
-				<div style="width:100%"><button type="button" class="btn btn-round btn-secondary" id="subRegister" onclick="location.href='/subRegister'">등록</button></div>
+				<div style="width:100%">
+				<c:if test="${sessionScope.team != '점장'}">
+				<button type="button" class="btn btn-round btn-secondary" id="subRegister" onclick="location.href='/subRegister'">등록</button>
+				</c:if>
+				</div>
 					<!-- 					<button type="button" class="btn btn-secondary" onclick="orgChartAddEmpPopup()">직원 추가</button> -->
 					<table id="datatable" class="table table-striped table-bordered dataTable no-footer" style="width: 100%" aria-describedby="datatable_info">
 						<thead>

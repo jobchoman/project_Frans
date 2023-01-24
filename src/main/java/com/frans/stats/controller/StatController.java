@@ -158,6 +158,7 @@ public class StatController {
 							map.put("data1", data1);
 							map.put("data2", data2);
 							map.put("type", 2);
+							map.put("title", "서울,경기 연간 총 구독 등록수");
 
 						}else{ // 횟수권/요일권 통합 상태에서 구독권 선택을 했을 때
 							// 시도/시군구/매장 선택 x, 년도, 월 선택 x, 성별 전체, 횟수권 요일권 통합, 구독권 선택 O
@@ -211,6 +212,8 @@ public class StatController {
 							map.put("data1", data1);
 							map.put("data2", data2);
 							map.put("type", 2);
+							String sub_name = statservice.subName(sub_idx);
+							map.put("title", "서울,경기 연간 "+sub_name+" 등록수");
 						}
 					}else { // 횟수권/요일권 중 하나가 선택 되었을 때
 						if(sub_idx.equals("noSub")) { // 구독권 선택을 하지 않았을 때
@@ -263,6 +266,8 @@ public class StatController {
 							map.put("data1", data1);
 							map.put("data2", data2);
 							map.put("type", 2);
+							String sub_sort_type = statservice.subSortType(sub_sort_idx);
+							map.put("title", "서울,경기 연간 "+sub_sort_type+" 등록수");
 						}else { // 구독권 선택을 했을 때
 							ArrayList<String> provinceName = new ArrayList<String>();
 							ArrayList<String> yearList = new ArrayList<String>();
@@ -313,6 +318,8 @@ public class StatController {
 							map.put("data1", data1);
 							map.put("data2", data2);
 							map.put("type", 2);
+							String sub_name = statservice.subName(sub_idx);
+							map.put("title", "서울,경기 연간 "+sub_name+" 등록수");
 						}
 					}
 				}else { // 성별이 남 또는 여 가 선택 되었을 때
@@ -367,6 +374,7 @@ public class StatController {
 							map.put("data1", data1);
 							map.put("data2", data2);
 							map.put("type", 2);
+							map.put("title", "서울,경기 연간 총 구독 등록수("+gender+")");
 						}else { // 횟수권/요일권 통합 상태에서 구독권 선택을 했을 때
 							ArrayList<String> provinceName = new ArrayList<String>();
 							ArrayList<String> yearList = new ArrayList<String>();
@@ -417,6 +425,8 @@ public class StatController {
 							map.put("data1", data1);
 							map.put("data2", data2);
 							map.put("type", 2);
+							String sub_name = statservice.subName(sub_idx);
+							map.put("title", "서울,경기 연간 "+sub_name+" 등록수("+gender+")");
 						}
 					}else { // 횟수권/요일권 중 하나가 선택 되었을 때
 						if(sub_idx.equals("noSub")) { // 구독권 선택을 하지 않았을 때
@@ -469,6 +479,8 @@ public class StatController {
 							map.put("data1", data1);
 							map.put("data2", data2);
 							map.put("type", 2);
+							String sub_sort_type = statservice.subSortType(sub_sort_idx);
+							map.put("title", "서울,경기 연간 "+sub_sort_type+" 등록수("+gender+")");
 						}else { // 구독권 선택을 했을 때
 							ArrayList<String> provinceName = new ArrayList<String>();
 							ArrayList<String> yearList = new ArrayList<String>();
@@ -519,6 +531,8 @@ public class StatController {
 							map.put("data1", data1);
 							map.put("data2", data2);
 							map.put("type", 2);
+							String sub_name = statservice.subName(sub_idx);
+							map.put("title", "서울,경기 연간 "+sub_name+" 등록수("+gender+")");
 						}
 					}
 				}
@@ -575,6 +589,7 @@ public class StatController {
 							map.put("label", label);
 							map.put("data1", data1);
 							map.put("data2", data2);
+							map.put("title", "서울,경기 "+year+"년 월별 구독 등록수");
 							map.put("type", 2);
 						}else { // 횟수권/요일권 통합 상태에서 구독권 선택을 했을 때
 							ArrayList<String> provinceName = new ArrayList<String>();
@@ -625,6 +640,8 @@ public class StatController {
 							map.put("label", label);
 							map.put("data1", data1);
 							map.put("data2", data2);
+							String sub_name = statservice.subName(sub_idx);
+							map.put("title", "서울,경기 "+year+"년 "+sub_name+" 등록수");
 							map.put("type", 2);
 						}
 					}else { // 횟수권/요일권 선택
@@ -677,6 +694,8 @@ public class StatController {
 							map.put("label", label);
 							map.put("data1", data1);
 							map.put("data2", data2);
+							String sub_sort_type = statservice.subSortType(sub_sort_idx);
+							map.put("title", "서울,경기 "+year+"년 "+sub_sort_type+" 등록수");
 							map.put("type", 2);
 						}else { // 횟수권/요일권 선택한 상태에서 구독권 선택을 했을 때
 							ArrayList<String> provinceName = new ArrayList<String>();
@@ -727,6 +746,8 @@ public class StatController {
 							map.put("label", label);
 							map.put("data1", data1);
 							map.put("data2", data2);
+							String sub_name = statservice.subName(sub_idx);
+							map.put("title", "서울,경기 "+year+"년 "+sub_name+" 등록수");
 							map.put("type", 2);
 						}
 					}
@@ -781,6 +802,8 @@ public class StatController {
 							map.put("label", label);
 							map.put("data1", data1);
 							map.put("data2", data2);
+							
+							map.put("title", "서울,경기 "+year+"년 총 구독 등록수("+gender+")");
 							map.put("type", 2);
 						}else { // 횟수권/요일권 통합 상태에서 구독권 선택을 했을 때
 							ArrayList<String> provinceName = new ArrayList<String>();
@@ -831,6 +854,8 @@ public class StatController {
 							map.put("label", label);
 							map.put("data1", data1);
 							map.put("data2", data2);
+							String sub_name = statservice.subName(sub_idx);
+							map.put("title", "서울,경기 "+year+"년 "+sub_name+" 등록수("+gender+")");
 							map.put("type", 2);
 						}
 					}else { // 횟수권/요일권 선택
@@ -885,6 +910,8 @@ public class StatController {
 							map.put("label", label);
 							map.put("data1", data1);
 							map.put("data2", data2);
+							String sub_sort_type = statservice.subSortType(sub_sort_idx);
+							map.put("title", "서울,경기 "+year+"년 "+sub_sort_type+" 등록수("+gender+")");
 							map.put("type", 2);
 						}else { // 횟수권/요일권 선택한 상태에서 구독권 선택을 했을 때
 							ArrayList<String> provinceName = new ArrayList<String>();
@@ -937,6 +964,8 @@ public class StatController {
 							map.put("label", label);
 							map.put("data1", data1);
 							map.put("data2", data2);
+							String sub_name = statservice.subName(sub_idx);
+							map.put("title", "서울,경기 "+year+"년 "+sub_name+" 등록수("+gender+")");
 							map.put("type", 2);
 						}
 					}
@@ -1026,7 +1055,7 @@ public class StatController {
 										}else {
 											addMap1.put("day", days.get(i2));
 											addMap1.put("subJoinCount", 0);
-											addMap1.put("province_name", "경기도");
+											addMap1.put("province_name", "서울특별시");
 											seoul.add(addMap1);
 										}
 									}
@@ -1151,6 +1180,7 @@ public class StatController {
 								
 								map.put("labels", days);
 								map.put("label", label);
+								map.put("title", "서울,경기 "+year+"년 "+month+"월 구독 등록수");
 								map.put("type", 2);
 							
 						}else { // 횟수권/요일권 통합 상태에서 구독권 선택을 했을 때
@@ -1235,7 +1265,7 @@ public class StatController {
 										}else {
 											addMap1.put("day", days.get(i2));
 											addMap1.put("subJoinCount", 0);
-											addMap1.put("province_name", "경기도");
+											addMap1.put("province_name", "서울특별시");
 											seoul.add(addMap1);
 										}
 									}
@@ -1360,6 +1390,8 @@ public class StatController {
 								
 								map.put("labels", days);
 								map.put("label", label);
+								String sub_name = statservice.subName(sub_idx);
+								map.put("title", "서울,경기 "+year+"년 "+month+"월 "+sub_name+" 등록수");
 								map.put("type", 2);
 						}
 					}else { // 횟수권/요일권 선택
@@ -1445,7 +1477,7 @@ public class StatController {
 										}else {
 											addMap1.put("day", days.get(i2));
 											addMap1.put("subJoinCount", 0);
-											addMap1.put("province_name", "경기도");
+											addMap1.put("province_name", "서울특별시");
 											seoul.add(addMap1);
 										}
 									}
@@ -1570,6 +1602,8 @@ public class StatController {
 								
 								map.put("labels", days);
 								map.put("label", label);
+								String sub_sort_type = statservice.subSortType(sub_sort_idx);
+								map.put("title", "서울,경기 "+year+"년 "+month+"월 "+sub_sort_type+" 등록수");
 								map.put("type", 2);
 						}else { // 횟수권/요일권 선택한 상태에서 구독권 선택을 했을 때
 							ArrayList<HashMap<String, Object>> list = statservice.subStatGender20(year,month,sub_sort_idx,sub_idx);
@@ -1653,7 +1687,7 @@ public class StatController {
 										}else {
 											addMap1.put("day", days.get(i2));
 											addMap1.put("subJoinCount", 0);
-											addMap1.put("province_name", "경기도");
+											addMap1.put("province_name", "서울특별시");
 											seoul.add(addMap1);
 										}
 									}
@@ -1778,6 +1812,8 @@ public class StatController {
 								
 								map.put("labels", days);
 								map.put("label", label);
+								String sub_name = statservice.subName(sub_idx);
+								map.put("title", "서울,경기 "+year+"년 "+month+"월 "+sub_name+" 등록수");
 								map.put("type", 2);
 						}
 					}
@@ -1865,7 +1901,7 @@ public class StatController {
 										}else {
 											addMap1.put("day", days.get(i2));
 											addMap1.put("subJoinCount", 0);
-											addMap1.put("province_name", "경기도");
+											addMap1.put("province_name", "서울특별시");
 											seoul.add(addMap1);
 										}
 									}
@@ -1990,6 +2026,7 @@ public class StatController {
 								
 								map.put("labels", days);
 								map.put("label", label);
+								map.put("title", "서울,경기 "+year+"년 "+month+"월 구독 등록수("+gender+")");
 								map.put("type", 2);
 						}else { // 횟수권/요일권 통합 상태에서 구독권 선택을 했을 때
 							ArrayList<HashMap<String, Object>> list = statservice.subStatGender22(year,month,gender,sub_idx);
@@ -2073,7 +2110,7 @@ public class StatController {
 										}else {
 											addMap1.put("day", days.get(i2));
 											addMap1.put("subJoinCount", 0);
-											addMap1.put("province_name", "경기도");
+											addMap1.put("province_name", "서울특별시");
 											seoul.add(addMap1);
 										}
 									}
@@ -2198,6 +2235,8 @@ public class StatController {
 								
 								map.put("labels", days);
 								map.put("label", label);
+								String sub_name = statservice.subName(sub_idx);
+								map.put("title", "서울,경기 "+year+"년 "+month+"월 "+sub_name+" 등록수("+gender+")");
 								map.put("type", 2);
 						}
 					}else { // 횟수권/요일권 선택
@@ -2283,7 +2322,7 @@ public class StatController {
 										}else {
 											addMap1.put("day", days.get(i2));
 											addMap1.put("subJoinCount", 0);
-											addMap1.put("province_name", "경기도");
+											addMap1.put("province_name", "서울특별시");
 											seoul.add(addMap1);
 										}
 									}
@@ -2408,10 +2447,12 @@ public class StatController {
 								
 								map.put("labels", days);
 								map.put("label", label);
+								String sub_sort_type = statservice.subSortType(sub_sort_idx);
+								map.put("title", "서울,경기 "+year+"년 "+month+"월 "+sub_sort_type+" 등록수("+gender+")");
 								map.put("type", 2);
 						}else { // 횟수권/요일권 선택한 상태에서 구독권 선택을 했을 때
 							ArrayList<HashMap<String, Object>> list = statservice.subStatGender24(year,month,gender,sub_sort_idx,sub_idx);
-							//logger.info("list = "+list);
+							logger.info("list = "+list);
 							ArrayList<String> dayList = statservice.subStatGenderDays(year,month);
 							ArrayList<Date> days = new ArrayList<Date>();
 							ArrayList<Date> compareDay = new ArrayList<Date>();
@@ -2491,7 +2532,7 @@ public class StatController {
 										}else {
 											addMap1.put("day", days.get(i2));
 											addMap1.put("subJoinCount", 0);
-											addMap1.put("province_name", "경기도");
+											addMap1.put("province_name", "서울특별시");
 											seoul.add(addMap1);
 										}
 									}
@@ -2616,6 +2657,8 @@ public class StatController {
 								
 								map.put("labels", days);
 								map.put("label", label);
+								String sub_name = statservice.subName(sub_idx);
+								map.put("title", "서울,경기 "+year+"년 "+month+"월 "+sub_name+" 등록수("+gender+")");
 								map.put("type", 2);
 						}
 					}
@@ -2668,6 +2711,8 @@ public class StatController {
 					        map.put("labels", yearList);
 							map.put("label", list.get(0).get("province_name"));
 							map.put("data", dataList);
+							String provinceName = (String) list.get(0).get("province_name");
+							map.put("title", provinceName+" 연간 총 구독 등록수");
 							map.put("type", 1);
 
 						}else{ // 횟수권/요일권 통합 상태에서 구독권 선택을 했을 때
@@ -2687,6 +2732,10 @@ public class StatController {
 					        map.put("labels", yearList);
 							map.put("label", list.get(0).get("province_name"));
 							map.put("data", dataList);
+							String provinceName = (String) list.get(0).get("province_name");
+							String sub_name = statservice.subName(sub_idx);
+							map.put("title", provinceName+" 연간 "+sub_name+" 등록수");
+							
 							map.put("type", 1);
 						}
 					}else { // 횟수권/요일권 중 하나가 선택 되었을 때
@@ -2706,6 +2755,10 @@ public class StatController {
 					        map.put("labels", yearList);
 							map.put("label", list.get(0).get("province_name"));
 							map.put("data", dataList);
+							String provinceName = (String) list.get(0).get("province_name");
+							String sub_sort_type = statservice.subSortType(sub_sort_idx);
+							map.put("title", provinceName+" 연간 "+sub_sort_type+" 등록수");
+							
 							map.put("type", 1);
 						}else { // 구독권 선택을 했을 때
 							ArrayList<HashMap<String, Object>> list = statservice.subStatGender28(province_idx,sub_sort_idx, sub_idx);
@@ -2723,6 +2776,10 @@ public class StatController {
 					        map.put("labels", yearList);
 							map.put("label", list.get(0).get("province_name"));
 							map.put("data", dataList);
+							String provinceName = (String) list.get(0).get("province_name");
+							String sub_name = statservice.subName(sub_idx);
+							map.put("title", provinceName+" 연간 "+sub_name+" 등록수");
+							
 							map.put("type", 1);
 						}
 					}
@@ -2744,6 +2801,9 @@ public class StatController {
 					        map.put("labels", yearList);
 							map.put("label", list.get(0).get("province_name"));
 							map.put("data", dataList);
+							String provinceName = (String) list.get(0).get("province_name");
+							map.put("title", provinceName+" 연간 총 구독 등록수("+gender+")");
+							
 							map.put("type", 1);
 						}else { // 횟수권/요일권 통합 상태에서 구독권 선택을 했을 때
 							ArrayList<HashMap<String, Object>> list = statservice.subStatGender30(province_idx,gender, sub_idx);
@@ -2761,6 +2821,10 @@ public class StatController {
 					        map.put("labels", yearList);
 							map.put("label", list.get(0).get("province_name"));
 							map.put("data", dataList);
+							String provinceName = (String) list.get(0).get("province_name");
+							String sub_name = statservice.subName(sub_idx);
+							map.put("title", provinceName+" 연간 "+sub_name+" 등록수("+gender+")");
+							
 							map.put("type", 1);
 						}
 					}else { // 횟수권/요일권 중 하나가 선택 되었을 때
@@ -2780,6 +2844,10 @@ public class StatController {
 					        map.put("labels", yearList);
 							map.put("label", list.get(0).get("province_name"));
 							map.put("data", dataList);
+							String provinceName = (String) list.get(0).get("province_name");
+							String sub_sort_type = statservice.subSortType(sub_sort_idx);
+							map.put("title", provinceName+" 연간 "+sub_sort_type+" 등록수("+gender+")");
+							
 							map.put("type", 1);
 						}else { // 구독권 선택을 했을 때
 							ArrayList<HashMap<String, Object>> list = statservice.subStatGender32(province_idx, gender, sub_sort_idx, sub_idx);
@@ -2797,6 +2865,10 @@ public class StatController {
 					        map.put("labels", yearList);
 							map.put("label", list.get(0).get("province_name"));
 							map.put("data", dataList);
+							String provinceName = (String) list.get(0).get("province_name");
+							String sub_name = statservice.subName(sub_idx);
+							map.put("title", provinceName+" 연간 "+sub_name+" 등록수("+gender+")");
+							
 							map.put("type", 1);
 						}
 					}
@@ -2821,6 +2893,10 @@ public class StatController {
 					        map.put("labels", monthList);
 							map.put("label", list.get(0).get("province_name"));
 							map.put("data", dataList);
+							String provinceName = (String) list.get(0).get("province_name");
+							map.put("title", provinceName+" "+year+"년 월별 구독 등록수");
+
+							
 							map.put("type", 1);
 						}else { // 횟수권/요일권 통합 상태에서 구독권 선택을 했을 때
 							ArrayList<HashMap<String, Object>> list = statservice.subStatGender34(province_idx,year, sub_idx);
@@ -2838,6 +2914,10 @@ public class StatController {
 					        map.put("labels", monthList);
 							map.put("label", list.get(0).get("province_name"));
 							map.put("data", dataList);
+							String provinceName = (String) list.get(0).get("province_name");
+							String sub_name = statservice.subName(sub_idx);
+							map.put("title", provinceName+" "+year+"년 "+sub_name+" 등록수");
+							
 							map.put("type", 1);
 						}
 					}else { // 횟수권/요일권 선택
@@ -2857,6 +2937,10 @@ public class StatController {
 					        map.put("labels", monthList);
 							map.put("label", list.get(0).get("province_name"));
 							map.put("data", dataList);
+							String provinceName = (String) list.get(0).get("province_name");
+							String sub_sort_type = statservice.subSortType(sub_sort_idx);
+							map.put("title", provinceName+" "+year+"년 "+sub_sort_type+" 등록수");
+							
 							map.put("type", 1);
 						}else { // 횟수권/요일권 선택한 상태에서 구독권 선택을 했을 때
 							ArrayList<HashMap<String, Object>> list = statservice.subStatGender36(province_idx,year,sub_sort_idx,sub_idx);
@@ -2874,6 +2958,10 @@ public class StatController {
 					        map.put("labels", monthList);
 							map.put("label", list.get(0).get("province_name"));
 							map.put("data", dataList);
+							String provinceName = (String) list.get(0).get("province_name");
+							String sub_name = statservice.subName(sub_idx);
+							map.put("title", provinceName+" "+year+"년 "+sub_name+" 등록수");
+							
 							map.put("type", 1);
 						}
 					}
@@ -2895,6 +2983,9 @@ public class StatController {
 					        map.put("labels", monthList);
 							map.put("label", list.get(0).get("province_name"));
 							map.put("data", dataList);
+							String provinceName = (String) list.get(0).get("province_name");
+							map.put("title", provinceName+" "+year+"년 총 구독 등록수("+gender+")");
+							
 							map.put("type", 1);
 						}else { // 횟수권/요일권 통합 상태에서 구독권 선택을 했을 때
 							ArrayList<HashMap<String, Object>> list = statservice.subStatGender38(province_idx,year,gender,sub_idx);
@@ -2912,6 +3003,10 @@ public class StatController {
 					        map.put("labels", monthList);
 							map.put("label", list.get(0).get("province_name"));
 							map.put("data", dataList);
+							String provinceName = (String) list.get(0).get("province_name");
+							String sub_name = statservice.subName(sub_idx);
+							map.put("title", provinceName+" "+year+"년 "+sub_name+" 등록수("+gender+")");
+							
 							map.put("type", 1);
 						}
 					}else { // 횟수권/요일권 선택
@@ -2931,6 +3026,10 @@ public class StatController {
 					        map.put("labels", monthList);
 							map.put("label", list.get(0).get("province_name"));
 							map.put("data", dataList);
+							String provinceName = (String) list.get(0).get("province_name");
+							String sub_sort_type = statservice.subSortType(sub_sort_idx);
+							map.put("title", provinceName+" "+year+"년 "+sub_sort_type+" 등록수("+gender+")");
+							
 							map.put("type", 1);
 						}else { // 횟수권/요일권 선택한 상태에서 구독권 선택을 했을 때
 							ArrayList<HashMap<String, Object>> list = statservice.subStatGender40(province_idx,year,gender,sub_sort_idx,sub_idx);
@@ -2948,6 +3047,10 @@ public class StatController {
 					        map.put("labels", monthList);
 							map.put("label", list.get(0).get("province_name"));
 							map.put("data", dataList);
+							String provinceName = (String) list.get(0).get("province_name");
+							String sub_name = statservice.subName(sub_idx);
+							map.put("title", provinceName+" "+year+"년 "+sub_name+" 등록수("+gender+")");
+							
 							map.put("type", 1);
 						}
 					}
@@ -2995,6 +3098,9 @@ public class StatController {
 							map.put("labels", dayList);
 							map.put("label", list.get(0).get("province_name"));
 							map.put("data", dataList);
+							String provinceName = (String) list.get(0).get("province_name");
+							map.put("title", provinceName+" "+year+"년 "+month+"월 구독 등록수");
+							
 							map.put("type", 1);
 							
 						}else { // 횟수권/요일권 통합 상태에서 구독권 선택을 했을 때
@@ -3037,6 +3143,10 @@ public class StatController {
 							map.put("labels", dayList);
 							map.put("label", list.get(0).get("province_name"));
 							map.put("data", dataList);
+							String provinceName = (String) list.get(0).get("province_name");
+							String sub_name = statservice.subName(sub_idx);
+							map.put("title", provinceName+" "+year+"년 "+month+"월 "+sub_name+" 등록수");
+							
 							map.put("type", 1);
 						}
 					}else { // 횟수권/요일권 선택
@@ -3080,6 +3190,10 @@ public class StatController {
 							map.put("labels", dayList);
 							map.put("label", list.get(0).get("province_name"));
 							map.put("data", dataList);
+							String provinceName = (String) list.get(0).get("province_name");
+							String sub_sort_type = statservice.subSortType(sub_sort_idx);
+							map.put("title", provinceName+" "+year+"년 "+month+"월 "+sub_sort_type+" 등록수");
+							
 							map.put("type", 1);
 						}else { // 횟수권/요일권 선택한 상태에서 구독권 선택을 했을 때
 							ArrayList<HashMap<String, Object>> list = statservice.subStatGender44(province_idx,year,month,sub_sort_idx,sub_idx);
@@ -3121,6 +3235,10 @@ public class StatController {
 							map.put("labels", dayList);
 							map.put("label", list.get(0).get("province_name"));
 							map.put("data", dataList);
+							String provinceName = (String) list.get(0).get("province_name");
+							String sub_name = statservice.subName(sub_idx);
+							map.put("title", provinceName+" "+year+"년 "+month+"월 "+sub_name+" 등록수");
+							
 							map.put("type", 1);
 						}
 					}
@@ -3165,6 +3283,9 @@ public class StatController {
 							map.put("labels", dayList);
 							map.put("label", list.get(0).get("province_name"));
 							map.put("data", dataList);
+							String provinceName = (String) list.get(0).get("province_name");
+							map.put("title", provinceName+" "+year+"년 "+month+"월 구독 등록수("+gender+")");
+							
 							map.put("type", 1);
 						}else { // 횟수권/요일권 통합 상태에서 구독권 선택을 했을 때
 							ArrayList<HashMap<String, Object>> list = statservice.subStatGender46(province_idx,year,month,gender,sub_idx);
@@ -3205,6 +3326,10 @@ public class StatController {
 							map.put("labels", dayList);
 							map.put("label", list.get(0).get("province_name"));
 							map.put("data", dataList);
+							String provinceName = (String) list.get(0).get("province_name");
+							String sub_name = statservice.subName(sub_idx);
+							map.put("title", provinceName+" "+year+"년 "+month+"월 "+sub_name+" 등록수("+gender+")");
+							
 							map.put("type", 1);
 						}
 					}else { // 횟수권/요일권 선택
@@ -3247,6 +3372,10 @@ public class StatController {
 							map.put("labels", dayList);
 							map.put("label", list.get(0).get("province_name"));
 							map.put("data", dataList);
+							String provinceName = (String) list.get(0).get("province_name");
+							String sub_sort_type = statservice.subSortType(sub_sort_idx);
+							map.put("title", provinceName+" "+year+"년 "+month+"월 "+sub_sort_type+" 등록수("+gender+")");
+							
 							map.put("type", 1);
 						}else { // 횟수권/요일권 선택한 상태에서 구독권 선택을 했을 때
 							ArrayList<HashMap<String, Object>> list = statservice.subStatGender48(province_idx,year,month,gender,sub_sort_idx,sub_idx);
@@ -3287,6 +3416,10 @@ public class StatController {
 							map.put("labels", dayList);
 							map.put("label", list.get(0).get("province_name"));
 							map.put("data", dataList);
+							String provinceName = (String) list.get(0).get("province_name");
+							String sub_name = statservice.subName(sub_idx);
+							map.put("title", provinceName+" "+year+"년 "+month+"월 "+sub_name+" 등록수("+gender+")");
+							
 							map.put("type", 1);
 
 						}
@@ -3420,9 +3553,14 @@ public class StatController {
 								dataList.add(list.get(a).get("subJoinCount"));
 							}
 							
+							
+							
 					        map.put("labels", yearList);
 							map.put("label", list.get(0).get("city_name"));
 							map.put("data", dataList);
+							String provinceName = statservice.getProName(province_idx);
+							String cityName = (String) list.get(0).get("city_name"); 
+							map.put("title", provinceName+" - "+cityName+" 연간 총 구독 등록수");
 							map.put("type", 1);
 
 						}else{ // 횟수권/요일권 통합 상태에서 구독권 선택을 했을 때
@@ -3442,6 +3580,10 @@ public class StatController {
 					        map.put("labels", yearList);
 							map.put("label", list.get(0).get("city_name"));
 							map.put("data", dataList);
+							String provinceName = statservice.getProName(province_idx);
+							String cityName = (String) list.get(0).get("city_name");
+							String sub_name = statservice.subName(sub_idx);
+							map.put("title", provinceName+" - "+cityName+" 연간 "+sub_name+" 등록수");
 							map.put("type", 1);
 						}
 					}else { // 횟수권/요일권 중 하나가 선택 되었을 때
@@ -3461,6 +3603,10 @@ public class StatController {
 					        map.put("labels", yearList);
 							map.put("label", list.get(0).get("city_name"));
 							map.put("data", dataList);
+							String provinceName = statservice.getProName(province_idx);
+							String cityName = (String) list.get(0).get("city_name");
+							String sub_sort_type = statservice.subSortType(sub_sort_idx);
+							map.put("title", provinceName+" - "+cityName+" 연간 "+sub_sort_type+" 등록수");
 							map.put("type", 1);
 						}else { // 구독권 선택을 했을 때
 							ArrayList<HashMap<String, Object>> list = statservice.subStatGender52(city_idx,sub_sort_idx, sub_idx);
@@ -3478,6 +3624,10 @@ public class StatController {
 					        map.put("labels", yearList);
 							map.put("label", list.get(0).get("city_name"));
 							map.put("data", dataList);
+							String provinceName = statservice.getProName(province_idx);
+							String cityName = (String) list.get(0).get("city_name");
+							String sub_name = statservice.subName(sub_idx);
+							map.put("title", provinceName+" - "+cityName+" 연간 "+sub_name+" 등록수");
 							map.put("type", 1);
 						}
 					}
@@ -3499,6 +3649,9 @@ public class StatController {
 					        map.put("labels", yearList);
 							map.put("label", list.get(0).get("city_name"));
 							map.put("data", dataList);
+							String provinceName = statservice.getProName(province_idx);
+							String cityName = (String) list.get(0).get("city_name");
+							map.put("title", provinceName+" - "+cityName+" 연간 총 구독 등록수("+gender+")");
 							map.put("type", 1);
 						}else { // 횟수권/요일권 통합 상태에서 구독권 선택을 했을 때
 							ArrayList<HashMap<String, Object>> list = statservice.subStatGender54(city_idx,gender, sub_idx);
@@ -3516,6 +3669,10 @@ public class StatController {
 					        map.put("labels", yearList);
 							map.put("label", list.get(0).get("city_name"));
 							map.put("data", dataList);
+							String provinceName = statservice.getProName(province_idx);
+							String cityName = (String) list.get(0).get("city_name");
+							String sub_name = statservice.subName(sub_idx);
+							map.put("title", provinceName+" - "+cityName+" 연간 "+sub_name+" 등록수("+gender+")");
 							map.put("type", 1);
 						}
 					}else { // 횟수권/요일권 중 하나가 선택 되었을 때
@@ -3535,6 +3692,10 @@ public class StatController {
 					        map.put("labels", yearList);
 							map.put("label", list.get(0).get("city_name"));
 							map.put("data", dataList);
+							String provinceName = statservice.getProName(province_idx);
+							String cityName = (String) list.get(0).get("city_name");
+							String sub_sort_type = statservice.subSortType(sub_sort_idx);
+							map.put("title", provinceName+" - "+cityName+" 연간 "+sub_sort_type+" 등록수("+gender+")");
 							map.put("type", 1);
 						}else { // 구독권 선택을 했을 때
 							ArrayList<HashMap<String, Object>> list = statservice.subStatGender56(city_idx, gender, sub_sort_idx, sub_idx);
@@ -3552,6 +3713,10 @@ public class StatController {
 					        map.put("labels", yearList);
 							map.put("label", list.get(0).get("city_name"));
 							map.put("data", dataList);
+							String provinceName = statservice.getProName(province_idx);
+							String cityName = (String) list.get(0).get("city_name");
+							String sub_name = statservice.subName(sub_idx);
+							map.put("title", provinceName+" - "+cityName+" 연간 "+sub_name+" 등록수("+gender+")");
 							map.put("type", 1);
 						}
 					}
@@ -3576,6 +3741,9 @@ public class StatController {
 					        map.put("labels", monthList);
 							map.put("label", list.get(0).get("city_name"));
 							map.put("data", dataList);
+							String provinceName = statservice.getProName(province_idx);
+							String cityName = (String) list.get(0).get("city_name");
+							map.put("title", provinceName+" - "+cityName+" "+year+"년 월별 구독 등록수");
 							map.put("type", 1);
 						}else { // 횟수권/요일권 통합 상태에서 구독권 선택을 했을 때
 							ArrayList<HashMap<String, Object>> list = statservice.subStatGender58(city_idx,year, sub_idx);
@@ -3593,6 +3761,10 @@ public class StatController {
 					        map.put("labels", monthList);
 							map.put("label", list.get(0).get("city_name"));
 							map.put("data", dataList);
+							String provinceName = statservice.getProName(province_idx);
+							String cityName = (String) list.get(0).get("city_name");
+							String sub_name = statservice.subName(sub_idx);
+							map.put("title", provinceName+" - "+cityName+" "+year+"년 "+sub_name+" 등록수");
 							map.put("type", 1);
 						}
 					}else { // 횟수권/요일권 선택
@@ -3612,6 +3784,10 @@ public class StatController {
 					        map.put("labels", monthList);
 							map.put("label", list.get(0).get("city_name"));
 							map.put("data", dataList);
+							String provinceName = statservice.getProName(province_idx);
+							String cityName = (String) list.get(0).get("city_name");
+							String sub_sort_type = statservice.subSortType(sub_sort_idx);
+							map.put("title", provinceName+" - "+cityName+" "+year+"년 "+sub_sort_type+" 등록수");
 							map.put("type", 1);
 						}else { // 횟수권/요일권 선택한 상태에서 구독권 선택을 했을 때
 							ArrayList<HashMap<String, Object>> list = statservice.subStatGender60(city_idx,year,sub_sort_idx,sub_idx);
@@ -3629,6 +3805,10 @@ public class StatController {
 					        map.put("labels", monthList);
 							map.put("label", list.get(0).get("city_name"));
 							map.put("data", dataList);
+							String provinceName = statservice.getProName(province_idx);
+							String cityName = (String) list.get(0).get("city_name");
+							String sub_name = statservice.subName(sub_idx);
+							map.put("title", provinceName+" - "+cityName+" "+year+"년 "+sub_name+" 등록수");
 							map.put("type", 1);
 						}
 					}
@@ -3650,6 +3830,9 @@ public class StatController {
 					        map.put("labels", monthList);
 							map.put("label", list.get(0).get("city_name"));
 							map.put("data", dataList);
+							String provinceName = statservice.getProName(province_idx);
+							String cityName = (String) list.get(0).get("city_name");
+							map.put("title", provinceName+" - "+cityName+" "+year+"년 총 구독 등록수("+gender+")");
 							map.put("type", 1);
 						}else { // 횟수권/요일권 통합 상태에서 구독권 선택을 했을 때
 							ArrayList<HashMap<String, Object>> list = statservice.subStatGender62(city_idx,year,gender,sub_idx);
@@ -3667,6 +3850,10 @@ public class StatController {
 					        map.put("labels", monthList);
 							map.put("label", list.get(0).get("city_name"));
 							map.put("data", dataList);
+							String provinceName = statservice.getProName(province_idx);
+							String cityName = (String) list.get(0).get("city_name");
+							String sub_name = statservice.subName(sub_idx);
+							map.put("title", provinceName+" - "+cityName+" "+year+"년 "+sub_name+" 등록수("+gender+")");
 							map.put("type", 1);
 						}
 					}else { // 횟수권/요일권 선택
@@ -3686,6 +3873,10 @@ public class StatController {
 					        map.put("labels", monthList);
 							map.put("label", list.get(0).get("city_name"));
 							map.put("data", dataList);
+							String provinceName = statservice.getProName(province_idx);
+							String cityName = (String) list.get(0).get("city_name");
+							String sub_sort_type = statservice.subSortType(sub_sort_idx);
+							map.put("title", provinceName+" - "+cityName+" "+year+"년 "+sub_sort_type+" 등록수("+gender+")");
 							map.put("type", 1);
 						}else { // 횟수권/요일권 선택한 상태에서 구독권 선택을 했을 때
 							ArrayList<HashMap<String, Object>> list = statservice.subStatGender64(city_idx,year,gender,sub_sort_idx,sub_idx);
@@ -3703,6 +3894,10 @@ public class StatController {
 					        map.put("labels", monthList);
 							map.put("label", list.get(0).get("city_name"));
 							map.put("data", dataList);
+							String provinceName = statservice.getProName(province_idx);
+							String cityName = (String) list.get(0).get("city_name");
+							String sub_name = statservice.subName(sub_idx);
+							map.put("title", provinceName+" - "+cityName+" "+year+"년 "+sub_name+" 등록수("+gender+")");
 							map.put("type", 1);
 						}
 					}
@@ -3750,6 +3945,9 @@ public class StatController {
 							map.put("labels", dayList);
 							map.put("label", list.get(0).get("city_name"));
 							map.put("data", dataList);
+							String provinceName = statservice.getProName(province_idx);
+							String cityName = (String) list.get(0).get("city_name");
+							map.put("title", provinceName+" - "+cityName+" "+year+"년 "+month+"월 구독 등록수");
 							map.put("type", 1);
 							
 						}else { // 횟수권/요일권 통합 상태에서 구독권 선택을 했을 때
@@ -3792,6 +3990,10 @@ public class StatController {
 							map.put("labels", dayList);
 							map.put("label", list.get(0).get("city_name"));
 							map.put("data", dataList);
+							String provinceName = statservice.getProName(province_idx);
+							String cityName = (String) list.get(0).get("city_name");
+							String sub_name = statservice.subName(sub_idx);
+							map.put("title", provinceName+" - "+cityName+" "+year+"년 "+month+"월 "+sub_name+" 등록수");
 							map.put("type", 1);
 						}
 					}else { // 횟수권/요일권 선택
@@ -3835,6 +4037,10 @@ public class StatController {
 							map.put("labels", dayList);
 							map.put("label", list.get(0).get("city_name"));
 							map.put("data", dataList);
+							String provinceName = statservice.getProName(province_idx);
+							String cityName = (String) list.get(0).get("city_name");
+							String sub_sort_type = statservice.subSortType(sub_sort_idx);
+							map.put("title", provinceName+" - "+cityName+" "+year+"년 "+month+"월 "+sub_sort_type+" 등록수");
 							map.put("type", 1);
 						}else { // 횟수권/요일권 선택한 상태에서 구독권 선택을 했을 때
 							ArrayList<HashMap<String, Object>> list = statservice.subStatGender68(city_idx,year,month,sub_sort_idx,sub_idx);
@@ -3876,6 +4082,10 @@ public class StatController {
 							map.put("labels", dayList);
 							map.put("label", list.get(0).get("city_name"));
 							map.put("data", dataList);
+							String provinceName = statservice.getProName(province_idx);
+							String cityName = (String) list.get(0).get("city_name");
+							String sub_name = statservice.subName(sub_idx);
+							map.put("title", provinceName+" - "+cityName+" "+year+"년 "+month+"월 "+sub_name+" 등록수");
 							map.put("type", 1);
 						}
 					}
@@ -3920,6 +4130,9 @@ public class StatController {
 							map.put("labels", dayList);
 							map.put("label", list.get(0).get("city_name"));
 							map.put("data", dataList);
+							String provinceName = statservice.getProName(province_idx);
+							String cityName = (String) list.get(0).get("city_name");
+							map.put("title", provinceName+" - "+cityName+" "+year+"년 "+month+"월 구독 등록수("+gender+")");
 							map.put("type", 1);
 						}else { // 횟수권/요일권 통합 상태에서 구독권 선택을 했을 때
 							ArrayList<HashMap<String, Object>> list = statservice.subStatGender70(city_idx,year,month,gender,sub_idx);
@@ -3960,6 +4173,10 @@ public class StatController {
 							map.put("labels", dayList);
 							map.put("label", list.get(0).get("city_name"));
 							map.put("data", dataList);
+							String provinceName = statservice.getProName(province_idx);
+							String cityName = (String) list.get(0).get("city_name");
+							String sub_name = statservice.subName(sub_idx);
+							map.put("title", provinceName+" - "+cityName+" "+year+"년 "+month+"월 "+sub_name+" 등록수("+gender+")");
 							map.put("type", 1);
 						}
 					}else { // 횟수권/요일권 선택
@@ -4002,6 +4219,10 @@ public class StatController {
 							map.put("labels", dayList);
 							map.put("label", list.get(0).get("city_name"));
 							map.put("data", dataList);
+							String provinceName = statservice.getProName(province_idx);
+							String cityName = (String) list.get(0).get("city_name");
+							String sub_sort_type = statservice.subSortType(sub_sort_idx);
+							map.put("title", provinceName+" - "+cityName+" "+year+"년 "+month+"월 "+sub_sort_type+" 등록수("+gender+")");
 							map.put("type", 1);
 						}else { // 횟수권/요일권 선택한 상태에서 구독권 선택을 했을 때
 							ArrayList<HashMap<String, Object>> list = statservice.subStatGender72(city_idx,year,month,gender,sub_sort_idx,sub_idx);
@@ -4042,6 +4263,10 @@ public class StatController {
 							map.put("labels", dayList);
 							map.put("label", list.get(0).get("city_name"));
 							map.put("data", dataList);
+							String provinceName = statservice.getProName(province_idx);
+							String cityName = (String) list.get(0).get("city_name");
+							String sub_name = statservice.subName(sub_idx);
+							map.put("title", provinceName+" - "+cityName+" "+year+"년 "+month+"월 "+sub_name+" 등록수("+gender+")");
 							map.put("type", 1);
 
 						}
@@ -4082,6 +4307,10 @@ public class StatController {
 					        map.put("labels", yearList);
 							map.put("label", list.get(0).get("shop_name"));
 							map.put("data", dataList);
+							String provinceName = statservice.getProName(province_idx);
+							String cityName = statservice.getCityName(city_idx);
+							String shop_name = (String) list.get(0).get("shop_name");  
+							map.put("title", provinceName+" - "+cityName+" - "+shop_name+" 연간 총 구독 등록수");
 							map.put("type", 1);
 
 						}else{ // 횟수권/요일권 통합 상태에서 구독권 선택을 했을 때
@@ -4101,6 +4330,11 @@ public class StatController {
 					        map.put("labels", yearList);
 							map.put("label", list.get(0).get("shop_name"));
 							map.put("data", dataList);
+							String provinceName = statservice.getProName(province_idx);
+							String cityName = statservice.getCityName(city_idx);
+							String shop_name = (String) list.get(0).get("shop_name"); 
+							String sub_name = statservice.subName(sub_idx);
+							map.put("title", provinceName+" - "+cityName+" - "+shop_name+" 연간 "+sub_name+" 등록수");
 							map.put("type", 1);
 						}
 					}else { // 횟수권/요일권 중 하나가 선택 되었을 때
@@ -4120,6 +4354,11 @@ public class StatController {
 					        map.put("labels", yearList);
 							map.put("label", list.get(0).get("shop_name"));
 							map.put("data", dataList);
+							String provinceName = statservice.getProName(province_idx);
+							String cityName = statservice.getCityName(city_idx);
+							String shop_name = (String) list.get(0).get("shop_name"); 
+							String sub_sort_type = statservice.subSortType(sub_sort_idx);
+							map.put("title", provinceName+" - "+cityName+" - "+shop_name+" 연간 "+sub_sort_type+" 등록수");
 							map.put("type", 1);
 						}else { // 구독권 선택을 했을 때
 							ArrayList<HashMap<String, Object>> list = statservice.subStatGender76(shop_idx,sub_sort_idx, sub_idx);
@@ -4137,6 +4376,11 @@ public class StatController {
 					        map.put("labels", yearList);
 							map.put("label", list.get(0).get("shop_name"));
 							map.put("data", dataList);
+							String provinceName = statservice.getProName(province_idx);
+							String cityName = statservice.getCityName(city_idx);
+							String shop_name = (String) list.get(0).get("shop_name"); 
+							String sub_name = statservice.subName(sub_idx);
+							map.put("title", provinceName+" - "+cityName+" - "+shop_name+" 연간 "+sub_name+" 등록수");
 							map.put("type", 1);
 						}
 					}
@@ -4158,6 +4402,10 @@ public class StatController {
 					        map.put("labels", yearList);
 							map.put("label", list.get(0).get("shop_name"));
 							map.put("data", dataList);
+							String provinceName = statservice.getProName(province_idx);
+							String cityName = statservice.getCityName(city_idx);
+							String shop_name = (String) list.get(0).get("shop_name"); 
+							map.put("title", provinceName+" - "+cityName+" - "+shop_name+" 연간 총 구독 등록수("+gender+")");
 							map.put("type", 1);
 						}else { // 횟수권/요일권 통합 상태에서 구독권 선택을 했을 때
 							ArrayList<HashMap<String, Object>> list = statservice.subStatGender78(shop_idx,gender, sub_idx);
@@ -4175,6 +4423,11 @@ public class StatController {
 					        map.put("labels", yearList);
 							map.put("label", list.get(0).get("shop_name"));
 							map.put("data", dataList);
+							String provinceName = statservice.getProName(province_idx);
+							String cityName = statservice.getCityName(city_idx);
+							String shop_name = (String) list.get(0).get("shop_name"); 
+							String sub_name = statservice.subName(sub_idx);
+							map.put("title", provinceName+" - "+cityName+" - "+shop_name+" 연간 "+sub_name+" 등록수("+gender+")");
 							map.put("type", 1);
 						}
 					}else { // 횟수권/요일권 중 하나가 선택 되었을 때
@@ -4194,6 +4447,11 @@ public class StatController {
 					        map.put("labels", yearList);
 							map.put("label", list.get(0).get("shop_name"));
 							map.put("data", dataList);
+							String provinceName = statservice.getProName(province_idx);
+							String cityName = statservice.getCityName(city_idx);
+							String shop_name = (String) list.get(0).get("shop_name"); 
+							String sub_sort_type = statservice.subSortType(sub_sort_idx);
+							map.put("title", provinceName+" - "+cityName+" - "+shop_name+" 연간 "+sub_sort_type+" 등록수("+gender+")");
 							map.put("type", 1);
 						}else { // 구독권 선택을 했을 때
 							ArrayList<HashMap<String, Object>> list = statservice.subStatGender80(shop_idx, gender, sub_sort_idx, sub_idx);
@@ -4211,6 +4469,11 @@ public class StatController {
 					        map.put("labels", yearList);
 							map.put("label", list.get(0).get("shop_name"));
 							map.put("data", dataList);
+							String provinceName = statservice.getProName(province_idx);
+							String cityName = statservice.getCityName(city_idx);
+							String shop_name = (String) list.get(0).get("shop_name"); 
+							String sub_name = statservice.subName(sub_idx);
+							map.put("title", provinceName+" - "+cityName+" - "+shop_name+" 연간 "+sub_name+" 등록수("+gender+")");
 							map.put("type", 1);
 						}
 					}
@@ -4235,6 +4498,10 @@ public class StatController {
 					        map.put("labels", monthList);
 							map.put("label", list.get(0).get("shop_name"));
 							map.put("data", dataList);
+							String provinceName = statservice.getProName(province_idx);
+							String cityName = statservice.getCityName(city_idx);
+							String shop_name = (String) list.get(0).get("shop_name"); 
+							map.put("title", provinceName+" - "+cityName+" - "+shop_name+"  "+year+"년 월별 구독 등록수");
 							map.put("type", 1);
 						}else { // 횟수권/요일권 통합 상태에서 구독권 선택을 했을 때
 							ArrayList<HashMap<String, Object>> list = statservice.subStatGender82(shop_idx,year, sub_idx);
@@ -4252,6 +4519,11 @@ public class StatController {
 					        map.put("labels", monthList);
 							map.put("label", list.get(0).get("shop_name"));
 							map.put("data", dataList);
+							String provinceName = statservice.getProName(province_idx);
+							String cityName = statservice.getCityName(city_idx);
+							String shop_name = (String) list.get(0).get("shop_name"); 
+							String sub_name = statservice.subName(sub_idx);
+							map.put("title", provinceName+" - "+cityName+" - "+shop_name+"  "+year+"년 "+sub_name+" 등록수");
 							map.put("type", 1);
 						}
 					}else { // 횟수권/요일권 선택
@@ -4271,6 +4543,11 @@ public class StatController {
 					        map.put("labels", monthList);
 							map.put("label", list.get(0).get("shop_name"));
 							map.put("data", dataList);
+							String provinceName = statservice.getProName(province_idx);
+							String cityName = statservice.getCityName(city_idx);
+							String shop_name = (String) list.get(0).get("shop_name"); 
+							String sub_sort_type = statservice.subSortType(sub_sort_idx);
+							map.put("title", provinceName+" - "+cityName+" - "+shop_name+"  "+year+"년 "+sub_sort_type+" 등록수");
 							map.put("type", 1);
 						}else { // 횟수권/요일권 선택한 상태에서 구독권 선택을 했을 때
 							ArrayList<HashMap<String, Object>> list = statservice.subStatGender84(shop_idx,year,sub_sort_idx,sub_idx);
@@ -4288,6 +4565,11 @@ public class StatController {
 					        map.put("labels", monthList);
 							map.put("label", list.get(0).get("shop_name"));
 							map.put("data", dataList);
+							String provinceName = statservice.getProName(province_idx);
+							String cityName = statservice.getCityName(city_idx);
+							String shop_name = (String) list.get(0).get("shop_name"); 
+							String sub_name = statservice.subName(sub_idx);
+							map.put("title", provinceName+" - "+cityName+" - "+shop_name+"  "+year+"년 "+sub_name+" 등록수");
 							map.put("type", 1);
 						}
 					}
@@ -4309,6 +4591,10 @@ public class StatController {
 					        map.put("labels", monthList);
 							map.put("label", list.get(0).get("shop_name"));
 							map.put("data", dataList);
+							String provinceName = statservice.getProName(province_idx);
+							String cityName = statservice.getCityName(city_idx);
+							String shop_name = (String) list.get(0).get("shop_name"); 
+							map.put("title", provinceName+" - "+cityName+" - "+shop_name+"  "+year+"년 총 구독 등록수("+gender+")");
 							map.put("type", 1);
 						}else { // 횟수권/요일권 통합 상태에서 구독권 선택을 했을 때
 							ArrayList<HashMap<String, Object>> list = statservice.subStatGender86(shop_idx,year,gender,sub_idx);
@@ -4326,6 +4612,11 @@ public class StatController {
 					        map.put("labels", monthList);
 							map.put("label", list.get(0).get("shop_name"));
 							map.put("data", dataList);
+							String provinceName = statservice.getProName(province_idx);
+							String cityName = statservice.getCityName(city_idx);
+							String shop_name = (String) list.get(0).get("shop_name"); 
+							String sub_name = statservice.subName(sub_idx);
+							map.put("title", provinceName+" - "+cityName+" - "+shop_name+"  "+year+"년 "+sub_name+" 등록수("+gender+")");
 							map.put("type", 1);
 						}
 					}else { // 횟수권/요일권 선택
@@ -4345,6 +4636,11 @@ public class StatController {
 					        map.put("labels", monthList);
 							map.put("label", list.get(0).get("shop_name"));
 							map.put("data", dataList);
+							String provinceName = statservice.getProName(province_idx);
+							String cityName = statservice.getCityName(city_idx);
+							String shop_name = (String) list.get(0).get("shop_name"); 
+							String sub_sort_type = statservice.subSortType(sub_sort_idx);
+							map.put("title", provinceName+" - "+cityName+" - "+shop_name+"  "+year+"년 "+sub_sort_type+" 등록수("+gender+")");
 							map.put("type", 1);
 						}else { // 횟수권/요일권 선택한 상태에서 구독권 선택을 했을 때
 							ArrayList<HashMap<String, Object>> list = statservice.subStatGender88(shop_idx,year,gender,sub_sort_idx,sub_idx);
@@ -4362,6 +4658,11 @@ public class StatController {
 					        map.put("labels", monthList);
 							map.put("label", list.get(0).get("shop_name"));
 							map.put("data", dataList);
+							String provinceName = statservice.getProName(province_idx);
+							String cityName = statservice.getCityName(city_idx);
+							String shop_name = (String) list.get(0).get("shop_name"); 
+							String sub_name = statservice.subName(sub_idx);
+							map.put("title", provinceName+" - "+cityName+" - "+shop_name+"  "+year+"년 "+sub_name+" 등록수("+gender+")");
 							map.put("type", 1);
 						}
 					}
@@ -4409,6 +4710,10 @@ public class StatController {
 							map.put("labels", dayList);
 							map.put("label", list.get(0).get("shop_name"));
 							map.put("data", dataList);
+							String provinceName = statservice.getProName(province_idx);
+							String cityName = statservice.getCityName(city_idx);
+							String shop_name = (String) list.get(0).get("shop_name"); 
+							map.put("title", provinceName+" - "+cityName+" - "+shop_name+"  "+year+"년 "+month+"월 구독 등록수");
 							map.put("type", 1);
 							
 						}else { // 횟수권/요일권 통합 상태에서 구독권 선택을 했을 때
@@ -4451,6 +4756,11 @@ public class StatController {
 							map.put("labels", dayList);
 							map.put("label", list.get(0).get("shop_name"));
 							map.put("data", dataList);
+							String provinceName = statservice.getProName(province_idx);
+							String cityName = statservice.getCityName(city_idx);
+							String shop_name = (String) list.get(0).get("shop_name"); 
+							String sub_name = statservice.subName(sub_idx);
+							map.put("title", provinceName+" - "+cityName+" - "+shop_name+"  "+year+"년 "+month+"월"+sub_name+" 등록수");
 							map.put("type", 1);
 						}
 					}else { // 횟수권/요일권 선택
@@ -4494,6 +4804,11 @@ public class StatController {
 							map.put("labels", dayList);
 							map.put("label", list.get(0).get("shop_name"));
 							map.put("data", dataList);
+							String provinceName = statservice.getProName(province_idx);
+							String cityName = statservice.getCityName(city_idx);
+							String shop_name = (String) list.get(0).get("shop_name"); 
+							String sub_sort_type = statservice.subSortType(sub_sort_idx);
+							map.put("title", provinceName+" - "+cityName+" - "+shop_name+"  "+year+"년 "+month+"월 "+sub_sort_type+" 등록수");
 							map.put("type", 1);
 						}else { // 횟수권/요일권 선택한 상태에서 구독권 선택을 했을 때
 							ArrayList<HashMap<String, Object>> list = statservice.subStatGender92(shop_idx,year,month,sub_sort_idx,sub_idx);
@@ -4535,6 +4850,11 @@ public class StatController {
 							map.put("labels", dayList);
 							map.put("label", list.get(0).get("shop_name"));
 							map.put("data", dataList);
+							String provinceName = statservice.getProName(province_idx);
+							String cityName = statservice.getCityName(city_idx);
+							String shop_name = (String) list.get(0).get("shop_name"); 
+							String sub_name = statservice.subName(sub_idx);
+							map.put("title", provinceName+" - "+cityName+" - "+shop_name+"  "+year+"년 "+month+"월 "+sub_name+" 등록수");
 							map.put("type", 1);
 						}
 					}
@@ -4579,6 +4899,10 @@ public class StatController {
 							map.put("labels", dayList);
 							map.put("label", list.get(0).get("shop_name"));
 							map.put("data", dataList);
+							String provinceName = statservice.getProName(province_idx);
+							String cityName = statservice.getCityName(city_idx);
+							String shop_name = (String) list.get(0).get("shop_name"); 
+							map.put("title", provinceName+" - "+cityName+" - "+shop_name+"  "+year+"년 "+month+"월 구독 등록수("+gender+")");
 							map.put("type", 1);
 						}else { // 횟수권/요일권 통합 상태에서 구독권 선택을 했을 때
 							ArrayList<HashMap<String, Object>> list = statservice.subStatGender94(shop_idx,year,month,gender,sub_idx);
@@ -4619,6 +4943,11 @@ public class StatController {
 							map.put("labels", dayList);
 							map.put("label", list.get(0).get("shop_name"));
 							map.put("data", dataList);
+							String provinceName = statservice.getProName(province_idx);
+							String cityName = statservice.getCityName(city_idx);
+							String shop_name = (String) list.get(0).get("shop_name"); 
+							String sub_name = statservice.subName(sub_idx);
+							map.put("title", provinceName+" - "+cityName+" - "+shop_name+"  "+year+"년 "+month+"월 "+sub_name+" 등록수("+gender+")");
 							map.put("type", 1);
 						}
 					}else { // 횟수권/요일권 선택
@@ -4661,6 +4990,11 @@ public class StatController {
 							map.put("labels", dayList);
 							map.put("label", list.get(0).get("shop_name"));
 							map.put("data", dataList);
+							String provinceName = statservice.getProName(province_idx);
+							String cityName = statservice.getCityName(city_idx);
+							String shop_name = (String) list.get(0).get("shop_name"); 
+							String sub_sort_type = statservice.subSortType(sub_sort_idx);
+							map.put("title", provinceName+" - "+cityName+" - "+shop_name+"  "+year+"년 "+month+"월 "+sub_sort_type+" 등록수("+gender+")");
 							map.put("type", 1);
 						}else { // 횟수권/요일권 선택한 상태에서 구독권 선택을 했을 때
 							ArrayList<HashMap<String, Object>> list = statservice.subStatGender96(shop_idx,year,month,gender,sub_sort_idx,sub_idx);
@@ -4701,6 +5035,11 @@ public class StatController {
 							map.put("labels", dayList);
 							map.put("label", list.get(0).get("shop_name"));
 							map.put("data", dataList);
+							String provinceName = statservice.getProName(province_idx);
+							String cityName = statservice.getCityName(city_idx);
+							String shop_name = (String) list.get(0).get("shop_name"); 
+							String sub_name = statservice.subName(sub_idx);
+							map.put("title", provinceName+" - "+cityName+" - "+shop_name+"  "+year+"년 "+month+"월 "+sub_name+" 등록수("+gender+")");
 							map.put("type", 1);
 
 						}
@@ -5029,6 +5368,7 @@ public class StatController {
 						map.put("label", provinceName);
 						map.put("data1", data1);
 						map.put("data2", data2);
+						map.put("title", year+"년 서울/경기 연령별 구독 등록수");
 						map.put("type", 2);
 						
 						
@@ -5302,6 +5642,8 @@ public class StatController {
 						map.put("label", provinceName);
 						map.put("data1", data1);
 						map.put("data2", data2);
+						String sub_name = statservice.subName(sub_idx);
+						map.put("title", year+"년 서울/경기 "+sub_name+" 등록수");
 						map.put("type", 2);
 					}
 				} else { // 년도 지정 O / 월 지정 X / 구독권 종류 지정 O / 구독권 지정 X
@@ -5575,6 +5917,8 @@ public class StatController {
 						map.put("label", provinceName);
 						map.put("data1", data1);
 						map.put("data2", data2);
+						String sub_sort_type = statservice.subSortType(sub_sort_idx);
+						map.put("title", year+"년 서울/경기 "+sub_sort_type+" 등록수");
 						map.put("type", 2);
 					} else { // 년도 지정 O / 월 지정 X / 구독권 종류 지정 O / 구독권 지정 O
 						ArrayList<HashMap<String, Object>> list = statservice.subStatAge4(year, sub_sort_idx, sub_idx);
@@ -5846,6 +6190,8 @@ public class StatController {
 						map.put("label", provinceName);
 						map.put("data1", data1);
 						map.put("data2", data2);
+						String sub_name = statservice.subName(sub_idx);
+						map.put("title", year+"년 서울/경기 "+sub_name+" 등록수");
 						map.put("type", 2);
 					}
 				}
@@ -6123,6 +6469,7 @@ public class StatController {
 						map.put("label", provinceName);
 						map.put("data1", data1);
 						map.put("data2", data2);
+						map.put("title", year+"년 "+month+"월 서울/경기 연령별 구독 등록수");
 						map.put("type", 2);
 					} else { // 년도 지정 O / 월 지정 O / 구독권 종류 지정 X / 구독권 지정 O
 						ArrayList<HashMap<String, Object>> list = statservice.subStatAge6(year,month,sub_idx);
@@ -6394,6 +6741,8 @@ public class StatController {
 						map.put("label", provinceName);
 						map.put("data1", data1);
 						map.put("data2", data2);
+						String sub_name = statservice.subName(sub_idx);
+						map.put("title", year+"년 "+month+"월 서울/경기 "+sub_name+" 등록수");
 						map.put("type", 2);
 					}
 				} else {
@@ -6667,6 +7016,8 @@ public class StatController {
 						map.put("label", provinceName);
 						map.put("data1", data1);
 						map.put("data2", data2);
+						String sub_sort_type = statservice.subSortType(sub_sort_idx);
+						map.put("title", year+"년 "+month+"월 서울/경기 "+sub_sort_type+" 등록수");
 						map.put("type", 2);
 					} else { // 년도 지정 O / 월 지정 O / 구독권 종류 지정 O / 구독권 지정 O
 						ArrayList<HashMap<String, Object>> list = statservice.subStatAge8(year, month, sub_sort_idx, sub_idx);
@@ -6938,6 +7289,8 @@ public class StatController {
 						map.put("label", provinceName);
 						map.put("data1", data1);
 						map.put("data2", data2);
+						String sub_name = statservice.subName(sub_idx);
+						map.put("title", year+"년 "+month+"월 서울/경기 "+sub_name+" 등록수");
 						map.put("type", 2);
 					}
 				}
@@ -6966,6 +7319,8 @@ public class StatController {
 						map.put("labels", labels);
 						map.put("label", list.get(0).get("province_name"));
 						map.put("data", data);
+						String province_name = (String) list.get(0).get("province_name");
+						map.put("title", year+"년 "+province_name+" 연령별 구독 등록수");
 						map.put("type", 1);
 					} else {
 						ArrayList<HashMap<String, Object>> list = statservice.subStatAge10(year,province_idx,sub_idx);
@@ -6979,6 +7334,9 @@ public class StatController {
 						map.put("labels", labels);
 						map.put("label", list.get(0).get("province_name"));
 						map.put("data", data);
+						String province_name = (String) list.get(0).get("province_name");
+						String sub_name = statservice.subName(sub_idx);
+						map.put("title", year+"년 "+province_name+" "+sub_name+" 등록수");
 						map.put("type", 1);
 					}
 				} else {
@@ -6994,6 +7352,9 @@ public class StatController {
 						map.put("labels", labels);
 						map.put("label", list.get(0).get("province_name"));
 						map.put("data", data);
+						String province_name = (String) list.get(0).get("province_name");
+						String sub_sort_type = statservice.subSortType(sub_sort_idx);
+						map.put("title", year+"년 "+province_name+" "+sub_sort_type+" 등록수");
 						map.put("type", 1);
 					} else {
 						ArrayList<HashMap<String, Object>> list = statservice.subStatAge12(year,province_idx,sub_sort_idx,sub_idx);
@@ -7007,6 +7368,9 @@ public class StatController {
 						map.put("labels", labels);
 						map.put("label", list.get(0).get("province_name"));
 						map.put("data", data);
+						String province_name = (String) list.get(0).get("province_name");
+						String sub_name = statservice.subName(sub_idx);
+						map.put("title", year+"년 "+province_name+" "+sub_name+" 등록수");
 						map.put("type", 1);
 					}
 				}
@@ -7027,6 +7391,8 @@ public class StatController {
 						map.put("labels", labels);
 						map.put("label", list.get(0).get("province_name"));
 						map.put("data", data);
+						String province_name = (String) list.get(0).get("province_name");
+						map.put("title", year+"년 "+month+"월 "+province_name+" 연령별 구독 등록수");
 						map.put("type", 1);
 					} else {
 						ArrayList<HashMap<String, Object>> list = statservice.subStatAge14(year,month,province_idx,sub_idx);
@@ -7040,6 +7406,9 @@ public class StatController {
 						map.put("labels", labels);
 						map.put("label", list.get(0).get("province_name"));
 						map.put("data", data);
+						String province_name = (String) list.get(0).get("province_name");
+						String sub_name = statservice.subName(sub_idx);
+						map.put("title", year+"년 "+month+"월 "+province_name+" "+sub_name+" 등록수");
 						map.put("type", 1);
 					}
 				} else {
@@ -7055,6 +7424,9 @@ public class StatController {
 						map.put("labels", labels);
 						map.put("label", list.get(0).get("province_name"));
 						map.put("data", data);
+						String province_name = (String) list.get(0).get("province_name");
+						String sub_sort_type = statservice.subSortType(sub_sort_idx);
+						map.put("title", year+"년 "+month+"월 "+province_name+" "+sub_sort_type+" 등록수");
 						map.put("type", 1);
 					} else {
 						ArrayList<HashMap<String, Object>> list = statservice.subStatAge16(year,month,province_idx,sub_sort_idx,sub_idx);
@@ -7068,6 +7440,9 @@ public class StatController {
 						map.put("labels", labels);
 						map.put("label", list.get(0).get("province_name"));
 						map.put("data", data);
+						String province_name = (String) list.get(0).get("province_name");
+						String sub_name = statservice.subName(sub_idx);
+						map.put("title", year+"년 "+month+"월 "+province_name+" "+sub_name+" 등록수");
 						map.put("type", 1);
 					}
 				}
@@ -7098,6 +7473,9 @@ public class StatController {
 						map.put("labels", labels);
 						map.put("label", list.get(0).get("city_name"));
 						map.put("data", data);
+						String province_name = statservice.getProName(province_idx);
+						String city_name = (String) list.get(0).get("city_name");
+						map.put("title", year+"년 "+province_name+" - "+city_name+" 연령별 구독 등록수");
 						map.put("type", 1);
 					} else {
 						ArrayList<HashMap<String, Object>> list = statservice.subStatAge18(year,city_idx,sub_idx);
@@ -7111,6 +7489,10 @@ public class StatController {
 						map.put("labels", labels);
 						map.put("label", list.get(0).get("city_name"));
 						map.put("data", data);
+						String province_name = statservice.getProName(province_idx);
+						String city_name = (String) list.get(0).get("city_name");
+						String sub_name = statservice.subName(sub_idx);
+						map.put("title", year+"년 "+province_name+" - "+city_name+" "+sub_name+" 등록수");
 						map.put("type", 1);
 					}
 				} else {
@@ -7126,6 +7508,10 @@ public class StatController {
 						map.put("labels", labels);
 						map.put("label", list.get(0).get("city_name"));
 						map.put("data", data);
+						String province_name = statservice.getProName(province_idx);
+						String city_name = (String) list.get(0).get("city_name");
+						String sub_sort_type = statservice.subSortType(sub_sort_idx);
+						map.put("title", year+"년 "+province_name+" - "+city_name+" "+sub_sort_type+" 등록수");
 						map.put("type", 1);
 					} else {
 						ArrayList<HashMap<String, Object>> list = statservice.subStatAge20(year,city_idx,sub_sort_idx,sub_idx);
@@ -7139,6 +7525,10 @@ public class StatController {
 						map.put("labels", labels);
 						map.put("label", list.get(0).get("city_name"));
 						map.put("data", data);
+						String province_name = statservice.getProName(province_idx);
+						String city_name = (String) list.get(0).get("city_name");
+						String sub_name = statservice.subName(sub_idx);
+						map.put("title", year+"년 "+province_name+" - "+city_name+" "+sub_name+" 등록수");
 						map.put("type", 1);
 					}
 				}
@@ -7159,6 +7549,9 @@ public class StatController {
 						map.put("labels", labels);
 						map.put("label", list.get(0).get("city_name"));
 						map.put("data", data);
+						String province_name = statservice.getProName(province_idx);
+						String city_name = (String) list.get(0).get("city_name");
+						map.put("title", year+"년 "+month+"월 "+province_name+" - "+city_name+" 연령별 구독 등록수");
 						map.put("type", 1);
 					} else {
 						ArrayList<HashMap<String, Object>> list = statservice.subStatAge22(year,month,city_idx,sub_idx);
@@ -7172,6 +7565,10 @@ public class StatController {
 						map.put("labels", labels);
 						map.put("label", list.get(0).get("city_name"));
 						map.put("data", data);
+						String province_name = statservice.getProName(province_idx);
+						String city_name = (String) list.get(0).get("city_name");
+						String sub_name = statservice.subName(sub_idx);
+						map.put("title", year+"년 "+month+"월 "+province_name+" - "+city_name+" "+sub_name+" 등록수");
 						map.put("type", 1);
 					}
 				} else {
@@ -7187,6 +7584,10 @@ public class StatController {
 						map.put("labels", labels);
 						map.put("label", list.get(0).get("city_name"));
 						map.put("data", data);
+						String province_name = statservice.getProName(province_idx);
+						String city_name = (String) list.get(0).get("city_name");
+						String sub_sort_type = statservice.subSortType(sub_sort_idx);
+						map.put("title", year+"년 "+month+"월 "+province_name+" - "+city_name+" "+sub_sort_type+" 등록수");
 						map.put("type", 1);
 					} else {
 						ArrayList<HashMap<String, Object>> list = statservice.subStatAge24(year,month,city_idx,sub_sort_idx,sub_idx);
@@ -7200,6 +7601,10 @@ public class StatController {
 						map.put("labels", labels);
 						map.put("label", list.get(0).get("city_name"));
 						map.put("data", data);
+						String province_name = statservice.getProName(province_idx);
+						String city_name = (String) list.get(0).get("city_name");
+						String sub_name = statservice.subName(sub_idx);
+						map.put("title", year+"년 "+month+"월 "+province_name+" - "+city_name+" "+sub_name+" 등록수");
 						map.put("type", 1);
 					}
 				}
@@ -7229,8 +7634,12 @@ public class StatController {
 						data.add(list.get(0).get("60s"));
 						
 						map.put("labels", labels);
-						map.put("label", list.get(0).get("city_name"));
+						map.put("label", list.get(0).get("shop_name"));
 						map.put("data", data);
+						String province_name = statservice.getProName(province_idx);
+						String city_name = statservice.getCityName(city_idx);
+						String shop_name = (String) list.get(0).get("shop_name");
+						map.put("title", year+"년 "+province_name+" - "+city_name+" - "+shop_name+" 연령별 구독 등록수");
 						map.put("type", 1);
 					} else {
 						ArrayList<HashMap<String, Object>> list = statservice.subStatAge26(year,shop_idx,sub_idx);
@@ -7242,8 +7651,13 @@ public class StatController {
 						data.add(list.get(0).get("60s"));
 						
 						map.put("labels", labels);
-						map.put("label", list.get(0).get("city_name"));
+						map.put("label", list.get(0).get("shop_name"));
 						map.put("data", data);
+						String province_name = statservice.getProName(province_idx);
+						String city_name = statservice.getCityName(city_idx);
+						String shop_name = (String) list.get(0).get("shop_name");
+						String sub_name = statservice.subName(sub_idx);
+						map.put("title", year+"년 "+province_name+" - "+city_name+" - "+shop_name+"  "+sub_name+" 등록수");
 						map.put("type", 1);
 					}
 				} else {
@@ -7257,8 +7671,13 @@ public class StatController {
 						data.add(list.get(0).get("60s"));
 						
 						map.put("labels", labels);
-						map.put("label", list.get(0).get("city_name"));
+						map.put("label", list.get(0).get("shop_name"));
 						map.put("data", data);
+						String province_name = statservice.getProName(province_idx);
+						String city_name = statservice.getCityName(city_idx);
+						String shop_name = (String) list.get(0).get("shop_name");
+						String sub_sort_type = statservice.subSortType(sub_sort_idx);
+						map.put("title", year+"년 "+province_name+" - "+city_name+" - "+shop_name+" "+sub_sort_type+" 등록수");
 						map.put("type", 1);
 					} else {
 						ArrayList<HashMap<String, Object>> list = statservice.subStatAge28(year,shop_idx,sub_sort_idx,sub_idx);
@@ -7270,8 +7689,13 @@ public class StatController {
 						data.add(list.get(0).get("60s"));
 						
 						map.put("labels", labels);
-						map.put("label", list.get(0).get("city_name"));
+						map.put("label", list.get(0).get("shop_name"));
 						map.put("data", data);
+						String province_name = statservice.getProName(province_idx);
+						String city_name = statservice.getCityName(city_idx);
+						String shop_name = (String) list.get(0).get("shop_name");
+						String sub_name = statservice.subName(sub_idx);
+						map.put("title", year+"년 "+province_name+" - "+city_name+" - "+shop_name+" "+sub_name+" 등록수");
 						map.put("type", 1);
 					}
 				}
@@ -7290,8 +7714,12 @@ public class StatController {
 						data.add(list.get(0).get("60s"));
 						
 						map.put("labels", labels);
-						map.put("label", list.get(0).get("city_name"));
+						map.put("label", list.get(0).get("shop_name"));
 						map.put("data", data);
+						String province_name = statservice.getProName(province_idx);
+						String city_name = statservice.getCityName(city_idx);
+						String shop_name = (String) list.get(0).get("shop_name");
+						map.put("title", year+"년 "+month+"월 "+province_name+" - "+city_name+" - "+shop_name+" 연령별 구독 등록수");
 						map.put("type", 1);
 					} else {
 						ArrayList<HashMap<String, Object>> list = statservice.subStatAge30(year,month,shop_idx,sub_idx);
@@ -7303,8 +7731,13 @@ public class StatController {
 						data.add(list.get(0).get("60s"));
 						
 						map.put("labels", labels);
-						map.put("label", list.get(0).get("city_name"));
+						map.put("label", list.get(0).get("shop_name"));
 						map.put("data", data);
+						String province_name = statservice.getProName(province_idx);
+						String city_name = statservice.getCityName(city_idx);
+						String shop_name = (String) list.get(0).get("shop_name");
+						String sub_name = statservice.subName(sub_idx);
+						map.put("title", year+"년 "+month+"월 "+province_name+" - "+city_name+" - "+shop_name+" "+sub_name+" 등록수");
 						map.put("type", 1);
 					}
 				} else {
@@ -7318,8 +7751,13 @@ public class StatController {
 						data.add(list.get(0).get("60s"));
 						
 						map.put("labels", labels);
-						map.put("label", list.get(0).get("city_name"));
+						map.put("label", list.get(0).get("shop_name"));
 						map.put("data", data);
+						String province_name = statservice.getProName(province_idx);
+						String city_name = statservice.getCityName(city_idx);
+						String shop_name = (String) list.get(0).get("shop_name");
+						String sub_sort_type = statservice.subSortType(sub_sort_idx);
+						map.put("title", year+"년 "+month+"월 "+province_name+" - "+city_name+" - "+shop_name+" "+sub_sort_type+" 등록수");
 						map.put("type", 1);
 					} else {
 						ArrayList<HashMap<String, Object>> list = statservice.subStatAge32(year,month,shop_idx,sub_sort_idx,sub_idx);
@@ -7331,8 +7769,13 @@ public class StatController {
 						data.add(list.get(0).get("60s"));
 						
 						map.put("labels", labels);
-						map.put("label", list.get(0).get("city_name"));
+						map.put("label", list.get(0).get("shop_name"));
 						map.put("data", data);
+						String province_name = statservice.getProName(province_idx);
+						String city_name = statservice.getCityName(city_idx);
+						String shop_name = (String) list.get(0).get("shop_name");
+						String sub_name = statservice.subName(sub_idx);
+						map.put("title", year+"년 "+month+"월 "+province_name+" - "+city_name+" - "+shop_name+" "+sub_name+" 등록수");
 						map.put("type", 1);
 					}
 				}
@@ -7368,6 +7811,7 @@ public class StatController {
 				
 				map.put("labels", labels);
 				map.put("data", data);
+				map.put("title", year+"년 서울/경기 구독권 선호도");
 				
 			}else {
 				ArrayList<HashMap<String, Object>> list = statservice.subStatPreference2(year,month);
@@ -7379,6 +7823,7 @@ public class StatController {
 				
 				map.put("labels", labels);
 				map.put("data", data);
+				map.put("title", year+"년 "+month+"월 서울/경기 구독권 선호도");
 				
 			}
 			
@@ -7401,6 +7846,8 @@ public class StatController {
 				
 				map.put("labels", labels);
 				map.put("data", data);
+				String province_name = statservice.getProName(province_idx);
+				map.put("title", year+"년 "+province_name+" 구독권 선호도");
 				
 			}else {
 				ArrayList<HashMap<String, Object>> list = statservice.subStatPreference4(province_idx,year,month);
@@ -7412,6 +7859,8 @@ public class StatController {
 				
 				map.put("labels", labels);
 				map.put("data", data);
+				String province_name = statservice.getProName(province_idx);
+				map.put("title", year+"년 "+month+"월 "+province_name+" 구독권 선호도");
 				
 			}
 			
@@ -7432,6 +7881,9 @@ public class StatController {
 				
 				map.put("labels", labels);
 				map.put("data", data);
+				String province_name = statservice.getProName(province_idx);
+				String city_name = statservice.getCityName(city_idx);
+				map.put("title", year+"년 "+province_name+" - "+city_name+" 구독권 선호도");
 				
 			}else {
 				ArrayList<HashMap<String, Object>> list = statservice.subStatPreference6(city_idx,year,month);
@@ -7443,6 +7895,9 @@ public class StatController {
 				
 				map.put("labels", labels);
 				map.put("data", data);
+				String province_name = statservice.getProName(province_idx);
+				String city_name = statservice.getCityName(city_idx);
+				map.put("title", year+"년 "+month+"월 "+province_name+" - "+city_name+" 구독권 선호도");
 				
 			}
 			
@@ -7464,6 +7919,10 @@ public class StatController {
 				
 				map.put("labels", labels);
 				map.put("data", data);
+				String province_name = statservice.getProName(province_idx);
+				String city_name = statservice.getCityName(city_idx);
+				String shop_name = statservice.getShopName(shop_idx);
+				map.put("title", year+"년 "+province_name+" - "+city_name+" - "+shop_name+" 구독권 선호도");
 				
 			}else {
 				ArrayList<HashMap<String, Object>> list = statservice.subStatPreference8(shop_idx,year,month);
@@ -7475,6 +7934,10 @@ public class StatController {
 				
 				map.put("labels", labels);
 				map.put("data", data);
+				String province_name = statservice.getProName(province_idx);
+				String city_name = statservice.getCityName(city_idx);
+				String shop_name = statservice.getShopName(shop_idx);
+				map.put("title", year+"년 "+month+"월 "+province_name+" - "+city_name+" - "+shop_name+" 구독권 선호도");
 				
 			}
 			

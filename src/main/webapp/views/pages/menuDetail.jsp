@@ -86,7 +86,9 @@
 						</tr>
 						<tr>
 							<td colspan="2">
+								<c:if test="${sessionScope.team != '점장'}">
 								<button type="button" class="btn btn-round btn-info" id="updateMenu" onclick="location.href='/menuUpdate?menu_idx=${detail.menu_idx}'">수정하기</button>
+								</c:if>
 								<button type="button" class="btn btn-round btn-secondary" id="goToList" onclick="location.href='/menuList'">리스트</button>
 							</td>
 						</tr>

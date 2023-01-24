@@ -18,6 +18,7 @@
 	<select id="menuListCall" resultType="hashmap">
 		SELECT menu_idx, menu_name, menu_price, menu_photo FROM menu
 		WHERE menu_state = #{param1}
+		ORDER BY menu_start
 	</select>
 	
 	<select id="menuDetail" resultType="MenuDTO">

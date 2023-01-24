@@ -758,7 +758,7 @@
 					</div>
 					
 					<div class="statoption3" style="min-height: 30px; margin-right: 10%">
-						<button type="button"  onclick="makeChart3();" class="btn btn-round btn-secondary" id="makeChart3">차트 생성</button>
+						<button type="button"  onclick="makeChart3();" class="btn btn-round btn-secondary" id="makeChart3">차트 셍성</button>
 					</div>
 				</div>	
 
@@ -1193,6 +1193,24 @@ function drawDoubleBar(obj) {
 	            ]
 	        },
 	        options:{
+	        	title: {
+                    display: true,
+                    text: obj.title,
+                    fontSize: 15,
+                    fontColor: 'rgba(46, 49, 49, 1)'
+                },
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        },
+                        stacked: false,
+                        scaleLabel: {
+                           display: true,
+                           labelString: '단위: 명'
+                         }
+                    }]
+                },
 	                    maintainAspectRatio :false,//그래프의 비율 유지
 	                    
 	                    
@@ -1223,6 +1241,24 @@ function drawBar(obj) {
 	            ]
 	        },
 	        options:{
+	        	title: {
+                    display: true,
+                    text: obj.title,
+                    fontSize: 15,
+                    fontColor: 'rgba(46, 49, 49, 1)'
+                },
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        },
+                        stacked: false,
+                        scaleLabel: {
+                           display: true,
+                           labelString: '단위: 명'
+                         }
+                    }]
+                },
 	                    maintainAspectRatio :false,//그래프의 비율 유지
 	                    
 	                }
@@ -1294,6 +1330,24 @@ function drawDoubleBar2(obj) {
 	            ]
 	        },
 	        options:{
+	        	title: {
+                    display: true,
+                    text: obj.title,
+                    fontSize: 15,
+                    fontColor: 'rgba(46, 49, 49, 1)'
+                },
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        },
+                        stacked: false,
+                        scaleLabel: {
+                           display: true,
+                           labelString: '단위: 명'
+                         }
+                    }]
+                },
 	                    maintainAspectRatio :false,//그래프의 비율 유지
 	                    
 	                    
@@ -1335,6 +1389,24 @@ function drawBar2(obj) {
 	            ]
 	        },
 	        options:{
+	        	title: {
+                    display: true,
+                    text: obj.title,
+                    fontSize: 15,
+                    fontColor: 'rgba(46, 49, 49, 1)'
+                },
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        },
+                        stacked: false,
+                        scaleLabel: {
+                           display: true,
+                           labelString: '단위: 명'
+                         }
+                    }]
+                },
 	                    maintainAspectRatio :false,//그래프의 비율 유지
 	                    
 	                }
@@ -1363,6 +1435,20 @@ function drawDoughnut(obj) {
             borderColor: "#fff"
         };
         var options = {
+        		title: {
+                    display: true,
+                    text: obj.title,
+                    fontSize: 15,
+                    fontColor: 'rgba(46, 49, 49, 1)'
+                },
+                scales: {
+	                // ⑫y축에 대한 설정(Object)
+	                y: {
+	                	
+	                    // ⑬시작을 0부터 하게끔 설정(최소값이 0보다 크더라도)(boolean)
+	                    beginAtZero: true
+	                }
+	            },	
         	maintainAspectRatio :false,//그래프의 비율 유지
             plugins: {
                 tooltips: {

@@ -325,6 +325,17 @@ public interface StatDAO {
 
 	ArrayList<HashMap<String, Object>> subStatPreference8(String shop_idx, String year, String month);
 
+	String subSortType(String sub_sort_idx);
+
+	String subName(String sub_idx);
+
+	String getProName(String province_idx);
+
+	String getCityName(String city_idx);
+
+	String getShopName(String shop_idx);
+
+
 
 
 }
