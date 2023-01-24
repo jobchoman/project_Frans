@@ -16,7 +16,8 @@
 	</select>
 	
 	<select id="selTeam" resultType="com.frans.member.dto.MemberDTO">
-		SELECT r.team_idx, t.team_name FROM `right` r, team t WHERE r.team_idx = t.team_idx AND r.emp_id = #{param1} AND r.auth_type > 0
+		<!-- SELECT r.team_idx, t.team_name FROM `right` r, team t WHERE r.team_idx = t.team_idx AND r.emp_id = #{param1} AND r.auth_type > 0 -->
+		SELECT r.team_idx, t.team_name, r.auth_type FROM `right` r, team t WHERE r.team_idx = t.team_idx AND r.emp_id = #{param1};
 	</select>
 	
 	<select id="dateSearch" resultType="signDTO">
@@ -29,9 +30,9 @@
 			AND s.sign_date BETWEEN #{param1} AND DATE_ADD(#{param2}, INTERVAL 1 DAY) ORDER BY ss.sign_state_type DESC, sign_idx
 	</select>
 	
-	<select id="auth_team" resultType="String">
+	<!-- <select id="auth_team" resultType="String">
 		SELECT team_idx FROM `right` r WHERE emp_id = #{param1}
-	</select>
+	</select> -->
 	
 	<select id="auth_type" resultType="String">
 		SELECT auth_type FROM `right` r WHERE emp_id = #{param2} AND team_idx = #{param1}
@@ -304,7 +305,7 @@
 	<select id="signUserWriteList" resultType="signDTO">
 		SELECT s.sign_idx , s.sign_title, e.emp_name, s.sign_date, ss.sign_state_type
 			FROM sign s, sign_state ss, employee e
-			WHERE s.emp_id = e.emp_id AND s.sign_state_idx = ss.sign_state_idx AND e.team_idx = #{param1} AND s.emp_id = #{param3}
+			WHERE s.emp_id = e.emp_id AND s.sign_state_idx = ss.sign_state_idx AND e.team_idx = #{param1} AND s.emp_id = #{param2}
 			AND s.sign_date BETWEEN DATE_ADD(NOW(), INTERVAL -2 WEEK ) AND NOW()
 			ORDER BY ss.sign_state_idx, sign_idx
 	</select>

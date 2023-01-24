@@ -84,7 +84,7 @@ public interface SignDAO {
 
 	ArrayList<signDTO> dateSearch_signmem(String loginId, String startdate, String enddate);
 
-	ArrayList<String> auth_team(String loginId);
+	/* ArrayList<String> auth_team(String loginId); */
 
 	String auth_type(String string, String loginId);
 

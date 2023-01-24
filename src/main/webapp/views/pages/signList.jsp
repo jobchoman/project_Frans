@@ -119,7 +119,8 @@
 				<div class="form-group">
 					<select id="selTeam" class="form-control" style="float: right" onchange="selnav(single_cal1,single_cal2,this.value)">
 						<c:forEach var="member" items="${memberdto}" varStatus="i">
-	         				<option value="${member.team_idx}">${member.team_name}</option>
+	         				<option value="${member.team_idx}" value2="${member.auth_type}">${member.team_name}</option>
+	         				<%-- <input type="hidden" value="${member.auth_type}" name="auth_type" id="auth" style="diplay:none"/> --%>
 	      				</c:forEach>
 					</select>
 				<div><button type="button" onclick="location.href='/docFormList.go'" class="btn btn-round btn-info" id="docformbtn" style="float: right;margin-top: auto">작성</button></div>
@@ -180,7 +181,9 @@ function listCall(single_cal1, single_cal2, selTeam) {
 	var date2 = single_cal2.value;
 //	var team_value = selTeam.value;
 	var team_value = $('#selTeam').val();
+	var auth_type = $("#selTeam > option:selected").attr("value2");
 	console.log(team_value);
+	console.log(auth_type);
 
 	var table = $('#signlist').DataTable(
 			{
@@ -196,7 +199,8 @@ function listCall(single_cal1, single_cal2, selTeam) {
 					"data" : {
 						"date1" : date1,
 						"date2" : date2,
-						"team_value" : team_value
+						"team_value" : team_value,
+						"auth_type" : auth_type
 					}
 				},
 				columns : [

@@ -46,16 +46,16 @@ public class SignService {
 	}
 	
 
-	public HashMap<String, Object> signList(String date1, String date2, String team_value, String loginId) {
+	public HashMap<String, Object> signList(String date1, String date2, String team_value, String loginId, String auth_type) {
 		logger.info("결재 문서 리스트 서비스");
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		
-		ArrayList<String> auth_team = signdao.auth_team(loginId);
-		String auth_type = "";
-		for(int i=0; i<auth_team.size(); i++) {
-			auth_type=signdao.auth_type(auth_team.get(i),loginId);
-			logger.info("권한 리스트: "+auth_team);
-		}
+		/* ArrayList<String> auth_team = signdao.auth_team(loginId); */
+		/*
+		 * String auth_type = ""; for(int i=0; i<auth_team.size(); i++) {
+		 * auth_type=signdao.auth_type(auth_team.get(i),loginId);
+		 * logger.info("권한 리스트: "+auth_team); }
+		 */
 		
 		if(date1 == "") {
 			ArrayList<signDTO> signdto = signdao.signList(team_value,auth_type);
@@ -118,7 +118,7 @@ public class SignService {
 	public HashMap<String, Object> signUserWriteList(String date1, String date2, String team_value, String loginId) {
 		logger.info("내 결재 문서 리스트 서비스");
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		ArrayList<String> auth_team = signdao.auth_team(loginId);
+		/* ArrayList<String> auth_team = signdao.auth_team(loginId); */
 		
 		/*
 		 * String auth_type = ""; for(int i=0; i<auth_team.size(); i++) {

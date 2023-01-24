@@ -58,10 +58,11 @@ public class SignController {
 		String date1 = params.get("date1");
 		String date2 = params.get("date2");
 		String team_value = params.get("team_value");
+		String auth_type = params.get("auth_type");
 		logger.info("시작일: "+date1+"종료일"+date2);
 		logger.info("팀 이름: "+team_value);
 
-		return signservice.signList(date1,date2,team_value,loginId);
+		return signservice.signList(date1,date2,team_value,loginId,auth_type);
 	}
 /*	
 	// 결재완료

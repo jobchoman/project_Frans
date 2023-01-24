@@ -9,8 +9,8 @@
 <jsp:include page="loginBox.jsp"/>
 		<jsp:include page="loginBox.jsp"/>
 <div class="left_col scroll-view">
-	<div class="navbar nav_title" style="border: 0;">
-		<a href="/main.go" class="site_title"><i class="fa fa-paw"></i> <span>Frans!</span></a>
+	<div class="navbar nav_title" style="border: 0; height:auto">
+		<a href="/main.go" class="site_title" style="height:auto"><img src="img/Frans2.png" style="width:200px"></a>
 	</div>
 
 	<div class="clearfix"></div>
