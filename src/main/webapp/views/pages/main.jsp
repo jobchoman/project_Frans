@@ -85,8 +85,7 @@
 													<c:forEach items="${sublistnum}" var="num">
 														<tr>
 															<td><a href="subDetail?sub_idx=${num.sub_idx}">${num.sub_name}</a></td>
-															<td><fmt:formatNumber value="${num.sub_price}"
-																	pattern="#,###" />원</td>
+															<td><fmt:formatNumber value="${num.sub_price}" pattern="#,###" />원</td>
 															<td>${num.sub_start}</td>
 														</tr>
 													</c:forEach>

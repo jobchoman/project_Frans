@@ -76,7 +76,7 @@ public class MemberController {
 	public String join(@RequestParam HashMap<String, String> params, MultipartFile file, MultipartFile file2, HttpServletRequest req) {
 		logger.info("params : {}",params);
 		memberService.join(params,file,file2,req);
-		return "main";
+		return "redirect:/memberList.go";
 	}
 	
 	

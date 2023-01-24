@@ -7,8 +7,8 @@
 	<select id="signList" resultType="signDTO">
 		SELECT s.sign_idx , s.sign_title, e.emp_name, s.sign_date, ss.sign_state_type
 			FROM sign s, sign_state ss, employee e
-			WHERE s.emp_id = e.emp_id AND s.sign_state_idx = ss.sign_state_idx AND e.team_idx = #{param1}
-			<if test="auth_type.equals('1')">
+			WHERE s.emp_id = e.emp_id AND s.sign_state_idx = ss.sign_state_idx AND e.team_idx = #{param1} AND ss.sign_state_type = '결재완료'
+			<if test="auth_type == '1'.toString()">
 				AND sign_team_open = '공개'
 			</if>
 			AND s.sign_date BETWEEN DATE_ADD(NOW(), INTERVAL -2 WEEK ) AND NOW()
@@ -22,11 +22,11 @@
 	<select id="dateSearch" resultType="signDTO">
 		SELECT s.sign_idx , s.sign_title, e.emp_name, s.sign_date, ss.sign_state_type
 			FROM sign s, sign_state ss, employee e
-			WHERE s.emp_id = e.emp_id AND s.sign_state_idx = ss.sign_state_idx AND e.team_idx = #{param3}
-			<if test="auth_type.equals('1')">
+			WHERE s.emp_id = e.emp_id AND s.sign_state_idx = ss.sign_state_idx AND e.team_idx = #{param3} AND ss.sign_state_type = '결재완료'
+			<if test="auth_type == '1'.toString()">
 				AND sign_team_open = '공개'
 			</if>
-			AND s.sign_date BETWEEN #{param1} AND #{param2} ORDER BY ss.sign_state_type DESC, sign_idx
+			AND s.sign_date BETWEEN #{param1} AND DATE_ADD(#{param2}, INTERVAL 1 DAY) ORDER BY ss.sign_state_type DESC, sign_idx
 	</select>
 	
 	<select id="auth_team" resultType="String">
@@ -39,12 +39,17 @@
 	
 	<select id="signWriteGo" resultType="DocFormDTO">
 		SELECT df.doc_form_idx, df.doc_form_content, dt.doc_type_name, dt.doc_type_idx FROM doc_form df, document_type dt
-			WHERE df.doc_type_idx = dt.doc_type_idx AND doc_form_idx = #{param1};
+			WHERE df.doc_type_idx = dt.doc_type_idx AND doc_form_idx = #{param1}
 	</select>
 	
 	<select id="memberList" resultType="com.frans.member.dto.MemberDTO">
 		SELECT e.emp_id, e.emp_name, t.team_name, p.pos_name FROM employee e, team t, position p
-			WHERE e.team_idx = t.team_idx AND e.pos_idx = p.pos_idx;
+			WHERE e.team_idx = t.team_idx AND e.pos_idx = p.pos_idx AND t.team_idx NOT IN ('TM007')
+	</select>
+	
+	<select id="membermsgList" resultType="com.frans.member.dto.MemberDTO">
+		SELECT e.emp_id, e.emp_name, t.team_name, p.pos_name FROM employee e, team t, position p
+			WHERE e.team_idx = t.team_idx AND e.pos_idx = p.pos_idx
 	</select>
 	
 	<insert id="signWriteDo"
@@ -173,6 +178,8 @@
 		SELECT s.sign_idx , s.sign_title, e.emp_name, s.sign_date, ss.sign_state_type, sm.sign_mem_state 
 			FROM sign s, sign_state ss, employee e, sign_mem sm 
 			WHERE s.emp_id = e.emp_id AND s.sign_state_idx = ss.sign_state_idx AND sm.sign_idx = s.sign_idx AND sm.emp_id = #{param1} AND sm.sign_mem_state = 0
+			AND ((SELECT (sign_mem_order)-1 from sign_mem sm2 where emp_id = #{param1} AND sm.sign_idx = sm2.sign_idx) = (SELECT max(sign_mem_order) as sign_mem_order from sign_mem sm3 where sign_mem_state ='1' AND sm.sign_idx = sm3.sign_idx)
+			OR (SELECT (sign_mem_order)-1 from sign_mem sm2 where emp_id = #{param1} AND sm.sign_idx = sm2.sign_idx) = 0)
 			AND s.sign_date BETWEEN DATE_ADD(NOW(), INTERVAL -2 WEEK ) AND NOW()
 			ORDER BY ss.sign_state_idx, sign_idx
 	</select>
@@ -181,7 +188,9 @@
 		SELECT s.sign_idx , s.sign_title, e.emp_name, s.sign_date, ss.sign_state_type, sm.sign_mem_state 
 			FROM sign s, sign_state ss, employee e, sign_mem sm 
 			WHERE s.emp_id = e.emp_id AND s.sign_state_idx = ss.sign_state_idx AND sm.sign_idx = s.sign_idx AND sm.emp_id = #{param1} AND sm.sign_mem_state = 0
-			AND s.sign_date BETWEEN #{param2} AND #{param3}
+			AND ((SELECT (sign_mem_order)-1 from sign_mem sm2 where emp_id = #{param1} AND sm.sign_idx = sm2.sign_idx) = (SELECT max(sign_mem_order) as sign_mem_order from sign_mem sm3 where sign_mem_state ='1' AND sm.sign_idx = sm3.sign_idx)
+			OR (SELECT (sign_mem_order)-1 from sign_mem sm2 where emp_id = #{param1} AND sm.sign_idx = sm2.sign_idx) = 0)
+			AND s.sign_date BETWEEN #{param2} AND DATE_ADD(#{param3}, INTERVAL 1 DAY)
 			ORDER BY ss.sign_state_idx,sign_idx
 	</select>
 	
@@ -197,7 +206,7 @@
 		SELECT s.sign_idx , s.sign_title, e.emp_name, s.sign_date, ss.sign_state_type, sm.sign_mem_state 
 			FROM sign s, sign_state ss, employee e, sign_mem sm 
 			WHERE s.emp_id = e.emp_id AND s.sign_state_idx = ss.sign_state_idx AND sm.sign_idx = s.sign_idx AND sm.emp_id = #{param1} AND sm.sign_mem_state = 1
-			AND s.sign_date BETWEEN #{param2} AND #{param3}
+			AND s.sign_date BETWEEN #{param2} AND DATE_ADD(#{param3}, INTERVAL 1 DAY)
 			ORDER BY ss.sign_state_idx,sign_idx
 	</select>
 	
@@ -213,7 +222,7 @@
 		SELECT s.sign_idx , s.sign_title, e.emp_name, s.sign_date, ss.sign_state_type, sm.sign_mem_state 
 			FROM sign s, sign_state ss, employee e, sign_mem sm 
 			WHERE s.emp_id = e.emp_id AND s.sign_state_idx = ss.sign_state_idx AND sm.sign_idx = s.sign_idx AND sm.emp_id = #{param1} AND sm.sign_mem_state = 2
-			AND s.sign_date BETWEEN #{param2} AND #{param3}
+			AND s.sign_date BETWEEN #{param2} AND DATE_ADD(#{param3}, INTERVAL 1 DAY)
 			ORDER BY ss.sign_state_idx,sign_idx
 	</select>
 	<!-- /결재자 문서 리스트 -->
@@ -232,7 +241,7 @@
 		SELECT s.sign_idx , s.sign_title, e.emp_name, s.sign_date, ss.sign_state_type
 			FROM sign s, sign_state ss, employee e, reference r 
 			WHERE s.emp_id = e.emp_id AND s.sign_state_idx = ss.sign_state_idx AND r.sign_idx = s.sign_idx AND r.emp_id = #{param1} AND (ss.sign_state_type = '결재전' OR ss.sign_state_type = '결재중')
-			AND s.sign_date BETWEEN #{param2} AND #{param3}
+			AND s.sign_date BETWEEN #{param2} AND DATE_ADD(#{param3}, INTERVAL 1 DAY)
 			ORDER BY ss.sign_state_idx,sign_idx
 	</select>
 	
@@ -248,7 +257,7 @@
 		SELECT s.sign_idx , s.sign_title, e.emp_name, s.sign_date, ss.sign_state_type
 			FROM sign s, sign_state ss, employee e, reference r 
 			WHERE s.emp_id = e.emp_id AND s.sign_state_idx = ss.sign_state_idx AND r.sign_idx = s.sign_idx AND r.emp_id = #{param1} AND ss.sign_state_type = '결재완료'
-			AND s.sign_date BETWEEN #{param2} AND #{param3}
+			AND s.sign_date BETWEEN #{param2} AND DATE_ADD(#{param3}, INTERVAL 1 DAY)
 			ORDER BY ss.sign_state_idx,sign_idx
 	</select>
 	
@@ -264,17 +273,18 @@
 		SELECT s.sign_idx , s.sign_title, e.emp_name, s.sign_date, ss.sign_state_type
 			FROM sign s, sign_state ss, employee e, reference r 
 			WHERE s.emp_id = e.emp_id AND s.sign_state_idx = ss.sign_state_idx AND r.sign_idx = s.sign_idx AND r.emp_id = #{param1} AND ss.sign_state_type = '반려'
-			AND s.sign_date BETWEEN #{param2} AND #{param3}
+			AND s.sign_date BETWEEN #{param2} AND DATE_ADD(#{param3}, INTERVAL 1 DAY)
 			ORDER BY ss.sign_state_idx,sign_idx
 	</select>
 	
 	<!-- /참조자 문서 리스트 -->
-	
+
+<!-- 	
 	<select id="signEndList" resultType="signDTO">
 		SELECT s.sign_idx , s.sign_title, e.emp_name, s.sign_date, ss.sign_state_type
 			FROM sign s, sign_state ss, employee e
 			WHERE s.emp_id = e.emp_id AND s.sign_state_idx = ss.sign_state_idx AND e.team_idx = #{param1} AND ss.sign_state_type = '결재완료'
-			<if test="auth_type.equals('1')">
+			<if test="auth_type == '1'.toString()">
 				AND sign_team_open = '공개'
 			</if>
 			AND s.sign_date BETWEEN DATE_ADD(NOW(), INTERVAL -2 WEEK ) AND NOW()
@@ -285,25 +295,25 @@
 		SELECT s.sign_idx , s.sign_title, e.emp_name, s.sign_date, ss.sign_state_type
 			FROM sign s, sign_state ss, employee e
 			WHERE s.emp_id = e.emp_id AND s.sign_state_idx = ss.sign_state_idx AND e.team_idx = #{param3} AND ss.sign_state_type = '결재완료'
-			<if test="auth_type.equals('1')">
+			<if test="auth_type == '1'.toString()">
 				AND sign_team_open = '공개'
 			</if>
-			AND s.sign_date BETWEEN #{param1} AND #{param2} ORDER BY sign_idx
+			AND s.sign_date BETWEEN #{param1} AND DATE_ADD(#{param2}, INTERVAL 1 DAY) ORDER BY sign_idx
 	</select>
-	
+-->	
 	<select id="signUserWriteList" resultType="signDTO">
 		SELECT s.sign_idx , s.sign_title, e.emp_name, s.sign_date, ss.sign_state_type
 			FROM sign s, sign_state ss, employee e
 			WHERE s.emp_id = e.emp_id AND s.sign_state_idx = ss.sign_state_idx AND e.team_idx = #{param1} AND s.emp_id = #{param3}
 			AND s.sign_date BETWEEN DATE_ADD(NOW(), INTERVAL -2 WEEK ) AND NOW()
-			ORDER BY ss.sign_state_idx, sign_idx;
+			ORDER BY ss.sign_state_idx, sign_idx
 	</select>
 	
 	<select id="dateSearch_userList" resultType="signDTO">
 		SELECT s.sign_idx , s.sign_title, e.emp_name, s.sign_date, ss.sign_state_type
 			FROM sign s, sign_state ss, employee e
-			WHERE s.emp_id = e.emp_id AND s.sign_state_idx = ss.sign_state_idx AND e.team_idx = #{param3} AND s.emp_id = #{param5}
-			AND s.sign_date BETWEEN #{param1} AND #{param2} ORDER BY ss.sign_state_idx, sign_idx;
+			WHERE s.emp_id = e.emp_id AND s.sign_state_idx = ss.sign_state_idx AND e.team_idx = #{param3} AND s.emp_id = #{param4}
+			AND s.sign_date BETWEEN #{param1} AND DATE_ADD(#{param2}, INTERVAL 1 DAY) ORDER BY ss.sign_state_idx, sign_idx
 	</select>
 	
 	<select id="signEmp" resultType="String">
@@ -320,6 +330,15 @@
    
    <select id="denyRefMemList" resultType="String">
          SELECT emp_id from reference WHERE sign_idx = #{param1}
+   </select>
+   
+   <!-- 수정사항 -->
+   <select id="signMax" resultType="String">
+         SELECT MAX(sign_mem_order) as sign_mem_order from sign_mem sm where sign_idx = #{param1}
+   </select>
+   
+   <select id="signLast" resultType="String">
+         SELECT emp_id from sign_mem sm WHERE sign_idx = #{param2} and sign_mem_order = #{param1}
    </select>
 	
 </mapper>

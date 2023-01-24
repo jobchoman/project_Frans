@@ -57,7 +57,7 @@
 			<!-- page content -->
 			<div class="right_col addWrap" role="main">
 			<div id="signlistdiv">
-				<div style="width:100%"><h3 style="float:left">결재 문서</h3></div>
+				<div style="width:100%"><h3 style="float:left">참조자 문서</h3></div>
 				<br/>
 				<div class="calDiv" style="width:100%">
 					<div class="input-group" style="float: left">

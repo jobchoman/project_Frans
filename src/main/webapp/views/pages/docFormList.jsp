@@ -224,7 +224,7 @@ function listCall(doc_type,lineup) {
 				destroy : true,
 				aaSorting : [],
 				"dom": 'frtp',
-				pageLength : 15,
+				bAutoWidth: false,
 				serverSide : false,
 				ajax : {
 					"url" : "docForm/list.do",
@@ -421,7 +421,7 @@ function docFormDelete(){
 //				alert(data.msg);
 				display.innerHTML = data.msg;
 				$('#secondmodal').modal();
-				listCall(value);
+				listCall(doc_type,lineup);
 //	         	listCall(showPage);
 	         }
 	         

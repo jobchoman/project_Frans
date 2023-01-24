@@ -66,7 +66,7 @@
 					<h2 style="float:left">메뉴 리스트</h2>
 				</div>
 				<br/>
-				<div class="row">
+				<div class="row" style="width: 100%;">
 				
 				<ul class="nav nav-tabs bar_tabs" id="myTab" role="tablist">
 					<li class="nav-item"><a class="nav-link active" id="selling" data-toggle="tab" role="tab" aria-selected="true" onclick="sellList()">판매중</a></li>
@@ -103,6 +103,7 @@ function sellList() {
 	   var table = $('#datatable').DataTable({
 	      destroy:true,
 	      "dom": 'frtp',
+	      bAutoWidth: false,
 	      serverSide: false,
 	      ajax : {
 	            "url":"/menuList.do",
@@ -159,6 +160,7 @@ function readyList() {
 	   var table = $('#datatable').DataTable({
 	      destroy:true,
 	      "dom": 'frtp',
+	      bAutoWidth: false,
 	      serverSide: false,
 	      ajax : {
 	            "url":"/menuList.do",
@@ -213,6 +215,7 @@ function endList() {
 	   var table = $('#datatable').DataTable({
 	      destroy:true,
 	      "dom": 'frtp',
+	      bAutoWidth: false,
 	      serverSide: false,
 	      ajax : {
 	            "url":"/menuList.do",

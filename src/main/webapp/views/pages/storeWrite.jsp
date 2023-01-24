@@ -209,7 +209,7 @@
 						</div>
 						<div class="modal-footer">
 							<button type="button" onclick = "modalClose()" class="btn btn-secondary" data-dismiss="modal" style="font-size:9pt">취소</button>
-							<button type="submit" class="btn btn-primary" data-dismiss="modal" style="font-size:9pt">확인</button>
+							<button type="button" onclick = "submit()" class="btn btn-primary" data-dismiss="modal" style="font-size:9pt">확인</button>
 						</div>
 						</div>
 					</div>
@@ -388,5 +388,8 @@ function modalClose(){
 	$('#storeSubmit').modal('hide');
 }
 
+function submit(){
+	$('form').submit();
+}
 </script>
 </html>

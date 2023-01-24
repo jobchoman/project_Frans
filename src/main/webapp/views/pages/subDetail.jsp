@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -80,7 +81,7 @@
 						</c:if>
 						<tr>
 							<td id="th">구독권 가격</td>
-							<td colspan="2">${detail.sub_price}</td>
+							<td colspan="2"><fmt:formatNumber value="${detail.sub_price}" pattern="#,###" />원</td>
 						</tr>
 						<tr>
 							<td id="th">구독권 상태</td>

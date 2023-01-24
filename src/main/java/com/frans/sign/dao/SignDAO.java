@@ -22,6 +22,8 @@ public interface SignDAO {
 	DocFormDTO signWriteGo(String doc_form_idx);
 
 	ArrayList<MemberDTO> memberList();
+	
+	ArrayList<MemberDTO> membermsgList();
 
 	int signWriteDo(signDTO signdto);
 
@@ -90,13 +92,16 @@ public interface SignDAO {
 
 	ArrayList<signDTO> dateSearch_refermem(String loginId, String startdate, String enddate);
 
-	ArrayList<signDTO> signEndList(String team_value, String auth_type);
+	/*
+	 * ArrayList<signDTO> signEndList(String team_value, String auth_type);
+	 * 
+	 * ArrayList<signDTO> dateSearch_endList(String startdate, String enddate,
+	 * String team_value, String auth_type);
+	 */
 
-	ArrayList<signDTO> dateSearch_endList(String startdate, String enddate, String team_value, String auth_type);
+	ArrayList<signDTO> signUserWriteList(String team_value, String loginId);
 
-	ArrayList<signDTO> signUserWriteList(String team_value, String auth_type, String loginId);
-
-	ArrayList<signDTO> dateSearch_userList(String startdate, String enddate, String team_value, String auth_type, String loginId);
+	ArrayList<signDTO> dateSearch_userList(String startdate, String enddate, String team_value, String loginId);
 
 	ArrayList<signDTO> signList_endsignmem(String loginId);
 
@@ -122,5 +127,8 @@ public interface SignDAO {
 
 	ArrayList<signDTO> dateSearch_returnrefermem(String loginId, String startdate, String enddate);
 
+	String signMax(String sign_idx);
+
+	String signLast(String signMax, String sign_idx);
 
 }

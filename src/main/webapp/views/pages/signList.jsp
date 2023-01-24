@@ -112,7 +112,7 @@
 				
 				<ul class="nav nav-tabs bar_tabs" id="myTab" role="tablist">
 					<li class="nav-item"><a class="nav-link active" id="allList" data-toggle="tab" role="tab" aria-selected="true" onclick="listCall(single_cal1,single_cal2,selTeam)">전체</a></li>
-					<li class="nav-item"><a class="nav-link" id="signEnd" data-toggle="tab" role="tab" aria-selected="false" onclick="endList(single_cal1,single_cal2,selTeam)">결재완료</a></li>
+					<!-- <li class="nav-item"><a class="nav-link" id="signEnd" data-toggle="tab" role="tab" aria-selected="false" onclick="endList(single_cal1,single_cal2,selTeam)">결재완료</a></li> -->
 					<li class="nav-item"><a class="nav-link" id="userWrite" data-toggle="tab" role="tab" aria-selected="false" onclick="userList(single_cal1,single_cal2,selTeam)">내문서</a></li>
 				</ul>
 				
@@ -221,31 +221,25 @@ function listCall(single_cal1, single_cal2, selTeam) {
 
 						},
 						{
-							data : "sign_state_type",
-							"render" : function(data, type, row) {
-								if (type == 'display') {
-									if (row.sign_state_type == '결재완료'){
-										data = '<span style="font-weight:bold;color:red">'+row.sign_state_type+'</span>';
-									}else if (row.sign_state_type == '반려'){
-										data = '<span style="font-weight:bold;color:orange">'+row.sign_state_type+'</span>';
-									}else if (row.sign_state_type == '결재전'){
-										data = '<span>'+row.sign_state_type+'</span>';
-									}
-									
-							}
-							return data;
-						}
-
+							data : "sign_state_type"
 						}
 						
 					],
 				
-				columnDefs : []
+				columnDefs : [ {
+					
+					targets : [ 4 ],
+					
+					searchable : false,
+
+					visible : false
+				}
+				]
 
 			});
 
 }
-
+/*
 function endList(single_cal1,single_cal2,selTeam){
 //	$("#selTeam").prop('selectedIndex',0);
 	var date1 = single_cal1.value;
@@ -303,25 +297,27 @@ function endList(single_cal1,single_cal2,selTeam){
 									
 							}
 							return data;
-						}
+							} 
 
 						}
 						
 					],
 				
-				columnDefs : [{
+				columnDefs : [
+					{
 					
-					target : [4],
+					target : 4,
 					
 					searchable : false,
 
 					visible : false
-				}]
+				}
+				]
 
 			});
 	
 }
-
+*/
 function userList(single_cal1,single_cal2,selTeam){
 	
 	var date1 = single_cal1.value;
@@ -388,7 +384,7 @@ function userList(single_cal1,single_cal2,selTeam){
 				
 				columnDefs : [{
 					
-					target : [2],
+					targets : [ 2 ],
 					
 					searchable : false,
 

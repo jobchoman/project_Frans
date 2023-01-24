@@ -20,8 +20,7 @@
 		<div class="profile_pic">
 			<c:if test="${fileList.size()>0}">
 				<c:forEach items="${sessionScope.fileList}" var="path">
-					<img src="memberPhoto.do?path=${path.file_new}"
-						class="img-circle profile_img" />
+					<img src="memberPhoto.do?path=${path.file_new}" class="img-circle profile_img" />
 				</c:forEach>
 			</c:if>
 		</div>
@@ -125,15 +124,17 @@
 
 	<!-- /menu footer buttons -->
 	<div class="sidebar-footer hidden-small">
-		<a data-toggle="tooltip" data-placement="top" title="Settings"> <span
-			class="glyphicon glyphicon-cog" aria-hidden="true"></span>
-		</a> <a data-toggle="tooltip" data-placement="top" title="FullScreen">
+		<!-- <a data-toggle="tooltip" data-placement="top" title="Settings">
+			<span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+		</a>
+		<a data-toggle="tooltip" data-placement="top" title="FullScreen">
 			<span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
-		</a> <a data-toggle="tooltip" data-placement="top" title="Lock"> <span
-			class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
-		</a> <a data-toggle="tooltip" data-placement="top" title="Logout"
-			href="/memberLogout.do"> <span class="glyphicon glyphicon-off"
-			aria-hidden="true"></span>
+		</a>
+		<a data-toggle="tooltip" data-placement="top" title="Lock">
+			<span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
+		</a> -->
+		<a data-toggle="tooltip" data-placement="top" title="Logout" href="/memberLogout.do" style="float:right; background: #2A3F54;">
+			<span class="glyphicon glyphicon-off" aria-hidden="true"></span>
 		</a>
 	</div>
 	<!-- /menu footer buttons -->

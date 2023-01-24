@@ -43,6 +43,10 @@ white-space:nowrap;
 .nav_menu{
 	margin-bottom: 0;
 }
+
+*{
+	font-family: 'Nanum Gothic', sans-serif;
+}
 </style>
 
 </head>

@@ -127,7 +127,7 @@
 							
 							<div class="col-sm-12">
 								<div class="card-box table-responsive">
-									<table id="storelist" class="table table-striped table-bordered" style="width: 100%">
+									<table id="storelist" class="table table-striped table-bordered" style="width: 100%; text-align: center;">
 										<thead>
 											<tr>
 												<th>매장코드</th>

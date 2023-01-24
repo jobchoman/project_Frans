@@ -49,6 +49,7 @@ public class SignService {
 	public HashMap<String, Object> signList(String date1, String date2, String team_value, String loginId) {
 		logger.info("결재 문서 리스트 서비스");
 		HashMap<String, Object> map = new HashMap<String, Object>();
+		
 		ArrayList<String> auth_team = signdao.auth_team(loginId);
 		String auth_type = "";
 		for(int i=0; i<auth_team.size(); i++) {
@@ -79,7 +80,7 @@ public class SignService {
 		return map;
 	}
 	
-
+/*
 	public HashMap<String, Object> signEndList(String date1, String date2, String team_value, String loginId) {
 		logger.info("결재완료 문서 리스트 서비스");
 		HashMap<String, Object> map = new HashMap<String, Object>();
@@ -113,19 +114,20 @@ public class SignService {
 		return map;
 	}
 	
-
+*/
 	public HashMap<String, Object> signUserWriteList(String date1, String date2, String team_value, String loginId) {
 		logger.info("내 결재 문서 리스트 서비스");
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		ArrayList<String> auth_team = signdao.auth_team(loginId);
-		String auth_type = "";
-		for(int i=0; i<auth_team.size(); i++) {
-			auth_type=signdao.auth_type(auth_team.get(i),loginId);
-			logger.info("권한 리스트: "+auth_team);
-		}
+		
+		/*
+		 * String auth_type = ""; for(int i=0; i<auth_team.size(); i++) {
+		 * auth_type=signdao.auth_type(auth_team.get(i),loginId);
+		 * logger.info("권한 리스트: "+auth_team); }
+		 */
 		
 		if(date1 == "") {
-			ArrayList<signDTO> signdto = signdao.signUserWriteList(team_value,auth_type,loginId);
+			ArrayList<signDTO> signdto = signdao.signUserWriteList(team_value,loginId);
 			map.put("data", signdto);
 		}else if(date1 != "") {
 			String first_year = date1.substring(0,date1.indexOf("-"));
@@ -140,7 +142,7 @@ public class SignService {
 			
 			String startdate = first_year+first_month+first_date;
 			String enddate = second_year+second_month+second_date;
-			ArrayList<signDTO> signdto = signdao.dateSearch_userList(startdate,enddate,team_value,auth_type,loginId);
+			ArrayList<signDTO> signdto = signdao.dateSearch_userList(startdate,enddate,team_value,loginId);
 			map.put("data", signdto);
 		}
 		
@@ -330,12 +332,16 @@ public class SignService {
 	      String emp_id = loginId;
 	      String notiSignMemIdx = notidao.notiSignMem(emp_id,sign_idx);
 	      String notiRefMemIdx = notidao.notiRefMem(emp_id,sign_idx);
+	      String notiSignLastIdx = notidao.notiSignLastIdx(emp_id,sign_idx);
 	      logger.info("결재 알림 noti_idx : "+notiSignMemIdx);
 	      logger.info("참조 알림 noti_idx : "+notiRefMemIdx);
+	      logger.info("결재완료 알림 noti_idx : "+notiSignLastIdx);
 	      if(notiSignMemIdx != "" && notiSignMemIdx != null) {
 	         notidao.notiBoxUpdate(notiSignMemIdx,emp_id);
 	      }else if(notiRefMemIdx != "" && notiRefMemIdx != null){
 	         notidao.notiBoxUpdate(notiRefMemIdx,emp_id);
+	      }else if(notiSignLastIdx != "" && notiSignLastIdx != null){
+              notidao.notiBoxUpdate(notiSignLastIdx,emp_id);
 	      }else {
 	         logger.info("검색결과 없음");
 	      }
@@ -454,17 +460,22 @@ public class SignService {
 	               
 	               ArrayList<String> notiSignList = notidao.notiSignAll(sign_idx);
 	               ArrayList<String> notiRefList = notidao.notiRefList(sign_idx);
+	               String signMax = signdao.signMax(sign_idx); // order max 구하기
+	               String signLast = signdao.signLast(signMax, sign_idx); // 마지막 결재자 구하기
 	               String notiEmp = notidao.notiEmpSearch(noti_idx);
 	                  int noti_pk = Integer.parseInt(sign_idx);
 	                  NotiDTO notidto = new NotiDTO();
 	                  String noti_type = "결재완료";
-	                  notidto.setEmp_id(notiEmp);
+	                  notidto.setEmp_id(signLast);
 	                  notidto.setNoti_pk(noti_pk);
 	                  notidto.setNoti_type(noti_type);
 	                  
 	                  notidao.notiSignInsert(notidto);
 	                  String newNotiIdx = notidto.getNoti_idx();
 	                  logger.info("new noti_idx : "+notidto.getNoti_idx());
+	                  if(newNotiIdx != null && newNotiIdx != "") {
+	                        notidao.notiSignAllInsert(notiEmp,newNotiIdx);
+	                  }
 	               
 	               logger.info("SignList size : "+notiSignList.size());
 	               for(int i=0; i<notiSignList.size(); i++) {

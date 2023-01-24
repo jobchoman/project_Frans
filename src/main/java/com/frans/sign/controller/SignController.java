@@ -63,7 +63,7 @@ public class SignController {
 
 		return signservice.signList(date1,date2,team_value,loginId);
 	}
-	
+/*	
 	// 결재완료
 	@ResponseBody
 	@GetMapping(value="/sign/endList.do")
@@ -79,7 +79,7 @@ public class SignController {
 
 		return signservice.signEndList(date1,date2,team_value,loginId);
 	}
-	
+*/
 	// 내가 작성한 문서
 	@ResponseBody
 	@GetMapping(value="/sign/userWriteList.do")

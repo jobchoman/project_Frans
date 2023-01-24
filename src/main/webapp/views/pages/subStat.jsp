@@ -758,7 +758,7 @@
 					</div>
 					
 					<div class="statoption3" style="min-height: 30px; margin-right: 10%">
-						<button type="button"  onclick="makeChart3();" class="btn btn-round btn-secondary" id="makeChart3">차트 셍성</button>
+						<button type="button"  onclick="makeChart3();" class="btn btn-round btn-secondary" id="makeChart3">차트 생성</button>
 					</div>
 				</div>	
 
