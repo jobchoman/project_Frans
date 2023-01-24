@@ -30,6 +30,10 @@ th {
      margin-bottom: 0;
 }
 
+#comOrderList{
+	text-align: center;
+}
+
 /*    #signlistdiv{
       display: flex;
       justify-content: center;

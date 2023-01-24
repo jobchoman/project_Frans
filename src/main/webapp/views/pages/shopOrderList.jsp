@@ -33,6 +33,10 @@ th {
 .dataTables_info{
 	display : none;
 }
+
+#datatable{
+	text-align: center;
+}
 </style>
 </head>
 <body class="nav-md">

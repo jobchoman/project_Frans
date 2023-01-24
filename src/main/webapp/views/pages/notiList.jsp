@@ -101,6 +101,7 @@
 						</div>
 					</div>
 				</div>
+				
 				<div class="modal fade bs-example-modal-sm" id="secondmodal" tabindex="-1" role="dialog" aria-hidden="true">
                   <div class="modal-dialog modal-sm">
                        <div class="modal-content">
@@ -114,7 +115,7 @@
                         </div>
                          <div class="modal-footer">
                            <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
-                           <button id="delModalBtn" type="button" class="btn btn-primary" data-dismiss="modal">확인</button>
+                           <button id="delModalBtn" onclick="delNoti()" type="button" class="btn btn-primary">확인</button>
                          </div>
                      </div>
                   </div>
@@ -245,7 +246,6 @@ function notiBoxMove(idx,text) {
 		window.location.href="/signDetail.go?sign_idx="+idx;
 	}else if(text == "결재가 완료되었습니다."){
 		console.log("결재완료 디테일 이동");
-		var noti_type = '결재완료';
 		window.location.href="/signDetailTest.do?sign_idx="+idx;
 	}
 	else if(text == "결재가 반려되었습니다."){
@@ -286,9 +286,8 @@ $(document).ready(function() {
 	});
 });
 
-
-$("#delModalBtn").click(function(){ 
-	
+function delNoti() {
+	console.log("알림 삭제")
 	var rowData = new Array();
 	var tdArr = new Array();
 	var checkbox = $("input[name=chk]:checked");
@@ -331,7 +330,10 @@ $("#delModalBtn").click(function(){
 			}
 		});
 	});
-});
+}
+/* $("#delModalBtn").click(function(){ 
+	
+}); */
 
 
 
