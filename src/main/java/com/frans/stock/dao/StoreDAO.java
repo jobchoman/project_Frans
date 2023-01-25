@@ -37,5 +37,7 @@ public interface StoreDAO {
 
 	ArrayList<HashMap<String, Object>> cityListCall(int idx);
 
+	ArrayList<StoreDTO> provincestore(String idx);
+
 
 }

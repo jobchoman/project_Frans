@@ -162,6 +162,13 @@ public class StoreService {
 		return map;
 	}
 
+	public HashMap<String, Object> provincestore(String idx) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		ArrayList<StoreDTO> storelist = storedao.provincestore(idx);
+		map.put("data", storelist);
+		return map;
+	}
+
 	
 	
 }

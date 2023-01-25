@@ -548,6 +548,8 @@ public class SignService {
 				ArrayList<String> denyMemList = signdao.denyMemList(sign_idx, loginId);
 				ArrayList<String> denyRefMemList = signdao.denyRefMemList(sign_idx);
 				logger.info("denyMemList size : " + denyMemList.size());
+				String signEmp = signdao.signEmp(sign_idx);
+				notidao.notiBoxInsert(noti_idx, signEmp);
 				for (int i = 0; i < denyMemList.size(); i++) {
 					logger.info("denyMemList : {}", denyMemList.get(i));
 					notidao.notiBoxInsert(noti_idx, denyMemList.get(i));

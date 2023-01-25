@@ -91,6 +91,13 @@ public class StoreController {
 	}
 	
 	@ResponseBody
+	@GetMapping(value="/store/selprovince.do")
+	public HashMap<String, Object> provincestore(String idx){
+		logger.info("province idx: "+idx);
+		return storeservice.provincestore(idx);
+	}
+	
+	@ResponseBody
 	@GetMapping(value="/store/filter.do")
 	public HashMap<String, Object> storeFilter(String idx){
 		logger.info("city idx: "+idx);

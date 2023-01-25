@@ -33,7 +33,7 @@
 		display: table-cell;
 	}
 	
-	#savebtn {
+	#savebtn, #signmodal {
 		background-color:#2A3F54;
 		border-color:#2A3F54;
 		font-size: 8pt;
@@ -183,7 +183,7 @@
 								</tr>
 								<tr>
 									<td colspan="2">
-										<button type="button" onclick="signSave()" class="btn btn-round btn-info" id="savebtn" style="float:right">저장</button>
+										<button type="button" onclick="openmodal()" class="btn btn-round btn-info" id="savebtn" style="float:right">저장</button>
 										<button type="button" onclick="location.href='/docFormList.go'" class="btn btn-round btn-secondary" id="goList" style="float:right">목록</button>
 									</td>
 								</tr>
@@ -235,6 +235,28 @@
 				</div>
 				<!-- /modal -->
 				
+				<!-- modal -->
+				<div class="modal fade bs-example-modal-sm" id="signwritemodal" tabindex="-1" role="dialog" aria-hidden="true">
+				<div class="modal-dialog modal-sm">
+					<div class="modal-content">
+
+						<div class="modal-header">
+							<h5 class="modal-title" id="myModalLabel2"></h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">×</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							<h6 id="modaltitle">등록하시겠습니까?</h6>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-round btn-secondary"  onclick="signSave()" id="signmodal" data-dismiss="modal">확인</button>
+						</div>
+					</div>
+				</div>
+			</div>
+				<!-- /modal -->
+				
 				</div>
 			</div>
 			<!-- /page content -->
@@ -254,6 +276,9 @@ var editor = new RichTextEditor("#div_editor",config);
 
 editor.setHTMLCode($("#docformsigncontent").html());
 
+function openmodal(){
+	$('#signwritemodal').modal();
+}
 
 function signSave(){
 	$('input[name="sign_content"]').val(editor.getHTMLCode());
@@ -325,7 +350,7 @@ function memberSel(elem){
 			$("#empName1").val(empName);
 			$(".empIdx_input1").val(empIdx);
 			$(elem).attr('onclick','event.cancelBubble=true');
-			$(elem).css('background-color',"lightgray");
+			$(elem).css('background-color',"#D5D5D5");
 			$(elem).css('color',"gray");
 			$(elem).css('font-style',"bold");
 		}else if (empInputIdx == 'empName2'){
@@ -333,7 +358,7 @@ function memberSel(elem){
 			$("#empName2").val(empName);
 			$(".empIdx_input2").val(empIdx);
 			$(elem).attr('onclick','event.cancelBubble=true');
-			$(elem).css('background-color',"lightgray");
+			$(elem).css('background-color',"#D5D5D5");
 			$(elem).css('color',"gray");
 			$(elem).css('font-style',"bold");
 			
@@ -341,7 +366,7 @@ function memberSel(elem){
 			$("#empName3").val(empName);
 			$(".empIdx_input3").val(empIdx);
 			$(elem).attr('onclick','event.cancelBubble=true');
-			$(elem).css('background-color',"lightgray");
+			$(elem).css('background-color',"#D5D5D5");
 			$(elem).css('color',"gray");
 			$(elem).css('font-style',"bold");
 			
@@ -349,7 +374,7 @@ function memberSel(elem){
 			$("#empName4").val(empName);
 			$(".empIdx_input4").val(empIdx);
 			$(elem).attr('onclick','event.cancelBubble=true');
-			$(elem).css('background-color',"lightgray");
+			$(elem).css('background-color',"#D5D5D5");
 			$(elem).css('color',"gray");
 			$(elem).css('font-style',"bold");
 			
@@ -357,7 +382,7 @@ function memberSel(elem){
 			$("#empName5").val(empName);
 			$(".empIdx_input5").val(empIdx);
 			$(elem).attr('onclick','event.cancelBubble=true');
-			$(elem).css('background-color',"lightgray");
+			$(elem).css('background-color',"#D5D5D5");
 			$(elem).css('color',"gray");
 			$(elem).css('font-style',"bold");
 			
@@ -365,7 +390,7 @@ function memberSel(elem){
 			$("#ref_empName1").val(empName);
 			$(".ref_empIdx_input1").val(empIdx);
 			$(elem).attr('onclick','event.cancelBubble=true');
-			$(elem).css('background-color',"lightgray");
+			$(elem).css('background-color',"#D5D5D5");
 			$(elem).css('color',"gray");
 			$(elem).css('font-style',"bold");
 			
@@ -373,7 +398,7 @@ function memberSel(elem){
 			$("#ref_empName2").val(empName);
 			$(".ref_empIdx_input2").val(empIdx);
 			$(elem).attr('onclick','event.cancelBubble=true');
-			$(elem).css('background-color',"lightgray");
+			$(elem).css('background-color',"#D5D5D5");
 			$(elem).css('color',"gray");
 			$(elem).css('font-style',"bold");
 			
@@ -381,7 +406,7 @@ function memberSel(elem){
 			$("#ref_empName3").val(empName);
 			$(".ref_empIdx_input3").val(empIdx);
 			$(elem).attr('onclick','event.cancelBubble=true');
-			$(elem).css('background-color',"lightgray");
+			$(elem).css('background-color',"#D5D5D5");
 			$(elem).css('color',"gray");
 			$(elem).css('font-style',"bold");
 			
@@ -389,7 +414,7 @@ function memberSel(elem){
 			$("#ref_empName4").val(empName);
 			$(".ref_empIdx_input4").val(empIdx);
 			$(elem).attr('onclick','event.cancelBubble=true');
-			$(elem).css('background-color',"lightgray");
+			$(elem).css('background-color',"#D5D5D5");
 			$(elem).css('color',"gray");
 			$(elem).css('font-style',"bold");
 			
@@ -397,7 +422,7 @@ function memberSel(elem){
 			$("#ref_empName5").val(empName);
 			$(".ref_empIdx_input5").val(empIdx);
 			$(elem).attr('onclick','event.cancelBubble=true');
-			$(elem).css('background-color',"lightgray");
+			$(elem).css('background-color',"#D5D5D5");
 			$(elem).css('color',"gray");
 			$(elem).css('font-style',"bold");
 			
@@ -426,6 +451,19 @@ $(document).ready(function(){
 
 
 $(document).on("click","#delEmp2",function(){
+	console.log($(".empIdx_input2").val());
+	var emp_id = $(".empIdx_input2").val(); // input 에 입력된 emp_id
+	
+	$('.sorting_1').filter(function() {
+		if($(this).text() == emp_id){
+			//console.log("찾았따");
+			console.log($(this).parent());
+			var tabletr = $(this).parent();
+			$(tabletr).removeAttr("style");
+			$(tabletr).attr('onclick','memberSel(this)');
+		}
+	});
+	
 	$('.emp2').remove();
    
 	for(var i=0; i<3; i++){
@@ -438,6 +476,19 @@ $(document).on("click","#delEmp2",function(){
 });
 
 $(document).on("click","#delEmp3",function(){
+	
+	var emp_id = $(".empIdx_input3").val(); // input 에 입력된 emp_id
+	
+	$('.sorting_1').filter(function() {
+		if($(this).text() == emp_id){
+			//console.log("찾았따");
+			console.log($(this).parent());
+			var tabletr = $(this).parent();
+			$(tabletr).removeAttr("style");
+			$(tabletr).attr('onclick','memberSel(this)');
+		}
+	});
+	
 	$('.emp3').remove();
 	   
 	for(var i=0; i<2; i++){
@@ -450,6 +501,19 @@ $(document).on("click","#delEmp3",function(){
 });
 	
 $(document).on("click","#delEmp4",function(){
+	
+	var emp_id = $(".empIdx_input4").val(); // input 에 입력된 emp_id
+	
+	$('.sorting_1').filter(function() {
+		if($(this).text() == emp_id){
+			//console.log("찾았따");
+			console.log($(this).parent());
+			var tabletr = $(this).parent();
+			$(tabletr).removeAttr("style");
+			$(tabletr).attr('onclick','memberSel(this)');
+		}
+	});
+	
 	$('.emp4').remove();
 	var i = 0;	   
 		$(".emp"+(i+5)).attr("class","emp"+(i+4));
@@ -460,6 +524,19 @@ $(document).on("click","#delEmp4",function(){
 });
 
 $(document).on("click","#delEmp5",function(){
+	
+	var emp_id = $(".empIdx_input5").val(); // input 에 입력된 emp_id
+	
+	$('.sorting_1').filter(function() {
+		if($(this).text() == emp_id){
+			//console.log("찾았따");
+			console.log($(this).parent());
+			var tabletr = $(this).parent();
+			$(tabletr).removeAttr("style");
+			$(tabletr).attr('onclick','memberSel(this)');
+		}
+	});
+	
 	$('.emp5').remove();
 });
 
@@ -468,6 +545,19 @@ $(document).on("click","#delEmp5",function(){
 
 
 $(document).on("click","#delRef2",function(){
+	
+	var ref_id = $(".ref_empIdx_input2").val();
+	
+	$('.sorting_1').filter(function() {
+		if($(this).text() == ref_id){
+			//console.log("찾았따");
+			console.log($(this).parent());
+			var tabletr = $(this).parent();
+			$(tabletr).removeAttr("style");
+			$(tabletr).attr('onclick','memberSel(this)');
+		}
+	});
+	
 	$('.ref_emp2').remove();
    
 	for(var i=0; i<3; i++){
@@ -480,6 +570,19 @@ $(document).on("click","#delRef2",function(){
 });
 
 $(document).on("click","#delRef3",function(){
+	
+	var ref_id = $(".ref_empIdx_input3").val();
+	
+	$('.sorting_1').filter(function() {
+		if($(this).text() == ref_id){
+			//console.log("찾았따");
+			console.log($(this).parent());
+			var tabletr = $(this).parent();
+			$(tabletr).removeAttr("style");
+			$(tabletr).attr('onclick','memberSel(this)');
+		}
+	});
+	
 	$('.ref_emp3').remove();
 	   
 	for(var i=0; i<2; i++){
@@ -492,6 +595,19 @@ $(document).on("click","#delRef3",function(){
 });
 	
 $(document).on("click","#delRef4",function(){
+	
+	var ref_id = $(".ref_empIdx_input4").val();
+	
+	$('.sorting_1').filter(function() {
+		if($(this).text() == ref_id){
+			//console.log("찾았따");
+			console.log($(this).parent());
+			var tabletr = $(this).parent();
+			$(tabletr).removeAttr("style");
+			$(tabletr).attr('onclick','memberSel(this)');
+		}
+	});
+	
 	$('.ref_emp4').remove();
 	var i = 0;	   
 		$(".ref_emp"+(i+5)).attr("class","ref_emp"+(i+4));
@@ -502,6 +618,19 @@ $(document).on("click","#delRef4",function(){
 });
 
 $(document).on("click","#delRef5",function(){
+	
+	var ref_id = $(".ref_empIdx_input5").val();
+	
+	$('.sorting_1').filter(function() {
+		if($(this).text() == ref_id){
+			//console.log("찾았따");
+			console.log($(this).parent());
+			var tabletr = $(this).parent();
+			$(tabletr).removeAttr("style");
+			$(tabletr).attr('onclick','memberSel(this)');
+		}
+	});
+	
 	$('.ref_emp5').remove();
 });
 

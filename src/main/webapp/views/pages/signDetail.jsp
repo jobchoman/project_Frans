@@ -39,13 +39,13 @@
 		margin-right: 2%;
 	}
 	
-	#sign {
+	#sign, #signmodal {
 		background-color:#2A3F54;
 		border-color:#2A3F54;
 		font-size: 8pt;
 	}
 	
-	#nosign {
+	#nosign, #signreturn {
 		font-size: 8pt;
 	}
 	
@@ -151,12 +151,12 @@
 									<th scope="row">참조자</th>
 									<td>
 										<c:forEach items="${referlist}" var="refer">
-										<c:if test="${fn:length(referlist) eq 1}">
-													${refer.emp_name}
-											</c:if>
+										<%-- <c:if test="${fn:length(referlist) eq 1}"> --%>
+											${refer.emp_name}&nbsp;&nbsp;
+											<%-- </c:if>
 											<c:if test="${fn:length(referlist) gt 1}">
 													${refer.emp_name}, 
-											</c:if>
+											</c:if> --%>
 										</c:forEach>
 									</td>
 								</tr>
@@ -227,8 +227,9 @@
 												<c:if test="${loginId eq sign.emp_id && sign.sign_mem_state eq '0'}">
 													<input type="hidden" value="${sign.sign_mem_order}" id="sign_mem_order"/>
 													<input type="hidden" value="${lastOrder}" id="lastorder"/>
-													<button type="button" onclick="signDo()" class="btn btn-round btn-secondary" id="sign" style="float:right">결재</button>
-													<button type="button" onclick="signReturn()" class="btn btn-round btn-secondary" id="nosign" style="float:right">반려</button>
+													<!-- <button type="button" onclick="signDo()" class="btn btn-round btn-secondary" id="sign" style="float:right">결재</button> -->
+													<button type="button" onclick="modalopen()" class="btn btn-round btn-secondary" id="sign" style="float:right">결재</button>
+													<button type="button" onclick="returnmodal()" class="btn btn-round btn-secondary" id="nosign" style="float:right">반려</button>
 												</c:if> 
 											</c:forEach>
 										</c:if>
@@ -301,6 +302,50 @@
 				</div>
 			<!-- /modal -->
 			
+			<!-- modal -->
+			<div class="modal fade bs-example-modal-sm" id="signdomodal" tabindex="-1" role="dialog" aria-hidden="true">
+				<div class="modal-dialog modal-sm">
+					<div class="modal-content">
+
+						<div class="modal-header">
+							<h5 class="modal-title" id="myModalLabel2"></h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">×</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							<h6 id="modaltitle">결재하시겠습니까?</h6>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-round btn-secondary"  onclick="signDo()" id="signmodal" data-dismiss="modal">확인</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- /modal -->
+			
+			<!-- modal -->
+			<div class="modal fade bs-example-modal-sm" id="signreturnmodal" tabindex="-1" role="dialog" aria-hidden="true">
+				<div class="modal-dialog modal-sm">
+					<div class="modal-content">
+
+						<div class="modal-header">
+							<h5 class="modal-title" id="myModalLabel2"></h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">×</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							<h6 id="modaltitle">반려하시겠습니까?</h6>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-round btn-secondary"  onclick="signReturn()" id="signreturn" data-dismiss="modal">확인</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- /modal -->
+			
 			<!-- /page content -->
 
 		</div>
@@ -332,6 +377,14 @@ editor.setReadOnly();
 function sign_history(){
 	$('#signhistorymodal').modal();
 
+}
+
+function modalopen(){
+	$('#signdomodal').modal();
+}
+
+function returnmodal(){
+	$('#signreturnmodal').modal();
 }
 
 var sign_idx = $('#sign_idx').val();

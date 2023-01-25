@@ -109,20 +109,16 @@
 						</div>
 						<div class="row">
 						
-							<div class="statoption" id="province" data-toggle="modal"
-								data-target=".provinceModal"
-								style="min-height: 30px; cursor: pointer;">
+							<div class="statoption" id="province" data-toggle="modal" data-target=".provinceModal" style="min-height: 30px; cursor: pointer;">
 								<span id="provinceTitle">시도</span>
 							</div>
 							<div id="pro_idx"></div>
-							<div class="statoption" id="city" data-toggle="modal"
-								data-target=".cityModal"
-								style="min-height: 30px; cursor: pointer;">
+							<div class="statoption" id="city" data-toggle="modal" data-target=".cityModal" style="min-height: 30px; cursor: pointer;">
 								<span id="cityTitle">시군구</span>
 							</div>
 							<div></div>
 							<div class="statoption" id="all">
-								<span id="all" onclick="listCall()">전체</span>
+								<span id="all" onclick="reset(); listCall()">전체</span>
 							</div>
 							
 							<div class="col-sm-12">
@@ -159,39 +155,37 @@
 			<!-- /page content -->
 			
 			<!-- modal -->
-		<div class="modal fade provinceModal" tabindex="-1" role="dialog" aria-hidden="true">
-			<div class="modal-dialog modal-sm">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h4 class="modal-title" id="myModalLabel2">시도</h4>
-						<button type="button" class="close" data-dismiss="modal"
-							aria-label="Close">
-							<span aria-hidden="true">×</span>
-						</button>
-					</div>
-					<div class="modal-body">
-						<ul id="provinceList"></ul>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="modal fade cityModal" tabindex="-1" role="dialog" aria-hidden="true">
-			<div class="modal-dialog modal-sm">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h4 class="modal-title" id="myModalLabel2">시군구</h4>
-						<button type="button" class="close" data-dismiss="modal"
-							aria-label="Close">
-							<span aria-hidden="true">×</span>
-						</button>
-					</div>
-					<div class="modal-body">
-						<ul id="cityList"></ul>
+			<div class="modal fade provinceModal" tabindex="-1" role="dialog" aria-hidden="true">
+				<div class="modal-dialog modal-sm">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h4 class="modal-title" id="myModalLabel2">시도</h4>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">×</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							<ul id="provinceList"></ul>
+						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-		<!-- /modal -->
+			<div class="modal fade cityModal" tabindex="-1" role="dialog" aria-hidden="true">
+				<div class="modal-dialog modal-sm">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h4 class="modal-title" id="myModalLabel2">시군구</h4>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">×</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							<ul id="cityList"></ul>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- /modal -->
 		</div>
 	<jsp:include page="script.jsp" />
 </body>
@@ -200,7 +194,7 @@
 listCall();
 
 function listCall() {
-
+	
 	var table = $('#storelist').DataTable(
 			{
 				destroy : true,
@@ -254,7 +248,10 @@ function listCall() {
 
 }
 
-
+function reset(){
+	$('#provinceTitle').html("시도");
+	$('#cityTitle').html("시군구");
+}
 
 
 
@@ -281,18 +278,77 @@ function listCall() {
 		var content = "";
 
 		obj.list.forEach(function(item) {
-			content += '<li class="provinces" onclick="chooseProvince('+ item.province_idx+ ');" data-dismiss="modal" data-toggle="modal" data-target=".cityModal">'+ item.province_name + '</li>';
+			/* content += '<li class="provinces" onclick="chooseProvince('+ item.province_idx+ ');" data-dismiss="modal" data-toggle="modal" data-target=".cityModal">'+ item.province_name + '</li>'; */
 					// 뿌려진 province List의 요소 각각에 onclick 이벤트를 걸고 매개변수로 해당 province_idx를 가져간다. 그리고 해당 li를 클릭하면
 					// province 선택 모달창이 닫히게 li 태그에 설정을 해두었음.
+			content += '<li class="provinces" onclick="listcall_province('+ item.province_idx+ '); chooseProvince('+ item.province_idx+ ')" data-dismiss="modal" data-toggle="modal">'+ item.province_name + '</li>';
 				});
 		$('#provinceList').empty();
 		$('#provinceList').append(content);
 
 	}
-	$('#city').click(function() {
-		console.log('시군구 클릭');
-	});
+	
+	
+	function listcall_province(provinceIdx){
+		
+		var table = $('#storelist').DataTable(
+				{
+					destroy : true,
+					aaSorting : [],
+					"dom": 'frtp',
+					bAutoWidth: false,
+					serverSide : false,
+					ajax : {
+						"url" : "/store/selprovince.do",
+						"type" : "get",
+						"data" : {'idx':provinceIdx}
+					},
+					columns : [
+							{
+								data : "shop_idx",
+							},
+							{
+								data : "shop_name",
+								"render" : function(data, type, row) {
+									if (type == 'display') {
+										
+											data = '<a href="/storeDetail.go?shop_idx='+row.shop_idx+'">'+row.shop_name+'</a>';
+									}
+									return data;
+								}
+							},
+							{
+								data : "emp_name",
+								
+							},
+							{
+								data : "shop_contact"
+							}
+							
+						],
+					
+					columnDefs : [
+						{
+							target : [0],
+							
+							searchable : false,
 
+							visible : false
+						}
+					]
+
+				});
+	}
+	
+	/* $('#city').click(function() {
+		console.log('시군구 클릭');
+	}); */
+
+	
+/* $('#city').click(function() { */
+	
+	console.log('시군구 클릭');
+	
 	function chooseProvince(idx) {
 		console.log(idx);// 매개 변수로 받은 idx
 		var dv = event.currentTarget;
@@ -325,6 +381,7 @@ function listCall() {
 		});
 
 	}
+/* }); */
 
 	function cityListDraw(obj) {
 		var content1 = "";
@@ -417,6 +474,6 @@ function listCall() {
 				});
 	}
 	
-	
+
 </script>
 </html>
