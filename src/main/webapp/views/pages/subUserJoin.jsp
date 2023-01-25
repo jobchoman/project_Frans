@@ -71,7 +71,7 @@
 											<label class="col-form-label col-md-3 col-sm-3 label-align">이용권 이름
 											</label>
 											<div class="col-md-6 col-sm-6 ">
-												<input type="text" name="sub_name" id="value" class="value" onclick="subSearch_popup(event)" class="form-control "/>
+												<input type="text" name="sub_name" id="value" onclick="subSearch_popup(event)" class="form-control value"/>
 												<input type="hidden" name="sub_idx" id="sub_idx"/> 
 											</div>
 										</div>
@@ -79,7 +79,7 @@
 											<label class="col-form-label col-md-3 col-sm-3 label-align">회원이름
 											</label>
 											<div class="col-md-6 col-sm-6 ">
-												<input type="text" name="client_name" id="client" class="client" onclick="clientSearch_popup(event)" class="form-control "/>
+												<input type="text" name="client_name" id="client" onclick="clientSearch_popup(event)" class="form-control client"/>
 												<input type="hidden" name="client_id" id="client_id"/> 
 											</div>
 										</div>
@@ -87,14 +87,14 @@
 											<label class="col-form-label col-md-3 col-sm-3 label-align">시작일
 											</label>
 											<div class="col-md-6 col-sm-6 ">
-												<input type="date" name="sub_use_start" class="form-control "/>
+												<input type="date" name="sub_use_start" id="startDay1" class="form-control" onclick="startDay(event)"/>
 											</div>
 										</div>
 										<div class="item form-group">
 											<label class="col-form-label col-md-3 col-sm-3 label-align">종료일
 											</label>
 											<div class="col-md-6 col-sm-6 ">
-												<input type="date" name="sub_use_end" class="form-control "/>
+												<input type="date" name="sub_use_end" id="endDay1" class="form-control" onclick="endDay(event)"/>
 											</div>
 										</div>
 										<div class="item form-group">
@@ -102,11 +102,8 @@
 											</label>
 											<div class="col-md-6 col-sm-6 ">
 												<div class="col-md-6 col-sm-6 ">
-												<select name="sub_use_condition" class="form-control ">
-												  <option value="횟수" selected="selected">횟수</option>
-												  <option value="요일">요일</option>
-											    </select>
-											</div>
+													<input type="text" name="sub_use_condition" id="condition" class="form-control " readonly="readonly"/>
+												</div>
 											</div>
 										</div>
 												
@@ -305,6 +302,12 @@ function subSel(elem){
 		console.log("클릭한 구독권 이름: "+subName); 
 		$("#value").val(subName);
 		$("#sub_idx").val(subIdx);
+		if(subIdx=='SB001' || subIdx=='SB003' || subIdx=='SB005' || subIdx=='SB007' || subIdx=='SB009'){
+			$("#condition").val('요일');
+		}else if(subIdx=='SB002' || subIdx=='SB004' || subIdx=='SB006' || subIdx=='SB008' || subIdx=='SB010'){
+			$("#condition").val('횟수');
+		}
+		
 		
 
 		$('#subSearch').modal('hide');
@@ -331,7 +334,6 @@ $(".save").click(function(){
 	else  
 		return false;
 });
-
 
 
 </script>
