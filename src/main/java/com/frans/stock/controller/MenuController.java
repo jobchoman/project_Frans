@@ -125,13 +125,14 @@ public class MenuController {
 	}
 	
 	@PostMapping(value="/menuUpdate.do")
-	public String updateMenu(MultipartFile uploadFile, String menu_idx, String menu_name, int menu_price, String menu_recipe, String menu_state) {
+	public String updateMenu(MultipartFile uploadFile, String menu_idx, String menu_name, int menu_price, String menu_recipe, String menu_state, String menu_start) {
 			
-		logger.info("출시일 : "+menu_idx);
+		logger.info("메뉴 idx : "+menu_idx);
 		logger.info("이름 : "+menu_name);
 		logger.info("가격 : "+menu_price);
 		logger.info("레시피 : "+menu_recipe);
 		logger.info("상태 : "+menu_state);
+		logger.info("출시일 : "+menu_start);
 		
 		MenuDTO mDTO = new MenuDTO();
 		
@@ -161,6 +162,7 @@ public class MenuController {
 			mDTO.setMenu_price(menu_price);
 			mDTO.setMenu_recipe(menu_recipe);
 			mDTO.setMenu_state(menu_state);
+			mDTO.setMenu_start(menu_start);
 			mDTO.setMenu_photo(newFileName);
 			
 			mService.menuUpdate1(mDTO);
@@ -170,6 +172,7 @@ public class MenuController {
 			mDTO.setMenu_price(menu_price);
 			mDTO.setMenu_recipe(menu_recipe);
 			mDTO.setMenu_state(menu_state);
+			mDTO.setMenu_start(menu_start);
 			
 			mService.menuUpdate2(mDTO);
 		}

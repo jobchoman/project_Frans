@@ -149,7 +149,16 @@
 											<label class="col-form-label col-md-3 col-sm-3 label-align">출시 일자 <span class="required">*</span>
 											</label>
 											<div class="col-md-6 col-sm-6 ">
-												<input name="menu_start" class="date-picker form-control" value="${detail.menu_start}" placeholder="dd-mm-yyyy" type="text" required="required" type="text" onfocus="this.type='date'" onmouseover="this.type='date'" onclick="this.type='date'" onblur="this.type='text'" onmouseout="timeFunctionLong(this)" readonly>
+												<c:choose>
+													<c:when test="${detail.menu_state eq '준비중'}">
+														<input name="menu_start" class="date-picker form-control" value="${detail.menu_start}" placeholder="dd-mm-yyyy" type="text" required="required" type="text" onfocus="this.type='date'" onmouseover="this.type='date'" onclick="this.type='date'" onblur="this.type='text'" onmouseout="timeFunctionLong(this)">
+													</c:when>
+													<c:otherwise>
+														<input name="menu_start" class="date-picker form-control" value="${detail.menu_start}" placeholder="dd-mm-yyyy" type="text" required="required" type="text" onfocus="this.type='date'" onmouseover="this.type='date'" onclick="this.type='date'" onblur="this.type='text'" onmouseout="timeFunctionLong(this)" readonly>
+													</c:otherwise>
+												</c:choose>
+												
+												
 												<script>
 													function timeFunctionLong(input) {
 														setTimeout(function() {
@@ -174,7 +183,6 @@
 											<div class="col-md-6 col-sm-6 offset-md-3"  style="width:100%; margin-left: 0; max-width: 100%; flex:0%;">
 												
 												<button type="submit" class="btn btn-round btn-info" id="menuUpdate" style="float:right;">수정완료</button>
-												<button class="btn btn-round btn-secondary" type="reset" id="reset" style="float:right;">초기화</button>
 												<button class="btn btn-round btn-secondary" type="button" id="golist" style="float:left" onclick="location.href='/menuList'">리스트</button>
 											</div>
 										</div>

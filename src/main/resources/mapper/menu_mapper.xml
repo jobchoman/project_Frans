@@ -32,7 +32,8 @@
 		menu_price = #{menu_price}, 
 		menu_recipe = #{menu_recipe},
 		menu_photo = #{menu_photo},
-		menu_state = #{menu_state}
+		menu_state = #{menu_state},
+		menu_start = #{menu_start}
 		WHERE menu_idx = #{menu_idx}
 	</update>
 	
@@ -42,7 +43,8 @@
 		menu_name = #{menu_name}, 
 		menu_price = #{menu_price}, 
 		menu_recipe = #{menu_recipe},
-		menu_state = #{menu_state}
+		menu_state = #{menu_state},
+		menu_start = #{menu_start}
 		WHERE menu_idx = #{menu_idx}
 	</update>
 	

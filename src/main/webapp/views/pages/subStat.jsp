@@ -236,8 +236,9 @@
    		display: flex;
 	}
 </style>
-<script src="https://cdn.jsdelivr.net/npm/chart.js@3.8.0/dist/chart.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.0.0/dist/chart.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
+
 </head>
 <body class="nav-md" style="min-height:1450px;" >
 	<div class="container body">
@@ -1420,7 +1421,44 @@ function drawDoughnut(obj) {
 	$('#graphZone3').append('<canvas id="mybarChart3"></canvas>');
 	console.log(obj.labels);
 	var chartArea = document.getElementById('mybarChart3').getContext('2d');
+	
+/* 	var data = {
+			  labels: [
+			    'Red',
+			    'Blue',
+			    'Yellow'
+			  ],
+			  datasets: [{
+			    label: 'My First Dataset',
+			    data: [300, 50, 100],
+			    backgroundColor: [
+			      'rgb(255, 99, 132)',
+			      'rgb(54, 162, 235)',
+			      'rgb(255, 205, 86)'
+			    ],
+			    hoverOffset: 4
+			  }]
+			};
 
+			var config = {
+			  type: 'doughnut',
+			  data: data,
+			  plugins:[ChartDataLabels],
+			  options:{
+			    plugins:{
+			        datalabels: {
+			        formatter: (value) => {
+			            console.log(value);
+			          return value + '%';
+			        },
+			      },
+			    }
+			  }
+			};
+
+			var ctx = document.getElementById('mybarChart3').getContext('2d');
+
+			new Chart(ctx, config); */
 	var data = {
             datasets: [{
                 data: obj.data,
@@ -1434,6 +1472,7 @@ function drawDoughnut(obj) {
             labels: obj.labels,
             borderColor: "#fff"
         };
+	
         var options = {
         		title: {
                     display: true,
@@ -1449,29 +1488,57 @@ function drawDoughnut(obj) {
 	                    beginAtZero: true
 	                }
 	            },	
-        	maintainAspectRatio :false,//그래프의 비율 유지
-            plugins: {
-                tooltips: {
-                    enabled: false
-                },
-                datalabels: {
-                    formatter: function (value, context) {
-                        return Math.round(value/context.chart.getDatasetMeta(0).total*100)+"%";
-                    },
-                    color: '#fff',
-                }
-            }
+        	maintainAspectRatio :false//그래프의 비율 유지
         };
         
+        /*
+        var options = {
+        		plugins:{
+        			datalables:{
+        				formatter:(value)=>{
+        					console.log(value+'%');
+        					return value;
+        				}
+        			}
+        		}
+        };
+        */
         var myChart = new Chart(chartArea, {
             type: 'doughnut',
             data: data,
-            options: options,
-            plugins: [ChartDataLabels]
+            options: options
         });
-	
-	
-	
+		
+		/*
+		var myChart = new Chart(chartArea, {
+			  type: 'doughnut',
+			  data: {
+			    datasets: [
+			      {
+			        data: [10, 20, 15, 5, 50],
+			        backgroundColor: [
+			          'rgb(255, 99, 132)',
+			          'rgb(255, 159, 64)',
+			          'rgb(255, 205, 86)',
+			          'rgb(75, 192, 192)',
+			          'rgb(54, 162, 235)',
+			        ],
+			      },
+			    ],
+			    labels: ['Red', 'Orange', 'Yellow', 'Green', 'Blue'],
+			  },
+			  options: {
+			    plugins: {
+			      datalabels: {
+			        formatter: (value, chartArea) => {
+			        	console.log(value+'%')
+			          return value + '%';
+			        },
+			      },
+			    },
+			  },
+			});
+	*/
 	
 	
 // 		var myChart = new Chart(chartArea, {
