@@ -79,13 +79,14 @@ public class UserService {
 		return userDao.clientSearchList();
 	}
 
-	public void subUserJoin(HashMap<String, String> params,UserDTO client_idx, String shop_idx) {
+	public void subUserJoin(HashMap<String, String> params) {
 		UserDTO dto = new UserDTO();
 		dto.setClient_id("client_name");
 		dto.setSub_idx("sub_name");
+//		String shopidx = userDao.userShop(emp_id);
+//		logger.info("shopidx:{}",shopidx);
 		userDao.subUser(params);
-		userDao.userState(client_idx);
-		userDao.userShop(shop_idx);
+//		userDao.userState(client_idx);
 		
 	}
 
@@ -99,6 +100,10 @@ public class UserService {
 
 	public void subUpdate(UserDTO dto) {
 		userDao.cliUpdate(dto);
+	}
+
+	public UserDTO shopSearch(String emp_id) {
+		return userDao.shopSearch(emp_id);
 	}
 
 

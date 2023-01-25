@@ -100,19 +100,24 @@ public class UserController {
 	}
 	
 	@GetMapping(value="/subUserJoin.go")
-	public String subJoinForm(Model model) {
+	public String subJoinForm(Model model,HttpSession session) {
 		ArrayList<UserDTO> searchList = userService.searchList();
 		ArrayList<UserDTO> clientSearchList = userService.clientSearchList();
+		String emp_id = (String) session.getAttribute("loginId");
+		UserDTO shop = userService.shopSearch(emp_id);
+		logger.info("shop:{}",shop);
+		model.addAttribute("shop",shop);
 		model.addAttribute("list",searchList);
 		model.addAttribute("mem",clientSearchList);
 		return "subUserJoin";
 	}
 	
 	@PostMapping(value="/subUserJoin.do")
-	public String subJoin(@RequestParam HashMap<String, String> params, String client_id,String shop_idx) {
+	public String subJoin(@RequestParam HashMap<String, String> params, String client_id,HttpSession session) {
+		String emp_id = (String) session.getAttribute("loginId");
 		logger.info("params : {}",params);
 		UserDTO client_idx = userService.subUserDetail(client_id);
-		userService.subUserJoin(params, client_idx,shop_idx);
+		userService.subUserJoin(params);
 		return "redirect:/subUserList.go";
 	}
 	

@@ -66,7 +66,14 @@
 									<br />
 									<form action="subUserJoin.do" id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" method="POST" enctype="multipart/form-data">
 
-
+										<div class="item form-group">
+											<label class="col-form-label col-md-3 col-sm-3 label-align">등록 지점
+											</label>
+											<div class="col-md-6 col-sm-6 ">
+													<input type="text" value="${shop.shop_name}" class="form-control " readonly="readonly"/>
+													<input type="hidden" name="shop_idx" value="${shop.shop_idx}" class="form-control "/>
+											</div>
+										</div>
 										<div class="item form-group">
 											<label class="col-form-label col-md-3 col-sm-3 label-align">이용권 이름
 											</label>
@@ -100,11 +107,9 @@
 										<div class="item form-group">
 											<label class="col-form-label col-md-3 col-sm-3 label-align">횟수/요일
 											</label>
-											<div class="col-md-6 col-sm-6 ">
 												<div class="col-md-6 col-sm-6 ">
 													<input type="text" name="sub_use_condition" id="condition" class="form-control " readonly="readonly"/>
 												</div>
-											</div>
 										</div>
 												
 										<div class="ln_solid"></div>

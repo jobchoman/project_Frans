@@ -44,7 +44,9 @@ public interface UserDAO {
 
 	void userState(UserDTO client_idx);
 
-	void userShop(String shop_idx);
+	String userShop(String emp_id);
+
+	UserDTO shopSearch(String emp_id);
 
 //	void subscribe(HashMap<String, String> params);
 //

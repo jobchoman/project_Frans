@@ -54,8 +54,9 @@
 		select * from client
 	</select>
 	
-	<insert id="subUser" parameterType="hashmap">
-		insert into sub_use (client_id,sub_idx,sub_use_start,sub_use_end,sub_use_condition) values(#{client_id},#{sub_idx},#{sub_use_start},#{sub_use_end},#{sub_use_condition})
+	<insert id="subUser" parameterType="hashmap" useGeneratedKeys="true" keyColumn="shop_idx" keyProperty="shop_idx">
+		insert into sub_use (client_id,sub_idx,sub_use_start,sub_use_end,sub_use_condition,sub_use_state,shop_idx) 
+		values(#{client_id},#{sub_idx},#{sub_use_start},#{sub_use_end},#{sub_use_condition},1,#{shop_idx})
 	</insert>
 	
 	<select id="subUserDetail" resultType="com.frans.member.dto.UserDTO" parameterType="String">
@@ -79,11 +80,17 @@
 		where client_id = #{client_id}
 	</update>
 	
-	<update id="userState" parameterType="com.frans.member.dto.UserDTO">
-		update client set client_state = 1 where client_id = #{client_id} 
-	</update>
+<!-- 	<update id="userState" parameterType="com.frans.member.dto.UserDTO"> -->
+<!-- 		update client set client_state = 1 where client_id = #{client_id}  -->
+<!-- 	</update> -->
 	
-	<select id="userShop" parameterType="com.frans.member.dto.UserDTO" resultType="String">
+	<select id="userShop" parameterType="String" resultType="com.frans.member.dto.UserDTO">
+		select s.shop_idx,s.shop_name 
+		from shop s, employee e
+		where s.emp_id = e.emp_id and e.emp_id = #{emp_id}
+	</select>
+	
+	<select id="shopSearch" parameterType="String" resultType="com.frans.member.dto.UserDTO">
 		select s.shop_idx,s.shop_name 
 		from shop s, employee e
 		where s.emp_id = e.emp_id and e.emp_id = #{emp_id}
