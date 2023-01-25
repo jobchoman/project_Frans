@@ -35,14 +35,14 @@ public class MessageService {
 
 	public ModelAndView msgListGo(String loginId) {
 		ModelAndView mav = new ModelAndView("msgList");
-		ArrayList<MemberDTO> memberlist = signdao.memberList();
+		ArrayList<MemberDTO> memberlist = signdao.membermsgList();
 		mav.addObject("memberlist",memberlist);
 		return mav;
 	}
 	
 	public ModelAndView msgSendListGo(String loginId) {
 		ModelAndView mav = new ModelAndView("msgSendList");
-		ArrayList<MemberDTO> memberSendlist = signdao.memberList();
+		ArrayList<MemberDTO> memberSendlist = signdao.membermsgList();
 		mav.addObject("memberlist",memberSendlist);
 		return mav;
 	}

@@ -329,7 +329,7 @@ td > a{
 								</table>
                         </div>
                          <div class="modal-footer">
-                           <button id="delModalBtn" type="button" class="btn btn-primary" onclick="msgBoxListCall()" data-dismiss="modal">확인</button>
+                           <button id="delModalBtn" type="button" class="btn btn-primary" onclick="msgList()" data-dismiss="modal">확인</button>
                          </div>
                      </div>
                   </div>
@@ -344,6 +344,9 @@ td > a{
 	<jsp:include page="script.jsp" />
 </body>
 <script>
+function msgList() {
+	msgBoxListCall();
+}
 console.log("시작1");
 const detailReview = document.querySelector('textarea[name="msg_content"]');
 detailReview.addEventListener("keyup", e => {
@@ -525,6 +528,7 @@ function msgBoxListCall() {
 				"dom": 'frtp',
 				aaSorting : [],
 				serverSide : false,
+				bAutoWidth: false,
 				ajax : {
 					"url" : "/msg/msgListBox.ajax",
 					"type" : "get",
@@ -571,7 +575,19 @@ function msgBoxListCall() {
 							data : "msg_date"
 						},
 						{
-							data : "message_time", "defaultContent": "읽지않음"
+							data : "message_time",
+								"render" : function(data, type, row) {
+									var message_time = row.message_time;
+							if (type == 'display') {
+									if(message_time == null){
+										message_time = '<span style="color: red">읽지않음</span>'
+									}
+									
+									data = message_time;
+									
+							}
+							return data;
+						}
 						}
 						
 					],

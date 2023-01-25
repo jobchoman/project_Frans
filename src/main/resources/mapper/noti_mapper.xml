@@ -11,7 +11,7 @@ where n.emp_id = e.emp_id  and nb.emp_id = #{param1} and nb.noti_idx = n.noti_id
 	
 	<select id="notiListBox" resultType="NotiDTO">
 		select n.emp_id,e.emp_name, n.noti_type, n.noti_hour, nb.no_check, nb.no_date,n.noti_pk,nb.noti_idx from notification n, employee e,noti_box nb 
-where n.emp_id = e.emp_id  and nb.emp_id = #{param1} and nb.noti_idx = n.noti_idx order by n.noti_idx desc
+where n.emp_id = e.emp_id  and nb.emp_id = #{param1} and nb.noti_idx = n.noti_idx order by nb.no_check desc,n.noti_idx desc
 	</select>
 	
 	<delete id="notiDelete">

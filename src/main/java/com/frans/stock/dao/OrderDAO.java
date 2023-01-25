@@ -47,6 +47,8 @@ public interface OrderDAO {
 
 	void orderInsert(String stock_idx, String shop_idx, String shop_stock_amount);
 
+	String shopOwner(String shop_idx);
+
 //	ArrayList<StockDTO> subList(String stock_sort_idx);
 
 

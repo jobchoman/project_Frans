@@ -13,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.frans.main.dao.NotiDAO;
+import com.frans.main.dto.NotiDTO;
 import com.frans.stock.dao.OrderDAO;
 import com.frans.stock.dao.StockDAO;
 import com.frans.stock.dto.StockDTO;
@@ -22,6 +24,7 @@ public class OrderService {
 	
 	Logger logger = LoggerFactory.getLogger(getClass());
 	@Autowired OrderDAO orderdao;
+	@Autowired NotiDAO notidao;
 
 	public ArrayList<StockDTO> foodList(String stock_sort_idx, String emp_id) {
 		
@@ -33,7 +36,16 @@ public class OrderService {
 //	}
 
 	public void shopOrder(String stock_idx, String order_amount, String shop_idx) {
-		orderdao.shopOrder(stock_idx,order_amount,shop_idx);
+		/*
+		 * NotiDTO notidto = new NotiDTO(); String noti_type = "발주"; String shopOwner =
+		 * orderdao.shopOwner(shop_idx); if(shopOwner != null && shopOwner != "") { int
+		 * noti_pk = Integer.parseInt(shop_idx); notidto.setEmp_id(shopOwner);
+		 * notidto.setNoti_pk(noti_pk); notidto.setNoti_type(noti_type); // 알림 noti 추가 }
+		 * String noti_idx = notidto.getNoti_idx(); logger.info("발주 noti : "+noti_idx);
+		 * String signEmp = "19910923"; if(noti_idx != null && noti_idx != "") {
+		 * notidao.notiBoxInsert(noti_idx, signEmp); }
+		 */
+		orderdao.shopOrder(stock_idx,order_amount,shop_idx);	
 		
 	}
 

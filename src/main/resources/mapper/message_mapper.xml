@@ -21,13 +21,13 @@
 	<select id="msgList" resultType="MessageDTO">
 		SELECT mb.msg_idx,e.emp_name, m.msg_content, m.msg_date, (select count(msg_idx) from message_box mb2 
 where message_state='읽지않음' and mb2.emp_id=mb.emp_id) as msg_count from message m, message_box mb, employee e 
-where m.emp_id = e.emp_id and mb.msg_idx = m.msg_idx and mb.emp_id = #{param1} and mb.message_state='읽지않음' order by m.msg_date desc
+where m.emp_id = e.emp_id and mb.msg_idx = m.msg_idx and mb.emp_id = #{param1} and mb.message_state='읽지않음' order by mb.message_state desc, m.msg_date desc
 	</select>
 	
 	
 	<select id="msgListBox" resultType="MessageDTO">
 		SELECT e.emp_name, m.msg_content, m.msg_date, mb.message_time,mb.msg_idx from message m, message_box mb, employee e 
-where m.emp_id = e.emp_id and mb.msg_idx = m.msg_idx and mb.emp_id = #{param1} ORDER by m.msg_date desc, mb.message_time
+where m.emp_id = e.emp_id and mb.msg_idx = m.msg_idx and mb.emp_id = #{param1} ORDER by mb.message_state desc, m.msg_date desc, mb.message_time
 	</select>
 	
 	<select id="msgListDetail" resultType="MessageDTO">

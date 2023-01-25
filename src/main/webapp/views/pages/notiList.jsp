@@ -47,6 +47,10 @@
 .nav_menu {
      margin-bottom: 0;
 }
+
+#notiListBox{
+	text-align: center;
+}
 </style>
 </head>
 <body class="nav-md">
@@ -89,12 +93,12 @@
 
 			
 												</table>
-												<div id="listBtn">
+												<div id="listBtn" >
 												<button onclick = "$('#secondmodal').modal()" type="button" class="btn btn-round btn-info"
 										id="delButton" value="">삭제</button></div>
 											</form>
 											
-										</div>			
+										</div >			
 									</div>
 								</div>
 							</div>
@@ -175,13 +179,13 @@ function notiListCall() {
 										var noti_type = row.noti_type;
 								if (type == 'display') {
 										if(row.noti_type == '결재'){
-											row.noti_type = '결재 알림입니다.'
+											row.noti_type = '<span style="color: #3530C9">결재 알림입니다.<span>'
 										}else if(row.noti_type == '참조'){
-											row.noti_type = '참조 알림입니다.'
+											row.noti_type = '<span>참조 알림입니다.<span>'
 										}else if(row.noti_type == '결재완료'){
-											row.noti_type = '결재가 완료되었습니다.'
+											row.noti_type = '<span style="color: #1D8B15">결재가 완료되었습니다.<span>'
 										}else if(row.noti_type == '반려'){
-											row.noti_type = '결재가 반려되었습니다.'
+											row.noti_type = '<span style="color: orange">결재가 반려되었습니다.<span>'
 										}else{
 											row.noti_type = '기타 알림입니다.'
 										}
@@ -197,7 +201,19 @@ function notiListCall() {
 							data : "noti_hour"
 						},
 						{
-							data : "no_date", "defaultContent": "읽지않음"
+							data : "no_date", 
+								"render" : function(data, type, row) {
+									var no_date = row.no_date;
+							if (type == 'display') {
+									if(no_date == null){
+										no_date = '<span style="color: red">읽지않음</span>'
+									}
+									
+									data = no_date;
+									
+							}
+							return data;
+						}
 						}
 						
 					],

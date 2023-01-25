@@ -175,6 +175,11 @@ and o2.shop_idx = o.shop_idx and o2.order_date = o.order_date) as order_state fr
 	where o.stock_idx = s.stock_idx and o.shop_idx = s2.shop_idx and s.stock_sort_idx = 1 and o.shop_idx ='SH005'
 	group by o.shop_idx, o.order_date,s.stock_sort_idx HAVING order_state <![CDATA[ < ]]> 1 order by o.order_date;
 	</select>
+	
+	<!-- 발주 알림 관련 -->
+	<select id="shopOwner" resultType="String">
+		SELECT emp_id from shop s where shop_idx = #{param1}
+	</select>
 </mapper>
 
 
