@@ -18,11 +18,13 @@
 	<!-- menu profile quick info -->
 	<div class="profile clearfix">
 		<div class="profile_pic">
-			<c:if test="${fileList.size()>0}">
-				<c:forEach items="${sessionScope.fileList}" var="path">
-					<img src="memberPhoto.do?path=${path.file_new}" class="img-circle profile_img" />
+			<%-- <c:if test="${fileList.size()>0}"> --%>
+				<c:forEach items="${fileList}" var="path">
+					<img src="/photo/${path.file_new}" class="img-circle profile_img" />
 				</c:forEach>
-			</c:if>
+					<%-- <img src="memberPhoto.do?path=${path.file_new}" class="img-circle profile_img" /> --%>
+				<%-- </c:forEach>
+			</c:if> --%>
 		</div>
 		<div class="profile_info">
 			<span>Welcome,</span>

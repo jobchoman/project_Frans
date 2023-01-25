@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.frans.member.dao.MemberDAO;
@@ -45,6 +46,9 @@ public class MemberService {
 		int power = dto.getEmp_admin_auth();
 		String team = dto.getTeam_name();
 		String enc_pw = memberDao.login(emp_id);
+		ModelAndView mav = new ModelAndView("sidebar");
+		logger.info("사이드바 이동");
+		mav.addObject("fileList",fileList);
 		
 		match = encoder.matches(emp_pw, enc_pw);
 		logger.info(emp_id+"/"+emp_pw);

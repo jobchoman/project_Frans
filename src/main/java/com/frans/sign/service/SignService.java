@@ -311,7 +311,7 @@ public class SignService {
 		String lastOrder = signdao.lastOrder(sign_idx); // 마지막 결재자
 		String loginName = signdao.loginName(loginId); // 유저 이름
 		ArrayList<signMemDTO> signDoMemCnt = signdao.signDoMemCnt(sign_idx); // 결재 순서
-		ArrayList<fileDTO> fileList = signdao.fileList(sign_idx); // 첨부파일 리스트
+		ArrayList<fileDTO> sign_fileList = signdao.fileList(sign_idx); // 첨부파일 리스트
 		ArrayList<fileDTO> orifileList = signdao.orifileList(sign_idx); // 첨부파일 oriname
 		ArrayList<fileDTO> sign_img = signdao.signImgUpdate(sign_idx); // 서명 이미지
 		
@@ -323,7 +323,7 @@ public class SignService {
 		mav.addObject("lastOrder", lastOrder);
 		mav.addObject("loginName", loginName);
 		mav.addObject("signDoMemCnt", signDoMemCnt);
-		mav.addObject("fileList",fileList);
+		mav.addObject("sign_fileList",sign_fileList);
 		mav.addObject("orifileList",orifileList);
 		mav.addObject("sign_img", sign_img);
 		mav.addObject("admin",admin_type);
@@ -360,7 +360,7 @@ public class SignService {
 	      String lastOrder = signdao.lastOrder(sign_idx);
 	      String loginName = signdao.loginName(loginId);
 	      ArrayList<signMemDTO> signDoMemCnt = signdao.signDoMemCnt(sign_idx);
-	      ArrayList<fileDTO> fileList = signdao.fileList(sign_idx);
+	      ArrayList<fileDTO> sign_fileList = signdao.fileList(sign_idx);
 	      
 	      // 알림 업데이트
 	            String emp_id = loginId;
@@ -382,7 +382,7 @@ public class SignService {
 	            mav.addObject("lastOrder", lastOrder);
 	            mav.addObject("loginName", loginName);
 	            mav.addObject("signDoMemCnt", signDoMemCnt);
-	            mav.addObject("fileList",fileList);
+	            mav.addObject("sign_fileList",sign_fileList);
 	            return mav;
 	      
 	   }
@@ -574,7 +574,7 @@ public class SignService {
         String lastOrder = signdao.lastOrder(sign_idx);
         String loginName = signdao.loginName(loginId);
         ArrayList<signMemDTO> signDoMemCnt = signdao.signDoMemCnt(sign_idx);
-        ArrayList<fileDTO> fileList = signdao.fileList(sign_idx);
+        ArrayList<fileDTO> sign_fileList = signdao.fileList(sign_idx);
         
         // 알림 업데이트
               String emp_id = loginId;
@@ -596,7 +596,7 @@ public class SignService {
               mav.addObject("lastOrder", lastOrder);
               mav.addObject("loginName", loginName);
               mav.addObject("signDoMemCnt", signDoMemCnt);
-              mav.addObject("fileList",fileList);
+              mav.addObject("sign_fileList",sign_fileList);
               return mav;
         
      }

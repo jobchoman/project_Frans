@@ -213,7 +213,7 @@
 								<tr>
 									<th scope="row">첨부파일</th>
 										<td>
-										<c:forEach items="${fileList}" var="path" varStatus="status">
+										<c:forEach items="${sign_fileList}" var="path" varStatus="status">
 											<p><a href="download.do?path=${path}">${orifileList[status.index]}</a></p>
 										</c:forEach>
 										</td>									
