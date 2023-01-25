@@ -12,7 +12,7 @@
 				AND sign_team_open = '공개'
 			</if>
 			AND s.sign_date BETWEEN DATE_ADD(NOW(), INTERVAL -2 WEEK ) AND NOW()
-			ORDER BY ss.sign_state_type DESC, sign_idx
+			ORDER BY ss.sign_state_type DESC, sign_date desc
 	</select>
 	
 	<select id="selTeam" resultType="com.frans.member.dto.MemberDTO">
@@ -27,7 +27,7 @@
 			<if test="auth_type == '1'.toString()">
 				AND sign_team_open = '공개'
 			</if>
-			AND s.sign_date BETWEEN #{param1} AND DATE_ADD(#{param2}, INTERVAL 1 DAY) ORDER BY ss.sign_state_type DESC, sign_idx
+			AND s.sign_date BETWEEN #{param1} AND DATE_ADD(#{param2}, INTERVAL 1 DAY) ORDER BY ss.sign_state_type DESC, sign_date desc
 	</select>
 	
 	<!-- <select id="auth_team" resultType="String">
