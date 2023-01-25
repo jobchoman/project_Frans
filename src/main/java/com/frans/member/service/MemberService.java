@@ -102,9 +102,6 @@ public class MemberService {
 					}else if(emp_career_idx[i].equals("경력")){
 						memberDao.joinCareer(emp_career_idx[i],emp_school_name[i],emp_department[i],emp_career_start[i],emp_career_end[i],emp_id,emp_career_etc[i],emp_degree[i]);
 						logger.info("경력개수:"+emp_career_idx[i].length());
-					}else {
-						memberDao.joinCareer(emp_career_idx[i],emp_school_name[i],emp_department[i],emp_career_start[i],emp_career_end[i],emp_id,emp_career_etc[i],emp_degree[i]);
-						logger.info("경력개수:"+emp_career_idx[i].length());
 					}
 				}
 				logger.info("career idx : {},{},{}",emp_school_name[i],emp_career_idx[i],emp_career_etc[i]);

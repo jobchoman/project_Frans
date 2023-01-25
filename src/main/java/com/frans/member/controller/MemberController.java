@@ -305,7 +305,7 @@ public class MemberController {
 		String emp_id = (String) session.getAttribute("loginId");
 		memberService.updatePw(params,emp_id);
 		
-		return "redirect:/myPage.go?emp_id="+emp_id;
+		return "redirect:/memberMyPage.go?emp_id="+emp_id;
 	}
 	
 	@ResponseBody

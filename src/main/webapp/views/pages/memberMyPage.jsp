@@ -33,6 +33,15 @@
 .item > label {
 	font-weight: bold;
 }
+
+.nam{
+	background-color:#2A3F54;
+    border-color:#2A3F54;
+    font-size: 8pt;
+}
+.ghl{
+    font-size: 8pt;
+}
 </style>
 </head>
 <body class="nav-md">
@@ -79,7 +88,7 @@
 											<label class="col-form-label col-md-3 col-sm-3 label-align">아이디
 											</label>
 											<div class="col-md-6 col-sm-6 ">
-												${mem.emp_id}
+												<input type="text" id="id" name="emp_id" required="required" value="${mem.emp_id}" class="form-control " readonly="readonly">
 											</div>
 										</div>
 										<div class="item form-group">
@@ -93,49 +102,49 @@
 											<label class="col-form-label col-md-3 col-sm-3 label-align">이름
 											</label>
 											<div class="col-md-6 col-sm-6 ">
-												${mem.emp_name}
+												<input type="text" name="emp_name" required="required" value="${mem.emp_name}" class="form-control " readonly="readonly">
 											</div>
 										</div>
 										<div class="item form-group">
 											<label class="col-form-label col-md-3 col-sm-3 label-align">생년월일
 											</label>
 											<div class="col-md-6 col-sm-6 ">
-												${mem.emp_birth}
+												<input type="text" name="emp_birth" required="required" value="${mem.emp_birth}" class="form-control " readonly="readonly">
 											</div>
 										</div>
 										<div class="item form-group">
 											<label class="col-form-label col-md-3 col-sm-3 label-align">성별
 											</label>
 											<div class="col-md-6 col-sm-6 ">
-												${mem.emp_gender}
+												<input type="text" name="emp_gender" required="required" value="${mem.emp_gender}" class="form-control " readonly="readonly">
 											</div>
 										</div>
 										<div class="item form-group">
 											<label class="col-form-label col-md-3 col-sm-3 label-align">연락처
 											</label>
 											<div class="col-md-6 col-sm-6 ">
-												${mem.emp_phone}
+												<input type="text" name="emp_phone" required="required" value="${mem.emp_phone}" class="form-control " readonly="readonly">
 											</div>
 										</div>
 										<div class="item form-group">
 											<label class="col-form-label col-md-3 col-sm-3 label-align">이메일
 											</label>
 											<div class="col-md-6 col-sm-6 ">
-												${mem.emp_email}
+												<input type="text" name="emp_email" required="required" value="${mem.emp_email}" class="form-control " readonly="readonly">
 											</div>
 										</div>
 										<div class="item form-group">
 											<label class="col-form-label col-md-3 col-sm-3 label-align">주소
 											</label>
 											<div class="col-md-6 col-sm-6 ">
-												${mem.emp_address}
+												<input type="text" name="emp_address" required="required" value="${mem.emp_address}" class="form-control " readonly="readonly">
 											</div>
 										</div>
 										<div class="item form-group">
 											<label class="col-form-label col-md-3 col-sm-3 label-align">입사일
 											</label>
 											<div class="col-md-6 col-sm-6 ">
-												${mem.emp_hire_date}
+												<input type="text" name="emp_hire_date" required="required" value="${mem.emp_hire_date}" class="form-control " readonly="readonly">
 											</div>
 										</div>
 										<div>
@@ -262,15 +271,68 @@
 													</c:forEach>
 												</c:if>
 											</div>
-										</div>									
+										</div>		
+										<div class="item form-group">
+										<label class="col-form-label col-md-3 col-sm-3 label-align">히스토리
+											</label>
+											<div class="col-md-6 col-sm-6 ">
+												<button type="button" class="btn btn-round btn-info nam" onclick="hist(event)">변경 히스토리</button>
+											</div>
+										</div>								
 									
 										<div class="ln_solid"></div>
 										<div class="item form-group" style="float: right;">
 											
-												<button type="button" class="btn btn-round btn-info" id="but" onclick="location.href='myPageUpdate.go?emp_id=${sessionScope.loginId}'" class="btn btn-success">수정하기</button>
+												<button type="button" class="btn btn-round btn-info nam" id="but" onclick="location.href='myPageUpdate.go?emp_id=${sessionScope.loginId}'" class="btn btn-success">수정하기</button>
 											
 										</div>
+				<!-- modal -->
+				<div class="modal fade bs-example-modal-lg" id="hist" tabindex="-1" role="dialog" aria-hidden="true">
+					<div class="modal-dialog modal-lg">
+	  					<div class="modal-content">
+	  						<div class="modal-header">
+	     						<h5 class="modal-title" id="subSearchLabel">팀/직급/직책 히스토리</h5>
+	     						<input type="hidden" >
+	      						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+	    					</div>
+							<div class="modal-body">
+							<div class="card-box table-responsive">
+								<select id="sel" name="sel" onchange="changeSel(this)">
+									<option value="전체">전체</option>
+									<option value="팀">팀</option>
+									<option value="직급">직급</option>
+									<option value="직책">직책</option>
+								</select>
+								<table id="datatable" class="table table-striped table-bordered" style="width:100%">
+									<thead>
+										<tr>
+											<th>변경날짜</th>
+											<th>변경사항</th>
+											<th>사유</th>
+											<th>구분</th>
+										</tr>
+									</thead>
+<!-- 									<tbody id="list"> -->
+<%-- 									<c:forEach items="${hist}" var="hist"> --%>
+<!-- 										<tr class = "memberlistTr" >				 -->
+<%-- 											<td>${hist.change_date}</td> --%>
+<%-- 											<td>${hist.changes}</td> --%>
+<%-- 											<td>${hist.change_reason}</td> --%>
+<%-- 											<td>${hist.change_division}</td> --%>
+<!-- 										</tr> -->
+<%-- 									</c:forEach> --%>
+<!-- 									</tbody> -->
+								</table>
+							</div>
 
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-primary nam" data-dismiss="modal">확인</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- /modal -->
 								</div>
 							</div>
 						</div>
@@ -296,6 +358,48 @@ if(msg != ""){
 	alert(msg);
 }
 
+function hist(event){
+	console.log(document.getElementById("hist"));
+	empInputIdx = event.target.id;
+	console.log(empInputIdx);
+	
+	$('#hist').modal('show');
+	
+}
+changeSel(sel);
+function changeSel(sel){
+	var com = $("#sel").val();
+	var id = $("#id").val();
+	console.log(id);
+	console.log(com);
+	var table = $("#datatable").DataTable({
+			destroy:true,
+			serverSide:false,
+			"dom": 'frtp',
+			ajax:{
+				"url":"/memberTeamList.ajax",
+				"type":"get",
+				"data":{"com":com,"emp_id":id}
+			},
+			columns:[
+				{data:"change_date"},
+				{data:"changes"},
+				{data:"change_reason"},
+				{data:"change_division"}
+			],
+	        columnDefs: [{
+	        	
+			targets : [ 0 ],
+
+			searchable : true,
+
+			visible : true     
+
+	        }]
+
+		});
+	
+};
 
 
 
