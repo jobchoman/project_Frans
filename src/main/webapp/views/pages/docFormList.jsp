@@ -95,7 +95,7 @@
 			<div class="right_col addWrap" role="main">
 			<div id="docformdiv" style="white-space: nowrap">
 			<div class="table-responsive">
-				<div style="width:100%"><h3 style="float:left">결재 문서 양식</h3></div>
+				<div style="width:100%"><h3 style="float:left">결재 문서 서식</h3></div>
 				<br/><br/>
 				<input type="hidden" value="${auth_type}" id="auth_type"/>
 						<div>

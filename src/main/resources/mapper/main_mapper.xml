@@ -13,7 +13,7 @@
 	</select>
 	
 	<select id="menuList" resultType="MenuDTO">
-		SELECT menu_idx, menu_name, menu_price, menu_start, menu_photo FROM menu WHERE menu_state NOT IN ('비활성화') AND menu_idx NOT IN ('ME022') ORDER BY menu_idx desc LIMIT 3
+		SELECT menu_idx, menu_name, menu_price, menu_start, menu_photo FROM menu WHERE menu_state NOT IN ('비활성화') AND menu_idx NOT IN ('ME022') ORDER BY menu_idx desc LIMIT 10
 	</select>
 	
 	<select id="msgListBox" resultType="MessageDTO">
