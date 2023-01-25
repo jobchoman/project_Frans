@@ -143,14 +143,14 @@
                                              			</c:forEach>                          			
                                           			</select>
 												
-													<div id="menuTags" style="border: 1px solid #D3D3D3; width: 300px; min-height:100px; padding-left: 3%; padding-top: 2%;"></div>
+													<div id="menuTags" style="border: 1px solid #D3D3D3; width: 300px; min-height:100px; padding-left: 3%; padding-top: 2%;" ></div>
 												<!-- </div> -->
 											</div>
 										</div>
 										<div class="item form-group">
 											<label class="col-form-label col-md-3 col-sm-3 label-align">기간 <span class="required">*</span></label> 
-											<div class="col-md-6 col-sm-6 ">
-												<select name="sub_period" class="form-control ">
+											<div class="col-md-6 col-sm-6 " >
+												<select name="sub_period" class="form-control " required="required">
                                              		<option value="" selected="selected">선택하기</option>
                                              		<option value="1">1개월</option>
                                              		<option value="2">2개월</option>
@@ -238,8 +238,11 @@
 	<jsp:include page="script.jsp" />
 </body>
 <script>
+
+
 $(function() {
 	$('#subRigist').click(function(){
+		
 		if(!confirm('구독권 등록을 하시겠습니까?')) {
 			return false;
 		}

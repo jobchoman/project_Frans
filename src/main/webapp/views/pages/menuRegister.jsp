@@ -102,7 +102,7 @@
 										<div class="item form-group"  style="justify-content: center">
 											<label class="col-form-label col-md-3 col-sm-3 label-align">
 												<!-- <input type="file" id="image" disabled="disabled" onchange="setThumbnail(event);"/> -->
-												<input type="file" name="uploadFile" onchange="setThumbnail(event);"/>
+												<input type="file" name="uploadFile" onchange="setThumbnail(event);" required="required"/>
 											</label>
 											
 										</div>
