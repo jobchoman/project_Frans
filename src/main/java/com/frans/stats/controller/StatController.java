@@ -7811,7 +7811,8 @@ public class StatController {
 				
 				map.put("labels", labels);
 				map.put("data", data);
-				map.put("title", year+"년 서울/경기 구독권 선호도");
+				int amount = statservice.amountSubPre1(year);
+				map.put("title", year+"년 서울/경기 구독권 선호도(총: "+amount+"명)");
 				
 			}else {
 				ArrayList<HashMap<String, Object>> list = statservice.subStatPreference2(year,month);
@@ -7823,7 +7824,8 @@ public class StatController {
 				
 				map.put("labels", labels);
 				map.put("data", data);
-				map.put("title", year+"년 "+month+"월 서울/경기 구독권 선호도");
+				int amount = statservice.amountSubPre2(year,month);
+				map.put("title", year+"년 "+month+"월 서울/경기 구독권 선호도(총: "+amount+"명)");
 				
 			}
 			
@@ -7847,7 +7849,8 @@ public class StatController {
 				map.put("labels", labels);
 				map.put("data", data);
 				String province_name = statservice.getProName(province_idx);
-				map.put("title", year+"년 "+province_name+" 구독권 선호도");
+				int amount = statservice.amountSubPre3(province_idx,year);
+				map.put("title", year+"년 "+province_name+" 구독권 선호도(총: "+amount+"명)");
 				
 			}else {
 				ArrayList<HashMap<String, Object>> list = statservice.subStatPreference4(province_idx,year,month);
@@ -7860,7 +7863,8 @@ public class StatController {
 				map.put("labels", labels);
 				map.put("data", data);
 				String province_name = statservice.getProName(province_idx);
-				map.put("title", year+"년 "+month+"월 "+province_name+" 구독권 선호도");
+				int amount = statservice.amountSubPre4(province_idx,year,month);
+				map.put("title", year+"년 "+month+"월 "+province_name+" 구독권 선호도(총: "+amount+"명)");
 				
 			}
 			
@@ -7883,7 +7887,8 @@ public class StatController {
 				map.put("data", data);
 				String province_name = statservice.getProName(province_idx);
 				String city_name = statservice.getCityName(city_idx);
-				map.put("title", year+"년 "+province_name+" - "+city_name+" 구독권 선호도");
+				int amount = statservice.amountSubPre5(city_idx,year);
+				map.put("title", year+"년 "+province_name+" - "+city_name+" 구독권 선호도(총: "+amount+"명)");
 				
 			}else {
 				ArrayList<HashMap<String, Object>> list = statservice.subStatPreference6(city_idx,year,month);
@@ -7897,7 +7902,8 @@ public class StatController {
 				map.put("data", data);
 				String province_name = statservice.getProName(province_idx);
 				String city_name = statservice.getCityName(city_idx);
-				map.put("title", year+"년 "+month+"월 "+province_name+" - "+city_name+" 구독권 선호도");
+				int amount = statservice.amountSubPre6(city_idx,year,month);
+				map.put("title", year+"년 "+month+"월 "+province_name+" - "+city_name+" 구독권 선호도(총: "+amount+"명)");
 				
 			}
 			
@@ -7922,7 +7928,8 @@ public class StatController {
 				String province_name = statservice.getProName(province_idx);
 				String city_name = statservice.getCityName(city_idx);
 				String shop_name = statservice.getShopName(shop_idx);
-				map.put("title", year+"년 "+province_name+" - "+city_name+" - "+shop_name+" 구독권 선호도");
+				int amount = statservice.amountSubPre7(shop_idx,year);
+				map.put("title", year+"년 "+province_name+" - "+city_name+" - "+shop_name+" 구독권 선호도(총: "+amount+"명)");
 				
 			}else {
 				ArrayList<HashMap<String, Object>> list = statservice.subStatPreference8(shop_idx,year,month);
@@ -7937,7 +7944,8 @@ public class StatController {
 				String province_name = statservice.getProName(province_idx);
 				String city_name = statservice.getCityName(city_idx);
 				String shop_name = statservice.getShopName(shop_idx);
-				map.put("title", year+"년 "+month+"월 "+province_name+" - "+city_name+" - "+shop_name+" 구독권 선호도");
+				int amount = statservice.amountSubPre8(shop_idx,year,month);
+				map.put("title", year+"년 "+month+"월 "+province_name+" - "+city_name+" - "+shop_name+" 구독권 선호도(총: "+amount+"명)");
 				
 			}
 			

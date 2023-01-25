@@ -1836,5 +1836,94 @@
 		SELECT shop_name FROM shop WHERE shop_idx = #{param1}
 	</select>
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<select id="amountSubPre1" resultType="int">
+		SELECT 
+			count(su.client_id) as 'subJoinCount'
+			FROM sub_use su  
+			JOIN subscribe s2 ON su.sub_idx = s2.sub_idx 
+			WHERE year(su.sub_use_start) = #{param1}
+	</select>
+	
+	<select id="amountSubPre2" resultType="int">
+		SELECT 
+			count(su.client_id) as 'subJoinCount'
+			FROM sub_use su  
+			JOIN subscribe s2 ON su.sub_idx = s2.sub_idx 
+			WHERE year(su.sub_use_start) = #{param1} and month(su.sub_use_start) = #{param2}
+	</select>
+	
+	<select id="amountSubPre3" resultType="int">
+		SELECT 
+			count(su.client_id) as 'subJoinCount'
+			FROM sub_use su
+			JOIN shop s on su.shop_idx = s.shop_idx
+			JOIN subscribe s2 ON su.sub_idx = s2.sub_idx  
+			WHERE s.province_idx = #{param1} and year(su.sub_use_start) = #{param2} 
+	</select>
+	
+	<select id="amountSubPre4" resultType="int">
+		SELECT 
+			count(su.client_id) as 'subJoinCount'
+			FROM sub_use su
+			JOIN shop s on su.shop_idx = s.shop_idx
+			JOIN subscribe s2 ON su.sub_idx = s2.sub_idx 
+			WHERE s.province_idx = #{param1} and year(su.sub_use_start) = #{param2} and month(su.sub_use_start) = #{param3}
+	</select>
+	
+	<select id="amountSubPre5" resultType="int">
+		SELECT 
+			count(su.client_id) as 'subJoinCount'
+			FROM sub_use su
+			JOIN shop s on su.shop_idx = s.shop_idx
+			JOIN subscribe s2 ON su.sub_idx = s2.sub_idx 
+			WHERE s.city_idx = #{param1} and year(su.sub_use_start) = #{param2}
+	</select>
+	
+	<select id="amountSubPre6" resultType="int">
+		SELECT 
+			count(su.client_id) as 'subJoinCount'
+			FROM sub_use su
+			JOIN shop s on su.shop_idx = s.shop_idx
+			JOIN subscribe s2 ON su.sub_idx = s2.sub_idx 
+			WHERE s.city_idx = #{param1} and year(su.sub_use_start) = #{param2} and month(su.sub_use_start) = #{param3}
+	</select>
+	
+	<select id="amountSubPre7" resultType="int">
+		SELECT 
+		count(su.client_id) as 'subJoinCount'
+		FROM sub_use su
+		JOIN shop s on su.shop_idx = s.shop_idx
+		JOIN subscribe s2 ON su.sub_idx = s2.sub_idx 
+		WHERE s.shop_idx = #{param1}
+		and year(su.sub_use_start) = #{param2}
+	</select>
+	
+	<select id="amountSubPre8" resultType="int">
+		SELECT 
+		count(su.client_id) as 'subJoinCount'
+		FROM sub_use su
+		JOIN shop s on su.shop_idx = s.shop_idx
+		JOIN subscribe s2 ON su.sub_idx = s2.sub_idx 
+		WHERE s.shop_idx = #{param1}
+		and year(su.sub_use_start) = #{param2}
+		and month(su.sub_use_start) = #{param3}
+	</select>
+	
+	
 
 </mapper>

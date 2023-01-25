@@ -335,6 +335,22 @@ public interface StatDAO {
 
 	String getShopName(String shop_idx);
 
+	int amountSubPre8(String shop_idx, String year, String month);
+
+	int amountSubPre7(String shop_idx, String year);
+
+	int amountSubPre6(String city_idx, String year, String month);
+
+	int amountSubPre5(String city_idx, String year);
+
+	int amountSubPre3(String province_idx, String year);
+
+	int amountSubPre4(String province_idx, String year, String month);
+
+	int amountSubPre1(String year);
+
+	int amountSubPre2(String year, String month);
+
 
 
 

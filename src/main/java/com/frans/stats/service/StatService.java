@@ -997,5 +997,37 @@ public class StatService {
 	public String getShopName(String shop_idx) {
 		return statdao.getShopName(shop_idx);
 	}
+
+	public int amountSubPre8(String shop_idx, String year, String month) {
+		return statdao.amountSubPre8(shop_idx,year,month);
+	}
+
+	public int amountSubPre7(String shop_idx, String year) {
+		return statdao.amountSubPre7(shop_idx,year);
+	}
+
+	public int amountSubPre6(String city_idx, String year, String month) {
+		return statdao.amountSubPre6(city_idx,year,month);
+	}
+
+	public int amountSubPre5(String city_idx, String year) {
+		return statdao.amountSubPre5(city_idx,year);
+	}
+
+	public int amountSubPre3(String province_idx, String year) {
+		return statdao.amountSubPre3(province_idx,year);
+	}
+
+	public int amountSubPre4(String province_idx, String year, String month) {
+		return statdao.amountSubPre4(province_idx,year,month);
+	}
+
+	public int amountSubPre1(String year) {
+		return statdao.amountSubPre1(year);
+	}
+
+	public int amountSubPre2(String year, String month) {
+		return statdao.amountSubPre2(year,month);
+	}
 	
 }

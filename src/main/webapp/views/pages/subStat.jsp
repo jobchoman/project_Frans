@@ -240,7 +240,7 @@
 <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
 
 </head>
-<body class="nav-md" style="min-height:1450px;" >
+<body class="nav-md" style="min-height:1700px;" >
 	<div class="container body">
 		<div class="main_container">
 			<div class="col-md-3 left_col"><jsp:include page="sidebar.jsp" /></div>
@@ -313,23 +313,15 @@
                     </div>
                   </div>
 				
+				<br><br>
+				<div class="col-md-9 col-sm-9 " style="border: 1px solid black;">
 				
-				<div class="col-md-9 col-sm-9 ">
-					<div class="item form-group" style="white-space: nowrap; width:100%">
-					<div class="statoption" id="province" data-toggle="modal" data-target=".provinceModal" style="min-height: 30px; cursor: pointer;" >
-						<span id="provinceTitle">시도</span>
-					</div>
-					<div id="pro_idx"></div>
-					<div class="statoption" id="city" data-toggle="modal" data-target=".cityModal" style="min-height: 30px; cursor: pointer;">
-						<span id="cityTitle">시군구</span>
-					</div>
-					<div id="ci_idx"></div>
-					<div class="statoption" id="shop" data-toggle="modal" data-target=".shopModal" style="min-height: 30px; cursor: pointer;">
-						<span id="shopTitle">매장</span>
-					</div>
-					<div id="sh_idx"></div>
-					<div class="statoption" id="year" style="width:25%">
-						<div style="float:right;">
+					<h2 style="float:left">구독권 통계 <small> - 성별</small></h2>
+					
+				    
+					<div class="item form-group" style="white-space: nowrap; width:100%; border-top: 1px solid #A6A6A6; border-bottom: 1px solid #A6A6A6;">
+					<div class="statoption" id="year" style="width:10%; padding-right: 0px;">
+						<div style="float:left;">
 				          <select name="year" class="form-control" style="white-space: nowrap; font-size:9pt">
 				            <option value="noYear">년도</option>
 				            <option value="2022">2022</option>
@@ -337,8 +329,8 @@
 				          </select>
 				        </div>
 				     </div>
-				     <div class="statoption" id="month" style="width:15%">
-						<div style="float:right;">
+				     <div class="statoption" id="month" style="width:10%; padding-left: 0px; padding-right: 0px;">
+						<div style="float:left;">
 				          <select name="month" class="form-control" style="white-space: nowrap; font-size:9pt">
 				            <option value="noMonth">월</option>
 				            <option value="01">1월</option>
@@ -356,6 +348,20 @@
 				          </select>
 				        </div>
 					</div>
+					<div class="statoption" id="province" data-toggle="modal" data-target=".provinceModal" style="min-width:5%; float:left; min-height: 30px; cursor: pointer;" >
+						<span id="provinceTitle">시도</span>
+					</div>
+					<div id="pro_idx"></div>
+					<div class="statoption" id="city" data-toggle="modal" data-target=".cityModal" style="min-width:5%; float:left; min-height: 30px; cursor: pointer;">
+						<span id="cityTitle">시군구</span>
+					</div>
+					<div id="ci_idx"></div>
+					<div class="statoption" id="shop" data-toggle="modal" data-target=".shopModal" style="min-width:5%; float:left; min-height: 30px; cursor: pointer;">
+						<span id="shopTitle">매장</span>
+					</div>
+					<div id="sh_idx"></div>
+					
+				     
 					<div class="statoption" style="min-height: 30px; width:10%; margin-left:3%">
 						<div class="radio" style="float:left;">
 							<label>
@@ -376,7 +382,7 @@
 							</label>
 						</div>
 					</div>
-					<div class="statoption" style="min-height: 30px;">
+					<div class="statoption" style="min-height: 30px; width:10%;">
 					
 					<div style="width:10%">
 						<div class="radio" style="float:left;">
@@ -415,24 +421,16 @@
 
 			
                 <div class="x_panel">
-                  <div class="x_title">
-                    <h2>구독권 통계 <small>성별</small></h2>
+<!--                   <div class="x_title"> -->
+<!--                     <h2>구독권 통계 <small>성별</small></h2> -->
 
-                    <div class="clearfix"></div>
-                  </div>
+<!--                     <div class="clearfix"></div> -->
+<!--                   </div> -->
                   <div class="x_content1" id="graphZone" style="width:100%; height:280px;">
-                  		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<h5>옵션을 통해 그래프를 만드세요.</h5>
+                  		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<h5>옵션을 선택해서 그래프를 만드세요.</h5>
                   </div>
                 </div>
               </div>
-
-
-
-
-
-
-
-
 
 
 <!-- 			<div class="col-md-9 col-sm-9  ">
@@ -451,41 +449,7 @@
                 </div>
               </div> -->
               
-              
-              
-              
-              
-              
-              
-              
-              
-              
-              
-              
-              
-              
-              
-              
-              
-              
-              
-              
-              
-              
-              
-              
-              
-              
-              
-              
-              
-              
-              
-              
-              
-              
-              
-              
+
               <div class="modal fade provinceModal2" tabindex="-1" role="dialog" aria-hidden="true">
                     <div class="modal-dialog modal-sm">
                       <div class="modal-content">
@@ -545,31 +509,22 @@
                     </div>
                   </div>
 				
+				<br><br><br><br><br>
+				<div class="col-md-9 col-sm-9" style="border: 1px solid black;">
 				
-				<div class="col-md-9 col-sm-9 ">
-					<div class="item form-group" style="white-space: nowrap; width:100%">
-					<div class="statoption2" id="province2" data-toggle="modal" data-target=".provinceModal2" style="min-height: 30px; cursor: pointer;" >
-						<span id="provinceTitle2">시도</span>
-					</div>
-					<div id="pro_idx2"></div>
-					<div class="statoption2" id="city2" data-toggle="modal" data-target=".cityModal2" style="min-height: 30px; cursor: pointer;">
-						<span id="cityTitle2">시군구</span>
-					</div>
-					<div id="ci_idx2"></div>
-					<div class="statoption2" id="shop2" data-toggle="modal" data-target=".shopModal2" style="min-height: 30px; cursor: pointer;">
-						<span id="shopTitle2">매장</span>
-					</div>
-					<div id="sh_idx2"></div>
-					<div class="statoption2" id="year2" style="width:25%"> 
-						<div style="float:right;">
+				<h2 style="float:left; font-weight: bold;">구독권 통계 <small> - 나이</small></h2><br>
+				
+					<div class="item form-group" style="white-space: nowrap; width:100%; border-top: 1px solid #A6A6A6; border-bottom: 1px solid #A6A6A6;">
+					<div class="statoption2" id="year2" style="width:10%; padding-right: 0px;"> 
+						<div style="float:left;">
 				          <select name="year2" class="form-control" style="white-space: nowrap; font-size:9pt">
 				            <option value="2022">2022</option>
 				            <option value="2023">2023</option>
 				          </select>
 				        </div>
 				     </div>
-				     <div class="statoption2" id="month2" style="width:15%">
-						<div style="float:right;">
+				     <div class="statoption2" id="month2" style="width:10%; padding-left: 0px; padding-right: 0px;">
+						<div style="float:left;">
 				          <select name="month2" class="form-control" style="white-space: nowrap; font-size:9pt">
 				            <option value="noMonth">월</option>
 				            <option value="01">1월</option>
@@ -587,6 +542,19 @@
 				          </select>
 				        </div>
 					</div>
+					<div class="statoption2" id="province2" data-toggle="modal" data-target=".provinceModal2" style="min-width:5%; float:left; min-height: 30px; cursor: pointer;" >
+						<span id="provinceTitle2">시도</span>
+					</div>
+					<div id="pro_idx2"></div>
+					<div class="statoption2" id="city2" data-toggle="modal" data-target=".cityModal2" style="min-width:5%; float:left; min-height: 30px; cursor: pointer;">
+						<span id="cityTitle2">시군구</span>
+					</div>
+					<div id="ci_idx2"></div>
+					<div class="statoption2" id="shop2" data-toggle="modal" data-target=".shopModal2" style="min-width:5%; float:left; min-height: 30px; cursor: pointer;">
+						<span id="shopTitle2">매장</span>
+					</div>
+					<div id="sh_idx2"></div>
+					
 					
 					<div class="statoption2" style="min-height: 30px; width:10%; margin-left:3%">
 						<div class="radio" style="float:left;">
@@ -622,37 +590,19 @@
 				</div>	
 			
                 <div class="x_panel">
-                  <div class="x_title">
-                    <h2>구독권 통계 <small>나이</small></h2>
+<!--                   <div class="x_title"> -->
+<!--                     <h2>구독권 통계 <small>나이</small></h2> -->
 
-                    <div class="clearfix"></div>
-                  </div>
+<!--                     <div class="clearfix"></div> -->
+<!--                   </div> -->
                   <div class="x_content1" id="graphZone2" style="width:100%; height:280px;">
-                  		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<h5>옵션을 통해 그래프를 만드세요.</h5>
+                  		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<h5>옵션을 선택해서 그래프를 만드세요.</h5>
                   </div>
                 </div>
               </div>
               
               
-              
-              
-              
-              
-              
-              
-              
-              
-              
-              
-              
-              
-              
-              
-              
-              
-              
-              
-              
+
               
               
               
@@ -715,31 +665,20 @@
                     </div>
                   </div>
 				
-				
-				<div class="col-md-9 col-sm-9 ">
-					<div class="item form-group" style="white-space: nowrap; width:100%">
-					<div class="statoption3" id="province3" data-toggle="modal" data-target=".provinceModal3" style="min-height: 30px; cursor: pointer;" >
-						<span id="provinceTitle3">시도</span>
-					</div>
-					<div id="pro_idx3"></div>
-					<div class="statoption3" id="city3" data-toggle="modal" data-target=".cityModal3" style="min-height: 30px; cursor: pointer;">
-						<span id="cityTitle3">시군구</span>
-					</div>
-					<div id="ci_idx3"></div>
-					<div class="statoption3" id="shop3" data-toggle="modal" data-target=".shopModal3" style="min-height: 30px; cursor: pointer;">
-						<span id="shopTitle3">매장</span>
-					</div>
-					<div id="sh_idx3"></div>
-					<div class="statoption3" id="year3" style="width:25%">
-						<div style="float:right;">
+				<br><br><br><br><br>
+				<div class="col-md-9 col-sm-9 " style="border: 1px solid black;">
+				<h2 style="float:left; font-weight: bold;">구독권 통계 <small> - 구독권 선호도</small></h2><br>
+					<div class="item form-group" style="white-space: nowrap; width:100%; border-top: 1px solid #A6A6A6; border-bottom: 1px solid #A6A6A6;">
+					<div class="statoption3" id="year3" style="width:10%; padding-right: 0px;">
+						<div style="float:left;">
 				          <select name="year3" class="form-control" style="white-space: nowrap; font-size:9pt">
 				            <option value="2022">2022</option>
 				            <option value="2023">2023</option>
 				          </select>
 				        </div>
 				     </div>
-				     <div class="statoption3" id="month3" style="width:15%">
-						<div style="float:right;">
+				     <div class="statoption3" id="month3" style="width:10%; padding-left: 0px; padding-right: 0px;">
+						<div style="float:left;">
 				          <select name="month3" class="form-control" style="white-space: nowrap; font-size:9pt">
 				            <option value="noMonth">월</option>
 				            <option value="01">1월</option>
@@ -757,21 +696,34 @@
 				          </select>
 				        </div>
 					</div>
+					<div class="statoption3" id="province3" data-toggle="modal" data-target=".provinceModal3" style="min-width:5%; float:left; min-height: 30px; cursor: pointer;" >
+						<span id="provinceTitle3">시도</span>
+					</div>
+					<div id="pro_idx3"></div>
+					<div class="statoption3" id="city3" data-toggle="modal" data-target=".cityModal3" style="min-width:5%; float:left; min-height: 30px; cursor: pointer;">
+						<span id="cityTitle3">시군구</span>
+					</div>
+					<div id="ci_idx3"></div>
+					<div class="statoption3" id="shop3" data-toggle="modal" data-target=".shopModal3" style="min-width:5%; float:left; min-height: 30px; cursor: pointer;">
+						<span id="shopTitle3">매장</span>
+					</div>
+					<div id="sh_idx3"></div>
+					
 					
 					<div class="statoption3" style="min-height: 30px; margin-right: 10%">
-						<button type="button"  onclick="makeChart3();" class="btn btn-round btn-secondary" id="makeChart3">차트 셍성</button>
+						<button type="button"  onclick="makeChart3();" class="btn btn-round btn-secondary" id="makeChart3">차트 생성</button>
 					</div>
 				</div>	
 
 			
                 <div class="x_panel">
-                  <div class="x_title">
-                    <h2>구독권 통계 <small>구독권 선호도</small></h2>
+<!--                   <div class="x_title"> -->
+<!--                     <h2>구독권 통계 <small>구독권 선호도</small></h2> -->
 
-                    <div class="clearfix"></div>
-                  </div>
+<!--                     <div class="clearfix"></div> -->
+<!--                   </div> -->
                   <div class="x_content1" id="graphZone3" style="width:100%; height:280px;">
-                  		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<h5>옵션을 통해 그래프를 만드세요.</h5>
+                  		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<h5>옵션을 선택해서 그래프를 만드세요.</h5>
                   </div>
                 </div>
               </div>
