@@ -45,7 +45,7 @@ white-space:nowrap;
 }
 
 *{
-	font-family: 'Nanum Gothic', sans-serif;
+   font-family: 'NanumSquareRound', sans-serif;
 }
 </style>
 
