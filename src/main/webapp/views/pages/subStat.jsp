@@ -235,6 +235,11 @@
 		justify-content: left;
    		display: flex;
 	}
+	.col-md-9 {
+		padding: 20px 40px;
+		flex: 0 0 80%;
+		max-width: 80%;
+	}
 </style>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@3.0.0/dist/chart.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
@@ -314,12 +319,12 @@
                   </div>
 				
 				<br><br>
-				<div class="col-md-9 col-sm-9 " style="border: 1px solid black;">
+				<div class="col-md-9 col-sm-9 " style="border: 1px solid lightgray;">
 				
-					<h2 style="float:left">구독권 통계 <small> - 성별</small></h2>
+					<h2 style="float:left; font-weight: bold;">구독권 통계 <small> - 성별</small></h2>
 					
 				    
-					<div class="item form-group" style="white-space: nowrap; width:100%; border-top: 1px solid #A6A6A6; border-bottom: 1px solid #A6A6A6;">
+					<div class="item form-group" style="white-space: nowrap; width:100%; border-top: 1px solid lightgray; border-bottom: 1px solid lightgray;">
 					<div class="statoption" id="year" style="width:10%; padding-right: 0px;">
 						<div style="float:left;">
 				          <select name="year" class="form-control" style="white-space: nowrap; font-size:9pt">
@@ -510,11 +515,11 @@
                   </div>
 				
 				<br><br><br><br><br>
-				<div class="col-md-9 col-sm-9" style="border: 1px solid black;">
+				<div class="col-md-9 col-sm-9" style="border: 1px solid lightgray;">
 				
 				<h2 style="float:left; font-weight: bold;">구독권 통계 <small> - 나이</small></h2><br>
 				
-					<div class="item form-group" style="white-space: nowrap; width:100%; border-top: 1px solid #A6A6A6; border-bottom: 1px solid #A6A6A6;">
+					<div class="item form-group" style="white-space: nowrap; width:100%; border-top: 1px solid lightgray; border-bottom: 1px solid lightgray;">
 					<div class="statoption2" id="year2" style="width:10%; padding-right: 0px;"> 
 						<div style="float:left;">
 				          <select name="year2" class="form-control" style="white-space: nowrap; font-size:9pt">
@@ -666,9 +671,9 @@
                   </div>
 				
 				<br><br><br><br><br>
-				<div class="col-md-9 col-sm-9 " style="border: 1px solid black;">
+				<div class="col-md-9 col-sm-9 " style="border: 1px solid lightgray;">
 				<h2 style="float:left; font-weight: bold;">구독권 통계 <small> - 구독권 선호도</small></h2><br>
-					<div class="item form-group" style="white-space: nowrap; width:100%; border-top: 1px solid #A6A6A6; border-bottom: 1px solid #A6A6A6;">
+					<div class="item form-group" style="white-space: nowrap; width:100%; border-top: 1px solid lightgray; border-bottom: 1px solid lightgray;">
 					<div class="statoption3" id="year3" style="width:10%; padding-right: 0px;">
 						<div style="float:left;">
 				          <select name="year3" class="form-control" style="white-space: nowrap; font-size:9pt">
