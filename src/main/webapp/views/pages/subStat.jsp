@@ -796,8 +796,8 @@ function provinceListDraw(obj) {
 	$('#provinceList').empty();
 	$('#provinceList').append(content);
 	
-	
 }
+
 $('#city').click(function(){
 	console.log('시군구 클릭');
 	
@@ -1012,11 +1012,6 @@ function makeChart() {
 				}else {
 					drawDoubleBar2(data);
 				}
-				
-// 				for(var i=0; i<data.list.length; i++) {
-// 					console.log(data.list[i].province_name);
-// 				}
-
 
 			},
 			error:function(e) {
@@ -1100,34 +1095,6 @@ function drawDoubleBar(obj) {
 	
 		var chartArea = document.getElementById('mybarChart').getContext('2d');
 	
-// 		var myChart = new Chart(chartArea, {
-// 		    // ①차트의 종류(String)
-// 		    type: 'bar',
-// 		    // ②차트의 데이터(Object)
-// 		    data: {
-// 		        // ③x축에 들어갈 이름들(Array)
-// 		        labels: obj.labels,
-// 		        // ④실제 차트에 표시할 데이터들(Array), dataset객체들을 담고 있다.
-// 		        datasets: [{
-// 		            // ⑤dataset의 이름(String)
-// 		            label: '# of Votes',
-// 		            // ⑥dataset값(Array)
-// 		            data: [12, 19, 3, 5, 2, 3],	         
-// 		        }]
-// 		    },
-// 		    // ⑩차트의 설정(Object)
-// 		    options: {
-// 		        // ⑪축에 관한 설정(Object)
-// 		        scales: {
-// 		            // ⑫y축에 대한 설정(Object)
-// 		            y: {
-// 		                // ⑬시작을 0부터 하게끔 설정(최소값이 0보다 크더라도)(boolean)
-// 		                beginAtZero: true
-// 		            }
-// 		        }
-// 		    }
-// 		});
-		
 		var myChart = new Chart(chartArea, {
 	        type:'bar',
 	        data:{
@@ -1236,34 +1203,7 @@ function drawDoubleBar2(obj) {
 	console.log(obj.data2);
 	
 		var chartArea = document.getElementById('mybarChart2').getContext('2d');
-	
-// 		var myChart = new Chart(chartArea, {
-// 		    // ①차트의 종류(String)
-// 		    type: 'bar',
-// 		    // ②차트의 데이터(Object)
-// 		    data: {
-// 		        // ③x축에 들어갈 이름들(Array)
-// 		        labels: obj.labels,
-// 		        // ④실제 차트에 표시할 데이터들(Array), dataset객체들을 담고 있다.
-// 		        datasets: [{
-// 		            // ⑤dataset의 이름(String)
-// 		            label: '# of Votes',
-// 		            // ⑥dataset값(Array)
-// 		            data: [12, 19, 3, 5, 2, 3],	         
-// 		        }]
-// 		    },
-// 		    // ⑩차트의 설정(Object)
-// 		    options: {
-// 		        // ⑪축에 관한 설정(Object)
-// 		        scales: {
-// 		            // ⑫y축에 대한 설정(Object)
-// 		            y: {
-// 		                // ⑬시작을 0부터 하게끔 설정(최소값이 0보다 크더라도)(boolean)
-// 		                beginAtZero: true
-// 		            }
-// 		        }
-// 		    }
-// 		});
+
 		
 		var myChart = new Chart(chartArea, {
 	        type:'bar',
@@ -1379,43 +1319,6 @@ function drawDoughnut(obj) {
 	console.log(obj.labels);
 	var chartArea = document.getElementById('mybarChart3').getContext('2d');
 	
-/* 	var data = {
-			  labels: [
-			    'Red',
-			    'Blue',
-			    'Yellow'
-			  ],
-			  datasets: [{
-			    label: 'My First Dataset',
-			    data: [300, 50, 100],
-			    backgroundColor: [
-			      'rgb(255, 99, 132)',
-			      'rgb(54, 162, 235)',
-			      'rgb(255, 205, 86)'
-			    ],
-			    hoverOffset: 4
-			  }]
-			};
-
-			var config = {
-			  type: 'doughnut',
-			  data: data,
-			  plugins:[ChartDataLabels],
-			  options:{
-			    plugins:{
-			        datalabels: {
-			        formatter: (value) => {
-			            console.log(value);
-			          return value + '%';
-			        },
-			      },
-			    }
-			  }
-			};
-
-			var ctx = document.getElementById('mybarChart3').getContext('2d');
-
-			new Chart(ctx, config); */
 	var data = {
             datasets: [{
                 data: obj.data,
@@ -1448,121 +1351,14 @@ function drawDoughnut(obj) {
         	maintainAspectRatio :false//그래프의 비율 유지
         };
         
-        /*
-        var options = {
-        		plugins:{
-        			datalables:{
-        				formatter:(value)=>{
-        					console.log(value+'%');
-        					return value;
-        				}
-        			}
-        		}
-        };
-        */
         var myChart = new Chart(chartArea, {
             type: 'doughnut',
             data: data,
             options: options
         });
 		
-		/*
-		var myChart = new Chart(chartArea, {
-			  type: 'doughnut',
-			  data: {
-			    datasets: [
-			      {
-			        data: [10, 20, 15, 5, 50],
-			        backgroundColor: [
-			          'rgb(255, 99, 132)',
-			          'rgb(255, 159, 64)',
-			          'rgb(255, 205, 86)',
-			          'rgb(75, 192, 192)',
-			          'rgb(54, 162, 235)',
-			        ],
-			      },
-			    ],
-			    labels: ['Red', 'Orange', 'Yellow', 'Green', 'Blue'],
-			  },
-			  options: {
-			    plugins: {
-			      datalabels: {
-			        formatter: (value, chartArea) => {
-			        	console.log(value+'%')
-			          return value + '%';
-			        },
-			      },
-			    },
-			  },
-			});
-	*/
-	
-	
-// 		var myChart = new Chart(chartArea, {
-// 			animationEnabled: true,
-// 	        type:'doughnut',
-// 	        data:{
-// 	            labels:obj.labels,
-// 	            datasets:[
-// 	                {
-// 	                    data:obj.data,
-// 	                    backgroundColor: [
-// 	                        "rgba(255, 99, 132)",
-// 	                        "rgba(54, 162, 235)",
-// 	                        "rgba(255, 206, 86)",
-// 	                        "rgba(75, 192, 192)",
-// 	                      ],
-// 	                      borderColor: [
-// 	                        "rgba(255, 99, 132)",
-// 	                        "rgba(54, 162, 235)",
-// 	                        "rgba(255, 206, 86)",
-// 	                        "rgba(75, 192, 192)",
-// 	                      ],
-// 	                    borderWidth:1
-// 	                }
-// 	            ]
-// 	        },
-// 	        options: {
-// 	        	maintainAspectRatio :false,//그래프의 비율 유지
-
-// 	          },
-// 	        });
-	
-
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 function subListCall2() {
@@ -1899,62 +1695,6 @@ function makeChart2() {
 	}
 	
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 // 차트 옵션 중 시도를 클릭하면 ajax 통신을 통해 province idx와 name 리스트를 응답받음
