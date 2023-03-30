@@ -27,6 +27,7 @@
 		SELECT sub_idx, sub_name from subscribe WHERE sub_sort_idx = #{param1} and sub_state != '준비중'
 	</select>
 	
+	<!-- 	시도/시군구/매장 선택 X, 년/월 선택 X, 성별 전체, 횟수권, 요일권 선택 X, 구독권 선택 X   -->
 	<select id="subStatGender1" resultType="hashmap">
 		SELECT SUBSTR(su.sub_use_start,1,4) as 'year', count(su.client_id) as 'subJoinCount', 
 		s.province_idx, p.province_name 
@@ -37,6 +38,7 @@
 		order by year
 	</select>
 	
+	<!-- 	시도/시군구/매장 선택 X, 년/월 선택 X, 성별 전체, 횟수권, 요일권 선택 X, 구독권 선택 O -->
 	<select id="subStatGender2" resultType="hashmap">
 		SELECT SUBSTR(su.sub_use_start,1,4) as 'year', count(su.client_id) as 'subJoinCount', 
 		s.province_idx, p.province_name 
@@ -48,6 +50,7 @@
 		order by year
 	</select>
 	
+	<!-- 	시도/시군구/매장 선택 X, 년/월 선택 X, 성별 전체, 횟수권/요일권 선택 O, 구독권 선택 X   -->
 	<select id="subStatGender3" resultType="hashmap">
 		SELECT SUBSTR(su.sub_use_start,1,4) as 'year', count(su.client_id) as 'subJoinCount', 
 		s.province_idx, p.province_name 
@@ -60,6 +63,7 @@
 		order by year
 	</select>
 	
+	<!-- 	시도/시군구/매장 선택 X, 년/월 선택 X, 성별 전체, 횟수권/요일권 선택 O, 구독권 선택 O   -->
 	<select id="subStatGender4" resultType="hashmap">
 		SELECT SUBSTR(su.sub_use_start,1,4) as 'year', count(su.client_id) as 'subJoinCount', 
 		s.province_idx, p.province_name 
@@ -72,6 +76,7 @@
 		order by year
 	</select>
 	
+	<!-- 	시도/시군구/매장 선택 X, 년/월 선택 X, 성별 선택, 횟수권, 요일권 선택 X, 구독권 선택 X -->
 	<select id="subStatGender5" resultType="hashmap">
 		SELECT SUBSTR(su.sub_use_start,1,4) as 'year', count(su.client_id) as 'subJoinCount', 
 		s.province_idx, p.province_name 
@@ -83,6 +88,8 @@
 		group by year,s.province_idx 
 		order by year
 	</select>
+	
+	<!-- 	시도/시군구/매장 선택 X, 년/월 선택 X, 성별 선택, 횟수권, 요일권 선택 X, 구독권 선택 O -->
 	<select id="subStatGender6" resultType="hashmap">
 		SELECT SUBSTR(su.sub_use_start,1,4) as 'year', count(su.client_id) as 'subJoinCount', 
 		s.province_idx, p.province_name 
@@ -95,6 +102,7 @@
 		order by year
 	</select>
 	
+	<!-- 	시도/시군구/매장 선택 X, 년/월 선택 X, 성별 선택, 횟수권, 요일권 선택 O, 구독권 선택 X -->
 	<select id="subStatGender7" resultType="hashmap">
 		SELECT SUBSTR(su.sub_use_start,1,4) as 'year', count(su.client_id) as 'subJoinCount', 
 		s.province_idx, p.province_name 
@@ -108,6 +116,7 @@
 		order by year
 	</select>
 	
+	<!-- 	시도/시군구/매장 선택 X, 년/월 선택 X, 성별 선택, 횟수권, 요일권 선택 O, 구독권 선택 O -->
 	<select id="subStatGender8" resultType="hashmap">
 		SELECT SUBSTR(su.sub_use_start,1,4) as 'year', count(su.client_id) as 'subJoinCount', 
 			s.province_idx, p.province_name 
@@ -121,6 +130,7 @@
 			order by year
 	</select>
 	
+	<!-- 	시도/시군구/매장 선택 X, 년 선택 O, 월 선택 X, 성별 전체, 횟수권, 요일권 선택 X, 구독권 선택 X   -->
 	<select id="subStatGender9" resultType="hashmap">
 		SELECT SUBSTR(su.sub_use_start,1,7) as 'month', count(su.client_id) as 'subJoinCount', 
 			s.province_idx, p.province_name 
@@ -132,6 +142,7 @@
 			order by month
 	</select>
 	
+	<!-- 	시도/시군구/매장 선택 X, 년 선택 O, 월 선택 X, 성별 전체, 횟수권, 요일권 선택 X, 구독권 선택 O -->
 	<select id="subStatGender10" resultType="hashmap">
 		SELECT SUBSTR(su.sub_use_start,1,7) as 'month', count(su.client_id) as 'subJoinCount', 
 			s.province_idx, p.province_name 
@@ -143,6 +154,7 @@
 			order by month
 	</select>
 	
+	<!-- 	시도/시군구/매장 선택 X, 년 선택 O, 월 선택 X, 성별 전체, 횟수권/요일권 선택 O, 구독권 선택 X  -->
 	<select id="subStatGender11" resultType="hashmap">
 		SELECT SUBSTR(su.sub_use_start,1,7) as 'month', count(su.client_id) as 'subJoinCount', 
 			s.province_idx, p.province_name 
@@ -155,6 +167,7 @@
 			order by month
 	</select>
 	
+	<!-- 	시도/시군구/매장 선택 X, 년 선택 O, 월 선택 X, 성별 전체, 횟수권/요일권 선택 O, 구독권 선택 O  -->
 	<select id="subStatGender12" resultType="hashmap">
 		SELECT SUBSTR(su.sub_use_start,1,7) as 'month', count(su.client_id) as 'subJoinCount', 
 			s.province_idx, p.province_name 
@@ -167,6 +180,7 @@
 			order by month
 	</select>
 	
+	<!-- 	시도/시군구/매장 선택 X, 년 선택 O, 월 선택 X, 성별 선택, 횟수권, 요일권 선택 X, 구독권 선택 X  -->
 	<select id="subStatGender13" resultType="hashmap">
 		SELECT SUBSTR(su.sub_use_start,1,7) as 'month', count(su.client_id) as 'subJoinCount', 
 			s.province_idx, p.province_name 
@@ -179,6 +193,7 @@
 			order by month
 	</select>
 	
+	<!-- 	시도/시군구/매장 선택 X, 년 선택 O, 월 선택 X, 성별 선택, 횟수권, 요일권 선택 X, 구독권 선택 O -->
 	<select id="subStatGender14" resultType="hashmap">
 		SELECT SUBSTR(su.sub_use_start,1,7) as 'month', count(su.client_id) as 'subJoinCount', 
 			s.province_idx, p.province_name 
@@ -191,6 +206,7 @@
 			order by month
 	</select>
 	
+	<!-- 	시도/시군구/매장 선택 X, 년 선택 O, 월 선택 X, 성별 선택, 횟수권, 요일권 선택 O, 구독권 선택 X -->
 	<select id="subStatGender15" resultType="hashmap">
 		SELECT SUBSTR(su.sub_use_start,1,7) as 'month', count(su.client_id) as 'subJoinCount', 
 			s.province_idx, p.province_name 
@@ -204,6 +220,7 @@
 			order by month
 	</select>
 	
+	<!-- 	시도/시군구/매장 선택 X, 년 선택 O, 월 선택 X, 성별 선택, 횟수권, 요일권 선택 O, 구독권 선택 O -->
 	<select id="subStatGender16" resultType="hashmap">
 		SELECT SUBSTR(su.sub_use_start,1,7) as 'month', count(su.client_id) as 'subJoinCount', 
 			s.province_idx, p.province_name 
@@ -218,6 +235,7 @@
 			order by month
 	</select>
 	
+	<!-- 	시도/시군구/매장 선택 X, 년 선택 O, 월 선택 O, 성별 전체, 횟수권, 요일권 선택 X, 구독권 선택 X   -->
 	<select id="subStatGender17" resultType="hashmap">
 		SELECT su.sub_use_start as 'day', count(su.client_id) as 'subJoinCount',
 			p.province_name
@@ -229,6 +247,7 @@
 			order by day
 	</select>
 	
+	<!-- 	시도/시군구/매장 선택 X, 년 선택 O, 월 선택 O, 성별 전체, 횟수권, 요일권 선택 X, 구독권 선택 O  -->
 	<select id="subStatGenderDays" resultType="String">
 		select * from 
 		(select adddate('2000-01-01',t4.i*10000 + t3.i*1000 + t2.i*100 + t1.i*10 + t0.i) days from
@@ -241,6 +260,7 @@
 		between #{param1} and LAST_DAY(#{param1})
 	</select>
 	
+	<!-- 	시도/시군구/매장 선택 X, 년 선택 O, 월 선택 O, 성별 전체, 횟수권/요일권 선택 O, 구독권 선택 X   -->
 	<select id="subStatGender18" resultType="hashmap">
 		SELECT su.sub_use_start as 'day', count(su.client_id) as 'subJoinCount',
 			p.province_name
@@ -252,6 +272,7 @@
 			order by day
 	</select>
 	
+	<!-- 	시도/시군구/매장 선택 X, 년 선택 O, 월 선택 O, 성별 전체, 횟수권/요일권 선택 O, 구독권 선택 O   -->
 	<select id="subStatGender19" resultType="hashmap">
 		SELECT su.sub_use_start as 'day', count(su.client_id) as 'subJoinCount',
 			p.province_name
@@ -264,6 +285,7 @@
 			order by day
 	</select>
 	
+	<!-- 	시도/시군구/매장 선택 X, 년 선택 O, 월 선택 O, 성별 선택, 횟수권, 요일권 선택 X, 구독권 선택 X  -->
 	<select id="subStatGender20" resultType="hashmap">
 		SELECT su.sub_use_start as 'day', count(su.client_id) as 'subJoinCount',
 			p.province_name
@@ -277,6 +299,7 @@
 			order by day
 	</select>
 	
+	<!-- 	시도/시군구/매장 선택 X, 년 선택 O, 월 선택 O, 성별 선택, 횟수권, 요일권 선택 X, 구독권 선택 O -->
 	<select id="subStatGender21" resultType="hashmap">
 		SELECT su.sub_use_start as 'day', count(su.client_id) as 'subJoinCount',
 			p.province_name
@@ -290,6 +313,7 @@
 			order by day
 	</select>
 	
+	<!-- 	시도/시군구/매장 선택 X, 년 선택 O, 월 선택 O, 성별 선택, 횟수권, 요일권 선택 X, 구독권 선택 O -->
 	<select id="subStatGender22" resultType="hashmap">
 		SELECT su.sub_use_start as 'day', count(su.client_id) as 'subJoinCount',
 			p.province_name
@@ -303,6 +327,7 @@
 			order by day
 	</select>
 	
+	<!-- 	시도/시군구/매장 선택 X, 년 선택 O, 월 선택 O, 성별 선택, 횟수권, 요일권 선택 O, 구독권 선택 X -->
 	<select id="subStatGender23" resultType="hashmap">
 		SELECT su.sub_use_start as 'day', count(su.client_id) as 'subJoinCount',
 			p.province_name
@@ -317,6 +342,7 @@
 			order by day
 	</select>
 	
+	<!-- 	시도/시군구/매장 선택 X, 년 선택 O, 월 선택 O, 성별 선택, 횟수권, 요일권 선택 O, 구독권 선택 O -->
 	<select id="subStatGender24" resultType="hashmap">
 		SELECT su.sub_use_start as 'day', count(su.client_id) as 'subJoinCount',
 			p.province_name
@@ -331,6 +357,7 @@
 			order by day
 	</select>
 	
+	<!-- 	시도 선택, 시군구/매장 선택 X, 년 선택 X, 월 선택 X, 성별 전체, 횟수권, 요일권 선택 X, 구독권 선택 X   -->
 	<select id="subStatGender25" resultType="hashmap">
 		SELECT SUBSTR(su.sub_use_start,1,4) as 'year', count(su.client_id) as 'subJoinCount', 
 			p.province_name 
@@ -342,6 +369,7 @@
 			order by year
 	</select>
 	
+	<!-- 	시도 선택, 시군구/매장 선택 X, 년 선택 X, 월 선택 X, 성별 전체, 횟수권, 요일권 선택 X, 구독권 선택 O  -->
 	<select id="subStatGender26" resultType="hashmap">
 		SELECT SUBSTR(su.sub_use_start,1,4) as 'year', count(su.client_id) as 'subJoinCount', 
 			p.province_name 
@@ -353,6 +381,7 @@
 			order by year
 	</select>
 	
+	<!-- 	시도 선택, 시군구/매장 선택 X, 년 선택 X, 월 선택 X, 성별 전체, 횟수권/요일권 선택 O, 구독권 선택 X   -->
 	<select id="subStatGender27" resultType="hashmap">
 		SELECT SUBSTR(su.sub_use_start,1,4) as 'year', count(su.client_id) as 'subJoinCount', 
 			p.province_name 
@@ -365,6 +394,7 @@
 			order by year
 	</select>
 	
+	<!-- 	시도 선택, 시군구/매장 선택 X, 년 선택 X, 월 선택 X, 성별 전체, 횟수권/요일권 선택 O, 구독권 선택 O   -->
 	<select id="subStatGender28" resultType="hashmap">
 		SELECT SUBSTR(su.sub_use_start,1,4) as 'year', count(su.client_id) as 'subJoinCount', 
 			p.province_name 
@@ -377,6 +407,7 @@
 			order by year
 	</select>
 	
+	<!-- 	시도 선택, 시군구/매장 선택 X, 년 선택 X, 월 선택 X, 성별 선택, 횟수권, 요일권 선택 X, 구독권 선택 X   -->
 	<select id="subStatGender29" resultType="hashmap">
 		SELECT SUBSTR(su.sub_use_start,1,4) as 'year', count(su.client_id) as 'subJoinCount', 
 			p.province_name 
@@ -389,6 +420,7 @@
 			order by year
 	</select>
 	
+	<!-- 	시도 선택, 시군구/매장 선택 X, 년 선택 X, 월 선택 X, 성별 선택, 횟수권, 요일권 선택 X, 구독권 선택 O -->
 	<select id="subStatGender30" resultType="hashmap">
 		SELECT SUBSTR(su.sub_use_start,1,4) as 'year', count(su.client_id) as 'subJoinCount', 
 			p.province_name 
@@ -401,6 +433,7 @@
 			order by year
 	</select>
 	
+	<!-- 	시도 선택, 시군구/매장 선택 X, 년 선택 X, 월 선택 X, 성별 선택, 횟수권, 요일권 선택 O, 구독권 선택 X -->
 	<select id="subStatGender31" resultType="hashmap">
 		SELECT SUBSTR(su.sub_use_start,1,4) as 'year', count(su.client_id) as 'subJoinCount', 
 			p.province_name 
@@ -414,6 +447,7 @@
 			order by year
 	</select>
 	
+	<!-- 	시도 선택, 시군구/매장 선택 X, 년 선택 X, 월 선택 X, 성별 선택, 횟수권, 요일권 선택 O, 구독권 선택 O -->
 	<select id="subStatGender32" resultType="hashmap">
 		SELECT SUBSTR(su.sub_use_start,1,4) as 'year', count(su.client_id) as 'subJoinCount', 
 			p.province_name 
@@ -427,7 +461,8 @@
 			group by year
 			order by year
 	</select>
-	
+		
+	<!-- 	시도 선택, 시군구/매장 선택 X, 년 선택 O, 월 선택 X, 성별 전체, 횟수권, 요일권 선택 X, 구독권 선택 X   -->
 	<select id="subStatGender33" resultType="hashmap">
 		SELECT SUBSTR(su.sub_use_start,1,7) as 'month', count(su.client_id) as 'subJoinCount', 
 			p.province_name 
@@ -439,6 +474,7 @@
 			order by month
 	</select>
 	
+	<!-- 	시도 선택, 시군구/매장 선택 X, 년 선택 O, 월 선택 X, 성별 전체, 횟수권, 요일권 선택 X, 구독권 선택 O  -->
 	<select id="subStatGender34" resultType="hashmap">
 		SELECT SUBSTR(su.sub_use_start,1,7) as 'month', count(su.client_id) as 'subJoinCount', 
 			p.province_name 
@@ -451,6 +487,7 @@
 			order by month
 	</select>
 	
+	<!-- 	시도 선택, 시군구/매장 선택 X, 년 선택 O, 월 선택 X, 성별 전체, 횟수권/요일권 선택 O, 구독권 선택 X   -->
 	<select id="subStatGender35" resultType="hashmap">
 		SELECT SUBSTR(su.sub_use_start,1,7) as 'month', count(su.client_id) as 'subJoinCount', 
 			p.province_name 
@@ -464,6 +501,7 @@
 			order by month
 	</select>
 	
+	<!-- 	시도 선택, 시군구/매장 선택 X, 년 선택 O, 월 선택 X, 성별 전체, 횟수권/요일권 선택 O, 구독권 선택 O -->
 	<select id="subStatGender36" resultType="hashmap">
 		SELECT SUBSTR(su.sub_use_start,1,7) as 'month', count(su.client_id) as 'subJoinCount', 
 			p.province_name 
@@ -477,6 +515,7 @@
 			order by month
 	</select>
 	
+	<!-- 	시도 선택, 시군구/매장 선택 X, 년 선택 O, 월 선택 X, 성별 선택, 횟수권, 요일권 선택 X, 구독권 선택 X  -->
 	<select id="subStatGender37" resultType="hashmap">
 		SELECT SUBSTR(su.sub_use_start,1,7) as 'month', count(su.client_id) as 'subJoinCount', 
 			p.province_name 
@@ -490,6 +529,7 @@
 			order by month
 	</select>
 	
+	<!-- 	시도 선택, 시군구/매장 선택 X, 년 선택 O, 월 선택 X, 성별 선택, 횟수권, 요일권 선택 X, 구독권 선택 O -->
 	<select id="subStatGender38" resultType="hashmap">
 		SELECT SUBSTR(su.sub_use_start,1,7) as 'month', count(su.client_id) as 'subJoinCount', 
 			p.province_name 
@@ -503,12 +543,13 @@
 			order by month
 	</select>
 	
+	<!-- 	시도 선택, 시군구/매장 선택 X, 년 선택 O, 월 선택 X, 성별 선택, 횟수권, 요일권 선택 O, 구독권 선택 X -->
 	<select id="subStatGender39" resultType="hashmap">
 		SELECT SUBSTR(su.sub_use_start,1,7) as 'month', count(su.client_id) as 'subJoinCount', 
 			p.province_name 
 			from sub_use su 
 			left join shop s on su.shop_idx = s.shop_idx 
-			left join province p on s.province_idx = p.province_idx
+			left join provi nce p on s.province_idx = p.province_idx
 			left join client c on su.client_id = c.client_id
 			left join subscribe s2 on su.sub_idx = s2.sub_idx 
 			where p.province_idx = #{param1} and year(su.sub_use_start) = #{param2}
@@ -517,6 +558,7 @@
 			order by month
 	</select>
 	
+	<!-- 	시도 선택, 시군구/매장 선택 X, 년 선택 O, 월 선택 X, 성별 선택, 횟수권, 요일권 선택 O, 구독권 선택 O -->
 	<select id="subStatGender40" resultType="hashmap">
 		SELECT SUBSTR(su.sub_use_start,1,7) as 'month', count(su.client_id) as 'subJoinCount', 
 			p.province_name 
@@ -531,6 +573,7 @@
 			order by month
 	</select>
 	
+	<!-- 	시도 선택, 시군구/매장 선택 X, 년 선택 O, 월 선택 O, 성별 전체, 횟수권, 요일권 선택 X, 구독권 선택 X   -->
 	<select id="subStatGender41" resultType="hashmap">
 		SELECT su.sub_use_start as 'day', count(su.client_id) as 'subJoinCount',
 			p.province_name
@@ -542,6 +585,7 @@
 			order by day
 	</select>
 	
+	<!-- 	시도 선택, 시군구/매장 선택 X, 년 선택 O, 월 선택 O, 성별 전체, 횟수권, 요일권 선택 X, 구독권 선택 O -->
 	<select id="subStatGender42" resultType="hashmap">
 		SELECT su.sub_use_start as 'day', count(su.client_id) as 'subJoinCount',
 			p.province_name
@@ -554,6 +598,7 @@
 			order by day
 	</select>
 	
+	<!-- 	시도 선택, 시군구/매장 선택 X, 년 선택 O, 월 선택 O, 성별 전체, 횟수권/요일권 선택 O, 구독권 선택 X  -->
 	<select id="subStatGender43" resultType="hashmap">
 		SELECT su.sub_use_start as 'day', count(su.client_id) as 'subJoinCount',
 			p.province_name
@@ -567,6 +612,7 @@
 			order by day
 	</select>
 	
+	<!-- 	시도 선택, 시군구/매장 선택 X, 년 선택 O, 월 선택 O, 성별 전체, 횟수권/요일권 선택 O, 구독권 선택 O  -->
 	<select id="subStatGender44" resultType="hashmap">
 		SELECT su.sub_use_start as 'day', count(su.client_id) as 'subJoinCount',
 			p.province_name
@@ -581,6 +627,7 @@
 			order by day
 	</select>
 	
+	<!-- 	시도 선택, 시군구/매장 선택 X, 년 선택 O, 월 선택 O, 성별 선택, 횟수권, 요일권 선택 X, 구독권 선택 X -->
 	<select id="subStatGender45" resultType="hashmap">
 		SELECT su.sub_use_start as 'day', count(su.client_id) as 'subJoinCount',
 			p.province_name
@@ -594,6 +641,7 @@
 			order by day
 	</select>
 	
+	<!-- 	시도 선택, 시군구/매장 선택 X, 년 선택 O, 월 선택 O, 성별 선택, 횟수권, 요일권 선택 X, 구독권 선택 O -->
 	<select id="subStatGender46" resultType="hashmap">
 		SELECT su.sub_use_start as 'day', count(su.client_id) as 'subJoinCount',
 			p.province_name
@@ -608,6 +656,7 @@
 			order by day
 	</select>
 	
+	<!-- 	시도 선택, 시군구/매장 선택 X, 년 선택 O, 월 선택 O, 성별 선택, 횟수권, 요일권 선택 O, 구독권 선택 X -->
 	<select id="subStatGender47" resultType="hashmap">
 		SELECT su.sub_use_start as 'day', count(su.client_id) as 'subJoinCount',
 			p.province_name
@@ -623,6 +672,7 @@
 			order by day
 	</select>
 	
+	<!-- 	시도 선택, 시군구/매장 선택 X, 년 선택 O, 월 선택 O, 성별 선택, 횟수권, 요일권 선택 O, 구독권 선택 O -->
 	<select id="subStatGender48" resultType="hashmap">
 		SELECT su.sub_use_start as 'day', count(su.client_id) as 'subJoinCount',
 			p.province_name
@@ -638,6 +688,7 @@
 			order by day
 	</select>
 	
+	<!-- 	시도 선택 O, 시군구 선택 O, 매장 선택 X, 년 선택 X, 월 선택 X, 성별 전체, 횟수권, 요일권 선택 X, 구독권 선택 X -->
 	<select id="subStatGender49" resultType="hashmap">
 		SELECT SUBSTR(su.sub_use_start,1,4) as 'year', count(su.client_id) as 'subJoinCount', 
 			c.city_name 
@@ -649,6 +700,7 @@
 			order by year
 	</select>
 	
+	<!-- 	시도 선택 O, 시군구 선택 O, 매장 선택 X, 년 선택 X, 월 선택 X, 성별 전체, 횟수권, 요일권 선택 X, 구독권 선택 O -->
 	<select id="subStatGender50" resultType="hashmap">
 		SELECT SUBSTR(su.sub_use_start,1,4) as 'year', count(su.client_id) as 'subJoinCount', 
 			c.city_name  
@@ -660,6 +712,7 @@
 			order by year
 	</select>
 	
+	<!-- 	시도 선택 O, 시군구 선택 O, 매장 선택 X, 년 선택 X, 월 선택 X, 성별 전체, 횟수권/요일권 선택 O, 구독권 선택 X   -->
 	<select id="subStatGender51" resultType="hashmap">
 		SELECT SUBSTR(su.sub_use_start,1,4) as 'year', count(su.client_id) as 'subJoinCount', 
 			c.city_name  
@@ -672,6 +725,7 @@
 			order by year
 	</select>
 	
+	<!-- 	시도 선택 O, 시군구 선택 O, 매장 선택 X, 년 선택 X, 월 선택 X, 성별 전체, 횟수권/요일권 선택 O, 구독권 선택 O  -->
 	<select id="subStatGender52" resultType="hashmap">
 		SELECT SUBSTR(su.sub_use_start,1,4) as 'year', count(su.client_id) as 'subJoinCount', 
 			c.city_name  
@@ -684,6 +738,7 @@
 			order by year
 	</select>
 	
+	<!-- 	시도 선택 O, 시군구 선택 O, 매장 선택 X, 년 선택 X, 월 선택 X, 성별 선택, 횟수권, 요일권 선택 X, 구독권 선택 X -->
 	<select id="subStatGender53" resultType="hashmap">
 		SELECT SUBSTR(su.sub_use_start,1,4) as 'year', count(su.client_id) as 'subJoinCount', 
 			c.city_name  
@@ -696,6 +751,7 @@
 			order by year
 	</select>
 	
+	<!-- 	시도 선택 O, 시군구 선택 O, 매장 선택 X, 년 선택 X, 월 선택 X, 성별 선택, 횟수권, 요일권 선택 X, 구독권 선택 O -->
 	<select id="subStatGender54" resultType="hashmap">
 		SELECT SUBSTR(su.sub_use_start,1,4) as 'year', count(su.client_id) as 'subJoinCount', 
 			c.city_name  
@@ -708,6 +764,7 @@
 			order by year
 	</select>
 	
+	<!-- 	시도 선택 O, 시군구 선택 O, 매장 선택 X, 년 선택 X, 월 선택 X, 성별 선택, 횟수권, 요일권 선택 O, 구독권 선택 X -->
 	<select id="subStatGender55" resultType="hashmap">
 		SELECT SUBSTR(su.sub_use_start,1,4) as 'year', count(su.client_id) as 'subJoinCount', 
 			c.city_name  
@@ -721,6 +778,7 @@
 			order by year
 	</select>
 	
+	<!-- 	시도 선택 O, 시군구 선택 O, 매장 선택 X, 년 선택 X, 월 선택 X, 성별 선택, 횟수권, 요일권 선택 O, 구독권 선택 O -->
 	<select id="subStatGender56" resultType="hashmap">
 		SELECT SUBSTR(su.sub_use_start,1,4) as 'year', count(su.client_id) as 'subJoinCount', 
 			c.city_name  
@@ -735,6 +793,7 @@
 			order by year
 	</select>
 	
+	<!-- 	시도 선택 O, 시군구 선택 O, 매장 선택 X, 년 선택 O, 월 선택 X, 성별 전체, 횟수권, 요일권 선택 X, 구독권 선택 X -->
 	<select id="subStatGender57" resultType="hashmap">
 		SELECT SUBSTR(su.sub_use_start,1,7) as 'month', count(su.client_id) as 'subJoinCount', 
 			c.city_name  
@@ -746,6 +805,7 @@
 			order by month
 	</select>
 	
+	<!-- 	시도 선택 O, 시군구 선택 O, 매장 선택 X, 년 선택 O, 월 선택 X, 성별 전체, 횟수권, 요일권 선택 X, 구독권 선택 O  -->
 	<select id="subStatGender58" resultType="hashmap">
 		SELECT SUBSTR(su.sub_use_start,1,7) as 'month', count(su.client_id) as 'subJoinCount', 
 			c.city_name  
@@ -758,6 +818,7 @@
 			order by month
 	</select>
 	
+	<!-- 	시도 선택 O, 시군구 선택 O, 매장 선택 X, 년 선택 O, 월 선택 X, 성별 전체, 횟수권/요일권 선택 O, 구독권 선택 X  -->
 	<select id="subStatGender59" resultType="hashmap">
 		SELECT SUBSTR(su.sub_use_start,1,7) as 'month', count(su.client_id) as 'subJoinCount', 
 			c.city_name 
@@ -771,6 +832,7 @@
 			order by month
 	</select>
 	
+	<!-- 	시도 선택 O, 시군구 선택 O, 매장 선택 X, 년 선택 O, 월 선택 X, 성별 전체, 횟수권/요일권 선택 O, 구독권 선택 O   -->
 	<select id="subStatGender60" resultType="hashmap">
 		SELECT SUBSTR(su.sub_use_start,1,7) as 'month', count(su.client_id) as 'subJoinCount', 
 			c.city_name  
@@ -784,6 +846,7 @@
 			order by month
 	</select>
 	
+	<!-- 	시도 선택 O, 시군구 선택 O, 매장 선택 X, 년 선택 O, 월 선택 X, 성별 선택, 횟수권, 요일권 선택 X, 구독권 선택 X   -->
 	<select id="subStatGender61" resultType="hashmap">
 		SELECT SUBSTR(su.sub_use_start,1,7) as 'month', count(su.client_id) as 'subJoinCount', 
 			c.city_name  
@@ -797,6 +860,7 @@
 			order by month
 	</select>
 	
+	<!-- 	시도 선택 O, 시군구 선택 O, 매장 선택 X, 년 선택 O, 월 선택 X, 성별 선택, 횟수권, 요일권 선택 X, 구독권 선택 O -->
 	<select id="subStatGender62" resultType="hashmap">
 		SELECT SUBSTR(su.sub_use_start,1,7) as 'month', count(su.client_id) as 'subJoinCount', 
 			c.city_name 
@@ -810,6 +874,7 @@
 			order by month
 	</select>
 	
+	<!-- 	시도 선택 O, 시군구 선택 O, 매장 선택 X, 년 선택 O, 월 선택 X, 성별 선택, 횟수권, 요일권 선택 O, 구독권 선택 X -->
 	<select id="subStatGender63" resultType="hashmap">
 		SELECT SUBSTR(su.sub_use_start,1,7) as 'month', count(su.client_id) as 'subJoinCount', 
 			c.city_name 
@@ -824,6 +889,7 @@
 			order by month
 	</select>
 	
+	<!-- 	시도 선택 O, 시군구 선택 O, 매장 선택 X, 년 선택 O, 월 선택 X, 성별 선택, 횟수권, 요일권 선택 O, 구독권 선택 O -->
 	<select id="subStatGender64" resultType="hashmap">
 		SELECT SUBSTR(su.sub_use_start,1,7) as 'month', count(su.client_id) as 'subJoinCount', 
 			c.city_name  
@@ -838,6 +904,7 @@
 			order by month
 	</select>
 	
+	<!-- 	시도 선택 O, 시군구 선택 O, 매장 선택 X, 년 선택 O, 월 선택 O, 성별 전체, 횟수권, 요일권 선택 X, 구독권 선택 X   -->
 	<select id="subStatGender65" resultType="hashmap">
 		SELECT su.sub_use_start as 'day', count(su.client_id) as 'subJoinCount',
 			c.city_name 
@@ -849,6 +916,7 @@
 			order by day
 	</select>
 	
+	<!-- 	시도 선택 O, 시군구 선택 O, 매장 선택 X, 년 선택 O, 월 선택 O, 성별 전체, 횟수권, 요일권 선택 X, 구독권 선택 O  -->
 	<select id="subStatGender66" resultType="hashmap">
 		SELECT su.sub_use_start as 'day', count(su.client_id) as 'subJoinCount',
 			c.city_name 
@@ -861,6 +929,7 @@
 			order by day
 	</select>
 	
+	<!-- 	시도 선택 O, 시군구 선택 O, 매장 선택 X, 년 선택 O, 월 선택 O, 성별 전체, 횟수권/요일권 선택 O, 구독권 선택 X  -->
 	<select id="subStatGender67" resultType="hashmap">
 		SELECT su.sub_use_start as 'day', count(su.client_id) as 'subJoinCount',
 			c.city_name 
@@ -874,6 +943,7 @@
 			order by day
 	</select>
 	
+	<!-- 	시도 선택 O, 시군구 선택 O, 매장 선택 X, 년 선택 O, 월 선택 O, 성별 전체, 횟수권/요일권 선택 O, 구독권 선택 O -->
 	<select id="subStatGender68" resultType="hashmap">
 		SELECT su.sub_use_start as 'day', count(su.client_id) as 'subJoinCount',
 			c.city_name 
@@ -888,6 +958,7 @@
 			order by day
 	</select>
 	
+	<!-- 	시도 선택 O, 시군구 선택 O, 매장 선택 X, 년 선택 O, 월 선택 O, 성별 선택, 횟수권, 요일권 선택 X, 구독권 선택 X -->
 	<select id="subStatGender69" resultType="hashmap">
 		SELECT su.sub_use_start as 'day', count(su.client_id) as 'subJoinCount',
 			c.city_name 
@@ -901,6 +972,7 @@
 			order by day
 	</select>
 	
+	<!-- 	시도 선택 O, 시군구 선택 O, 매장 선택 X, 년 선택 O, 월 선택 O, 성별 선택, 횟수권, 요일권 선택 X, 구독권 선택 O -->
 	<select id="subStatGender70" resultType="hashmap">
 		SELECT su.sub_use_start as 'day', count(su.client_id) as 'subJoinCount',
 			c.city_name 
@@ -915,6 +987,7 @@
 			order by day
 	</select>
 	
+	<!-- 	시도 선택 O, 시군구 선택 O, 매장 선택 X, 년 선택 O, 월 선택 O, 성별 선택, 횟수권, 요일권 선택 O, 구독권 선택 X -->
 	<select id="subStatGender71" resultType="hashmap">
 		SELECT su.sub_use_start as 'day', count(su.client_id) as 'subJoinCount',
 			c.city_name 
@@ -930,6 +1003,7 @@
 			order by day
 	</select>
 	
+	<!-- 	시도 선택 O, 시군구 선택 O, 매장 선택 X, 년 선택 O, 월 선택 O, 성별 선택, 횟수권, 요일권 선택 O, 구독권 선택 O -->
 	<select id="subStatGender72" resultType="hashmap">
 		SELECT su.sub_use_start as 'day', count(su.client_id) as 'subJoinCount',
 			c.city_name 
@@ -944,7 +1018,8 @@
 			group by day
 			order by day
 	</select>	
-
+	
+	<!-- 	시도 선택 O, 시군구 선택 O, 매장 선택 O, 년 선택 X, 월 선택 X, 성별 전체, 횟수권, 요일권 선택 X, 구독권 선택 X   -->
 	<select id="subStatGender73" resultType="hashmap">
 		SELECT SUBSTR(su.sub_use_start,1,4) as 'year', count(su.client_id) as 'subJoinCount', 
 			s.shop_name 
@@ -955,6 +1030,7 @@
 			order by year
 	</select>
 	
+	<!-- 	시도 선택 O, 시군구 선택 O, 매장 선택 O, 년 선택 X, 월 선택 X, 성별 전체, 횟수권, 요일권 선택 X, 구독권 선택 O  -->
 	<select id="subStatGender74" resultType="hashmap">
 		SELECT SUBSTR(su.sub_use_start,1,4) as 'year', count(su.client_id) as 'subJoinCount', 
 			s.shop_name   
@@ -965,6 +1041,7 @@
 			order by year
 	</select>
 	
+	<!-- 	시도 선택 O, 시군구 선택 O, 매장 선택 O, 년 선택 X, 월 선택 X, 성별 전체, 횟수권/요일권 선택 O, 구독권 선택 X  -->
 	<select id="subStatGender75" resultType="hashmap">
 		SELECT SUBSTR(su.sub_use_start,1,4) as 'year', count(su.client_id) as 'subJoinCount', 
 			s.shop_name   
@@ -976,6 +1053,7 @@
 			order by year
 	</select>
 	
+	<!-- 	시도 선택 O, 시군구 선택 O, 매장 선택 O, 년 선택 X, 월 선택 X, 성별 전체, 횟수권/요일권 선택 O, 구독권 선택 O  -->
 	<select id="subStatGender76" resultType="hashmap">
 		SELECT SUBSTR(su.sub_use_start,1,4) as 'year', count(su.client_id) as 'subJoinCount', 
 			s.shop_name   
@@ -987,6 +1065,7 @@
 			order by year
 	</select>
 	
+	<!-- 	시도 선택 O, 시군구 선택 O, 매장 선택 O, 년 선택 X, 월 선택 X, 성별 선택, 횟수권, 요일권 선택 X, 구독권 선택 X  -->
 	<select id="subStatGender77" resultType="hashmap">
 		SELECT SUBSTR(su.sub_use_start,1,4) as 'year', count(su.client_id) as 'subJoinCount', 
 			s.shop_name   
@@ -998,6 +1077,7 @@
 			order by year
 	</select>
 	
+	<!-- 	시도 선택 O, 시군구 선택 O, 매장 선택 O, 년 선택 X, 월 선택 X, 성별 선택, 횟수권, 요일권 선택 X, 구독권 선택 O -->
 	<select id="subStatGender78" resultType="hashmap">
 		SELECT SUBSTR(su.sub_use_start,1,4) as 'year', count(su.client_id) as 'subJoinCount', 
 			s.shop_name   
@@ -1009,6 +1089,7 @@
 			order by year
 	</select>
 	
+	<!-- 	시도 선택 O, 시군구 선택 O, 매장 선택 O, 년 선택 X, 월 선택 X, 성별 선택, 횟수권, 요일권 선택 O, 구독권 선택 X -->
 	<select id="subStatGender79" resultType="hashmap">
 		SELECT SUBSTR(su.sub_use_start,1,4) as 'year', count(su.client_id) as 'subJoinCount', 
 			s.shop_name   
@@ -1021,6 +1102,7 @@
 			order by year
 	</select>
 	
+	<!-- 	시도 선택 O, 시군구 선택 O, 매장 선택 O, 년 선택 X, 월 선택 X, 성별 선택, 횟수권, 요일권 선택 O, 구독권 선택 O -->
 	<select id="subStatGender80" resultType="hashmap">
 		SELECT SUBSTR(su.sub_use_start,1,4) as 'year', count(su.client_id) as 'subJoinCount', 
 			s.shop_name   
@@ -1034,6 +1116,7 @@
 			order by year
 	</select>
 	
+	<!-- 	시도 선택 O, 시군구 선택 O, 매장 선택 O, 년 선택 O, 월 선택 X, 성별 전체, 횟수권, 요일권 선택 X, 구독권 선택 X   -->
 	<select id="subStatGender81" resultType="hashmap">
 		SELECT SUBSTR(su.sub_use_start,1,7) as 'month', count(su.client_id) as 'subJoinCount', 
 			s.shop_name   
@@ -1044,6 +1127,7 @@
 			order by month
 	</select>
 	
+	<!-- 	시도 선택 O, 시군구 선택 O, 매장 선택 O, 년 선택 O, 월 선택 X, 성별 전체, 횟수권, 요일권 선택 X, 구독권 선택 O  -->
 	<select id="subStatGender82" resultType="hashmap">
 		SELECT SUBSTR(su.sub_use_start,1,7) as 'month', count(su.client_id) as 'subJoinCount', 
 			s.shop_name   
@@ -1055,6 +1139,7 @@
 			order by month
 	</select>
 	
+	<!-- 	시도 선택 O, 시군구 선택 O, 매장 선택 O, 년 선택 O, 월 선택 X, 성별 전체, 횟수권/요일권 선택 O, 구독권 선택 X   -->
 	<select id="subStatGender83" resultType="hashmap">
 		SELECT SUBSTR(su.sub_use_start,1,7) as 'month', count(su.client_id) as 'subJoinCount', 
 			s.shop_name  
@@ -1067,6 +1152,7 @@
 			order by month
 	</select>
 	
+	<!-- 	시도 선택 O, 시군구 선택 O, 매장 선택 O, 년 선택 O, 월 선택 X, 성별 전체, 횟수권/요일권 선택 O, 구독권 선택 O   -->
 	<select id="subStatGender84" resultType="hashmap">
 		SELECT SUBSTR(su.sub_use_start,1,7) as 'month', count(su.client_id) as 'subJoinCount', 
 			s.shop_name   
@@ -1079,6 +1165,7 @@
 			order by month
 	</select>
 	
+	<!-- 	시도 선택 O, 시군구 선택 O, 매장 선택 O, 년 선택 O, 월 선택 X, 성별 선택, 횟수권, 요일권 선택 X, 구독권 선택 X   -->
 	<select id="subStatGender85" resultType="hashmap">
 		SELECT SUBSTR(su.sub_use_start,1,7) as 'month', count(su.client_id) as 'subJoinCount', 
 			s.shop_name   
@@ -1091,6 +1178,7 @@
 			order by month
 	</select>
 	
+	<!-- 	시도 선택 O, 시군구 선택 O, 매장 선택 O, 년 선택 O, 월 선택 X, 성별 선택, 횟수권, 요일권 선택 X, 구독권 선택 O -->
 	<select id="subStatGender86" resultType="hashmap">
 		SELECT SUBSTR(su.sub_use_start,1,7) as 'month', count(su.client_id) as 'subJoinCount', 
 			s.shop_name  
@@ -1103,6 +1191,7 @@
 			order by month
 	</select>
 	
+	<!-- 	시도 선택 O, 시군구 선택 O, 매장 선택 O, 년 선택 O, 월 선택 X, 성별 선택, 횟수권, 요일권 선택 O, 구독권 선택 X -->
 	<select id="subStatGender87" resultType="hashmap">
 		SELECT SUBSTR(su.sub_use_start,1,7) as 'month', count(su.client_id) as 'subJoinCount', 
 			s.shop_name  
@@ -1116,6 +1205,7 @@
 			order by month
 	</select>
 	
+	<!-- 	시도 선택 O, 시군구 선택 O, 매장 선택 O, 년 선택 O, 월 선택 X, 성별 선택, 횟수권, 요일권 선택 O, 구독권 선택 O -->
 	<select id="subStatGender88" resultType="hashmap">
 		SELECT SUBSTR(su.sub_use_start,1,7) as 'month', count(su.client_id) as 'subJoinCount', 
 			s.shop_name   
@@ -1129,6 +1219,7 @@
 			order by month
 	</select>
 	
+	<!-- 	시도 선택 O, 시군구 선택 O, 매장 선택 O, 년 선택 O, 월 선택 O, 성별 전체, 횟수권, 요일권 선택 X, 구독권 선택 X   -->
 	<select id="subStatGender89" resultType="hashmap">
 		SELECT su.sub_use_start as 'day', count(su.client_id) as 'subJoinCount',
 			s.shop_name  
@@ -1139,6 +1230,7 @@
 			order by day
 	</select>
 	
+	<!-- 	시도 선택 O, 시군구 선택 O, 매장 선택 O, 년 선택 O, 월 선택 O, 성별 전체, 횟수권, 요일권 선택 X, 구독권 선택 O  -->
 	<select id="subStatGender90" resultType="hashmap">
 		SELECT su.sub_use_start as 'day', count(su.client_id) as 'subJoinCount',
 			s.shop_name  
@@ -1150,6 +1242,7 @@
 			order by day
 	</select>
 	
+	<!-- 	시도 선택 O, 시군구 선택 O, 매장 선택 O, 년 선택 O, 월 선택 O, 성별 전체, 횟수권/요일권 선택 O, 구독권 선택 X   -->
 	<select id="subStatGender91" resultType="hashmap">
 		SELECT su.sub_use_start as 'day', count(su.client_id) as 'subJoinCount',
 			s.shop_name  
@@ -1162,6 +1255,7 @@
 			order by day
 	</select>
 	
+	<!-- 	시도 선택 O, 시군구 선택 O, 매장 선택 O, 년 선택 O, 월 선택 O, 성별 전체, 횟수권/요일권 선택 O, 구독권 선택 O   -->
 	<select id="subStatGender92" resultType="hashmap">
 		SELECT su.sub_use_start as 'day', count(su.client_id) as 'subJoinCount',
 			s.shop_name  
@@ -1175,6 +1269,7 @@
 			order by day
 	</select>
 	
+	<!-- 	시도 선택 O, 시군구 선택 O, 매장 선택 O, 년 선택 O, 월 선택 O, 성별 선택, 횟수권, 요일권 선택 X, 구독권 선택 X   -->
 	<select id="subStatGender93" resultType="hashmap">
 		SELECT su.sub_use_start as 'day', count(su.client_id) as 'subJoinCount',
 			s.shop_name  
@@ -1187,6 +1282,7 @@
 			order by day
 	</select>
 	
+	<!-- 	시도 선택 O, 시군구 선택 O, 매장 선택 O, 년 선택 O, 월 선택 O, 성별 선택, 횟수권, 요일권 선택 X, 구독권 선택 O -->
 	<select id="subStatGender94" resultType="hashmap">
 		SELECT su.sub_use_start as 'day', count(su.client_id) as 'subJoinCount',
 			s.shop_name  
@@ -1200,6 +1296,7 @@
 			order by day
 	</select>
 	
+	<!-- 	시도 선택 O, 시군구 선택 O, 매장 선택 O, 년 선택 O, 월 선택 O, 성별 선택, 횟수권, 요일권 선택 O, 구독권 선택 X -->
 	<select id="subStatGender95" resultType="hashmap">
 		SELECT su.sub_use_start as 'day', count(su.client_id) as 'subJoinCount',
 			s.shop_name  
@@ -1214,6 +1311,7 @@
 			order by day
 	</select>
 	
+	<!-- 	시도 선택 O, 시군구 선택 O, 매장 선택 O, 년 선택 O, 월 선택 O, 성별 선택, 횟수권, 요일권 선택 O, 구독권 선택 O -->
 	<select id="subStatGender96" resultType="hashmap">
 		SELECT su.sub_use_start as 'day', count(su.client_id) as 'subJoinCount',
 			s.shop_name  
@@ -1228,7 +1326,7 @@
 			order by day
 	</select>
 	
-	
+	<!-- 	시도 선택 X, 시군구 선택 X, 매장 선택 X, 년 선택 O, 월 선택 X, 횟수권, 요일권 선택 X, 구독권 선택 X -->
 	<select id="subStatAge1" resultType="hashmap">
 		SELECT
 		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 10 and 19 , 1, 0)) as 10s,
@@ -1245,6 +1343,8 @@
 		where year(su.sub_use_start) = #{param1}
 		group by s.province_idx
 	</select>
+	
+	<!-- 	시도 선택 X, 시군구 선택 X, 매장 선택 X, 년 선택 O, 월 선택 X, 횟수권, 요일권 선택 X, 구독권 선택 O -->
 	<select id="subStatAge2" resultType="hashmap">
 		SELECT
 		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 10 and 19 , 1, 0)) as 10s,
@@ -1261,6 +1361,8 @@
 		where year(su.sub_use_start) = #{param1} and su.sub_idx= ${param2}
 		group by s.province_idx
 	</select>
+	
+	<!-- 	시도 선택 X, 시군구 선택 X, 매장 선택 X, 년 선택 O, 월 선택 X, 횟수권/요일권 선택 O, 구독권 선택 X  -->
 	<select id="subStatAge3" resultType="hashmap">
 		SELECT
 		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 10 and 19 , 1, 0)) as 10s,
@@ -1278,6 +1380,8 @@
 		where year(su.sub_use_start) = #{param1} and s2.sub_sort_idx= #{param2}
 		group by s.province_idx
 	</select>
+	
+	<!-- 	시도 선택 X, 시군구 선택 X, 매장 선택 X, 년 선택 O, 월 선택 X, 횟수권/요일권 선택 O, 구독권 선택 O -->
 	<select id="subStatAge4" resultType="hashmap">
 		SELECT
 		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 10 and 19 , 1, 0)) as 10s,
@@ -1295,6 +1399,8 @@
 		where year(su.sub_use_start) = #{param1} and s2.sub_sort_idx= #{param2} and su.sub_idx = ${param3}
 		group by s.province_idx
 	</select>
+	
+	<!-- 	시도 선택 X, 시군구 선택 X, 매장 선택 X, 년 선택 O, 월 선택 X, 횟수권/요일권 선택 O, 구독권 선택 O -->
 	<select id="subStatAge5" resultType="hashmap">
 		SELECT
 		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 10 and 19 , 1, 0)) as 10s,
@@ -1311,6 +1417,8 @@
 		where year(su.sub_use_start) = #{param1} and month(su.sub_use_start) = #{param2}
 		group by s.province_idx
 	</select>
+	
+	<!-- 	시도 선택 X, 시군구 선택 X, 매장 선택 X, 년 선택 O, 월 선택 O, 횟수권, 요일권 선택 X, 구독권 선택 O -->
 	<select id="subStatAge6" resultType="hashmap">
 		SELECT
 		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 10 and 19 , 1, 0)) as 10s,
@@ -1328,6 +1436,8 @@
 		and su.sub_idx= ${param3}
 		group by s.province_idx
 	</select>
+	
+	<!-- 	시도 선택 X, 시군구 선택 X, 매장 선택 X, 년 선택 O, 월 선택 O, 횟수권, 요일권 선택 O, 구독권 선택 X -->
 	<select id="subStatAge7" resultType="hashmap">
 		SELECT
 		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 10 and 19 , 1, 0)) as 10s,
@@ -1346,6 +1456,8 @@
 		and s2.sub_sort_idx= #{param3}
 		group by s.province_idx
 	</select>
+	
+	<!-- 	시도 선택 X, 시군구 선택 X, 매장 선택 X, 년 선택 O, 월 선택 O, 횟수권, 요일권 선택 O, 구독권 선택 O -->
 	<select id="subStatAge8" resultType="hashmap">
 		SELECT
 		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 10 and 19 , 1, 0)) as 10s,
@@ -1364,6 +1476,8 @@
 		and s2.sub_sort_idx= #{param3} and su.sub_idx = ${param4}
 		group by s.province_idx
 	</select>
+	
+	<!-- 	시도 선택 O, 시군구 선택 X, 매장 선택 X, 년 선택 O, 월 선택 X, 횟수권, 요일권 선택 X, 구독권 선택 X  -->
 	<select id="subStatAge9" resultType="hashmap">
 		SELECT
 		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 10 and 19 , 1, 0)) as 10s,
@@ -1379,6 +1493,8 @@
 		left join province p on s.province_idx = p.province_idx  
 		where year(su.sub_use_start) = #{param1} and s.province_idx = #{param2}
 	</select>
+	
+	<!-- 	시도 선택 O, 시군구 선택 X, 매장 선택 X, 년 선택 O, 월 선택 X, 횟수권, 요일권 선택 X, 구독권 선택 O -->
 	<select id="subStatAge10" resultType="hashmap">
 		SELECT
 		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 10 and 19 , 1, 0)) as 10s,
@@ -1394,6 +1510,8 @@
 		left join province p on s.province_idx = p.province_idx  
 		where year(su.sub_use_start) = #{param1} and s.province_idx = #{param2} and su.sub_idx= ${param3}
 	</select>
+	
+	<!-- 	시도 선택 O, 시군구 선택 X, 매장 선택 X, 년 선택 O, 월 선택 X, 횟수권/요일권 선택 O, 구독권 선택 X  -->
 	<select id="subStatAge11" resultType="hashmap">
 		SELECT
 		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 10 and 19 , 1, 0)) as 10s,
@@ -1410,6 +1528,8 @@
 		left join subscribe s2 on su.sub_idx = s2.sub_idx 
 		where year(su.sub_use_start) = #{param1} and s.province_idx = #{param2} and s2.sub_sort_idx= #{param3}
 	</select>
+	
+	<!-- 	시도 선택 O, 시군구 선택 X, 매장 선택 X, 년 선택 O, 월 선택 X, 횟수권/요일권 선택 O, 구독권 선택 O  -->
 	<select id="subStatAge12" resultType="hashmap">
 		SELECT
 		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 10 and 19 , 1, 0)) as 10s,
@@ -1427,6 +1547,8 @@
 		where year(su.sub_use_start) = #{param1} and s.province_idx = #{param2}
 		and s2.sub_sort_idx= #{param3} and su.sub_idx = ${param4}
 	</select>
+	
+	<!-- 	시도 선택 O, 시군구 선택 X, 매장 선택 X, 년 선택 O, 월 선택 O, 횟수권, 요일권 선택 X, 구독권 선택 X -->
 	<select id="subStatAge13" resultType="hashmap">
 		SELECT
 		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 10 and 19 , 1, 0)) as 10s,
@@ -1443,6 +1565,8 @@
 		where year(su.sub_use_start) = #{param1} and month(su.sub_use_start) = #{param2}
 		and s.province_idx = #{param3}
 	</select>
+	
+	<!-- 	시도 선택 O, 시군구 선택 X, 매장 선택 X, 년 선택 O, 월 선택 O, 횟수권, 요일권 선택 X, 구독권 선택 O -->
 	<select id="subStatAge14" resultType="hashmap">
 		SELECT
 		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 10 and 19 , 1, 0)) as 10s,
@@ -1459,6 +1583,8 @@
 		where year(su.sub_use_start) = #{param1} and month(su.sub_use_start) = #{param2} 
 		and s.province_idx = #{param3} and su.sub_idx= ${param4}
 	</select>
+	
+	<!-- 	시도 선택 O, 시군구 선택 X, 매장 선택 X, 년 선택 O, 월 선택 O, 횟수권, 요일권 선택 O, 구독권 선택 X -->
 	<select id="subStatAge15" resultType="hashmap">
 		SELECT
 		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 10 and 19 , 1, 0)) as 10s,
@@ -1476,6 +1602,8 @@
 		where year(su.sub_use_start) = #{param1} and month(su.sub_use_start) = #{param2} 
 		and s.province_idx = #{param3} and s2.sub_sort_idx= #{param4}
 	</select>
+	
+	<!-- 	시도 선택 O, 시군구 선택 X, 매장 선택 X, 년 선택 O, 월 선택 O, 횟수권, 요일권 선택 O, 구독권 선택 O -->
 	<select id="subStatAge16" resultType="hashmap">
 		SELECT
 		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 10 and 19 , 1, 0)) as 10s,
@@ -1493,6 +1621,8 @@
 		where year(su.sub_use_start) = #{param1} and month(su.sub_use_start) = #{param2}
 		and s.province_idx = #{param3} and s2.sub_sort_idx= #{param4} and su.sub_idx = ${param5}
 	</select>
+	
+	<!-- 	시도 선택 O, 시군구 선택 O, 매장 선택 O, 년 선택 X, 월 선택 X, 횟수권, 요일권 선택 X, 구독권 선택 X -->
 	<select id="subStatAge17" resultType="hashmap">
 		SELECT
 		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 10 and 19 , 1, 0)) as 10s,
@@ -1508,6 +1638,8 @@
 		left join city c on s.city_idx = c.city_idx 
 		where year(su.sub_use_start) = #{param1} and c.city_idx = #{param2}
 	</select>
+	
+	<!-- 	시도 선택 O, 시군구 선택 O, 매장 선택 O, 년 선택 X, 월 선택 X, 횟수권, 요일권 선택 X, 구독권 선택 O  -->
 	<select id="subStatAge18" resultType="hashmap">
 		SELECT
 		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 10 and 19 , 1, 0)) as 10s,
@@ -1523,6 +1655,8 @@
 		left join city c on s.city_idx = c.city_idx
 		where year(su.sub_use_start) = #{param1} and c.city_idx = #{param2} and su.sub_idx= ${param3}
 	</select>
+	
+	<!-- 	시도 선택 O, 시군구 선택 O, 매장 선택 O, 년 선택 X, 월 선택 X, 횟수권/요일권 선택 O, 구독권 선택 X -->
 	<select id="subStatAge19" resultType="hashmap">
 		SELECT
 		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 10 and 19 , 1, 0)) as 10s,
@@ -1539,6 +1673,8 @@
 		left join subscribe s2 on su.sub_idx = s2.sub_idx 
 		where year(su.sub_use_start) = #{param1} and c.city_idx = #{param2} and s2.sub_sort_idx= #{param3}
 	</select>
+	
+	<!-- 	시도 선택 O, 시군구 선택 O, 매장 선택 O, 년 선택 X, 월 선택 X, 횟수권/요일권 선택 O, 구독권 선택 O -->
 	<select id="subStatAge20" resultType="hashmap">
 		SELECT
 		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 10 and 19 , 1, 0)) as 10s,
@@ -1556,6 +1692,8 @@
 		where year(su.sub_use_start) = #{param1} and c.city_idx = #{param2}
 		and s2.sub_sort_idx= #{param3} and su.sub_idx = ${param4}
 	</select>
+	
+	<!-- 	시도 선택 O, 시군구 선택 O, 매장 선택 O, 년 선택 X, 월 선택 O, 횟수권, 요일권 선택 X, 구독권 선택 X -->
 	<select id="subStatAge21" resultType="hashmap">
 		SELECT
 		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 10 and 19 , 1, 0)) as 10s,
@@ -1572,6 +1710,8 @@
 		where year(su.sub_use_start) = #{param1} and month(su.sub_use_start) = #{param2}
 		and c.city_idx = #{param3}
 	</select>
+	
+	<!-- 	시도 선택 O, 시군구 선택 O, 매장 선택 O, 년 선택 X, 월 선택 O, 횟수권, 요일권 선택 X, 구독권 선택 O -->
 	<select id="subStatAge22" resultType="hashmap">
 		SELECT
 		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 10 and 19 , 1, 0)) as 10s,
@@ -1588,6 +1728,8 @@
 		where year(su.sub_use_start) = #{param1} and month(su.sub_use_start) = #{param2} 
 		and c.city_idx = #{param3} and su.sub_idx= ${param4}
 	</select>
+	
+	<!-- 	시도 선택 O, 시군구 선택 O, 매장 선택 O, 년 선택 X, 월 선택 O, 횟수권, 요일권 선택 O, 구독권 선택 X -->
 	<select id="subStatAge23" resultType="hashmap">
 		SELECT
 		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 10 and 19 , 1, 0)) as 10s,
@@ -1605,6 +1747,8 @@
 		where year(su.sub_use_start) = #{param1} and month(su.sub_use_start) = #{param2} 
 		and c.city_idx = #{param3} and s2.sub_sort_idx= #{param4}
 	</select>
+	
+	<!-- 	시도 선택 O, 시군구 선택 O, 매장 선택 O, 년 선택 X, 월 선택 O, 횟수권, 요일권 선택 O, 구독권 선택 O -->
 	<select id="subStatAge24" resultType="hashmap">
 		SELECT
 		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 10 and 19 , 1, 0)) as 10s,
@@ -1623,7 +1767,7 @@
 		and c.city_idx = #{param3} and s2.sub_sort_idx= #{param4} and su.sub_idx = ${param5}
 	</select>
 
-	
+	<!-- 	시도 선택 O, 시군구 선택 O, 매장 선택 O, 년 선택 O, 월 선택 X, 횟수권, 요일권 선택 X, 구독권 선택 X   -->
 	<select id="subStatAge25" resultType="hashmap">
 		SELECT
 		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 10 and 19 , 1, 0)) as 10s,
@@ -1638,6 +1782,8 @@
 		left join shop s on su.shop_idx = s.shop_idx 
 		where year(su.sub_use_start) = #{param1} and su.shop_idx = #{param2}
 	</select>
+	
+	<!-- 	시도 선택 O, 시군구 선택 O, 매장 선택 O, 년 선택 O, 월 선택 X, 횟수권, 요일권 선택 X, 구독권 선택 O -->
 	<select id="subStatAge26" resultType="hashmap">
 		SELECT
 		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 10 and 19 , 1, 0)) as 10s,
@@ -1652,6 +1798,8 @@
 		left join shop s on su.shop_idx = s.shop_idx 
 		where year(su.sub_use_start) = #{param1} and su.shop_idx = #{param2} and su.sub_idx= ${param3}
 	</select>
+	
+	<!-- 	시도 선택 O, 시군구 선택 O, 매장 선택 O, 년 선택 O, 월 선택 X, 횟수권/요일권 선택 O, 구독권 선택 X  -->
 	<select id="subStatAge27" resultType="hashmap">
 		SELECT
 		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 10 and 19 , 1, 0)) as 10s,
@@ -1667,6 +1815,8 @@
 		left join subscribe s2 on su.sub_idx = s2.sub_idx 
 		where year(su.sub_use_start) = #{param1} and su.shop_idx = #{param2} and s2.sub_sort_idx= #{param3}
 	</select>
+	
+	<!-- 	시도 선택 O, 시군구 선택 O, 매장 선택 O, 년 선택 O, 월 선택 X, 횟수권/요일권 선택 O, 구독권 선택 O   -->
 	<select id="subStatAge28" resultType="hashmap">
 		SELECT
 		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 10 and 19 , 1, 0)) as 10s,
@@ -1683,6 +1833,8 @@
 		where year(su.sub_use_start) = #{param1} and su.shop_idx = #{param2}
 		and s2.sub_sort_idx= #{param3} and su.sub_idx = ${param4}
 	</select>
+	
+	<!-- 	시도 선택 O, 시군구 선택 O, 매장 선택 O, 년 선택 O, 월 선택 O, 횟수권, 요일권 선택 X, 구독권 선택 X  -->
 	<select id="subStatAge29" resultType="hashmap">
 		SELECT
 		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 10 and 19 , 1, 0)) as 10s,
@@ -1698,6 +1850,8 @@
 		where year(su.sub_use_start) = #{param1} and month(su.sub_use_start) = #{param2}
 		and su.shop_idx = #{param3}
 	</select>
+	
+	<!-- 	시도 선택 O, 시군구 선택 O, 매장 선택 O, 년 선택 O, 월 선택 O, 횟수권, 요일권 선택 X, 구독권 선택 O -->
 	<select id="subStatAge30" resultType="hashmap">
 		SELECT
 		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 10 and 19 , 1, 0)) as 10s,
@@ -1713,6 +1867,8 @@
 		where year(su.sub_use_start) = #{param1} and month(su.sub_use_start) = #{param2} 
 		and su.shop_idx = #{param3} and su.sub_idx= ${param4}
 	</select>
+	
+	<!-- 	시도 선택 O, 시군구 선택 O, 매장 선택 O, 년 선택 O, 월 선택 O, 횟수권, 요일권 선택 O, 구독권 선택 X -->
 	<select id="subStatAge31" resultType="hashmap">
 		SELECT
 		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 10 and 19 , 1, 0)) as 10s,
@@ -1729,6 +1885,8 @@
 		where year(su.sub_use_start) = #{param1} and month(su.sub_use_start) = #{param2} 
 		and su.shop_idx = #{param3} and s2.sub_sort_idx= #{param4}
 	</select>
+	
+	<!-- 	시도 선택 O, 시군구 선택 O, 매장 선택 O, 년 선택 O, 월 선택 O, 횟수권, 요일권 선택 O, 구독권 선택 O -->
 	<select id="subStatAge32" resultType="hashmap">
 		SELECT
 		sum(if(date_format(now(),'%Y') - substring(cl.client_birth,1,4) between 10 and 19 , 1, 0)) as 10s,
@@ -1746,6 +1904,7 @@
 		and su.shop_idx = #{param3} and s2.sub_sort_idx= #{param4} and su.sub_idx = ${param5}
 	</select>
 	
+	<!-- 	시도 선택 X, 시군구 선택 X, 매장 선택 X, 년 선택 O, 월 선택 X -->
 	<select id="subStatPreference1" resultType="hashmap">
 		SELECT 
 			s2.sub_name, count(su.client_id) as 'subJoinCount'
@@ -1754,6 +1913,8 @@
 			WHERE year(su.sub_use_start) = #{param1}
 			GROUP BY su.sub_idx
 	</select>
+	
+	<!-- 	시도 선택 X, 시군구 선택 X, 매장 선택 X, 년 선택 O, 월 선택 O -->
 	<select id="subStatPreference2" resultType="hashmap">
 		SELECT 
 			s2.sub_name, count(su.client_id) as 'subJoinCount'
@@ -1762,6 +1923,8 @@
 			WHERE year(su.sub_use_start) = #{param1} and month(su.sub_use_start) = #{param2}
 			GROUP BY su.sub_idx
 	</select>
+	
+	<!-- 	시도 선택 O, 시군구 선택 X, 매장 선택 X, 년 선택 O, 월 선택 X -->
 	<select id="subStatPreference3" resultType="hashmap">
 		SELECT 
 			s2.sub_name, count(su.client_id) as 'subJoinCount'
@@ -1771,6 +1934,8 @@
 			WHERE s.province_idx = #{param1} and year(su.sub_use_start) = #{param2} 
 			GROUP BY su.sub_idx
 	</select>
+	
+	<!-- 	시도 선택 O, 시군구 선택 X, 매장 선택 X, 년 선택 O, 월 선택 O -->
 	<select id="subStatPreference4" resultType="hashmap">
 		SELECT 
 			s2.sub_name, count(su.client_id) as 'subJoinCount'
@@ -1780,6 +1945,8 @@
 			WHERE s.province_idx = #{param1} and year(su.sub_use_start) = #{param2} and month(su.sub_use_start) = #{param3}
 			GROUP BY su.sub_idx
 	</select>
+	
+	<!-- 	시도 선택 O, 시군구 선택 O, 매장 선택 X, 년 선택 O, 월 선택 X -->
 	<select id="subStatPreference5" resultType="hashmap">
 		SELECT 
 			s2.sub_name, count(su.client_id) as 'subJoinCount'
@@ -1789,6 +1956,8 @@
 			WHERE s.city_idx = #{param1} and year(su.sub_use_start) = #{param2}
 			GROUP BY su.sub_idx
 	</select>
+	
+	<!-- 	시도 선택 O, 시군구 선택 O, 매장 선택 X, 년 선택 O, 월 선택 O -->
 	<select id="subStatPreference6" resultType="hashmap">
 		SELECT 
 			s2.sub_name, count(su.client_id) as 'subJoinCount'
@@ -1798,6 +1967,8 @@
 			WHERE s.city_idx = #{param1} and year(su.sub_use_start) = #{param2} and month(su.sub_use_start) = #{param3}
 			GROUP BY su.sub_idx
 	</select>
+	
+	<!-- 	시도 선택 O, 시군구 선택 O, 매장 선택 O, 년 선택 O, 월 선택 X -->
 	<select id="subStatPreference7" resultType="hashmap">
 		SELECT 
 			s2.sub_name, count(su.client_id) as 'subJoinCount'
@@ -1808,6 +1979,8 @@
 			and year(su.sub_use_start) = #{param2}
 			GROUP BY su.sub_idx
 	</select>
+	
+	<!-- 	시도 선택 O, 시군구 선택 O, 매장 선택 O, 년 선택 O, 월 선택 O -->
 	<select id="subStatPreference8" resultType="hashmap">
 		SELECT 
 		s2.sub_name, count(su.client_id) as 'subJoinCount'
