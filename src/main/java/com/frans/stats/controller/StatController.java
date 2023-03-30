@@ -1,3 +1,29 @@
+/*
+작성자 : 전형근 (HYEONGGEUN JEON)
+제목 : 구독권 통계를 다루기 위한 Controller 
+개발 기간 : 2023-01-13 ~ 2023-01-20
+내용 : 구독권 관련 3종류의 차트(크게 성별, 나이, 선호도로 구분)가 있으며 각 종류 마다 다른 옵션들을 줄 수 있다.
+
+        선택한 옵션에 해당하는 통계 데이터로 그래프를 그려준다.
+        크게 단일 막대그래프, 다중 막대그래프, 파이 차트 로 그래프는 구성한다(옵션에 따라 바뀜). 
+        
+        옵션에는 기본적으로 시도/시군구/매장을 선택하는 기능이 있다. 
+        
+        시도를 선택하면 해당 시도의 하위 시군구를 선택할 수 있고 시군구를 선택하면 해당 시군구의 하위 매장들을 선택할 수 있다.
+        
+        년, 월을 선택하지 않으면 2022년과 2023년. 년도 단위 통계 그래프를 표시한다. 
+        년을 선택하고 월을 선택하지 않으면 해당 년도의 1~12월의 통계 그래프를 보여준다. 12개의 막대
+        년을 선택하고 월까지 선택하면 해당 년도 해당 월의 일일 통계 그래프를 보여준다. 약 28~31개 막대
+        
+        파이 차트로 구독권 별 점유율을 보여준다.
+        시도/시군구/매장 필터링, 년,월 선택. 
+        
+        10,20,30,40,50,60 대를 대상으로 나이 통계 그래프를 형성한다.
+        ex) 구독권 전체 기준 구독권 등록 수를 나이대별로 보여줌
+              횟수권/요일권 별로 구독권 등록 수를 나이대별로 보여줌.
+              구독권 별 구독권 등록 수를 나이대별로 보여줌.
+*/
+
 package com.frans.stats.controller;
 
 import java.sql.Date;
@@ -148,11 +174,6 @@ public class StatController {
 					        logger.info("label1 과 label2"+label);
 					        
 					        logger.info("중복제거한 것 = "+labels);
-							// labels
-							// label1
-							// label2
-							// data1
-							// data2
 							map.put("labels", labels);
 							map.put("label", label);
 							map.put("data1", data1);
@@ -202,11 +223,6 @@ public class StatController {
 					        logger.info("label1 과 label2"+label);
 					        
 					        logger.info("중복제거한 것 = "+labels);
-							// labels
-							// label1
-							// label2
-							// data1
-							// data2
 							map.put("labels", labels);
 							map.put("label", label);
 							map.put("data1", data1);
@@ -256,11 +272,6 @@ public class StatController {
 					        logger.info("label1 과 label2"+label);
 					        
 					        logger.info("중복제거한 것 = "+labels);
-							// labels
-							// label1
-							// label2
-							// data1
-							// data2
 							map.put("labels", labels);
 							map.put("label", label);
 							map.put("data1", data1);
@@ -308,11 +319,6 @@ public class StatController {
 					        logger.info("label1 과 label2"+label);
 					        
 					        logger.info("중복제거한 것 = "+labels);
-							// labels
-							// label1
-							// label2
-							// data1
-							// data2
 							map.put("labels", labels);
 							map.put("label", label);
 							map.put("data1", data1);
@@ -364,11 +370,6 @@ public class StatController {
 					        logger.info("label1 과 label2"+label);
 					        
 					        logger.info("중복제거한 것 = "+labels);
-							// labels
-							// label1
-							// label2
-							// data1
-							// data2
 							map.put("labels", labels);
 							map.put("label", label);
 							map.put("data1", data1);
@@ -415,11 +416,6 @@ public class StatController {
 					        logger.info("label1 과 label2"+label);
 					        
 					        logger.info("중복제거한 것 = "+labels);
-							// labels
-							// label1
-							// label2
-							// data1
-							// data2
 							map.put("labels", labels);
 							map.put("label", label);
 							map.put("data1", data1);
@@ -469,11 +465,6 @@ public class StatController {
 					        logger.info("label1 과 label2"+label);
 					        
 					        logger.info("중복제거한 것 = "+labels);
-							// labels
-							// label1
-							// label2
-							// data1
-							// data2
 							map.put("labels", labels);
 							map.put("label", label);
 							map.put("data1", data1);
@@ -521,11 +512,6 @@ public class StatController {
 					        logger.info("label1 과 label2"+label);
 					        
 					        logger.info("중복제거한 것 = "+labels);
-							// labels
-							// label1
-							// label2
-							// data1
-							// data2
 							map.put("labels", labels);
 							map.put("label", label);
 							map.put("data1", data1);
@@ -580,11 +566,6 @@ public class StatController {
 					        logger.info("label1 과 label2"+label);
 					        
 					        logger.info("중복제거한 것 = "+labels);
-							// labels
-							// label1
-							// label2
-							// data1
-							// data2
 							map.put("labels", labels);
 							map.put("label", label);
 							map.put("data1", data1);
@@ -631,11 +612,6 @@ public class StatController {
 					        logger.info("label1 과 label2"+label);
 					        
 					        logger.info("중복제거한 것 = "+labels);
-							// labels
-							// label1
-							// label2
-							// data1
-							// data2
 							map.put("labels", labels);
 							map.put("label", label);
 							map.put("data1", data1);
@@ -685,11 +661,6 @@ public class StatController {
 					        logger.info("label1 과 label2"+label);
 					        
 					        logger.info("중복제거한 것 = "+labels);
-							// labels
-							// label1
-							// label2
-							// data1
-							// data2
 							map.put("labels", labels);
 							map.put("label", label);
 							map.put("data1", data1);
@@ -737,11 +708,6 @@ public class StatController {
 					        logger.info("label1 과 label2"+label);
 					        
 					        logger.info("중복제거한 것 = "+labels);
-							// labels
-							// label1
-							// label2
-							// data1
-							// data2
 							map.put("labels", labels);
 							map.put("label", label);
 							map.put("data1", data1);
@@ -793,11 +759,6 @@ public class StatController {
 					        logger.info("label1 과 label2"+label);
 					        
 					        logger.info("중복제거한 것 = "+labels);
-							// labels
-							// label1
-							// label2
-							// data1
-							// data2
 							map.put("labels", labels);
 							map.put("label", label);
 							map.put("data1", data1);
@@ -845,11 +806,6 @@ public class StatController {
 					        logger.info("label1 과 label2"+label);
 					        
 					        logger.info("중복제거한 것 = "+labels);
-							// labels
-							// label1
-							// label2
-							// data1
-							// data2
 							map.put("labels", labels);
 							map.put("label", label);
 							map.put("data1", data1);
@@ -901,11 +857,6 @@ public class StatController {
 					        logger.info("label1 과 label2"+label);
 					        
 					        logger.info("중복제거한 것 = "+labels);
-							// labels
-							// label1
-							// label2
-							// data1
-							// data2
 							map.put("labels", labels);
 							map.put("label", label);
 							map.put("data1", data1);
@@ -955,11 +906,6 @@ public class StatController {
 					        logger.info("label1 과 label2"+label);
 					        
 					        logger.info("중복제거한 것 = "+labels);
-							// labels
-							// label1
-							// label2
-							// data1
-							// data2
 							map.put("labels", labels);
 							map.put("label", label);
 							map.put("data1", data1);
@@ -1038,28 +984,32 @@ public class StatController {
 							
 								
 								if(seoul.size()>0) {
-//									logger.info("담겨 있는 리스트 : "+seoul);
 									for(int i8=0; i8<seoul.size(); i8++) {
+										// 변수 타입이 sql date 인 변수 day 선언
+										// 변수 seoul은 년도와 월이 선택된 서울특별시 구독권 데이터 list
+										// seoul에서 날짜만 뽑아서 date 타입인 Arraylist에 담음
 										Date day = (Date) seoul.get(i8).get("day");
 										compareDay.add(day);
-										//logger.info("서울 기준 - 바뀐 arrayList = "+compareDay);
 									}
-									
-									//logger.info("서울기준 - 값이 담긴 compareDay = "+compareDay);
-//									logger.info("담겨 있는 리스트 : "+gyeonggi);
+
 									for(int i2=0; i2<days.size(); i2++) {
 										HashMap<String,Object> addMap1 = new HashMap<String,Object>();
+										// compareDay = 해당 년/월의 1일부터 마지막 일까지 담긴 Arraylist
+										// 반복문을 돌리면서 compareDay와 day를 contains 함수를 돌린다.
+										
 										if(compareDay.contains(days.get(i2))) {
 											
-											//logger.info(i2+"번 째 동일");
 										}else {
+											// 만약 contains 메서드에 false가 뜨면 hashmap에 0처리 할 날의 데이터를 넣는다.
 											addMap1.put("day", days.get(i2));
 											addMap1.put("subJoinCount", 0);
 											addMap1.put("province_name", "서울특별시");
+											// 그리고 그 hashmap을 seoul Arraylist에 담는다
 											seoul.add(addMap1);
 										}
 									}
-									
+									// seoul에 원래 있던 데이터에 0처리 데이터가 뒤에 쌓였기 때문에 정렬을 해준다
+									// list에 담아서 hashmap 정렬. 람다식 사용
 									seoul = (ArrayList<HashMap<String, Object>>) seoul.stream().sorted((o1, o2) -> o1.get("day").toString().compareTo(o2.get("day").toString()) ).collect(Collectors.toList());
 									
 									if(map.containsKey("data1")) {
@@ -1110,11 +1060,9 @@ public class StatController {
 									for(int i8=0; i8<gyeonggi.size(); i8++) {
 										Date day = (Date) gyeonggi.get(i8).get("day");
 										compareDay.add(day);
-										//logger.info("경기도 기준 - 바뀐 arrayList = "+compareDay);
+
 									}
-									
-									//logger.info("경기도 기준 경기도 기준 값이 담긴 compareDay = "+compareDay);
-//									logger.info("담겨 있는 리스트 : "+gyeonggi);
+
 									for(int i2=0; i2<days.size(); i2++) {
 										HashMap<String,Object> addMap1 = new HashMap<String,Object>();
 										if(compareDay.contains(days.get(i2))) {
@@ -3426,103 +3374,6 @@ public class StatController {
 					}
 				}
 			}
-
-//			if(year.equals("noYear") && month.equals("noMonth")) { // 년도와 월이 둘다 선택되지 않았을 때
-//				if(gender.equals("genderAll")) { // 성별 전체
-//					if(sub_sort_idx.equals("subAll")) { // 횟수권/요일권 통합
-//						if(sub_idx.equals("noSub")) { // 구독권 선택을 하지 않았을 때
-//							// 시도/시군구/매장 선택 x, 년도, 월 선택 x, 성별 전체, 횟수권 요일권 통합, 구독권 선택 x 
-//							
-//
-//						}else{ // 횟수권/요일권 통합 상태에서 구독권 선택을 했을 때
-//							// 시도/시군구/매장 선택 x, 년도, 월 선택 x, 성별 전체, 횟수권 요일권 통합, 구독권 선택 O
-//							
-//						}
-//					}else { // 횟수권/요일권 중 하나가 선택 되었을 때
-//						if(sub_idx.equals("noSub")) { // 구독권 선택을 하지 않았을 때
-//							
-//						}else { // 구독권 선택을 했을 때
-//							
-//						}
-//					}
-//				}else { // 성별이 남 또는 여 가 선택 되었을 때
-//					if(sub_sort_idx.equals("subAll")) { // 횟수권/요일권 통합
-//						if(sub_idx.equals("noSub")) { // 구독권 선택을 하지 않았을 때
-//							
-//						}else { // 횟수권/요일권 통합 상태에서 구독권 선택을 했을 때
-//							
-//						}
-//					}else { // 횟수권/요일권 중 하나가 선택 되었을 때
-//						if(sub_idx.equals("noSub")) { // 구독권 선택을 하지 않았을 때
-//							
-//						}else { // 구독권 선택을 했을 때
-//							
-//						}
-//					}
-//				}
-//				
-//			}else if(!year.equals("noYear") && month.equals("noMonth") ) { // 년도는 선택이 되었고 월은 선택이 되지 않았을 때
-//				if(gender.equals("genderAll")) { // 성별 전체
-//					if(sub_sort_idx.equals("subAll")) { // 횟수권/요일권 통합
-//						if(sub_idx.equals("noSub")) {// 횟수권/요일권 통합 상태에서 구독권 선택을 하지 않았을 때
-//							
-//						}else { // 횟수권/요일권 통합 상태에서 구독권 선택을 했을 때
-//							
-//						}
-//					}else { // 횟수권/요일권 선택
-//						if(sub_idx.equals("noSub")) { // 횟수권/요일권 선택한 상태에서 구독권 선택을 하지 않았을 때
-//							
-//						}else { // 횟수권/요일권 선택한 상태에서 구독권 선택을 했을 때
-//							
-//						}
-//					}
-//				}else { // 성별 선택
-//					if(sub_sort_idx.equals("subAll")) { // 횟수권/요일권 통합
-//						if(sub_idx.equals("noSub")) {// 횟수권/요일권 통합 상태에서 구독권 선택을 하지 않았을 때
-//							
-//						}else { // 횟수권/요일권 통합 상태에서 구독권 선택을 했을 때
-//							
-//						}
-//					}else { // 횟수권/요일권 선택
-//						if(sub_idx.equals("noSub")) { // 횟수권/요일권 선택한 상태에서 구독권 선택을 하지 않았을 때
-//							
-//						}else { // 횟수권/요일권 선택한 상태에서 구독권 선택을 했을 때
-//							
-//						}
-//					}
-//				}
-//			}else { // 년도와 월 둘다 선택이 되었을 때
-//				if(gender.equals("genderAll")) { // 성별 전체
-//					if(sub_sort_idx.equals("subAll")) { // 횟수권/요일권 통합
-//						if(sub_idx.equals("noSub")) {// 횟수권/요일권 통합 상태에서 구독권 선택을 하지 않았을 때
-//							
-//						}else { // 횟수권/요일권 통합 상태에서 구독권 선택을 했을 때
-//							
-//						}
-//					}else { // 횟수권/요일권 선택
-//						if(sub_idx.equals("noSub")) { // 횟수권/요일권 선택한 상태에서 구독권 선택을 하지 않았을 때
-//							
-//						}else { // 횟수권/요일권 선택한 상태에서 구독권 선택을 했을 때
-//							
-//						}
-//					}
-//				}else { // 성별 선택
-//					if(sub_sort_idx.equals("subAll")) { // 횟수권/요일권 통합
-//						if(sub_idx.equals("noSub")) {// 횟수권/요일권 통합 상태에서 구독권 선택을 하지 않았을 때
-//							
-//						}else { // 횟수권/요일권 통합 상태에서 구독권 선택을 했을 때
-//							
-//						}
-//					}else { // 횟수권/요일권 선택
-//						if(sub_idx.equals("noSub")) { // 횟수권/요일권 선택한 상태에서 구독권 선택을 하지 않았을 때
-//							
-//						}else { // 횟수권/요일권 선택한 상태에서 구독권 선택을 했을 때
-//							
-//						}
-//					}
-//				}
-//			}
-			
 
 		}
 		
@@ -7953,18 +7804,5 @@ public class StatController {
 		
 		return map;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 
-	
 }
